@@ -1,0 +1,45 @@
+# Version control and CI
+.git
+.gitignore
+.github
+
+# Secrets and local environment (never bake them into an image)
+.env
+.env.*
+!.env.docker.example
+
+# Python virtualenv, caches and coverage
+.venv
+venv
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.hypothesis
+.coverage
+coverage.xml
+htmlcov
+
+# Patient data and local ETL folder (not delivered with the repository)
+*.mdb
+*.accdb
+Data_base.mdb
+etlSis
+
+# Backend tests and helper material are not needed to run the server
+tests
+docs
+postman
+
+# Frontend artifacts and dependencies: the SPA is rebuilt inside the image
+frontend/node_modules
+frontend/dist
+frontend/coverage
+frontend/.vscode
+frontend/.eslintcache
+frontend/*.tsbuildinfo
+
+# Local notes and editor files
+*.log
+.DS_Store

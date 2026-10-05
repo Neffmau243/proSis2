@@ -1,0 +1,59 @@
+name: ipress
+
+services:
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sistema_salud_ipress}
+      MYSQL_USER: ${MYSQL_USER:-ipress_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env.docker}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env.docker}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      # CMD-SHELL so the container expands MYSQL_ROOT_PASSWORD at run time.
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Production mode rejects template SECRET_KEY values on purpose.
+      ENVIRONMENT: production
+      DEBUG: "false"
+      APP_NAME: ${APP_NAME:-Sistema de Salud IPRESS API}
+      APP_VERSION: ${APP_VERSION:-0.1.0}
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env.docker}
+      MYSQL_HOST: db
+      MYSQL_PORT: "3306"
+      MYSQL_USER: ${MYSQL_USER:-ipress_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env.docker}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sistema_salud_ipress}
+      # The image already contains the built SPA: one origin, no CORS.
+      SERVE_FRONTEND: "true"
+      CORS_ORIGINS: "[]"
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      LOGIN_RATE_LIMIT_ATTEMPTS: ${LOGIN_RATE_LIMIT_ATTEMPTS:-5}
+      # Optional first-run administrator (password must be 8 digits).
+      CREATE_ADMIN_USERNAME: ${CREATE_ADMIN_USERNAME:-}
+      CREATE_ADMIN_PASSWORD: ${CREATE_ADMIN_PASSWORD:-}
+    ports:
+      - "${APP_PORT:-8000}:8000"
+
+volumes:
+  mysql_data:

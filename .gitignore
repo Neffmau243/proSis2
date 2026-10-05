@@ -1,23 +1,25 @@
+# Environment and secrets
 .env
+.env.docker
 .venv/
+venv/
+
+# Patient data and Access backups. Only synthetic fixtures belong in Git.
 *.mdb
 *.accdb
+
+# Python and tooling caches / coverage
 __pycache__/
 *.py[cod]
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.hypothesis/
 .coverage
 coverage.xml
 htmlcov/
 
-# Patient data and local ETL work products. Only code and synthetic fixtures belong in Git.
-etlSis/dump/
-etlSis/work/
-etlSis/private/
-etlSis/*_out.txt
-etlSis/*_corrupt.txt
-etlSis/probe_sis.txt
-etlSis/report_limpieza.txt
-etlSis/esquema_pos_mysql.md
-etlSis/esquema_completo.txt
-etlSis/*.log
+# Local ETL work products extracted from the SIS origin: the folder is a
+# developer-machine tool and is NOT delivered with the repository. Its catalog
+# values live baked into Alembic migrations, so versioning it is unnecessary.
+etlSis/

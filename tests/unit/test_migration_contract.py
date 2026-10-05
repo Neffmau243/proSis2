@@ -18,4 +18,4 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
     } <= set(
         Base.metadata.tables
     )
-    assert script.get_current_head() == "20260929_0023_nutrition_risks"
+    assert script.get_current_head() == "20261005_0025_legacy_operators"

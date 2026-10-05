@@ -133,6 +133,13 @@ class Settings(BaseSettings):
     redoc_url: str | None = Field(default="/redoc")
     openapi_url: str | None = Field(default="/openapi.json")
 
+    # Single-server deployment: when the SPA has been built (``npm run build``)
+    # Uvicorn serves it from the same origin as the API, so no second web
+    # server or CORS entry is needed.  Directories are resolved relative to the
+    # repository root; an absolute path is also accepted.
+    serve_frontend: bool = Field(default=True)
+    frontend_dist_dir: str = Field(default="frontend/dist")
+
     @field_validator("database_url")
     @classmethod
     def validate_mysql_url(cls, value: str | None) -> str | None:

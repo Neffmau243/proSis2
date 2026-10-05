@@ -23,6 +23,11 @@ Vite sirve normalmente [localhost:5173](http://localhost:5173) y reenvía
 Para una API en otro origen, configure `VITE_API_BASE_URL` en `.env.local`,
 incluyendo una sola vez `/api/v1`, y configure CORS en el backend.
 
+Para desplegar en **un solo servidor** no use `npm run dev`: ejecute
+`npm run build` y deje que el backend FastAPI sirva `frontend/dist` desde el
+mismo puerto de Uvicorn (ver [README raíz](../README.md)). En ese modo el
+cliente usa `/api/v1` del mismo origen por defecto y CORS deja de ser necesario.
+
 Cuentas de la base local desechable:
 
 | Usuario | Contraseña | Uso |
