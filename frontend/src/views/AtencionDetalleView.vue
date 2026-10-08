@@ -17,7 +17,7 @@
           v-if="attention?.estado === 'ATENDIDO' && can('FUA_EMITIR')"
           @click="openDialog('fua')"
         >
-          Registrar FUA interno
+          Registrar FUA
         </el-button>
         <el-button
           v-if="attention?.estado === 'ATENDIDO' && can('CERTIFICADO_EMITIR')"
@@ -67,7 +67,8 @@
         <el-descriptions-item label="Perímetro abdominal">{{ attention?.perimetro_abdominal_cm ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="Tipo de embarazo">{{ pregnancyTypeLabel(attention?.tipo_embarazo_codigo) }}</el-descriptions-item>
         <el-descriptions-item label="Peso antes del embarazo">{{ attention?.peso_antes_embarazo_kg ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Fecha probable de parto">{{ attention?.fecha_probable_parto ?? '—' }}</el-descriptions-item>
+        <el-descriptions-item v-if="attention?.grupo_atencion_codigo === 'PUERPERAS'" label="Fecha del parto">{{ attention?.fecha_parto ?? '—' }}</el-descriptions-item>
+        <el-descriptions-item v-else label="Fecha probable de parto">{{ attention?.fecha_probable_parto ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="P. sistólica">{{ attention?.presion_sistolica ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="P. diastólica">{{ attention?.presion_diastolica ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="Temperatura">{{ attention?.temperatura_c ?? '—' }}</el-descriptions-item>
@@ -121,15 +122,13 @@
     </el-dialog>
 
     <!-- FUA -->
-    <el-dialog v-model="fuaDialog" title="Registrar FUA interno" width="480px" destroy-on-close>
-      <el-alert type="info" :closable="false" title="Este registro genera un número interno; no asigna numeración oficial SIS ni imprime la hoja preimpresa." />
+    <el-dialog v-model="fuaDialog" title="Registrar FUA" width="480px" destroy-on-close>
+      <el-alert
+        type="info"
+        :closable="false"
+        title="El número se forma con el RENIPRESS de la sede, el lote anual y un correlativo de ocho dígitos. Verifique que la IPRESS tenga asignado su rango antes de usarlo para un FUA oficial."
+      />
       <el-form :model="fuaForm" label-position="top">
-        <el-form-item label="Código de ciudad (opcional)">
-          <el-input v-model="fuaForm.codigo_ciudad" />
-        </el-form-item>
-        <el-form-item label="Código EESS (opcional)">
-          <el-input v-model="fuaForm.codigo_eess" placeholder="Por defecto el ID del establecimiento" />
-        </el-form-item>
         <el-form-item label="Observaciones">
           <el-input v-model="fuaForm.observaciones" type="textarea" :rows="2" />
         </el-form-item>
@@ -260,7 +259,7 @@ const cancelRules: FormRules = {
 }
 
 const fuaDialog = ref(false)
-const fuaForm = reactive({ codigo_ciudad: '', codigo_eess: '', observaciones: '' })
+const fuaForm = reactive({ observaciones: '' })
 
 const certDialog = ref(false)
 const certForm = reactive({ tipo: '', prestaciones: [] as string[] })
@@ -309,8 +308,6 @@ async function searchDestinos(query: string): Promise<void> {
 function openDialog(kind: 'fua' | 'certificado' | 'referencia'): void {
   errorMessage.value = null
   if (kind === 'fua') {
-    fuaForm.codigo_ciudad = ''
-    fuaForm.codigo_eess = ''
     fuaForm.observaciones = ''
     fuaDialog.value = true
   } else if (kind === 'certificado') {
@@ -357,12 +354,13 @@ async function doEmitirFua(): Promise<void> {
   try {
     const result: FuaResponse = await atenciones.emitirFua({
       atencion_id: attentionId,
-      codigo_ciudad: fuaForm.codigo_ciudad || null,
-      codigo_eess: fuaForm.codigo_eess || null,
       observaciones: fuaForm.observaciones || null,
     })
     fuaDialog.value = false
-    showResult('FUA emitido', `Número: ${result.numero_fua ?? result.id}`)
+    showResult(
+      'FUA registrado',
+      `Número: ${result.numero_fua ?? result.id}. RENIPRESS ${result.codigo_renipress ?? '—'}, lote ${result.lote_fua ?? '—'}.`,
+    )
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : 'No se pudo emitir el FUA.'
   } finally {

@@ -30,6 +30,7 @@ from app.schemas.catalog import (
     Cie10CatalogItem,
     CodeCatalogItem,
     EstablishmentCatalogItem,
+    FamilyHistoryCatalogItem,
     IdCatalogItem,
     InsuranceCatalogItem,
     LocalidadCatalogItem,
@@ -80,6 +81,19 @@ class CatalogService:
 
     def risk_groups(self) -> list[RiskGroupCatalogItem]:
         return [risk_group_to_catalog_item(item) for item in self._repository.list_risk_groups()]
+
+    def family_histories(
+        self, *, query: str | None, limit: int, offset: int
+    ) -> PageResponse[FamilyHistoryCatalogItem]:
+        page = self._repository.page_family_histories(
+            query=self._normalized_query(query), limit=limit, offset=offset
+        )
+        return self._page(
+            page,
+            lambda code: FamilyHistoryCatalogItem(codigo=code),
+            limit=limit,
+            offset=offset,
+        )
 
     def services(
         self, *, query: str | None, limit: int, offset: int

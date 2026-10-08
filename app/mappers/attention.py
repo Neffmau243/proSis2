@@ -34,6 +34,7 @@ def attention_to_response(entity: Attention) -> AttentionResponse:
         tipo_embarazo_codigo=entity.tipo_embarazo_codigo,
         peso_antes_embarazo_kg=entity.peso_antes_embarazo_kg,
         fecha_probable_parto=entity.fecha_probable_parto,
+        fecha_parto=entity.fecha_parto,
         presion_sistolica=entity.presion_sistolica,
         presion_diastolica=entity.presion_diastolica,
         temperatura_c=entity.temperatura_c,

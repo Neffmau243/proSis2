@@ -22,6 +22,7 @@ vi.mock('@/services/catalogos', () => ({
     sexos: vi.fn(),
     seguros: vi.fn(),
     etnias: vi.fn(),
+    historiasFamiliares: vi.fn(),
     establecimientos: vi.fn(),
     ubigeos: vi.fn(),
   },
@@ -311,11 +312,21 @@ test('los indicadores nutricionales explican el error y se descartan al cambiar 
 test('el panel de admisión traduce catálogos y ubigeos del paciente', async () => {
   vi.mocked(catalogos.sexos).mockResolvedValue([{ codigo: 'F', nombre: 'Femenino', activo: true }])
   vi.mocked(catalogos.seguros).mockResolvedValue([
-    { id: 2, codigo: 'SIS', nombre: 'SIS', activo: true },
+    {
+      id: 2,
+      codigo: 'SIS',
+      nombre: 'SIS',
+      activo: true,
+      codigo_sis: null,
+      regimen: 'SIS',
+    },
   ])
   vi.mocked(catalogos.etnias).mockResolvedValue([
     { codigo: '2', nombre: 'Mestizo', activo: true },
   ])
+  vi.mocked(catalogos.historiasFamiliares).mockResolvedValue(
+    page([{ codigo: 'HF-VERDE-01' }]) as never,
+  )
   vi.mocked(catalogos.establecimientos).mockResolvedValue(
     page([{ id: 1, nombre: 'CS Prueba', activo: true }]) as never,
   )
@@ -341,8 +352,10 @@ test('el panel de admisión traduce catálogos y ubigeos del paciente', async ()
   expect(details.catalogError.value).toBeNull()
   // Los buscadores remotos se lanzan con el ubigeo del paciente ya cargado.
   expect(catalogos.establecimientos).toHaveBeenCalledWith(undefined, 50, 0)
+  expect(catalogos.historiasFamiliares).toHaveBeenCalledWith(undefined, 50, 0)
   expect(catalogos.ubigeos).toHaveBeenCalledWith('040101', 25, 0)
   expect(details.districts.items.value).toHaveLength(1)
+  expect(details.familyHistories.items.value).toEqual([{ codigo: 'HF-VERDE-01' }])
   scope.stop()
 })
 
@@ -350,6 +363,7 @@ test('el panel de admisión avisa cuando algún catálogo no cargó', async () =
   vi.mocked(catalogos.sexos).mockResolvedValue([])
   vi.mocked(catalogos.seguros).mockRejectedValue(new Error('500'))
   vi.mocked(catalogos.etnias).mockResolvedValue([])
+  vi.mocked(catalogos.historiasFamiliares).mockResolvedValue(page([]) as never)
   vi.mocked(catalogos.establecimientos).mockResolvedValue(page([]) as never)
   vi.mocked(catalogos.ubigeos).mockResolvedValue(page([]) as never)
 

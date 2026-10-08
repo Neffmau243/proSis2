@@ -341,7 +341,7 @@
                       Mediciones clínicas
                     </h4>
                     <el-row :gutter="isAdmission ? 12 : 16">
-                      <el-col v-if="isPregnant" :span="24">
+                      <el-col v-if="isObstetric" :span="24">
                         <el-form-item class="measurement-field" label="Tipo de embarazo">
                           <el-select
                             v-model="form.tipo_embarazo_codigo"
@@ -358,7 +358,7 @@
                           </el-select>
                         </el-form-item>
                       </el-col>
-                      <el-col v-if="isPregnant" :span="24">
+                      <el-col v-if="isObstetric" :span="24">
                         <el-form-item
                           class="measurement-field"
                           label="Peso antes del embarazo (kg)"
@@ -398,6 +398,16 @@
                         <el-form-item class="measurement-field" label="Fecha probable de parto">
                           <el-date-picker
                             v-model="form.fecha_probable_parto"
+                            type="date"
+                            value-format="YYYY-MM-DD"
+                            style="width: 100%"
+                          />
+                        </el-form-item>
+                      </el-col>
+                      <el-col v-else-if="isPuerperal" :span="24">
+                        <el-form-item class="measurement-field" label="Fecha del parto">
+                          <el-date-picker
+                            v-model="form.fecha_parto"
                             type="date"
                             value-format="YYYY-MM-DD"
                             style="width: 100%"
@@ -620,6 +630,7 @@ const form = reactive({
   tipo_embarazo_codigo: null as PregnancyTypeCode | null,
   peso_antes_embarazo_kg: null as number | null,
   fecha_probable_parto: null as string | null,
+  fecha_parto: null as string | null,
   peso_kg: null as number | null,
   talla_cm: null as number | null,
   perimetro_abdominal_cm: null as number | null,
@@ -637,8 +648,11 @@ const { fuaDialog, fuaSnapshot, attentionCreated, remember } = useSavedAdmission
 /** Población clínica declarada; se persiste en la atención. */
 const selectedCareGroup = ref<CareGroupCode>('NINOS_ADOLESCENTES_ADULTOS_MAYORES')
 
-/** Los campos obstétricos solo aplican al grupo Gestantes. */
+/** Los campos obstétricos solo aplican a los grupos Gestantes y Puérperas. */
 const isPregnant = computed(() => selectedCareGroup.value === 'GESTANTES')
+const isPuerperal = computed(() => selectedCareGroup.value === 'PUERPERAS')
+/** Tipo de embarazo y peso antes del embarazo son comunes a ambos grupos. */
+const isObstetric = computed(() => isPregnant.value || isPuerperal.value)
 
 const rules: FormRules = {
   paciente_id: [{ required: true, message: 'Seleccione el paciente.', trigger: 'change' }],
@@ -759,15 +773,16 @@ function buildNutritionalPayload(): NutritionalSnapshotPayload | null {
 
 function selectCareGroup(group: CareGroupCode): void {
   selectedCareGroup.value = group
-  if (group === 'GESTANTES') {
-    // El perímetro abdominal deja su lugar a la fecha probable de parto.
-    form.perimetro_abdominal_cm = null
-    return
-  }
-  // Datos exclusivos del embarazo: no deben viajar si cambia el grupo.
+  // El perímetro abdominal solo corresponde al grupo general.
+  form.perimetro_abdominal_cm = null
+  // Cada grupo conserva únicamente sus fechas: FPP para gestantes, fecha real
+  // del parto para puérperas, ninguna de las dos para el grupo general.
+  if (group !== 'GESTANTES') form.fecha_probable_parto = null
+  if (group !== 'PUERPERAS') form.fecha_parto = null
+  if (group === 'GESTANTES' || group === 'PUERPERAS') return
+  // Tipo de embarazo y peso previo tampoco viajan fuera de los grupos maternos.
   form.tipo_embarazo_codigo = null
   form.peso_antes_embarazo_kg = null
-  form.fecha_probable_parto = null
 }
 
 async function searchPacientes(query: string): Promise<void> {
@@ -916,6 +931,7 @@ async function submit(): Promise<void> {
       tipo_embarazo_codigo: form.tipo_embarazo_codigo,
       peso_antes_embarazo_kg: form.peso_antes_embarazo_kg,
       fecha_probable_parto: form.fecha_probable_parto,
+      fecha_parto: form.fecha_parto,
       peso_kg: form.peso_kg,
       talla_cm: form.talla_cm,
       perimetro_abdominal_cm: form.perimetro_abdominal_cm,

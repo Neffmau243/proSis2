@@ -42,4 +42,5 @@ export interface FuaPrintSnapshot extends FuaPrintInput {
   perimetro_abdominal_cm: string | number | null
   grupo_atencion_codigo: string
   fecha_probable_parto: string | null
+  fecha_parto: string | null
 }

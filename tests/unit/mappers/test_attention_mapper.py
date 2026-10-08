@@ -29,6 +29,7 @@ def test_attention_mapper_exposes_history_display_data_from_real_relations() -> 
         tipo_embarazo_codigo="MULTIPLE",
         peso_antes_embarazo_kg=Decimal("58.40"),
         fecha_probable_parto=date(2027, 3, 15),
+        fecha_parto=None,
         presion_sistolica=120,
         presion_diastolica=80,
         temperatura_c=Decimal("36.5"),
@@ -57,3 +58,4 @@ def test_attention_mapper_exposes_history_display_data_from_real_relations() -> 
     assert result.peso_antes_embarazo_kg == Decimal("58.40")
     assert result.tipo_embarazo_codigo == "MULTIPLE"
     assert result.fecha_probable_parto == date(2027, 3, 15)
+    assert result.fecha_parto is None

@@ -112,6 +112,7 @@ def establishment_to_catalog_item(entity: Establishment) -> EstablishmentCatalog
         id=entity.id,
         codigo_renaes=entity.codigo_renaes,
         codigo_ideess=entity.codigo_ideess,
+        disa_codigo=entity.disa_codigo,
         nombre=entity.nombre,
         abreviatura=entity.abreviatura,
         activo=entity.activo,

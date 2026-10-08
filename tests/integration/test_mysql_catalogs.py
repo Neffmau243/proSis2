@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from app.models.catalog import Cie10, Profession, ServiceOffering, Specialty
 from app.models.organization import Ubigeo
-from app.models.patient import RiskGroup
+from app.models.patient import Patient, RiskGroup
 
 pytestmark = pytest.mark.integration
 
@@ -160,6 +160,36 @@ def test_catalog_pagination_walks_pages_without_repeating(
     assert second.status_code == 200
     assert len(second.json()["items"]) == 1
     assert second.json()["items"][0]["codigo"] != body["items"][0]["codigo"]
+
+
+def test_family_history_catalog_reuses_active_patient_codes(
+    clinic_scene, create_patient, db_session: Session, api_prefix
+) -> None:
+    """A saved family code becomes a single selectable value for admission."""
+
+    token = uuid4().hex[:8].upper()
+    active_code = f"HF-{token}"
+    inactive_code = f"HF-ANTERIOR-{token}"
+    create_patient(clinic_scene.admin_client, historia_familiar=active_code)
+    inactive = create_patient(clinic_scene.admin_client, historia_familiar=inactive_code)
+    patient = db_session.get(Patient, inactive["id"])
+    assert patient is not None
+    patient.estado = False
+    db_session.commit()
+
+    response = clinic_scene.admin_client.get(
+        f"{api_prefix}/catalogos/historias-familiares",
+        params={"q": token, "limit": 10, "offset": 0},
+    )
+
+    assert response.status_code == 200, response.text
+    assert response.json() == {
+        "items": [{"codigo": active_code}],
+        "total": 1,
+        "limit": 10,
+        "offset": 0,
+        "has_more": False,
+    }
 
 
 def test_catalog_filters_validate_their_ranges(clinic_scene, api_prefix) -> None:

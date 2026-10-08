@@ -17,7 +17,7 @@ const sample: FuaPrintSnapshot = {
   sexo_codigo: 'F', fecha_nacimiento: '1990-01-02', historia_clinica: 'PRUEBA-001',
   fecha_atencion: '2026-09-19', hora_atencion: '09:05:00', peso_kg: '60', talla_cm: '160',
   presion_sistolica: 120, presion_diastolica: 80, imc: '23.438', perimetro_abdominal_cm: '80',
-  grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES', fecha_probable_parto: null,
+  grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES', fecha_probable_parto: null, fecha_parto: null,
 }
 const documentCase = new URLSearchParams(location.search).get('document')
 if (documentCase && ['CE', 'PAS', 'DE', 'OTRO'].includes(documentCase)) {

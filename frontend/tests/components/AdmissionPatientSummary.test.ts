@@ -9,9 +9,10 @@ import PatientConditionSelect from '@/components/patients/PatientConditionSelect
 import type { Patient } from '@/services/pacientes'
 import { aPatient } from '../fixtures/patient'
 
-const { update, deactivate } = vi.hoisted(() => ({
+const { update, deactivate, historiasFamiliares } = vi.hoisted(() => ({
   update: vi.fn<(id: number, payload: Record<string, unknown>) => Promise<Patient>>(),
   deactivate: vi.fn<(id: number) => Promise<{ id: number; estado: boolean; mensaje: string }>>(),
+  historiasFamiliares: vi.fn(),
 }))
 
 const emptyPage = { items: [], total: 0, limit: 25, offset: 0 }
@@ -21,10 +22,25 @@ vi.mock('@/services/catalogos', () => ({
   catalogos: {
     sexos: vi.fn(async () => []),
     seguros: vi.fn(async () => [
-      { id: 2, codigo: 'SIS', nombre: 'SIS', activo: true, regimen: 'SIS' },
-      { id: 1, codigo: 'SIN_SEGURO', nombre: 'Sin seguro', activo: true, regimen: 'NINGUNO' },
+      {
+        id: 2,
+        codigo: 'SIS_GRATUITO',
+        nombre: 'S.I.S. Gratuito',
+        activo: true,
+        codigo_sis: '002',
+        regimen: 'SIS',
+      },
+      {
+        id: 1,
+        codigo: 'SIN_SEGURO',
+        nombre: 'Sin seguro',
+        activo: true,
+        codigo_sis: '001',
+        regimen: 'NINGUNO',
+      },
     ]),
     etnias: vi.fn(async () => []),
+    historiasFamiliares,
     establecimientos: vi.fn(async () => emptyPage),
     ubigeos: vi.fn(async () => emptyPage),
     localidades: vi.fn(async () => emptyPage),
@@ -58,6 +74,8 @@ function deleteButton(wrapper: Awaited<ReturnType<typeof mountPanel>>) {
 beforeEach(() => {
   update.mockReset()
   deactivate.mockReset()
+  historiasFamiliares.mockReset()
+  historiasFamiliares.mockResolvedValue(emptyPage)
   deactivate.mockResolvedValue({ id: 100, estado: false, mensaje: 'Paciente dado de baja.' })
 })
 
@@ -72,6 +90,40 @@ test('cambiar seguro limpia SIS en el borrador y envía el borrado por PATCH', a
   await flushPromises()
   expect(update).toHaveBeenCalledWith(100, { seguro_id: 1, sis_diresa: null, sis_tipo: null, sis_numero: null, sis_secuencia: null })
   expect(wrapper.findAll('.sis-code input').every((input) => input.attributes('disabled') !== undefined)).toBe(true)
+})
+
+test('no expone el código técnico ETLSIS en el formulario', async () => {
+  const wrapper = await mountPanel(false, { seguro_id: 2 })
+  expect(wrapper.find('.patient-context__insurance-code').exists()).toBe(false)
+})
+
+test('Historia familiar permite elegir un código reutilizable y lo guarda por PATCH', async () => {
+  historiasFamiliares.mockResolvedValue({
+    items: [{ codigo: 'HF-VERDE-01' }],
+    total: 1,
+    limit: 25,
+    offset: 0,
+    has_more: false,
+  })
+  const wrapper = await mountPanel(false)
+  const familyField = wrapper
+    .findAll('.el-form-item')
+    .find((field) => field.find('label').text() === 'Historia familiar')
+
+  expect(familyField).toBeDefined()
+  const selector = familyField!.getComponent(ElSelect)
+  expect(selector.find('input[aria-label="Historia familiar"]').exists()).toBe(true)
+  // Las opciones del catálogo viven en el desplegable teleportado: se abre para comprobarlas.
+  await selector.get('.el-select__wrapper').trigger('click')
+  await vi.waitFor(() => expect(document.body.textContent).toContain('HF-VERDE-01'))
+
+  selector.vm.$emit('update:modelValue', 'HF-VERDE-01')
+  await flushPromises()
+  update.mockResolvedValue(aPatient({ historia_familiar: 'HF-VERDE-01' }))
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+
+  expect(update).toHaveBeenCalledWith(100, { historia_familiar: 'HF-VERDE-01' })
 })
 
 afterEach(() => {
@@ -157,12 +209,14 @@ test(
 )
 
 test(
-  'Tipo documento queda entre Historia y N.° documento y conserva el guardado',
+  'Tipo documento queda entre Historia familiar y N.° documento y conserva el guardado',
   { timeout: 30_000 },
   async () => {
     const wrapper = await mountPanel(false)
     const documentRow = wrapper.get('.patient-context__form > .document-types').element
-    expect(documentRow.previousElementSibling?.querySelector('label')?.textContent).toBe('Historia')
+    expect(documentRow.previousElementSibling?.querySelector('label')?.textContent).toBe(
+      'Historia familiar',
+    )
     expect(documentRow.nextElementSibling?.querySelector('label')?.textContent).toBe(
       'N.° documento',
     )

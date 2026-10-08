@@ -29,6 +29,12 @@ class InsuranceCatalogItem(IdCatalogItem):
     regimen: str | None = None
 
 
+class FamilyHistoryCatalogItem(BaseModel):
+    """A reusable family-history code already registered by the IPRESS."""
+
+    codigo: str = Field(min_length=1)
+
+
 class LocalidadCatalogItem(BaseModel):
     """A district sector with its SIS locality code."""
 
@@ -66,6 +72,7 @@ class EstablishmentCatalogItem(BaseModel):
     id: int = Field(gt=0)
     codigo_renaes: str | None = None
     codigo_ideess: str | None = None
+    disa_codigo: str | None = None
     nombre: str
     abreviatura: str | None = None
     activo: bool

@@ -5,10 +5,12 @@ import {
   FUA_DEFAULT_PAPER_MM,
   defaultFuaLayout,
   emptyFuaInput,
+  fuaDeliveryBox,
   fuaPrintHtml,
   fuaValues,
   fuaWarnings,
   fuaIdentityProblem,
+  fuaUsesAbdominalPerimeter,
   layoutProblems,
   normalizeFuaText,
   parseFuaLayout,
@@ -33,6 +35,7 @@ const snapshot: FuaPrintSnapshot = {
   fecha_atencion: '2026-09-19',
   hora_atencion: '09:05:00',
   fecha_probable_parto: null,
+  fecha_parto: null,
   grupo_atencion_codigo: 'GENERAL',
   sexo_codigo: 'F',
   apellido_paterno: '<script>alert(1)</script>',
@@ -123,6 +126,58 @@ test('FUA fields use marks, preserve leading zeros, split dates and never invent
   const missing = fuaValues({ ...snapshot, tdi: null, presion_diastolica: null })
   expect(missing.numero_documento).toBe('01234567')
   expect(missing.pa).toBe('')
+})
+
+test('el recuadro de parto imprime la FPP de la gestante y la fecha real de la puérpera', () => {
+  const gestante = fuaValues({
+    ...snapshot, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15', fecha_parto: null,
+  })
+  expect([gestante.parto_dia, gestante.parto_mes, gestante.parto_anio]).toEqual(['15', '01', '2027'])
+  expect(gestante.gestante).toBe('X')
+  expect(gestante.puerpera).toBe('')
+
+  const puerpera = fuaValues({
+    ...snapshot, grupo_atencion_codigo: 'PUERPERAS', fecha_probable_parto: null, fecha_parto: '2026-09-20',
+  })
+  expect([puerpera.parto_dia, puerpera.parto_mes, puerpera.parto_anio]).toEqual(['20', '09', '2026'])
+  expect(puerpera.puerpera).toBe('X')
+  expect(puerpera.gestante).toBe('')
+})
+
+test('el recuadro de parto del formato depende del grupo declarado', () => {
+  expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15' }))
+    .toEqual({ label: 'Fecha probable de parto', value: '2027-01-15' })
+  expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' }))
+    .toEqual({ label: 'Fecha del parto', value: '2026-09-20' })
+  // El grupo general no tiene fecha de parto en el formato.
+  expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'GENERAL' })).toBeNull()
+})
+
+test('los avisos de FUA se adaptan al grupo: el PAB solo aplica al grupo general', () => {
+  const maternal = { ...snapshot, perimetro_abdominal_cm: null }
+
+  const general = fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GENERAL' })
+  expect(fuaUsesAbdominalPerimeter({ ...maternal, grupo_atencion_codigo: 'GENERAL' })).toBe(true)
+  expect(general).toContain('Perímetro abdominal')
+  expect(general).not.toContain('Fecha del parto')
+  expect(general).not.toContain('Fecha probable de parto')
+
+  const puerpera = fuaWarnings({ ...maternal, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' })
+  expect(fuaUsesAbdominalPerimeter({ ...maternal, grupo_atencion_codigo: 'PUERPERAS' })).toBe(false)
+  expect(puerpera).not.toContain('Perímetro abdominal')
+  expect(puerpera).not.toContain('Fecha del parto')
+  // La FPP no es un campo de la puérpera: no debe pedirse.
+  expect(puerpera).not.toContain('Fecha probable de parto')
+
+  const gestante = fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15' })
+  expect(gestante).not.toContain('Perímetro abdominal')
+  expect(gestante).not.toContain('Fecha probable de parto')
+  expect(gestante).not.toContain('Fecha del parto')
+
+  // Sin la fecha del recuadro, sí se advierte el faltante real de cada grupo.
+  expect(fuaWarnings({ ...maternal, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: null })).toContain('Fecha del parto')
+  expect(fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: null }))
+    .toContain('Fecha probable de parto')
 })
 
 test('geometry storage is allowlisted and rejects malformed or out-of-range values', () => {

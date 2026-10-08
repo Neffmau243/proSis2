@@ -2,7 +2,8 @@ import { computed, onScopeDispose, shallowRef, toValue, watch, type MaybeRefOrGe
 import {
   catalogos,
   type CodeCatalogItem,
-  type IdCatalogItem,
+  type FamilyHistoryCatalogItem,
+  type InsuranceCatalogItem,
   type LocalidadCatalogItem,
 } from '@/services/catalogos'
 import type { Patient } from '@/services/pacientes'
@@ -12,7 +13,7 @@ import { useRemoteCatalog } from '@/composables/useRemoteCatalog'
 export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
   const source = computed(() => toValue(patient))
   const sexos = shallowRef<CodeCatalogItem[]>([])
-  const seguros = shallowRef<IdCatalogItem[]>([])
+  const seguros = shallowRef<InsuranceCatalogItem[]>([])
   const etnias = shallowRef<CodeCatalogItem[]>([])
   const catalogError = shallowRef<string | null>(null)
   const localities = shallowRef<LocalidadCatalogItem[]>([])
@@ -25,6 +26,10 @@ export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
   })
   const districts = useRemoteCatalog({
     fetch: (query) => catalogos.ubigeos(query, 25, 0),
+    key: (item) => item.codigo,
+  })
+  const familyHistories = useRemoteCatalog<FamilyHistoryCatalogItem>({
+    fetch: (query) => catalogos.historiasFamiliares(query, 50, 0),
     key: (item) => item.codigo,
   })
 
@@ -67,6 +72,7 @@ export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
 
   void loadCatalogs()
   void establishments.load()
+  void familyHistories.load()
   watch(
     () => source.value.ubigeo_residencia_codigo,
     (code) => {
@@ -86,6 +92,7 @@ export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
     loadCatalogs,
     establishments,
     districts,
+    familyHistories,
     localities,
     localitiesLoading,
     localitiesError,

@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable
 from dataclasses import dataclass
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
@@ -30,11 +33,36 @@ class DocumentNumberFormatter:
         return f"{kind}-{establishment_id}-{period}-{sequence:08d}"
 
 
+@dataclass(frozen=True, slots=True)
+class FuaNumberFormatter:
+    """Format the three official-looking FUA number components.
+
+    It does not claim to allocate a SIS-issued range.  Range assignment remains
+    an operational duty of the IPRESS/DIRESA; this formatter merely prevents
+    accidental reuse of the obsolete city/year/EESS layout from the legacy app.
+    """
+
+    def format(self, renipress: str, lote: str, sequence: int) -> str:
+        if not re.fullmatch(r"\d{8}", renipress):
+            raise ValueError("RENIPRESS debe tener ocho dígitos.")
+        if not re.fullmatch(r"\d{2}", lote):
+            raise ValueError("El lote FUA debe tener dos dígitos.")
+        if not 1 <= sequence <= 99_999_999:
+            raise ValueError("El correlativo FUA debe estar entre 1 y 99999999.")
+        return f"{renipress}-{lote}-{sequence:08d}"
+
+
 class DocumentService:
-    def __init__(self, session: Session, formatter: DocumentNumberFormatter | None = None) -> None:
+    def __init__(
+        self,
+        session: Session,
+        formatter: DocumentNumberFormatter | None = None,
+        fua_formatter: FuaNumberFormatter | None = None,
+    ) -> None:
         self._session = session
         self._documents = DocumentRepository(session)
         self._formatter = formatter or DocumentNumberFormatter()
+        self._fua_formatter = fua_formatter or FuaNumberFormatter()
 
     def issue_fua(
         self,
@@ -53,15 +81,32 @@ class DocumentService:
                 raise ConflictError(
                     code="FUA_YA_EMITIDO", message="La atención ya tiene un FUA emitido."
                 )
-            period = str(attention.fecha_atencion.year)
-            number = self._next_number("FUA", attention.establecimiento_id, period)
+            establishment = self._documents.get_active_establishment(attention.establecimiento_id)
+            if establishment is None:  # Defensive: _require_emittable_attention already checked it.
+                raise NotFoundError(
+                    code="ESTABLECIMIENTO_NO_ACTIVO",
+                    message="La sede de la atención no está activa.",
+                )
+            issued_at = datetime.now(ZoneInfo("America/Lima"))
+            period = str(issued_at.year)
+            lote = issued_at.strftime("%y")
+            renipress = self._renipress_for(establishment.codigo_renaes)
+            sequence = self._documents.reserve_sequence_number(
+                kind="FUA_SIS", establishment_id=attention.establecimiento_id, period=period
+            )
+            number = self._fua_formatter.format(renipress, lote, sequence)
             entity = Fua(
                 atencion_id=attention.id,
                 numero_fua=number,
-                codigo_ciudad=command.codigo_ciudad,
-                codigo_anio=period,
-                codigo_eess=command.codigo_eess or str(attention.establecimiento_id),
-                edad_declarada=str(attention.edad_anios) if attention.edad_anios is not None else None,
+                codigo_renipress=renipress,
+                lote_fua=lote,
+                correlativo_fua=f"{sequence:08d}",
+                codigo_ciudad=None,
+                codigo_anio=None,
+                codigo_eess=None,
+                edad_declarada=(
+                    str(attention.edad_anios) if attention.edad_anios is not None else None
+                ),
                 estado="EMITIDO",
                 observaciones=command.observaciones,
             )
@@ -115,7 +160,8 @@ class DocumentService:
                 and self._documents.get_active_professional(command.profesional_id) is None
             ):
                 raise NotFoundError(
-                    code="PROFESIONAL_NO_ACTIVO", message="El profesional del certificado no está activo."
+                    code="PROFESIONAL_NO_ACTIVO",
+                    message="El profesional del certificado no está activo.",
                 )
             for service_code in command.prestaciones:
                 if self._documents.get_active_service(service_code) is None:
@@ -150,7 +196,10 @@ class DocumentService:
                 actor_id=actor_id,
                 table_name="certificados",
                 record_id=entity.id,
-                after={"atencion_id": entity.atencion_id, "numero_certificado": entity.numero_certificado},
+                after={
+                    "atencion_id": entity.atencion_id,
+                    "numero_certificado": entity.numero_certificado,
+                },
             )
             self._session.commit()
             self._documents.refresh(entity)
@@ -208,7 +257,10 @@ class DocumentService:
                 actor_id=actor_id,
                 table_name="referencias",
                 record_id=entity.id,
-                after={"atencion_id": entity.atencion_id, "numero_referencia": entity.numero_referencia},
+                after={
+                    "atencion_id": entity.atencion_id,
+                    "numero_referencia": entity.numero_referencia,
+                },
             )
             self._session.commit()
             self._documents.refresh(entity)
@@ -296,3 +348,19 @@ class DocumentService:
             kind=kind, establishment_id=establishment_id, period=period
         )
         return self._formatter.format(kind, establishment_id, period, sequence)
+
+    @staticmethod
+    def _renipress_for(codigo_renaes: str | None) -> str:
+        """Normalize the numeric RENAES catalog value to the 8-digit FUA field."""
+
+        raw = (codigo_renaes or "").strip()
+        if not re.fullmatch(r"\d{1,8}", raw):
+            raise BusinessRuleError(
+                code="FUA_RENIPRESS_NO_VALIDO",
+                message=(
+                    "El establecimiento no tiene un código RENAES numérico válido "
+                    "para emitir el FUA. "
+                    "Actualice el catálogo institucional antes de continuar."
+                ),
+            )
+        return raw.zfill(8)

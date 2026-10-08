@@ -5,7 +5,7 @@ import type { FuaPrintInput, FuaPrintSnapshot } from '@/types/fua'
 /** Población clínica declarada durante la admisión. */
 export type CareGroupCode = 'NINOS_ADOLESCENTES_ADULTOS_MAYORES' | 'GESTANTES' | 'PUERPERAS'
 
-/** Pluralidad de la gestación, registrada solo para el grupo Gestantes. */
+/** Pluralidad de la gestación, registrada para Gestantes y Puérperas. */
 export type PregnancyTypeCode = 'UNICO' | 'MULTIPLE'
 
 export interface AttentionServiceItem {
@@ -45,6 +45,7 @@ export interface Attention {
   tipo_embarazo_codigo: string | null
   peso_antes_embarazo_kg: string | null
   fecha_probable_parto: string | null
+  fecha_parto: string | null
   presion_sistolica: number | null
   presion_diastolica: number | null
   temperatura_c: string | null
@@ -99,6 +100,7 @@ export interface AttentionCreatePayload {
   tipo_embarazo_codigo?: PregnancyTypeCode | null
   peso_antes_embarazo_kg?: number | null
   fecha_probable_parto?: string | null
+  fecha_parto?: string | null
   presion_sistolica?: number | null
   presion_diastolica?: number | null
   temperatura_c?: number | null
@@ -144,8 +146,6 @@ export interface NutritionalIndicatorsPreview {
 
 export interface FuaIssuePayload {
   atencion_id: number
-  codigo_ciudad?: string | null
-  codigo_eess?: string | null
   observaciones?: string | null
 }
 
@@ -153,6 +153,9 @@ export interface FuaResponse {
   id: number
   atencion_id: number
   numero_fua: string | null
+  codigo_renipress: string | null
+  lote_fua: string | null
+  correlativo_fua: string | null
   codigo_ciudad: string | null
   codigo_anio: string | null
   codigo_eess: string | null

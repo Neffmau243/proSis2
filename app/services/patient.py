@@ -15,7 +15,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.domain.patient_document import document_problem
-from app.domain.patient_insurance import SIS_FIELDS, is_sis_insurance
+from app.domain.patient_insurance import SIS_FIELDS, is_sis_insurance, sis_type_for_insurance
 from app.exceptions import (
     AuthorizationError,
     BusinessRuleError,
@@ -265,6 +265,7 @@ class PatientService:
                 )
 
             self._validate_changed_patient_catalogs(values)
+            insurance = None
             if "seguro_id" in values:
                 insurance = (
                     self._repository.get_active_insurance(values["seguro_id"])
@@ -274,6 +275,30 @@ class PatientService:
                 if not is_sis_insurance(insurance):
                     # Changing insurer clears the current affiliation, never historic FUAs.
                     values.update(dict.fromkeys(SIS_FIELDS))
+                elif sis_type := sis_type_for_insurance(insurance):
+                    # Preserve an empty affiliation as empty: ``sis_tipo`` alone is invalid.
+                    affiliation_exists = any(
+                        values.get(field, getattr(patient, field, None))
+                        for field in ("sis_diresa", "sis_numero", "sis_secuencia")
+                    )
+                    if affiliation_exists:
+                        values["sis_tipo"] = sis_type
+            if "establecimiento_registro_id" in values:
+                establishment = self._repository.get_active_establishment(
+                    values["establecimiento_registro_id"]
+                ) if values["establecimiento_registro_id"] else None
+                effective_insurance = insurance if "seguro_id" in values else (
+                    self._repository.get_active_insurance(patient.seguro_id)
+                    if patient.seguro_id
+                    else None
+                )
+                disa_code = getattr(establishment, "disa_codigo", None)
+                affiliation_exists = any(
+                    values.get(field, getattr(patient, field, None))
+                    for field in ("sis_tipo", "sis_numero", "sis_secuencia")
+                )
+                if is_sis_insurance(effective_insurance) and affiliation_exists and disa_code:
+                    values["sis_diresa"] = disa_code
             if "seguro_id" in values or any(key in values for key in SIS_FIELDS):
                 self._validate_insurance_affiliation(
                     {

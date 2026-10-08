@@ -167,6 +167,7 @@ class AttentionService:
                 ),
                 peso_antes_embarazo_kg=command.peso_antes_embarazo_kg,
                 fecha_probable_parto=command.fecha_probable_parto,
+                fecha_parto=command.fecha_parto,
                 presion_sistolica=command.presion_sistolica,
                 presion_diastolica=command.presion_diastolica,
                 temperatura_c=command.temperatura_c,

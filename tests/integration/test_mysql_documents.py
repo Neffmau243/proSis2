@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta
 from uuid import uuid4
+from zoneinfo import ZoneInfo
 
 import pytest
 from sqlalchemy.orm import Session
@@ -71,10 +72,14 @@ def test_fua_is_issued_once_and_the_sequence_advances(
     )
     assert issued.status_code == 201, issued.text
     fua = issued.json()
-    year = date.today().year
-    assert fua["numero_fua"] == f"FUA-{clinic_scene.establecimiento_id}-{year}-00000001"
-    assert fua["codigo_anio"] == str(year)
-    assert fua["codigo_eess"] == str(clinic_scene.establecimiento_id)
+    lote = datetime.now(ZoneInfo("America/Lima")).strftime("%y")
+    assert fua["numero_fua"] == f"{clinic_scene.codigo_renaes}-{lote}-00000001"
+    assert fua["codigo_renipress"] == clinic_scene.codigo_renaes
+    assert fua["lote_fua"] == lote
+    assert fua["correlativo_fua"] == "00000001"
+    assert fua["codigo_ciudad"] is None
+    assert fua["codigo_anio"] is None
+    assert fua["codigo_eess"] is None
     assert fua["estado"] == "EMITIDO"
     assert fua["edad_declarada"] == str(attention["edad_anios"])
     assert fua["fecha_emision"]
@@ -99,12 +104,11 @@ def test_fua_is_issued_once_and_the_sequence_advances(
         },
     ).json()
     next_fua = clinic_scene.professional_client.post(
-        f"{api_prefix}/documentos/fua",
-        json={"atencion_id": second["id"], "codigo_ciudad": "0401", "observaciones": "Copia"},
+        f"{api_prefix}/documentos/fua", json={"atencion_id": second["id"], "observaciones": "Copia"}
     )
     assert next_fua.status_code == 201
     assert next_fua.json()["numero_fua"].endswith("00000002")
-    assert next_fua.json()["codigo_ciudad"] == "0401"
+    assert next_fua.json()["correlativo_fua"] == "00000002"
 
 
 def test_documents_are_limited_to_the_owning_clinician(

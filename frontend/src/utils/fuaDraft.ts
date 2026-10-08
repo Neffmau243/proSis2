@@ -5,7 +5,7 @@ import type { FuaPrintInput, FuaPrintSnapshot } from '@/types/fua'
 
 type DraftEncounter = Pick<AttentionCreatePayload, 'fecha_atencion' | 'modalidad_atencion_codigo' |
   'peso_kg' | 'talla_cm' | 'presion_sistolica' | 'presion_diastolica' |
-  'perimetro_abdominal_cm' | 'grupo_atencion_codigo' | 'fecha_probable_parto'>
+  'perimetro_abdominal_cm' | 'grupo_atencion_codigo' | 'fecha_probable_parto' | 'fecha_parto'>
 
 /** UI estimate only; the saved projection always comes back from the server. */
 export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, supplement: FuaPrintInput,
@@ -35,5 +35,6 @@ export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, suppl
     perimetro_abdominal_cm: encounter.perimetro_abdominal_cm ?? null,
     grupo_atencion_codigo: encounter.grupo_atencion_codigo || 'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
     fecha_probable_parto: encounter.fecha_probable_parto ?? null,
+    fecha_parto: encounter.fecha_parto ?? null,
   }
 }

@@ -138,6 +138,8 @@ class Attention(Base):
         mysql.DECIMAL(6, 2), nullable=True
     )
     fecha_probable_parto: Mapped[date | None] = mapped_column(Date, nullable=True)
+    #: Fecha real del parto, exclusiva de las atenciones de PUERPERAS.
+    fecha_parto: Mapped[date | None] = mapped_column(Date, nullable=True)
     presion_sistolica: Mapped[int | None] = mapped_column(
         mysql.SMALLINT(unsigned=True), nullable=True
     )

@@ -43,11 +43,11 @@ def test_preview_keeps_valid_adult_bmi_and_classification():
 
 
 @pytest.mark.parametrize("group", ["NINOS_ADOLESCENTES_ADULTOS_MAYORES", "PUERPERAS", "GESTANTES"])
-def test_preview_pregestational_weight_requires_pregnant_group(group):
+def test_preview_pregestational_weight_requires_a_maternal_group(group):
     payload = dict(paciente_id=1, fecha_atencion=datetime(2026, 10, 3),
                    grupo_atencion_codigo=group, peso_antes_embarazo_kg=60)
-    if group == "GESTANTES":
-        assert NutritionalIndicatorsPreviewInput(**payload).peso_antes_embarazo_kg == 60
-    else:
-        with pytest.raises(ValidationError, match="GESTANTES"):
+    if group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES":
+        with pytest.raises(ValidationError, match="GESTANTES y PUERPERAS"):
             NutritionalIndicatorsPreviewInput(**payload)
+    else:
+        assert NutritionalIndicatorsPreviewInput(**payload).peso_antes_embarazo_kg == 60

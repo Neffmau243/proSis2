@@ -55,15 +55,38 @@ export function fuaIdentityProblem(s: FuaPrintSnapshot): string | null {
   return null
 }
 
+/**
+ * Recuadro único de parto del formato: FPP en la gestante y fecha real del
+ * parto en la puérpera. En el grupo general no aplica.
+ */
+export function fuaDeliveryBox(s: FuaPrintSnapshot): { label: string; value: string | null } | null {
+  if (s.grupo_atencion_codigo === 'PUERPERAS') {
+    return { label: 'Fecha del parto', value: s.fecha_parto ?? null }
+  }
+  if (s.grupo_atencion_codigo === 'GESTANTES') {
+    return { label: 'Fecha probable de parto', value: s.fecha_probable_parto ?? null }
+  }
+  return null
+}
+
+/** El perímetro abdominal solo se captura en el grupo general. */
+export function fuaUsesAbdominalPerimeter(s: FuaPrintSnapshot): boolean {
+  return s.grupo_atencion_codigo !== 'GESTANTES' && s.grupo_atencion_codigo !== 'PUERPERAS'
+}
+
 export function fuaWarnings(s: FuaPrintSnapshot): string[] {
   const result: string[] = []
+  const delivery = fuaDeliveryBox(s)
   const required: [unknown, string][] = [
     [s.personal_atiende, 'Personal que atiende'], [s.lugar_atencion, 'Lugar de atención'],
     [s.renipress_preimpreso !== false || s.codigo_renipress, 'RENIPRESS'],
     [s.sis_diresa && s.sis_tipo && s.sis_numero, 'Afiliación SIS completa'],
     [s.historia_clinica, 'Historia clínica'], [s.peso_kg, 'Peso'], [s.talla_cm, 'Talla'],
     [s.presion_sistolica && s.presion_diastolica, 'Presión arterial completa'],
-    [s.imc, 'IMC'], [s.perimetro_abdominal_cm, 'Perímetro abdominal'],
+    [s.imc, 'IMC'],
+    // En gestantes y puérperas el recuadro lo ocupa la fecha de parto, no el PAB.
+    [!fuaUsesAbdominalPerimeter(s) || s.perimetro_abdominal_cm, 'Perímetro abdominal'],
+    ...(delivery ? [[delivery.value, delivery.label] as [unknown, string]] : []),
     [s.etnia_codigo, 'Etnia (cuando corresponda)'],
   ]
   for (const [value, label] of required) if (!value) result.push(label)
@@ -131,9 +154,9 @@ const seeds: [string, string, number, number, number, number?][] = [
   ['historia_clinica', 'Historia clínica', 327, 297, 95],
   ['etnia_codigo', 'Código etnia', 440, 297, 154],
   ['gestante', 'X · Gestante', 53, 337, 10], ['puerpera', 'X · Puérpera', 53, 356, 10],
-  ['parto_dia', 'FPP · Día', 140, 295, 39, 7],
-  ['parto_mes', 'FPP · Mes', 185, 295, 36, 7],
-  ['parto_anio', 'FPP · Año', 230, 295, 87, 8],
+  ['parto_dia', 'Parto · Día', 140, 295, 39, 7],
+  ['parto_mes', 'Parto · Mes', 185, 295, 36, 7],
+  ['parto_anio', 'Parto · Año', 230, 295, 87, 8],
   ['atencion_dia', 'Atención · Día', 5, 404, 27, 5],
   ['atencion_mes', 'Atención · Mes', 36, 404, 26, 5],
   ['atencion_anio', 'Atención · Año', 68, 404, 70, 6.5],
@@ -211,7 +234,8 @@ export function fuaValues(s: FuaPrintSnapshot): Record<string, string> {
     v.tdi = s.tipo_documento
     v.identity_note = `${s.tipo_documento} = ${localLabel}. Uso local; no es un código TDI SIS.`
   }
-  for (const [prefix, date] of [['nacimiento', s.fecha_nacimiento], ['atencion', s.fecha_atencion], ['parto', s.fecha_probable_parto]]) {
+  const partoDate = fuaDeliveryBox(s)?.value ?? null
+  for (const [prefix, date] of [['nacimiento', s.fecha_nacimiento], ['atencion', s.fecha_atencion], ['parto', partoDate]]) {
     const [year = '', month = '', day = ''] = (date || '').slice(0, 10).split('-')
     v[`${prefix}_dia`] = day
     v[`${prefix}_mes`] = month

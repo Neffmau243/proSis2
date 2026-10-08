@@ -1,0 +1,245 @@
+{
+  "database": "ipress_test_admission_hc_20261008",
+  "patient_id": 10,
+  "puerperal_patient_id": 12,
+  "historia_clinica": "0112524-B",
+  "puerperal_historia_clinica": "PUE-112524",
+  "cases": [
+    {
+      "case": "Alta con historia clínica: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "La respuesta conserva la HC exacta",
+      "pass": true
+    },
+    {
+      "case": "Recuperar paciente: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "GET devuelve la HC con ceros iniciales",
+      "pass": true
+    },
+    {
+      "case": "MySQL conserva la HC como texto",
+      "pass": true
+    },
+    {
+      "case": "Buscar por HC exacta: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Búsqueda exacta encuentra al paciente",
+      "pass": true
+    },
+    {
+      "case": "Buscar por HC sin ceros: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Buscar sin ceros iniciales no devuelve al paciente",
+      "pass": true
+    },
+    {
+      "case": "Actualizar historia clínica: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Releer tras PATCH: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "PATCH persiste la nueva HC",
+      "pass": true
+    },
+    {
+      "case": "MySQL refleja la nueva HC",
+      "pass": true
+    },
+    {
+      "case": "Alta sin historia clínica: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "La historia clínica es opcional",
+      "pass": true
+    },
+    {
+      "case": "Atención del paciente: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "La atención congela la HC vigente",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA lleva la historia clínica",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA es la versión 2",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA trae la sede y el RENIPRESS preimpreso",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA identifica al paciente",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA trae fecha, hora y medidas para la impresión",
+      "pass": true
+    },
+    {
+      "case": "El grupo general no arrastra fecha de parto",
+      "pass": true
+    },
+    {
+      "case": "Cambiar HC tras la atención: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Releer atención histórica: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "La atención histórica conserva la HC impresa",
+      "pass": true
+    },
+    {
+      "case": "Nueva atención con la HC nueva: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "La nueva atención usa la HC actual",
+      "pass": true
+    },
+    {
+      "case": "Alta de puérpera: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "La puérpera conserva su historia clínica",
+      "pass": true
+    },
+    {
+      "case": "Atención puérpera AMBULATORIA: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "Recuperar puérpera AMBULATORIA: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Grupo y modalidad puérpera AMBULATORIA",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA puérpera imprime la fecha del parto",
+      "pass": true
+    },
+    {
+      "case": "MySQL puérpera AMBULATORIA",
+      "pass": true
+    },
+    {
+      "case": "Atención puérpera EMERGENCIA: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "Recuperar puérpera EMERGENCIA: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Grupo y modalidad puérpera EMERGENCIA",
+      "pass": true
+    },
+    {
+      "case": "La copia FUA puérpera imprime la fecha del parto",
+      "pass": true
+    },
+    {
+      "case": "MySQL puérpera EMERGENCIA",
+      "pass": true
+    },
+    {
+      "case": "Gestante rechaza fecha de parto: HTTP 422",
+      "pass": true
+    },
+    {
+      "case": "Condición de la ficha: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "La ficha queda como PUERPERA",
+      "pass": true
+    },
+    {
+      "case": "Alta paciente historial A: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "Alta paciente historial B: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "Atención del paciente A: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "Atención del paciente B: HTTP 201",
+      "pass": true
+    },
+    {
+      "case": "El FUA del paciente A lleva sus propios datos",
+      "pass": true
+    },
+    {
+      "case": "El FUA del paciente B lleva sus propios datos",
+      "pass": true
+    },
+    {
+      "case": "Los FUA de dos pacientes no se mezclan",
+      "pass": true
+    },
+    {
+      "case": "Historial del paciente A: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Historial del paciente B: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "El historial de A solo trae las atenciones y el FUA de A",
+      "pass": true
+    },
+    {
+      "case": "El historial de B solo trae las atenciones y el FUA de B",
+      "pass": true
+    },
+    {
+      "case": "Búsqueda de historial del paciente A: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "La búsqueda de historial devuelve el FUA correcto de A",
+      "pass": true
+    },
+    {
+      "case": "Corregir datos de la ficha A: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "Historial de A tras corregir la ficha: HTTP 200",
+      "pass": true
+    },
+    {
+      "case": "El FUA guardado no cambia al corregir la ficha",
+      "pass": true
+    }
+  ]
+}

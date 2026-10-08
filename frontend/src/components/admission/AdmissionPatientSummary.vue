@@ -8,7 +8,7 @@ import { useAdmissionPatientDetails } from '@/composables/useAdmissionPatientDet
 import { useAdmissionPatientEditor } from '@/composables/useAdmissionPatientEditor'
 import AdmissionPatientRelations from '@/components/admission/AdmissionPatientRelations.vue'
 import { patientFields, type PatientFieldKey } from '@/utils/patientDraft'
-import { clearSisAffiliation, isSisInsurance } from '@/utils/patientInsurance'
+import { clearSisAffiliation, isSisInsurance, sisTypeFromInsurance } from '@/utils/patientInsurance'
 import { pacientes, type Patient } from '@/services/pacientes'
 import type { CodeCatalogItem, RiskGroupCatalogItem } from '@/services/catalogos'
 
@@ -46,6 +46,7 @@ const {
   loadCatalogs,
   establishments,
   districts,
+  familyHistories,
   localities,
   localitiesLoading,
   localitiesError,
@@ -55,6 +56,12 @@ const removing = ref(false)
 const hasSisInsurance = computed(() =>
   isSisInsurance(seguros.value.find((item) => item.id === draft.seguro_id)),
 )
+const selectedInsurance = computed(() =>
+  seguros.value.find((item) => item.id === draft.seguro_id),
+)
+const selectedEstablishment = computed(() =>
+  establishments.items.value.find((item) => item.id === draft.establecimiento_registro_id),
+)
 function changeInsurance(): void {
   if (!hasSisInsurance.value) {
     const hadAffiliation = Boolean(
@@ -63,7 +70,21 @@ function changeInsurance(): void {
     clearSisAffiliation(draft)
     if (hadAffiliation)
       ElMessage.info('Se retiró la afiliación SIS del borrador. Guarde los cambios para confirmar.')
+    return
   }
+  const sisType = sisTypeFromInsurance(selectedInsurance.value)
+  if (sisType && (draft.sis_diresa || draft.sis_numero || draft.sis_secuencia)) {
+    draft.sis_tipo = sisType
+  }
+}
+function changeEstablishment(): void {
+  const disaCode = selectedEstablishment.value?.disa_codigo
+  if (hasSisInsurance.value && disaCode && (draft.sis_tipo || draft.sis_numero || draft.sis_secuencia)) {
+    draft.sis_diresa = disaCode
+  }
+}
+function searchFamilyHistories(query: string): void {
+  familyHistories.search(query)
 }
 const fullName = computed(
   () =>
@@ -248,18 +269,39 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
           <el-form-item
             v-else
             :class="{ 'patient-context__contact': field.key === 'telefono_principal' }"
-            :label="field.key === 'historia_familiar' ? 'Historia' : field.label"
+            :label="field.label"
             :error="fieldErrors[field.key]"
             :required="'required' in field && field.required"
           >
             <el-input
-              v-if="field.kind === 'text'"
+              v-if="field.kind === 'text' && field.key !== 'historia_familiar'"
               v-model="draft[field.key]"
               :maxlength="'max' in field ? field.max : undefined"
               :disabled="disabled"
               :aria-label="field.label"
               :inputmode="field.key === 'telefono_principal' ? 'tel' : 'text'"
             />
+            <el-select
+              v-else-if="field.key === 'historia_familiar'"
+              v-model="draft.historia_familiar"
+              filterable
+              remote
+              allow-create
+              clearable
+              default-first-option
+              :disabled="disabled"
+              :loading="familyHistories.loading.value"
+              :remote-method="searchFamilyHistories"
+              :aria-label="field.label"
+              placeholder="Seleccione o escriba el código familiar"
+            >
+              <el-option
+                v-for="option in familyHistories.items.value"
+                :key="option.codigo"
+                :label="option.codigo"
+                :value="option.codigo"
+              />
+            </el-select>
             <el-input
               v-else-if="field.kind === 'date'"
               v-model="draft[field.key]"
@@ -307,6 +349,7 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
                   ? districts.loading.value
                   : field.key === 'establecimiento_registro_id' && establishments.loading.value
               "
+              @change="field.key === 'establecimiento_registro_id' ? changeEstablishment() : undefined"
             >
               <el-option
                 v-for="option in fieldOptions(field.key)"

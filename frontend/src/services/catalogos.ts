@@ -15,6 +15,16 @@ export interface IdCatalogItem {
   activo: boolean
 }
 
+/** Insurance plan as sourced from ETLSIS/EESS_SIS. */
+export interface InsuranceCatalogItem extends IdCatalogItem {
+  codigo_sis: string | null
+  regimen: string | null
+}
+
+export interface FamilyHistoryCatalogItem {
+  codigo: string
+}
+
 export interface SpecialtyCatalogItem extends CodeCatalogItem {
   grupo: string | null
 }
@@ -46,6 +56,7 @@ export interface EstablishmentCatalogItem {
   id: number
   codigo_renaes: string | null
   codigo_ideess: string | null
+  disa_codigo: string | null
   nombre: string
   abreviatura: string | null
   activo: boolean
@@ -115,12 +126,14 @@ export const catalogos = {
   etnias: () => getList<CodeCatalogItem>('/catalogos/etnias'),
   tiposDocumento: () => getList<CodeCatalogItem>('/catalogos/tipos-documento'),
   sexos: () => getList<CodeCatalogItem>('/catalogos/sexos'),
-  seguros: () => getList<IdCatalogItem>('/catalogos/seguros'),
+  seguros: () => getList<InsuranceCatalogItem>('/catalogos/seguros'),
   profesiones: () => getList<IdCatalogItem>('/catalogos/profesiones'),
   especialidades: () => getList<SpecialtyCatalogItem>('/catalogos/especialidades'),
   modalidades: () => getList<CodeCatalogItem>('/catalogos/modalidades-atencion'),
   gruposEtarios: () => getList<AgeGroupCatalogItem>('/catalogos/grupos-etarios'),
   gruposRiesgo: () => getList<RiskGroupCatalogItem>('/catalogos/grupos-riesgo'),
+  historiasFamiliares: (q: string | undefined, limit = 25, offset = 0) =>
+    searchPage<FamilyHistoryCatalogItem>('/catalogos/historias-familiares', { q, limit, offset }),
   prestaciones: (q: string | undefined, limit = 25, offset = 0) =>
     searchPage<ServiceCatalogItem>('/catalogos/prestaciones', { q, limit, offset }),
   cie10: (q: string | undefined, limit = 25, offset = 0) =>

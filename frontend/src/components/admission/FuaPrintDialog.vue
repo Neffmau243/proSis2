@@ -6,9 +6,11 @@ import type { FuaPrintSnapshot } from '@/types/fua'
 import {
   defaultFuaLayout,
   FUA_LAYOUT_KEY,
+  fuaDeliveryBox,
   fuaValues,
   fuaWarnings,
   fuaIdentityProblem,
+  fuaUsesAbdominalPerimeter,
   layoutProblems,
   parseFuaLayout,
   printFua,
@@ -36,6 +38,10 @@ const tab = ref('datos')
 const snapshot = computed(() => props.snapshot)
 const values = computed(() => fuaValues(snapshot.value))
 const warnings = computed(() => fuaWarnings(snapshot.value))
+// El recuadro de parto imprime FPP o fecha real según el grupo; el PAB solo
+// corresponde al grupo general.
+const deliveryBox = computed(() => fuaDeliveryBox(snapshot.value))
+const usesAbdominalPerimeter = computed(() => fuaUsesAbdominalPerimeter(snapshot.value))
 const identityProblem = computed(() => fuaIdentityProblem(snapshot.value))
 const geometryErrors = computed(() => layoutProblems(layout.value, values.value))
 const canPrint = computed(
@@ -203,12 +209,19 @@ async function print(test: boolean): Promise<void> {
             <dd>{{ snapshot.fecha_atencion }} · {{ snapshot.hora_atencion.slice(0, 5) }}</dd>
           </div>
           <div>
-            <dt>Peso / talla / PA / IMC / PAB</dt>
+            <dt>Peso / talla / PA / IMC</dt>
             <dd>
               {{ values.peso_kg || '—' }} kg / {{ values.talla_cm || '—' }} cm /
-              {{ values.pa || '—' }} mmHg / {{ values.imc || '—' }} /
-              {{ values.perimetro_abdominal_cm || '—' }} cm
+              {{ values.pa || '—' }} mmHg / {{ values.imc || '—' }}
             </dd>
+          </div>
+          <div v-if="deliveryBox">
+            <dt>{{ deliveryBox.label }}</dt>
+            <dd>{{ deliveryBox.value || 'Sin registrar' }}</dd>
+          </div>
+          <div v-else-if="usesAbdominalPerimeter">
+            <dt>Perímetro abdominal</dt>
+            <dd>{{ values.perimetro_abdominal_cm || '—' }} cm</dd>
           </div>
         </dl>
         <p>

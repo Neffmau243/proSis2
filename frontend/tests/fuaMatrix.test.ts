@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs'
 import { expect, test } from 'vitest'
 import type { FuaPrintSnapshot } from '../src/types/fua'
 import {
-  defaultFuaLayout, fuaIdentityProblem, fuaPrintHtml, fuaValues, layoutProblems,
+  defaultFuaLayout, fuaDeliveryBox, fuaIdentityProblem, fuaPrintHtml, fuaValues, layoutProblems,
 } from '../src/utils/fuaPrint'
 
 // Opt-in: uses only snapshots produced by the isolated synthetic API/MySQL audit.
@@ -48,7 +48,9 @@ test.skipIf(!process.env.FUA_MATRIX_REPORT)(
       expect(printed('puerpera'), context).toBe(snapshot.grupo_atencion_codigo === 'PUERPERAS' ? 'X' : '')
       expect(printed('sis_diresa'), context).toBe(snapshot.sis_diresa || '')
       expect(printed('sis_numero_completo'), context).toBe(values.sis_numero_completo)
-      expect(printed('parto_dia'), context).toBe(snapshot.fecha_probable_parto?.slice(8, 10) || '')
+      // Un solo recuadro de parto: FPP en gestantes y fecha real en puérperas.
+      const parto = fuaDeliveryBox(snapshot)?.value ?? null
+      expect(printed('parto_dia'), context).toBe(parto?.slice(8, 10) || '')
     }
   },
 )

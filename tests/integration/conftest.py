@@ -117,6 +117,7 @@ class ClinicScene:
     establecimiento_id: int
     consultorio_id: int
     ubigeo_codigo: str
+    codigo_renaes: str
     suffix: str
 
 
@@ -157,8 +158,10 @@ def clinic_scene(db_session: Session, api_client: TestClient) -> ClinicScene:
     session.add(ubigeo)
     session.flush()
 
+    codigo_renaes = f"{next(_UBIGEO_CODES):08d}"
     establecimiento = Establishment(
         nombre=f"CS Integración {suffix}",
+        codigo_renaes=codigo_renaes,
         ubigeo_codigo=ubigeo.codigo,
         activo=True,
     )
@@ -224,6 +227,7 @@ def clinic_scene(db_session: Session, api_client: TestClient) -> ClinicScene:
         establecimiento_id=establecimiento.id,
         consultorio_id=consultorio.id,
         ubigeo_codigo=ubigeo.codigo,
+        codigo_renaes=codigo_renaes,
         suffix=suffix,
     )
 

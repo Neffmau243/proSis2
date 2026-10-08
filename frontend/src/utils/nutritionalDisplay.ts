@@ -22,7 +22,7 @@ export function nutritionalLimits(result: NutritionalIndicatorsPreview | null): 
     case 'GESTANTE':
       return 'P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes.'
     case 'PUERPERA':
-      return 'P/E, T/E y P/T no aplican al grupo Puérperas. Se muestra el IMC actual de seguimiento, sin clasificación automática.'
+      return 'P/E, T/E y P/T no aplican al grupo Puérperas. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes; el IMC actual es de seguimiento del puerperio.'
     case 'ESCOLAR':
       return 'P/T corresponde a la referencia infantil. OMS 2007 cubre T/E e IMC/edad de 61 a 228 meses y P/E hasta 120 meses. Fuera de esos rangos no se extrapolan resultados.'
     default:

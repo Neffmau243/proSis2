@@ -57,6 +57,25 @@ def test_age_routing(age_days, expected):
     assert result.grupo_referencia == expected
 
 
+def test_puerperal_follow_up_keeps_the_current_bmi_without_auto_classification():
+    """Sin peso previo declarado, el puerperio se limita al seguimiento del IMC."""
+
+    result = calculate_nutritional_indicators(
+        birth_date=date(1990, 1, 1),
+        measured_on=date(2026, 1, 1),
+        sex_code="F",
+        weight_kg=Decimal(90),
+        height_cm=Decimal(160),
+        care_group="PUERPERAS",
+    )
+
+    assert result.grupo_referencia == "PUERPERA"
+    assert result.imc == Decimal("35.156")
+    assert result.imc_pregestacional is None
+    assert result.ganancia_peso_kg is None
+    assert result.diagnostico_imc is None
+
+
 @pytest.mark.parametrize("group", ["GESTANTES", "PUERPERAS"])
 def test_maternal_groups_never_use_current_weight_for_general_bmi_classification(group):
     result = calculate_nutritional_indicators(
@@ -70,13 +89,10 @@ def test_maternal_groups_never_use_current_weight_for_general_bmi_classification
     )
     assert result.imc == Decimal("35.156")
     assert result.pt is None
-    if group == "GESTANTES":
-        assert result.imc_pregestacional == Decimal("23.438")
-        assert result.diagnostico_imc == "Normal"
-        assert result.ganancia_peso_kg == 30
-    else:
-        assert result.diagnostico_imc is None
-        assert result.imc_pregestacional is None
+    # Ambos grupos maternos clasifican con el peso previo, nunca con el actual.
+    assert result.imc_pregestacional == Decimal("23.438")
+    assert result.diagnostico_imc == "Normal"
+    assert result.ganancia_peso_kg == 30
 
 
 @pytest.mark.parametrize(

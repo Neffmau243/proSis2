@@ -18,71 +18,23 @@ Requisitos: Python 3.12 con `requirements.txt` instalado, MySQL local y Node
 python -m app.scripts.bootstrap_database              # crea la BD y aplica migraciones
 python -m app.scripts.create_admin --username admin   # primer ADMIN (pide la contraseña)
 uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 
 # terminal 2 — frontend
 cd frontend && npm install && npm run dev
+cd frontend && npm run dev
 ```
 
 Abrir <http://localhost:5173> e ingresar con el ADMIN creado. La API queda en
 <http://127.0.0.1:8000/api/v1> y su documentación en
 <http://127.0.0.1:8000/docs>.
 
-### Un solo servidor (uvicorn sirve backend + frontend)
-
-Para operar o desplegar sin dos procesos ni configuración de CORS, compile la
-SPA una vez y arranque únicamente Uvicorn. La interfaz queda en la raíz
-(`http://127.0.0.1:8000/`) y la API sigue en `/api/v1`:
-
-```bash
-cd frontend && npm ci && npm run build   # genera frontend/dist
-cd .. && uvicorn app.main:app            # SPA + API en un solo puerto
-```
-
-FastAPI sirve `frontend/dist` (configurable con `SERVE_FRONTEND` y
-`FRONTEND_DIST_DIR`): monta `/assets` y cualquier ruta del cliente en modo
-history —`/login`, `/atenciones/3`— devuelve `index.html`. Las rutas del API,
-`/docs`, `/redoc` y `/openapi.json` conservan prioridad y su sobre JSON de
-error (`404`/`405`), por lo que nunca se confunden con páginas del cliente. Si
-no existe el build, la aplicación arranca solo con el API y lo registra en el
-log. En este modo `VITE_API_BASE_URL` usa su valor por defecto `/api/v1`
-(mismo origen), así que no hace falta CORS. El `frontend/dist` es un artefacto
-de compilación y no se versiona.
-
-### Docker (aplicación + MySQL)
-
-El repositorio incluye una imagen multi-stage (compila la SPA y la sirve con
-Uvicorn sobre `python:3.12-slim`) y un `docker-compose.yml` con MySQL 8.
-
-```bash
-cp .env.docker.example .env.docker      # complete los secretos reales
-docker compose --env-file .env.docker up -d --build
-```
-
-- La aplicación queda en <http://localhost:8000> (SPA + API en el mismo origen).
-- En el primer arranque el entrypoint aplica `alembic upgrade head` y, si define
-  `CREATE_ADMIN_USERNAME` y `CREATE_ADMIN_PASSWORD`, crea el primer ADMIN.
-- MySQL persiste en el volumen `mysql_data`; la base y su usuario se crean solos.
-- `SECRET_KEY` es obligatorio y de producción: la aplicación rechaza valores
-  plantilla, así que el arranque falla con un mensaje claro si copia el ejemplo
-  sin reemplazarlo.
-- El contenedor corre como usuario sin privilegios y expone un HEALTHCHECK
-  sobre `/api/v1/health`.
-
-```bash
-docker compose --env-file .env.docker logs -f app     # ver el arranque
-docker compose --env-file .env.docker ps              # estado y salud
-docker compose --env-file .env.docker down            # detener (conserva datos)
-docker compose --env-file .env.docker down -v         # detener y borrar MySQL
-```
-
-La imagen no copia `.env`, `etlSis/`, `tests/`, datos `.mdb` ni dependencias de
-frontend: ver `.dockerignore`. Para una base externa, omita el servicio `db` y
-apunte `DATABASE_URL` o `MYSQL_*` a su servidor.
-
 | Usuario | Contraseña | Rol |
 | --- | --- | --- |
 | `admin` | `74028519` | ADMIN (base local de este repo) |
 | `medico.demo` | `18594027` | PROFESIONAL (cuenta de pruebas vinculada a un profesional real) |
+
+
 
 Las credenciales son exclusivamente para la base local desechable; nunca se
 reutilizan fuera de desarrollo.

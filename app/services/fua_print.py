@@ -41,9 +41,11 @@ def build_fua_snapshot(
             }
         )
     # Never substitute an internal database ID for RENIPRESS or SIS affiliation.
+    # The legacy catalog stores the source code as ``1291``/``0001291`` while
+    # the FUA box requires eight digits, so numeric values are left-padded.
     renaes = establishment.codigo_renaes or ""
-    if not values["codigo_renipress"] and re.fullmatch(r"[0-9]{8}", renaes):
-        values["codigo_renipress"] = renaes
+    if not values["codigo_renipress"] and re.fullmatch(r"[0-9]{1,8}", renaes):
+        values["codigo_renipress"] = renaes.zfill(8)
     moment = attention.fecha_atencion
     if moment.tzinfo is not None:
         moment = moment.astimezone(ZoneInfo("America/Lima"))
@@ -76,5 +78,6 @@ def build_fua_snapshot(
         perimetro_abdominal_cm=attention.perimetro_abdominal_cm,
         grupo_atencion_codigo=attention.grupo_atencion_codigo,
         fecha_probable_parto=attention.fecha_probable_parto,
+        fecha_parto=attention.fecha_parto,
     )
     return snapshot.model_dump(mode="json")

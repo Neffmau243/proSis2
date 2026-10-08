@@ -241,14 +241,22 @@ def _extended_indicators(birth, measured, sex, weight, height, care_group, prewe
             ),
         )
     if care_group == "PUERPERAS":
+        # El peso antes del embarazo sigue siendo la referencia materna válida:
+        # el peso actual es de seguimiento del puerperio, no de clasificación.
+        pre_bmi = _calculate_bmi(preweight, height)
         base["estado"] = "CALCULADO" if bmi is not None else "DATOS_INCOMPLETOS"
-        base["referencia"] = "IMC de seguimiento en puerperio (sin clasificación automática)"
+        base["referencia"] = "INS/MINSA: IMC pregestacional (puerperio)"
         return NutritionalIndicators(
             **base,
             grupo_referencia="PUERPERA",
+            imc_pregestacional=pre_bmi,
+            ganancia_peso_kg=(
+                weight - preweight if weight is not None and preweight is not None else None
+            ),
+            diagnostico_imc=classify_bmi(pre_bmi) if years >= 20 else None,
             mensaje=(
-                "IMC actual de seguimiento. Interpretar según tiempo desde el parto "
-                "y evolución clínica."
+                "IMC pregestacional y cambio de peso. El IMC actual es de seguimiento: "
+                "interpretar según tiempo desde el parto y evolución clínica."
             ),
         )
     if months > 228:

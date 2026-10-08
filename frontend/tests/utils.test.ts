@@ -174,11 +174,21 @@ test('el borrador del FUA copia el paciente y calcula solo lo que puede calcular
   expect(draft.codigo_renipress).toBeNull()
 })
 
+test('el borrador de la puérpera lleva la fecha real del parto y no la FPP', () => {
+  const draft = buildFuaDraft(patient, {
+    ...encounter, grupo_atencion_codigo: 'PUERPERAS', fecha_probable_parto: null, fecha_parto: '2026-09-20',
+  }, emptyFuaInput(), undefined, undefined)
+
+  expect(draft.fecha_parto).toBe('2026-09-20')
+  expect(draft.fecha_probable_parto).toBeNull()
+})
+
 test('el RENIPRESS solo se toma de un código RENAES de ocho dígitos', () => {
   const establishment = {
     id: 5,
     codigo_renaes: '00001234',
     codigo_ideess: null,
+    disa_codigo: null,
     nombre: 'CS Prueba',
     abreviatura: null,
     activo: true,
@@ -223,6 +233,7 @@ test('lo que el formulario escribe en el FUA gana sobre lo deducido', () => {
       id: 5,
       codigo_renaes: '00001234',
       codigo_ideess: null,
+      disa_codigo: null,
       nombre: 'CS Prueba',
       abreviatura: null,
       activo: true,

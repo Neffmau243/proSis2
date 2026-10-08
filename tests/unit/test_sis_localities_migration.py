@@ -56,3 +56,16 @@ def test_affiliation_codes_are_unique_and_known(migration) -> None:
 
     assert len(sis_codes) == len(set(sis_codes))
     assert regimens <= {"SIS", "ESSALUD", "SANIDAD", "PARTICULAR", "NINGUNO", "OTRO"}
+    assert dict((codigo, codigo_sis) for codigo, codigo_sis, _ in migration.AFFILIATIONS) == {
+        "SIN_SEGURO": "001",
+        "SIS_GRATUITO": "002",
+        "SIS_AFILIACION_TEMPORAL": "003",
+        "SIS_SEMI_SUBSIDIADO": "004",
+        "SIS_NRUS": "005",
+        "SIS_PARA_TODOS": "006",
+        "ESSALUD": "007",
+        "SANIDAD": "008",
+        "PARTICULAR": "009",
+        "SIS": None,
+        "OTRO": None,
+    }

@@ -14,6 +14,7 @@ from app.schemas.catalog import (
     Cie10CatalogItem,
     CodeCatalogItem,
     EstablishmentCatalogItem,
+    FamilyHistoryCatalogItem,
     IdCatalogItem,
     InsuranceCatalogItem,
     LocalidadCatalogItem,
@@ -80,6 +81,17 @@ def list_age_groups(_: CatalogReader, db: DatabaseSession) -> list[AgeGroupCatal
 @router.get("/grupos-riesgo", response_model=list[RiskGroupCatalogItem])
 def list_risk_groups(_: CatalogReader, db: DatabaseSession) -> list[RiskGroupCatalogItem]:
     return CatalogService(db).risk_groups()
+
+
+@router.get("/historias-familiares", response_model=PageResponse[FamilyHistoryCatalogItem])
+def list_family_histories(
+    _: CatalogReader,
+    db: DatabaseSession,
+    q: SearchText = None,
+    limit: PageLimit = 25,
+    offset: PageOffset = 0,
+) -> PageResponse[FamilyHistoryCatalogItem]:
+    return CatalogService(db).family_histories(query=q, limit=limit, offset=offset)
 
 
 @router.get("/prestaciones", response_model=PageResponse[ServiceCatalogItem])

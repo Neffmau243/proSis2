@@ -196,6 +196,8 @@ class Establishment(Base):
         nullable=True,
     )
     codigo_renaes: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    #: Código DIRESA/DISA de tres caracteres que entrega la sede en SIS.
+    disa_codigo: Mapped[str | None] = mapped_column(String(3), nullable=True)
     # Site defaults, independent of the account's role or medical profession.
     fua_personal_atiende: Mapped[str] = mapped_column(String(20), nullable=False, server_default=text("'IPRESS'"))
     fua_lugar_atencion: Mapped[str] = mapped_column(String(20), nullable=False, server_default=text("'INTRAMURAL'"))

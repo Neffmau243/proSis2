@@ -79,4 +79,7 @@ class FuaPrintSnapshot(FuaPrintInput):
     imc: Decimal | None = None
     perimetro_abdominal_cm: Decimal | None = None
     grupo_atencion_codigo: str
+    #: FPP de la gestante; en una puérpera el mismo recuadro del formato lleva
+    #: la fecha real del parto.
     fecha_probable_parto: date | None = None
+    fecha_parto: date | None = None

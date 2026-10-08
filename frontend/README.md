@@ -174,6 +174,7 @@ adaptación móvil o una validación de escalabilidad.
 | `npm test` | Suite completa (Vitest) una vez. |
 | `npm run test:watch` | Suite en modo interactivo. |
 | `npm run test:coverage` | Suite con cobertura y umbrales. |
+| `npm run test:e2e` | E2E de navegador (Playwright) de la impresión FUA. |
 | `npm run lint:check` | Oxlint + ESLint sin modificar archivos. |
 | `npm run lint` | Oxlint + ESLint con correcciones. |
 | `npm run type-check` | Comprobación TypeScript/Vue. |
@@ -206,3 +207,16 @@ frontend, además del job de backend con MySQL 8.
 al build ESM -el que usa el navegador- para que la validación de Element Plus
 deje de resolver en silencio, y Element Plus se procesa con el resolvedor de
 Vite. Sin ellos, `el-form.validate()` informaría éxito con campos vacíos.
+
+### Pruebas de navegador (Playwright)
+
+`npm run test:e2e` ejecuta `e2e/fua-print.spec.ts` en un Chromium real: monta el
+arnés sintético de Vite, calibra la impresión FUA en milímetros, guarda la
+geometría en `localStorage` y captura el documento que se enviaría a la
+impresora (los datos del paciente, el tamaño de hoja `@page` y el aviso de que
+no se imprime el fondo ni los controles). No usa backend ni datos reales.
+
+Requiere un navegador de Playwright instalado (`npx playwright install
+chromium`) o, si ya hay uno en caché, apuntar a su ejecutable con
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE=/ruta/a/chrome`. El servidor de Vite lo levanta
+la propia configuración (`playwright.config.ts`).

@@ -63,6 +63,46 @@ def test_professional_registers_a_patient_with_derived_data(
     assert audit[0].usuario_id == clinic_scene.professional_user_id
 
 
+def test_personal_and_family_histories_persist_and_update_together(
+    clinic_scene, db_session: Session, create_patient, api_prefix
+) -> None:
+    """The two histories are distinct patient fields throughout the HTTP flow."""
+
+    token = uuid4().hex[:8].upper()
+    created = create_patient(
+        clinic_scene.professional_client,
+        historia_clinica=f"HC-{token}",
+        historia_familiar=f"HF-VERDE-{token}",
+    )
+    assert created["historia_clinica"] == f"HC-{token}"
+    assert created["historia_familiar"] == f"HF-VERDE-{token}"
+
+    stored = db_session.get(Patient, created["id"])
+    assert stored is not None
+    assert stored.historia_clinica == f"HC-{token}"
+    assert stored.historia_familiar == f"HF-VERDE-{token}"
+
+    updated = clinic_scene.professional_client.patch(
+        f"{api_prefix}/patients/{created['id']}",
+        json={
+            "historia_clinica": f"HC-ACTUALIZADA-{token}",
+            "historia_familiar": f"HF-AZUL-{token}",
+        },
+    )
+    assert updated.status_code == 200, updated.text
+    assert updated.json()["historia_clinica"] == f"HC-ACTUALIZADA-{token}"
+    assert updated.json()["historia_familiar"] == f"HF-AZUL-{token}"
+
+    reread = clinic_scene.professional_client.get(f"{api_prefix}/patients/{created['id']}")
+    assert reread.status_code == 200, reread.text
+    assert reread.json()["historia_clinica"] == f"HC-ACTUALIZADA-{token}"
+    assert reread.json()["historia_familiar"] == f"HF-AZUL-{token}"
+
+    db_session.refresh(stored)
+    assert stored.historia_clinica == f"HC-ACTUALIZADA-{token}"
+    assert stored.historia_familiar == f"HF-AZUL-{token}"
+
+
 def test_administrator_keeps_break_glass_read_access(
     clinic_scene, create_patient, api_prefix
 ) -> None:

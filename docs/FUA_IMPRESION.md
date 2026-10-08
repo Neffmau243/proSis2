@@ -62,9 +62,21 @@ este ajuste visual no requiere otra migración ni inventa datos para pacientes.
    **Imprimir solo datos** abre el diálogo del navegador; también puede elegir
    «Guardar como PDF». El RENIPRESS preimpreso no se sobreimprime.
 5. Si falta la afiliación, las casillas quedan vacías. El ETL o la captura
-   administrativa deben traer valores reales; no se asignan códigos por defecto
-   ni se copia automáticamente el DNI. No se consultó ni modificó la afiliación
-   de pacientes reales durante las pruebas de esta interfaz.
+administrativa deben traer valores reales; no se asignan códigos por defecto
+ni se copia automáticamente el DNI. No se consultó ni modificó la afiliación
+de pacientes reales durante las pruebas de esta interfaz.
+
+### Código del tipo de seguro de ETLSIS
+
+La tabla histórica `EESS_SIS` está mal nombrada: es el catálogo de seguros y
+no una relación de establecimientos. Sus códigos se conservaron en
+`seguros.codigo_sis`: `001` Sin seguro, `002` SIS Gratuito, `003` SIS
+Afiliación Temporal, `004` SIS Semi Subsidiado, `005` SIS NRUS, `006` SIS Para
+Todos, `007` EsSalud, `008` Sanidad y `009` Particular. El catálogo genérico
+`SIS` y `OTRO` no reciben un código artificial porque no identifican un plan
+de origen. Este código de catálogo **no es** la casilla `sis_tipo` del
+asegurado: esta última proviene de la afiliación/acreditación individual y no
+se deduce del nombre de su seguro.
 6. La reimpresión desde el detalle reutiliza la copia guardada; no hace otro POST
    de atención ni emite otro número.
 
@@ -86,10 +98,10 @@ reimprimirse con este flujo; requieren un procedimiento explícito de revisión.
 | Historia clínica | `historia_clinica_snapshot`, no la historia actual después de una modificación. |
 | Etnia | Código declarado del paciente, validado contra el catálogo activo de etnias del backend. No se infiere por nombre, aspecto o domicilio. |
 | Fecha y hora | `fecha_atencion`; si trae zona horaria, la copia usa America/Lima. No usa fecha de impresión ni la hora de fin. |
-| Peso, talla, PA, IMC, PAB | Valores de la atención; IMC calculado por el backend. Unidades kg, cm y mmHg. No imprime PA parcial. |
-| IPRESS | Nombre del catálogo. RENAES se reutiliza únicamente si contiene ocho dígitos. No se imprime RENIPRESS cuando la sede declara papel preimpreso. Nunca se usa el ID interno. |
+| Peso, talla, PA, IMC, PAB | Valores de la atención; IMC calculado por el backend. Unidades kg, cm y mmHg. No imprime PA parcial. El PAB solo se captura en el grupo general; gestantes y puérperas usan ese espacio del formato para la fecha de parto. |
+| IPRESS | Nombre del catálogo. Un RENAES numérico de hasta ocho dígitos se normaliza con ceros a la izquierda para la casilla RENIPRESS; nunca se usa el ID interno. No se sobreimprime cuando la sede declara papel preimpreso. |
 | Responsable | Nombre, documento y colegiatura del profesional verificado por el servicio. No imprime firmas ni sellos. |
-| Salud materna y FPP | Marcas según el grupo declarado y fecha probable de parto registrada. |
+| Salud materna y parto | Marcas según el grupo declarado. El recuadro de parto imprime la FPP de la gestante (`fecha_probable_parto`) o la fecha real del parto de la puérpera (`fecha_parto`, migración `20261007_0028_delivery_date`); en el grupo general queda vacío. |
 
 El contrato agrega `fua_datos` a `AttentionCreate` y `fua_impresion` a
 `AttentionResponse`. `fua_impresion` es JSON versionado, creado **por el servidor**
@@ -109,15 +121,26 @@ modifica las atenciones previas. Se aplicó a la base local durante la implement
 - Mediciones obligatorias según el caso pueden estar vacías en el sistema. Se
   advierte antes de imprimir y exige confirmar que se completarán manualmente
   las que correspondan; no se promete una FUA completa.
-- La admisión existente sustituye PAB por FPP para gestantes y borra PAB al
-  elegir ese grupo. Se preservó esa regla preexistente, sin reinterpretar una
-  medición clínica. PAB ausente aparece en los avisos; requiere revisión del flujo
-  asistencial si debe capturarse también para ese grupo.
+- El PAB solo se captura en el grupo general: la admisión lo cede a la fecha de
+  parto en gestantes y puérperas. Por eso los avisos previos a la impresión ya no
+  piden PAB en esos grupos y, en su lugar, piden la fecha del recuadro de parto
+  (FPP en gestantes, fecha real en puérperas). Si la IPRESS necesita PAB también
+  en salud materna, requiere revisar el flujo asistencial y volver a añadirlo.
 - No se imprimen aún prestaciones, diagnósticos, vacunas, hospitalización,
   destinos, firmas/sellos, datos de recién nacidos ni todos los campos preventivos.
-- `DocumentNumberFormatter` sigue produciendo un correlativo **interno**. El
-  botón de ese flujo se identifica como «Registrar FUA interno». La impresión no
-  lo usa, no sobrescribe la numeración preimpresa ni gestiona su asignación única.
+- El antiguo bloque de configuración `040 | 16 | 2 | 00001` procede de la
+  aplicación histórica de 2016 y no coincide con la estructura vigente del
+  número de FUA. El sistema lo conserva solo como evidencia en el archivo ETL;
+  no se usa para emitir ni imprimir.
+- Al registrar un FUA, la aplicación usa `RENIPRESS(8) | lote(2) |
+  correlativo(8)`: por ejemplo, la fuente `0001291` se normaliza a `00001291`
+  y para 2026 el resultado inicial es `00001291-26-00000001`. El RENIPRESS se
+  toma del catálogo de la IPRESS; nunca del ID interno ni de campos editables
+  por el usuario. La secuencia es atómica por sede y año de emisión.
+- Este formato no sustituye la asignación de rango que debe confirmar la
+  DIRESA/GERESA, la Red o la UDR. Antes de usarlo como FUA oficial, la IPRESS
+  debe verificar el RENIPRESS activo y que el correlativo local no se cruce con
+  sus formatos preimpresos o con otro sistema. No existe aún integración SETI.
 
 ## Calibración y privacidad
 

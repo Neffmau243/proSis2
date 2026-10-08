@@ -115,6 +115,12 @@ class Fua(Base):
         nullable=False,
     )
     numero_fua: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    # The components of the current SIS number are persisted independently so
+    # that a printed/exported FUA can be traced without parsing presentation
+    # text.  The older ``codigo_*`` fields are retained only for legacy rows.
+    codigo_renipress: Mapped[str | None] = mapped_column(String(8), nullable=True)
+    lote_fua: Mapped[str | None] = mapped_column(String(2), nullable=True)
+    correlativo_fua: Mapped[str | None] = mapped_column(String(8), nullable=True)
     codigo_ciudad: Mapped[str | None] = mapped_column(String(50), nullable=True)
     codigo_anio: Mapped[str | None] = mapped_column(String(20), nullable=True)
     codigo_eess: Mapped[str | None] = mapped_column(String(50), nullable=True)

@@ -1,7 +1,7 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import { createPinia } from 'pinia'
 import { createMemoryHistory, createRouter } from 'vue-router'
-import ElementPlus, { ElFormItem, ElInputNumber, ElSelect } from 'element-plus'
+import ElementPlus, { ElDatePicker, ElFormItem, ElInputNumber, ElSelect } from 'element-plus'
 import { afterEach, expect, test, vi } from 'vitest'
 import AtencionNuevaView from '@/views/AtencionNuevaView.vue'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
@@ -156,14 +156,25 @@ test(
     field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
     field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
     await wrapper.get('input[value="EMERGENCIA"]').setValue(true)
+    expect(wrapper.text()).toContain('Perímetro abdominal (cm)')
     await wrapper.get('input[value="GESTANTES"]').setValue(true)
     expect(wrapper.text()).toContain('Fecha probable de parto')
+    expect(wrapper.text()).not.toContain('Fecha del parto')
     expect(wrapper.text()).not.toContain('Perímetro abdominal (cm)')
+    field('Tipo de embarazo').getComponent(ElSelect).vm.$emit('update:modelValue', 'UNICO')
     field('Peso antes del embarazo (kg)')
       .getComponent(ElInputNumber)
       .vm.$emit('update:modelValue', 55)
     await wrapper.get('input[value="PUERPERAS"]').setValue(true)
+    // Puérperas comparte tipo de embarazo y peso previo; la FPP deja su lugar
+    // a la fecha real del parto y el perímetro abdominal no aplica.
+    expect(wrapper.text()).toContain('Tipo de embarazo')
+    expect(wrapper.text()).toContain('Fecha del parto')
     expect(wrapper.text()).not.toContain('Fecha probable de parto')
+    expect(wrapper.text()).not.toContain('Perímetro abdominal (cm)')
+    field('Fecha del parto')
+      .getComponent(ElDatePicker)
+      .vm.$emit('update:modelValue', '2026-09-20')
     field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 60)
     field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 160)
     await flushPromises()
@@ -182,8 +193,10 @@ test(
       grupo_atencion_codigo: 'PUERPERAS',
       peso_kg: 60,
       talla_cm: 160,
-      peso_antes_embarazo_kg: null,
+      tipo_embarazo_codigo: 'UNICO',
+      peso_antes_embarazo_kg: 55,
       fecha_probable_parto: null,
+      fecha_parto: '2026-09-20',
     })
     expect(create.mock.calls[0]?.[0].fecha_atencion).toMatch(/^\d{4}-\d{2}-\d{2}T/)
     expect(create.mock.calls[0]?.[0]).not.toHaveProperty('condicion')

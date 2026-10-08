@@ -29,9 +29,9 @@ class ReferralStatus(str, Enum):
 
 
 class FuaIssueInput(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     atencion_id: Annotated[int, Field(gt=0)]
-    codigo_ciudad: Annotated[str, Field(max_length=50)] | None = None
-    codigo_eess: Annotated[str, Field(max_length=50)] | None = None
     observaciones: str | None = None
 
 
@@ -83,6 +83,11 @@ class FuaResponse(BaseModel):
     id: int
     atencion_id: int
     numero_fua: str | None
+    codigo_renipress: str | None
+    lote_fua: str | None
+    correlativo_fua: str | None
+    # Compatibility data from the legacy FUA model. New FUA records leave
+    # these blank; they are not the official SIS number components.
     codigo_ciudad: str | None
     codigo_anio: str | None
     codigo_eess: str | None

@@ -15,7 +15,7 @@ def fixtures():
         historia_clinica_snapshot="HC-005", peso_kg=Decimal("60"), talla_cm=Decimal("160"),
         presion_sistolica=120, presion_diastolica=80, imc=Decimal("23.438"),
         perimetro_abdominal_cm=Decimal("80"), grupo_atencion_codigo="GESTANTES",
-        fecha_probable_parto=date(2027, 1, 1),
+        fecha_probable_parto=date(2027, 1, 1), fecha_parto=None,
     )
     patient = SimpleNamespace(
         insurance=SimpleNamespace(codigo="SIS", regimen="SIS"),
@@ -49,9 +49,24 @@ def test_snapshot_maps_official_document_code_and_keeps_server_owned_values():
     assert FuaPrintSnapshot.model_validate(result).version == 2
 
 
+def test_puerperal_snapshot_carries_the_real_delivery_date_not_the_due_date():
+    """El recuadro de parto del formato sirve a ambos grupos sin confundir fechas."""
+
+    a, p, s, professional = fixtures()
+    a.grupo_atencion_codigo = "PUERPERAS"
+    a.fecha_probable_parto = None
+    a.fecha_parto = date(2026, 9, 20)
+
+    result = build_fua_snapshot(a, p, s, professional, None)
+
+    assert result["grupo_atencion_codigo"] == "PUERPERAS"
+    assert result["fecha_parto"] == "2026-09-20"
+    assert result["fecha_probable_parto"] is None
+
+
 def test_missing_values_are_not_invented_and_internal_ids_are_not_renipress():
     a, p, s, professional = fixtures()
-    s.codigo_renaes = "1234"
+    s.codigo_renaes = "código no verificado"
     p.tipo_documento_codigo = "PAS"
     result = build_fua_snapshot(a, p, s, professional, None)
     assert result["codigo_renipress"] is None
@@ -62,6 +77,13 @@ def test_missing_values_are_not_invented_and_internal_ids_are_not_renipress():
     assert result["lugar_atencion"] == "INTRAMURAL"
     assert result["renipress_preimpreso"] is True
     assert "numero_fua" not in result
+
+
+def test_numeric_source_renipress_is_normalized_to_the_eight_digit_fua_box():
+    a, p, s, professional = fixtures()
+    s.codigo_renaes = "0001291"
+
+    assert build_fua_snapshot(a, p, s, professional, None)["codigo_renipress"] == "00001291"
 
 
 @pytest.mark.parametrize("value", [

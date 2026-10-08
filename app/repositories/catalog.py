@@ -21,7 +21,7 @@ from app.models.catalog import (
     Specialty,
 )
 from app.models.organization import Establishment, Localidad, Office, Ubigeo
-from app.models.patient import RiskGroup
+from app.models.patient import Patient, RiskGroup
 from app.models.security import Professional
 
 
@@ -68,6 +68,26 @@ class CatalogRepository:
 
     def list_risk_groups(self) -> list[RiskGroup]:
         return self._list_active(RiskGroup, RiskGroup.nombre, RiskGroup.id)
+
+    def page_family_histories(
+        self, *, query: str | None, limit: int, offset: int
+    ) -> CatalogPage[str]:
+        """Return the reusable, non-empty family codes already in the register."""
+
+        code = func.trim(Patient.historia_familiar)
+        conditions = [
+            Patient.estado.is_(True),
+            Patient.historia_familiar.is_not(None),
+            code != "",
+        ]
+        if query:
+            conditions.append(code.ilike(self._contains_pattern(query), escape="\\"))
+        statement = select(code).where(*conditions).distinct().order_by(code)
+        count_statement = select(func.count(func.distinct(code))).where(*conditions)
+        return CatalogPage(
+            items=list(self._session.scalars(statement.limit(limit).offset(offset))),
+            total=int(self._session.scalar(count_statement) or 0),
+        )
 
     def page_services(self, *, query: str | None, limit: int, offset: int) -> CatalogPage[ServiceOffering]:
         conditions = [ServiceOffering.activo.is_(True)]

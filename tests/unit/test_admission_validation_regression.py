@@ -93,6 +93,51 @@ def test_non_sis_creation_rejects_affiliation(environment):
     assert repo.created_patient_count == 0
 
 
+def test_switching_sis_plan_updates_patient_type_from_etlsis_code(environment):
+    service, repo, _session, _audit = environment
+    patient = service.create(
+        adult_command(
+            seguro_id=2,
+            sis_diresa="040",
+            sis_tipo="2",
+            sis_numero="00000001",
+        ),
+        actor_id=41,
+    )
+    repo.get_active_insurance = lambda _insurance_id: type(
+        "Insurance", (), {"codigo": "SIS_NRUS", "regimen": "SIS", "codigo_sis": "005"}
+    )()
+
+    updated = service.update(patient.id, PatientUpdate(seguro_id=2), actor_id=41)
+
+    assert updated.sis_tipo == "05"
+
+
+def test_switching_establishment_updates_sis_diresa_from_its_catalog_code(environment):
+    service, repo, _session, _audit = environment
+    patient = service.create(
+        adult_command(
+            seguro_id=2,
+            sis_diresa="039",
+            sis_tipo="05",
+            sis_numero="00000001",
+        ),
+        actor_id=41,
+    )
+    repo.get_active_establishment = lambda _establishment_id: type(
+        "Establishment", (), {"disa_codigo": "040"}
+    )()
+
+    updated = service.update(
+        patient.id,
+        PatientUpdate(establecimiento_registro_id=99),
+        actor_id=41,
+    )
+
+    assert updated.establecimiento_registro_id == 99
+    assert updated.sis_diresa == "040"
+
+
 def test_legacy_stale_affiliation_never_leaks_to_new_fua():
     a, p, site, professional = fixtures()
     p.sis_diresa, p.sis_tipo, p.sis_numero, p.sis_secuencia = "040", "2", "00000001", "01"
@@ -103,18 +148,18 @@ def test_legacy_stale_affiliation_never_leaks_to_new_fua():
     assert old["sis_numero"] == "00000001"
 
 
-@pytest.mark.parametrize("group", ["NINOS_ADOLESCENTES_ADULTOS_MAYORES", "PUERPERAS", "GESTANTES"])
-@pytest.mark.parametrize(
-    "field,value",
-    [
-        ("tipo_embarazo_codigo", "UNICO"),
-        ("peso_antes_embarazo_kg", 55),
-        ("fecha_probable_parto", "2027-03-01"),
-        ("valoracion_nutricional", {"edad_gestacional_semanas": 12}),
-    ],
-)
-def test_pregnancy_fields_require_pregnant_group(group, field, value):
-    payload = dict(
+#: Compartidos por ambos grupos maternos: pluralidad y peso previo.
+SHARED_OBSTETRIC = {"tipo_embarazo_codigo": "UNICO", "peso_antes_embarazo_kg": 55}
+#: Exclusivos de la gestación en curso.
+GESTATIONAL_ONLY = {
+    "fecha_probable_parto": "2027-03-01",
+    "valoracion_nutricional": {"edad_gestacional_semanas": 12},
+}
+DELIVERY_DATE = {"fecha_parto": "2026-09-20"}
+
+
+def _attention(group, **extra):
+    return dict(
         paciente_id=1,
         establecimiento_id=1,
         profesional_id=1,
@@ -122,10 +167,39 @@ def test_pregnancy_fields_require_pregnant_group(group, field, value):
         modalidad_atencion_codigo="EMERGENCIA",
         fecha_atencion=datetime(2026, 10, 1),
         grupo_atencion_codigo=group,
-        **{field: value},
+        **extra,
     )
-    if group == "GESTANTES":
-        assert getattr(AttentionCreate(**payload), field) is not None
-    else:
-        with pytest.raises(ValidationError, match="GESTANTES"):
-            AttentionCreate(**payload)
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [*SHARED_OBSTETRIC.items(), *GESTATIONAL_ONLY.items(), *DELIVERY_DATE.items()],
+)
+def test_general_group_rejects_every_obstetric_field(field, value):
+    with pytest.raises(ValidationError, match="GESTANTES y PUERPERAS"):
+        AttentionCreate(**_attention("NINOS_ADOLESCENTES_ADULTOS_MAYORES", **{field: value}))
+
+
+@pytest.mark.parametrize("field,value", [*SHARED_OBSTETRIC.items(), *GESTATIONAL_ONLY.items()])
+def test_pregnant_group_accepts_shared_and_gestational_fields(field, value):
+    created = AttentionCreate(**_attention("GESTANTES", **{field: value}))
+
+    assert getattr(created, field) is not None
+
+
+@pytest.mark.parametrize("field,value", [*SHARED_OBSTETRIC.items(), *DELIVERY_DATE.items()])
+def test_puerperal_group_accepts_shared_fields_and_the_delivery_date(field, value):
+    created = AttentionCreate(**_attention("PUERPERAS", **{field: value}))
+
+    assert getattr(created, field) is not None
+
+
+@pytest.mark.parametrize("field,value", [*GESTATIONAL_ONLY.items()])
+def test_puerperal_group_rejects_the_gestational_due_date(field, value):
+    with pytest.raises(ValidationError, match="GESTANTES"):
+        AttentionCreate(**_attention("PUERPERAS", **{field: value}))
+
+
+def test_delivery_date_requires_the_puerperal_group():
+    with pytest.raises(ValidationError, match="PUERPERAS"):
+        AttentionCreate(**_attention("GESTANTES", fecha_parto="2026-09-20"))
