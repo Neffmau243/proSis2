@@ -49,6 +49,7 @@ def build_fua_snapshot(
     moment = attention.fecha_atencion
     if moment.tzinfo is not None:
         moment = moment.astimezone(ZoneInfo("America/Lima"))
+    nutrition = getattr(attention, "valoracion_calculada", None) or {}
     snapshot = FuaPrintSnapshot(
         **values,
         version=2,
@@ -75,6 +76,17 @@ def build_fua_snapshot(
         presion_sistolica=attention.presion_sistolica,
         presion_diastolica=attention.presion_diastolica,
         imc=attention.imc,
+        grupo_referencia=nutrition.get("grupo_referencia"),
+        estado_nutricional=nutrition.get("estado"),
+        pe=getattr(attention, "pe", None),
+        te=getattr(attention, "te", None),
+        pt=getattr(attention, "pt", None),
+        diagnostico_peso_edad=nutrition.get("diagnostico_peso_edad"),
+        diagnostico_talla_edad=nutrition.get("diagnostico_talla_edad"),
+        diagnostico_peso_talla=nutrition.get("diagnostico_peso_talla"),
+        diagnostico_imc=nutrition.get("diagnostico_imc"),
+        imc_pregestacional=nutrition.get("imc_pregestacional"),
+        ganancia_peso_kg=nutrition.get("ganancia_peso_kg"),
         perimetro_abdominal_cm=attention.perimetro_abdominal_cm,
         grupo_atencion_codigo=attention.grupo_atencion_codigo,
         fecha_probable_parto=attention.fecha_probable_parto,

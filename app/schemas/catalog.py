@@ -30,9 +30,13 @@ class InsuranceCatalogItem(IdCatalogItem):
 
 
 class FamilyHistoryCatalogItem(BaseModel):
-    """A reusable family-history code already registered by the IPRESS."""
+    """Prefix that can be combined with the local numeric family identifier."""
 
-    codigo: str = Field(min_length=1)
+    codigo: str = Field(min_length=2, max_length=4)
+    nombre: str
+    tipo: str
+    color_hex: str | None = None
+    activo: bool
 
 
 class LocalidadCatalogItem(BaseModel):

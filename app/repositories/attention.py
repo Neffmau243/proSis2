@@ -29,6 +29,7 @@ class AttentionRepository:
                 selectinload(Attention.diagnosticos),
                 selectinload(Attention.paciente),
                 selectinload(Attention.consultorio),
+                selectinload(Attention.evaluaciones_nutricionales),
             )
             .where(Attention.id == attention_id)
         )
@@ -50,6 +51,7 @@ class AttentionRepository:
                 selectinload(Attention.diagnosticos),
                 selectinload(Attention.paciente),
                 selectinload(Attention.consultorio),
+                selectinload(Attention.evaluaciones_nutricionales),
             )
             .where(Attention.paciente_id == patient_id)
             .order_by(Attention.fecha_atencion.desc())

@@ -10,13 +10,21 @@ import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterH
 import { aPatient } from '../fixtures/patient'
 
 const { create, get, listByPatient, previewNutritionalIndicators } = vi.hoisted(() => ({
-  previewNutritionalIndicators: vi.fn(async () => ({ estado: 'DATOS_INCOMPLETOS', mensaje: 'Ingrese peso y talla', pe: null, te: null, pt: null })),
+  previewNutritionalIndicators: vi.fn(async () => ({
+    estado: 'DATOS_INCOMPLETOS',
+    mensaje: 'Ingrese peso y talla',
+    pe: null,
+    te: null,
+    pt: null,
+  })),
   create: vi.fn(),
   get: vi.fn(),
   listByPatient: vi.fn(async () => []),
 }))
 vi.mock('@/services/pacientes', () => ({ pacientes: { get } }))
-vi.mock('@/services/atenciones', () => ({ atenciones: { create, listByPatient, previewNutritionalIndicators } }))
+vi.mock('@/services/atenciones', () => ({
+  atenciones: { create, listByPatient, previewNutritionalIndicators },
+}))
 vi.mock('@/services/catalogos', () => ({
   catalogos: {
     especialidades: async () => [{ codigo: '001', nombre: 'MEDICINA' }],
@@ -42,77 +50,199 @@ const mounted: { unmount: () => void }[] = []
 
 test('la edad y la valoración se actualizan con nacimiento y fecha de atención', async () => {
   const wrapper = await mountAdmission()
-  await new Promise(resolve => setTimeout(resolve, 400))
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
   previewNutritionalIndicators.mockResolvedValueOnce({
-    estado: 'CALCULADO', grupo_referencia: 'INFANTIL', mensaje: 'OMS 2006',
-    imc: '16.799', pe: '-0.147', te: '-0.243', pt: '-0.056',
-    diagnostico_peso_edad: 'Normal', diagnostico_talla_edad: 'Normal', diagnostico_peso_talla: 'Normal',
+    estado: 'CALCULADO',
+    grupo_referencia: 'INFANTIL',
+    mensaje: 'OMS 2006',
+    imc: '16.799',
+    pe: '-0.147',
+    te: '-0.243',
+    pt: '-0.056',
+    diagnostico_peso_edad: 'Normal',
+    diagnostico_talla_edad: 'Normal',
+    diagnostico_peso_talla: 'Normal',
   } as never)
-  wrapper.getComponent(AdmissionPatientSummary).vm.$emit('saved', aPatient({ fecha_nacimiento: '2025-01-15' }))
-  wrapper.getComponent(AdmissionEncounterHeader).vm.$emit('update:modelValue', '2026-01-15T09:00:00')
-  const field = (label: string) => wrapper.findAllComponents(ElFormItem).find(item => item.props('label') === label)!
+  wrapper
+    .getComponent(AdmissionPatientSummary)
+    .vm.$emit('saved', aPatient({ fecha_nacimiento: '2025-01-15' }))
+  wrapper
+    .getComponent(AdmissionEncounterHeader)
+    .vm.$emit('update:modelValue', '2026-01-15T09:00:00')
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
   field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 9.5)
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 75.2)
-  await new Promise(resolve => setTimeout(resolve, 400))
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
   expect(wrapper.get('.nutrition-age__value').text()).toMatch(/^1 año/)
-  expect(previewNutritionalIndicators).toHaveBeenLastCalledWith(expect.objectContaining({
-    paciente_id: 100, fecha_atencion: '2026-01-15T09:00:00', peso_kg: 9.5, talla_cm: 75.2,
-  }))
-  expect((field('Diagnóstico P/E').get('input').element as HTMLInputElement).value).toBe('Normal · Z: -0.147')
+  expect(previewNutritionalIndicators).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      paciente_id: 100,
+      fecha_atencion: '2026-01-15T09:00:00',
+      peso_kg: 9.5,
+      talla_cm: 75.2,
+    }),
+  )
+  const rows = wrapper.findAll('.nutrition-table tr')
+  expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows[0]!.get('td').text()).toBe('Normal · Z: -0.147')
 })
 
-test('escribir peso y talla muestra el IMC adulto sin salir del campo y lo descarta al borrar', async () => {
+test('el adulto muestra IMC y diagnóstico en la valoración compacta', async () => {
   const wrapper = await mountAdmission()
-  await new Promise(resolve => setTimeout(resolve, 400))
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  const field = (label: string) => wrapper.findAllComponents(ElFormItem).find(item => item.props('label') === label)!
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
   previewNutritionalIndicators.mockResolvedValueOnce({
-    estado: 'CALCULADO', grupo_referencia: 'ADULTO', imc: '24.691', diagnostico_imc: 'Normal',
-    mensaje: 'Valoración por IMC; interpretar junto con la evaluación clínica.', pe: null, te: null, pt: null,
+    estado: 'CALCULADO',
+    grupo_referencia: 'ADULTO',
+    imc: '24.691',
+    diagnostico_imc: 'Normal',
+    mensaje: 'Valoración por IMC; interpretar junto con la evaluación clínica.',
+    pe: null,
+    te: null,
+    pt: null,
   } as never)
-  for (const [label, value] of [['Peso actual (kg)', '80'], ['Talla (cm)', '180']]) {
+  for (const [label, value] of [
+    ['Peso actual (kg)', '80'],
+    ['Talla (cm)', '180'],
+  ]) {
     const input = field(label!).get('input')
     ;(input.element as HTMLInputElement).value = value!
     await input.trigger('input')
   }
-  await new Promise(resolve => setTimeout(resolve, 400))
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect(previewNutritionalIndicators).toHaveBeenLastCalledWith(expect.objectContaining({ peso_kg: 80, talla_cm: 180 }))
-  const status = wrapper.get('.clinical-section--nutrition [role="status"]')
-  expect(status.text()).toContain('IMC: 24.691 · Normal')
-  expect(status.text()).not.toContain('Ingrese peso y talla')
-  for (const label of ['Diagnóstico P/E', 'Diagnóstico T/E', 'Diagnóstico P/T']) {
-    expect((field(label).get('input').element as HTMLInputElement).value).toBe('No aplica')
-  }
-  expect(wrapper.findAllComponents(ElFormItem).some(item => item.props('label') === 'Diagnóstico por IMC')).toBe(false)
+  expect(previewNutritionalIndicators).toHaveBeenLastCalledWith(
+    expect.objectContaining({ peso_kg: 80, talla_cm: 180 }),
+  )
+  const rows = wrapper.findAll('.nutrition-table tr')
+  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC'])
+  expect(rows[0]!.get('td').text()).toBe('24.691')
+  expect(rows[1]!.get('td').text()).toBe('Normal')
+  expect(wrapper.text()).not.toContain('Datos complementarios de nutrición')
+  expect(wrapper.text()).not.toContain('Códigos del registro legado')
   const height = field('Talla (cm)').get('input')
   ;(height.element as HTMLInputElement).value = ''
   await height.trigger('input')
-  expect(status.text()).toBe('Calculando…')
-  await new Promise(resolve => setTimeout(resolve, 400))
+  expect(wrapper.get('.nutrition-table').text()).toContain('Calculando…')
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect(status.text()).not.toContain('24.691')
+  expect(wrapper.get('.nutrition-table').text()).not.toContain('24.691')
+})
+
+test('la gestante identifica el IMC pregestacional y su diagnóstico', async () => {
+  const wrapper = await mountAdmission()
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
+  previewNutritionalIndicators.mockResolvedValueOnce({
+    estado: 'CALCULADO',
+    grupo_referencia: 'GESTANTE',
+    imc: '25.391',
+    imc_pregestacional: '22.491',
+    ganancia_peso_kg: '10',
+    diagnostico_imc: 'Normal',
+    mensaje: 'Valoración materna',
+    pe: null,
+    te: null,
+    pt: null,
+  } as never)
+  field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 68)
+  field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 163)
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const rows = wrapper.findAll('.nutrition-table tr')
+  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC', 'Ganancia de peso'])
+  expect(rows.map((row) => row.get('td').text())).toEqual(['22.491', 'Normal', '10 kg'])
+})
+
+test('la puérpera muestra solo IMC y Dx IMC', async () => {
+  const wrapper = await mountAdmission()
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
+  previewNutritionalIndicators.mockResolvedValueOnce({
+    estado: 'CALCULADO',
+    grupo_referencia: 'PUERPERA',
+    imc: '25.000',
+    imc_pregestacional: '21.484',
+    ganancia_peso_kg: '9',
+    diagnostico_imc: 'Normal',
+    mensaje: 'Seguimiento puerperal',
+    pe: null,
+    te: null,
+    pt: null,
+  } as never)
+  field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 64)
+  field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 160)
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const rows = wrapper.findAll('.nutrition-table tr')
+  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC'])
+  expect(rows.map((row) => row.get('td').text())).toEqual(['21.484', 'Normal'])
+  expect(wrapper.get('.nutrition-table').text()).not.toContain('Ganancia de peso')
+})
+
+test('el escolar conserva claramente P/E, T/E y P/T en el panel compacto', async () => {
+  const wrapper = await mountAdmission()
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
+  previewNutritionalIndicators.mockResolvedValueOnce({
+    estado: 'CALCULADO',
+    grupo_referencia: 'ESCOLAR',
+    imc: '18.200',
+    imc_edad: '1.250',
+    diagnostico_imc: 'Sobrepeso',
+    mensaje: 'OMS 2007',
+    pe: null,
+    te: '-0.500',
+    pt: null,
+  } as never)
+  field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 42)
+  field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 152)
+  await new Promise((resolve) => setTimeout(resolve, 400))
+  await flushPromises()
+  const rows = wrapper.findAll('.nutrition-table tr')
+  expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows.map((row) => row.get('td').text())).toEqual(['No aplica', 'Z: -0.500', 'No aplica'])
 })
 
 test('la valoración muestra cálculos de solo lectura y descarta resultados al borrar medidas', async () => {
   const wrapper = await mountAdmission()
-  const field = (label: string) => wrapper.findAllComponents(ElFormItem).find(item => item.props('label') === label)!
-  previewNutritionalIndicators.mockResolvedValueOnce({ estado: 'CALCULADO', mensaje: 'OMS 2006', pe: '-0.147', te: '-0.243', pt: '-0.056', diagnostico_peso_edad: 'Normal', diagnostico_talla_edad: 'Normal', diagnostico_peso_talla: 'Normal' } as never)
+  wrapper
+    .getComponent(AdmissionPatientSummary)
+    .vm.$emit('saved', aPatient({ fecha_nacimiento: '2025-01-15' }))
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
+  previewNutritionalIndicators.mockResolvedValueOnce({
+    estado: 'CALCULADO',
+    mensaje: 'OMS 2006',
+    pe: '-0.147',
+    te: '-0.243',
+    pt: '-0.056',
+    diagnostico_peso_edad: 'Normal',
+    diagnostico_talla_edad: 'Normal',
+    diagnostico_peso_talla: 'Normal',
+  } as never)
   field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 9.5)
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 75.2)
-  await new Promise(resolve => setTimeout(resolve, 400))
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  const output = field('Diagnóstico P/E').get('input')
-  expect(output.attributes('readonly')).toBeDefined()
-  expect((output.element as HTMLInputElement).value).toBe('Normal · Z: -0.147')
+  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('Normal · Z: -0.147')
   field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', null)
   await flushPromises()
-  expect((field('Diagnóstico P/E').get('input').element as HTMLInputElement).value).toBe('Calculando…')
-  await new Promise(resolve => setTimeout(resolve, 400))
+  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('Calculando…')
+  await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect((field('Diagnóstico P/E').get('input').element as HTMLInputElement).value).toBe('No disponible')
+  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('No disponible')
 })
 afterEach(() => {
   while (mounted.length) mounted.pop()?.unmount()
@@ -172,9 +302,7 @@ test(
     expect(wrapper.text()).toContain('Fecha del parto')
     expect(wrapper.text()).not.toContain('Fecha probable de parto')
     expect(wrapper.text()).not.toContain('Perímetro abdominal (cm)')
-    field('Fecha del parto')
-      .getComponent(ElDatePicker)
-      .vm.$emit('update:modelValue', '2026-09-20')
+    field('Fecha del parto').getComponent(ElDatePicker).vm.$emit('update:modelValue', '2026-09-20')
     field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 60)
     field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 160)
     await flushPromises()

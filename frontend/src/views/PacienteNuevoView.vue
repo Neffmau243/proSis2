@@ -14,6 +14,7 @@ import {
   catalogos,
   type CodeCatalogItem,
   type EstablishmentCatalogItem,
+  type FamilyHistoryCatalogItem,
   type IdCatalogItem,
   type LocalidadCatalogItem,
   type RiskGroupCatalogItem,
@@ -23,6 +24,7 @@ import { pacientes } from '@/services/pacientes'
 import { emptyPatientSis, patientSisErrors } from '@/utils/patientSis'
 import { documentProblem } from '@/utils/patientDocument'
 import { clearSisAffiliation, isSisInsurance } from '@/utils/patientInsurance'
+import { familyHistoryProblem } from '@/utils/familyHistory'
 
 const route = useRoute()
 const router = useRouter()
@@ -54,8 +56,11 @@ const ubigeos = ref<UbigeoCatalogItem[]>([])
 const ubigeosLoading = ref(false)
 const localidades = ref<LocalidadCatalogItem[]>([])
 const localidadesLoading = ref(false)
+const historiasFamiliares = ref<FamilyHistoryCatalogItem[]>([])
+const historiasFamiliaresLoading = ref(false)
 
 const form = reactive<PatientRegistrationDraft>({
+  sufijo_documento: '',
   ...emptyPatientSis(),
   tipo_documento_codigo: '',
   numero_documento: '',
@@ -111,6 +116,15 @@ const rules: FormRules = {
         callback()
       },
       trigger: 'change',
+    },
+  ],
+  historia_familiar: [
+    {
+      validator: (_rule, value: string, callback) => {
+        const problem = familyHistoryProblem(value)
+        callback(problem ? new Error(problem) : undefined)
+      },
+      trigger: ['blur', 'change'],
     },
   ],
 }
@@ -186,6 +200,7 @@ async function submit(): Promise<void> {
     const created = await pacientes.create({
       tipo_documento_codigo: form.tipo_documento_codigo,
       numero_documento: form.numero_documento,
+      sufijo_documento: form.sufijo_documento?.trim() || null,
       historia_clinica: form.historia_clinica || null,
       historia_familiar: form.historia_familiar || null,
       fecha_nacimiento: form.fecha_nacimiento,
@@ -234,16 +249,23 @@ async function submit(): Promise<void> {
 }
 
 onMounted(async () => {
-  const [tipos, sexosResult, segurosResult, riesgosResult] = await Promise.all([
-    catalogos.tiposDocumento(),
-    catalogos.sexos(),
-    catalogos.seguros(),
-    catalogos.gruposRiesgo(),
-  ])
-  tiposDocumento.value = tipos
-  sexos.value = sexosResult
-  seguros.value = segurosResult
-  gruposRiesgo.value = riesgosResult
+  historiasFamiliaresLoading.value = true
+  try {
+    const [tipos, sexosResult, segurosResult, riesgosResult, historiasResult] = await Promise.all([
+      catalogos.tiposDocumento(),
+      catalogos.sexos(),
+      catalogos.seguros(),
+      catalogos.gruposRiesgo(),
+      catalogos.historiasFamiliares(undefined, 50, 0),
+    ])
+    tiposDocumento.value = tipos
+    sexos.value = sexosResult
+    seguros.value = segurosResult
+    gruposRiesgo.value = riesgosResult
+    historiasFamiliares.value = historiasResult.items
+  } finally {
+    historiasFamiliaresLoading.value = false
+  }
 })
 </script>
 
@@ -279,6 +301,8 @@ onMounted(async () => {
             :ubigeos-loading="ubigeosLoading"
             :localidades="localidades"
             :localidades-loading="localidadesLoading"
+            :historias-familiares="historiasFamiliares"
+            :historias-familiares-loading="historiasFamiliaresLoading"
             @update="updatePatientForm"
             @search-establecimientos="searchEstablecimientos"
             @search-ubigeos="searchUbigeos"

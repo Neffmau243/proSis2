@@ -23,6 +23,10 @@ export interface InsuranceCatalogItem extends IdCatalogItem {
 
 export interface FamilyHistoryCatalogItem {
   codigo: string
+  nombre: string
+  tipo: 'COLOR' | 'SECTOR'
+  color_hex: string | null
+  activo: boolean
 }
 
 export interface SpecialtyCatalogItem extends CodeCatalogItem {

@@ -1,6 +1,7 @@
 import type { Patient, PatientUpdatePayload } from '../services/pacientes'
 import { patientSisErrors, patientSisFields } from './patientSis.ts'
 import { documentProblem } from './patientDocument.ts'
+import { familyHistoryProblem } from './familyHistory.ts'
 
 /** General controls; the SIS contract is grouped directly below the insurance selector. */
 export const patientFields = [
@@ -8,6 +9,7 @@ export const patientFields = [
   { key: 'historia_familiar', label: 'Historia familiar', kind: 'text' },
   { key: 'tipo_documento_codigo', label: 'Tipo documento', kind: 'select', required: true },
   { key: 'numero_documento', label: 'N.° documento', kind: 'text', max: 30, required: true },
+  { key: 'sufijo_documento', label: 'Sufijo documento (origen)', kind: 'text', max: 10 },
   { key: 'fecha_nacimiento', label: 'Fecha nacimiento', kind: 'date', required: true },
   { key: 'apellido_paterno', label: 'Apellido paterno', kind: 'text', max: 100 },
   { key: 'apellido_materno', label: 'Apellido materno', kind: 'text', max: 100 },
@@ -68,6 +70,8 @@ export function validatePatientDraft(
   baseline?: PatientDraft,
 ): PatientDraftErrors {
   const errors: PatientDraftErrors = { ...patientSisErrors(draft) }
+  if (draft.sufijo_documento && !/^[A-Za-z0-9]{1,10}$/.test(draft.sufijo_documento.trim()))
+    errors.sufijo_documento = 'Use de 1 a 10 letras o dígitos; deje vacío si no lo conoce.'
   for (const field of patientFields) {
     const value = normalized(draft[field.key])
     if ('required' in field && field.required && value === null) {
@@ -110,5 +114,12 @@ export function validatePatientDraft(
     ? documentProblem(draft.tipo_documento_codigo, draft.numero_documento)
     : null
   if (documentError) errors.numero_documento = documentError
+  const familyHistoryChanged =
+    !baseline ||
+    normalized(draft.historia_familiar) !== normalized(baseline.historia_familiar)
+  const familyHistoryError = familyHistoryChanged
+    ? familyHistoryProblem(draft.historia_familiar)
+    : null
+  if (familyHistoryError) errors.historia_familiar = familyHistoryError
   return errors
 }

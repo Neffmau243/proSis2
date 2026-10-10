@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
@@ -17,7 +18,9 @@ from app.schemas.attention import (
     NutritionalIndicatorsPreviewInput,
     NutritionalIndicatorsResponse,
 )
+from app.schemas.nutrition_record import NutritionSendConfirmation
 from app.services.attention import AttentionService
+from app.services.nutrition_export import NutritionExportService
 
 router = APIRouter(prefix="/atenciones", tags=["Atenciones"])
 
@@ -31,6 +34,27 @@ AttentionReader = Annotated[
 AttentionCanceller = Annotated[
     AuthenticatedPrincipal, Depends(require_permissions(Permissions.ATTENTION_CANCEL))
 ]
+
+
+@router.post("/{attention_id}/nutricion/exportacion")
+def export_nutrition(attention_id: int, principal: AttentionCreator, db: DatabaseSession):
+    result = NutritionExportService(db).export_review(
+        attention_id, actor_id=principal.user_id, actor_roles=principal.roles,
+    )
+    return JSONResponse(result, headers={
+        "Content-Disposition": f'attachment; filename="nutricion-revision-{attention_id}.json"',
+        "Cache-Control": "no-store",
+    })
+
+
+@router.post("/{attention_id}/nutricion/envio", response_model=AttentionResponse)
+def confirm_nutrition_sent(
+    attention_id: int, payload: NutritionSendConfirmation,
+    principal: AttentionCreator, db: DatabaseSession,
+):
+    return NutritionExportService(db).confirm_sent(
+        attention_id, payload, actor_id=principal.user_id, actor_roles=principal.roles,
+    )
 
 
 @router.post("", response_model=AttentionResponse, status_code=status.HTTP_201_CREATED)

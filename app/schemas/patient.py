@@ -7,14 +7,15 @@ business operations are valid and the mapper performs all conversions.
 
 from __future__ import annotations
 
-from app.schemas.patient_sis import PatientSisFields
-from app.domain.patient_condition import PatientCondition
-
 from datetime import date, datetime
 from enum import Enum
 from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+from app.domain.family_history import normalize_family_history
+from app.domain.patient_condition import PatientCondition
+from app.schemas.patient_sis import PatientSisFields
 
 
 DocumentCode = Annotated[str, Field(min_length=1, max_length=10)]
@@ -135,6 +136,7 @@ class PatientCreate(PatientSisFields):
     """Atomic registration payload for an adult or a minor patient."""
 
     codclie_legacy: Annotated[int, Field(gt=0)] | None = None
+    sufijo_documento: Annotated[str, Field(pattern=r"^[A-Za-z0-9]{1,10}$")] | None = None
     historia_clinica: Annotated[str, Field(max_length=255)] | None = None
     historia_familiar: str | None = None
     tipo_documento_codigo: DocumentCode
@@ -159,6 +161,7 @@ class PatientCreate(PatientSisFields):
 
     @field_validator(
         "historia_clinica",
+        "historia_familiar",
         "tipo_documento_codigo",
         "numero_documento",
         "apellido_paterno",
@@ -179,6 +182,11 @@ class PatientCreate(PatientSisFields):
             return value.strip()
         return value
 
+    @field_validator("historia_familiar", mode="after")
+    @classmethod
+    def normalize_family_history_code(cls, value: str | None) -> str | None:
+        return normalize_family_history(value)
+
     @field_validator("tipo_documento_codigo", "sexo_codigo", mode="after")
     @classmethod
     def normalize_codes(cls, value: str | None) -> str | None:
@@ -194,6 +202,7 @@ class PatientUpdate(PatientSisFields):
     """
 
     model_config = ConfigDict(extra="forbid")
+    sufijo_documento: Annotated[str, Field(pattern=r"^[A-Za-z0-9]{1,10}$")] | None = None
 
     historia_clinica: Annotated[str, Field(max_length=255)] | None = None
     historia_familiar: str | None = None
@@ -226,6 +235,7 @@ class PatientUpdate(PatientSisFields):
 
     @field_validator(
         "historia_clinica",
+        "historia_familiar",
         "tipo_documento_codigo",
         "numero_documento",
         "apellido_paterno",
@@ -245,6 +255,11 @@ class PatientUpdate(PatientSisFields):
         if isinstance(value, str):
             return value.strip()
         return value
+
+    @field_validator("historia_familiar", mode="after")
+    @classmethod
+    def normalize_family_history_code(cls, value: str | None) -> str | None:
+        return normalize_family_history(value)
 
     @field_validator("tipo_documento_codigo", "sexo_codigo", mode="after")
     @classmethod
@@ -282,6 +297,7 @@ class PatientResponse(PatientSisFields):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
+    sufijo_documento: str | None = None
     codclie_legacy: int | None
     historia_clinica: str | None
     historia_familiar: str | None

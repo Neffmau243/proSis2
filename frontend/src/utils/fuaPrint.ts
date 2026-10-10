@@ -20,7 +20,7 @@ export function validateFuaInput(value: FuaPrintInput): string[] {
   const patterns: [keyof FuaPrintInput, RegExp, string][] = [
     ['codigo_renipress', /^\d{8}$/, 'RENIPRESS debe tener 8 dígitos.'],
     ['sis_diresa', /^\d{3}$/, 'DIRESA debe tener 3 dígitos.'],
-    ['sis_tipo', /^[A-Z0-9]$/, 'El tipo de afiliación debe tener un carácter.'],
+    ['sis_tipo', /^[A-Z0-9]{1,2}$/, 'El tipo de afiliación debe tener uno o dos caracteres.'],
     ['sis_numero', /^[A-Z0-9-]{1,30}$/, 'Revise el número de afiliación SIS.'],
     ['sis_componente', /^[A-Z0-9-]{1,20}$/, 'Revise el componente de afiliación del RN.'],
     ['etnia_codigo', /^\d{1,3}$/, 'El código de etnia debe tener entre 1 y 3 dígitos.'],

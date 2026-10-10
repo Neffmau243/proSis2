@@ -24,6 +24,7 @@ _PATIENT_MUTABLE_FIELDS = frozenset(
     {
         "historia_clinica",
         "historia_familiar",
+        "sufijo_documento",
         "sis_diresa", "sis_tipo", "sis_numero", "sis_secuencia", "etnia_codigo",
         "tipo_documento_codigo",
         "numero_documento",
@@ -137,6 +138,7 @@ def patient_to_response(entity: "Patient") -> PatientResponse:
 
     ubigeo = getattr(entity, "ubigeo_residencia", None)
     return PatientResponse(
+        sufijo_documento=getattr(entity, "sufijo_documento", None),
         id=entity.id,
         codclie_legacy=entity.codclie_legacy,
         historia_clinica=entity.historia_clinica,

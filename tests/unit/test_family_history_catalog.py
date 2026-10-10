@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from app.repositories.catalog import CatalogPage
 from app.services.catalog import CatalogService
 
@@ -8,12 +10,23 @@ class FamilyHistoryRepository:
 
     def page_family_histories(
         self, *, query: str | None, limit: int, offset: int
-    ) -> CatalogPage[str]:
+    ) -> CatalogPage[SimpleNamespace]:
         self.args = (query, limit, offset)
-        return CatalogPage(items=["HF-VERDE-01"], total=1)
+        return CatalogPage(
+            items=[
+                SimpleNamespace(
+                    codigo="VC",
+                    nombre="VERDE CLARO",
+                    tipo="COLOR",
+                    color_hex="#86C766",
+                    activo=True,
+                )
+            ],
+            total=1,
+        )
 
 
-def test_family_history_catalog_normalizes_the_search_and_returns_reusable_codes():
+def test_family_history_catalog_normalizes_search_and_returns_prefix_metadata():
     repository = FamilyHistoryRepository()
 
     page = CatalogService(None, repository=repository).family_histories(
@@ -21,5 +34,11 @@ def test_family_history_catalog_normalizes_the_search_and_returns_reusable_codes
     )
 
     assert repository.args == ("verde", 25, 0)
-    assert [item.codigo for item in page.items] == ["HF-VERDE-01"]
+    assert page.items[0].model_dump() == {
+        "codigo": "VC",
+        "nombre": "VERDE CLARO",
+        "tipo": "COLOR",
+        "color_hex": "#86C766",
+        "activo": True,
+    }
     assert page.total == 1

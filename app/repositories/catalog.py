@@ -14,6 +14,7 @@ from app.models.catalog import (
     Cie10,
     DocumentType,
     Ethnicity,
+    FamilyHistoryPrefix,
     Insurance,
     Profession,
     ServiceOffering,
@@ -21,9 +22,8 @@ from app.models.catalog import (
     Specialty,
 )
 from app.models.organization import Establishment, Localidad, Office, Ubigeo
-from app.models.patient import Patient, RiskGroup
+from app.models.patient import RiskGroup
 from app.models.security import Professional
-
 
 EntityT = TypeVar("EntityT")
 
@@ -71,23 +71,25 @@ class CatalogRepository:
 
     def page_family_histories(
         self, *, query: str | None, limit: int, offset: int
-    ) -> CatalogPage[str]:
-        """Return the reusable, non-empty family codes already in the register."""
+    ) -> CatalogPage[FamilyHistoryPrefix]:
+        """Return active prefixes used to compose family-history identifiers."""
 
-        code = func.trim(Patient.historia_familiar)
-        conditions = [
-            Patient.estado.is_(True),
-            Patient.historia_familiar.is_not(None),
-            code != "",
-        ]
+        conditions = [FamilyHistoryPrefix.activo.is_(True)]
         if query:
-            conditions.append(code.ilike(self._contains_pattern(query), escape="\\"))
-        statement = select(code).where(*conditions).distinct().order_by(code)
-        count_statement = select(func.count(func.distinct(code))).where(*conditions)
-        return CatalogPage(
-            items=list(self._session.scalars(statement.limit(limit).offset(offset))),
-            total=int(self._session.scalar(count_statement) or 0),
+            pattern = self._contains_pattern(query)
+            conditions.append(
+                or_(
+                    FamilyHistoryPrefix.codigo.ilike(pattern, escape="\\"),
+                    FamilyHistoryPrefix.nombre.ilike(pattern, escape="\\"),
+                    FamilyHistoryPrefix.tipo.ilike(pattern, escape="\\"),
+                )
+            )
+        statement = select(FamilyHistoryPrefix).where(*conditions).order_by(
+            FamilyHistoryPrefix.orden,
+            FamilyHistoryPrefix.codigo,
         )
+        count_statement = select(func.count()).select_from(FamilyHistoryPrefix).where(*conditions)
+        return self._page(statement, count_statement, limit=limit, offset=offset)
 
     def page_services(self, *, query: str | None, limit: int, offset: int) -> CatalogPage[ServiceOffering]:
         conditions = [ServiceOffering.activo.is_(True)]

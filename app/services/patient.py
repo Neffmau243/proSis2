@@ -14,6 +14,7 @@ from typing import Any, Protocol, TypeVar
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
+from app.domain.family_history import family_history_problem, split_family_history
 from app.domain.patient_document import document_problem
 from app.domain.patient_insurance import SIS_FIELDS, is_sis_insurance, sis_type_for_insurance
 from app.exceptions import (
@@ -160,6 +161,7 @@ class PatientService:
                 ubigeo_code=command.ubigeo_residencia_codigo,
                 establishment_id=command.establecimiento_registro_id,
             )
+            self._validate_family_history(command.historia_familiar)
             self._validate_document_number(command.tipo_documento_codigo, command.numero_documento)
             self._validate_insurance_affiliation(command.model_dump())
             self._validate_sis_and_ethnicity(command.model_dump())
@@ -265,6 +267,8 @@ class PatientService:
                 )
 
             self._validate_changed_patient_catalogs(values)
+            if "historia_familiar" in values:
+                self._validate_family_history(values["historia_familiar"])
             insurance = None
             if "seguro_id" in values:
                 insurance = (
@@ -725,6 +729,21 @@ class PatientService:
             and self._repository.get_active_establishment(establishment_id) is None
         ):
             self._raise_unavailable_catalog("establecimiento", establishment_id)
+
+    def _validate_family_history(self, value: str | None) -> None:
+        problem = family_history_problem(value)
+        if problem:
+            raise ValidationDomainError(
+                code="HISTORIA_FAMILIAR_INVALIDA",
+                message=problem,
+                details={"campo": "historia_familiar"},
+            )
+        parts = split_family_history(value)
+        if (
+            parts is not None
+            and self._repository.get_active_family_history_prefix(parts[0]) is None
+        ):
+            self._raise_unavailable_catalog("prefijo de historia familiar", parts[0])
 
     @staticmethod
     def _validate_patient_residence(

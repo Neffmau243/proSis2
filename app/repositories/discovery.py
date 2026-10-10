@@ -217,6 +217,7 @@ class AttentionDiscoveryRepository:
                 selectinload(Attention.diagnosticos),
                 selectinload(Attention.paciente),
                 selectinload(Attention.consultorio),
+                selectinload(Attention.evaluaciones_nutricionales),
             )
             .where(*conditions)
             .order_by(Attention.fecha_atencion.desc(), Attention.id.desc())

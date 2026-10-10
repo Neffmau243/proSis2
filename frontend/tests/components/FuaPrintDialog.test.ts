@@ -86,7 +86,11 @@ afterEach(() => {
 })
 
 test('el resumen de la puérpera muestra la fecha real del parto y no el PAB', async () => {
-  const body = openSummary({ ...base, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' })
+  const body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'PUERPERAS',
+    fecha_parto: '2026-09-20',
+  })
   await vi.waitFor(() => expect(body.textContent).toContain('Fecha del parto'))
 
   expect(body.textContent).toContain('2026-09-20')
@@ -114,6 +118,89 @@ test('el resumen del grupo general conserva el perímetro abdominal', async () =
   expect(body.textContent).toContain('80')
   expect(body.textContent).not.toContain('Fecha del parto')
   expect(body.textContent).not.toContain('Fecha probable de parto')
+})
+
+test('la FUA conserva la tabla nutricional específica del grupo', async () => {
+  let body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
+    pe: '0.125',
+    te: '-0.250',
+    pt: '0.375',
+    diagnostico_peso_edad: 'Normal',
+    diagnostico_talla_edad: 'Normal',
+    diagnostico_peso_talla: 'Normal',
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Valoración nutricional conservada'))
+  expect([...body.querySelectorAll('.nutrition-table th')].map((cell) => cell.textContent)).toEqual(
+    ['P/E', 'T/E', 'P/T'],
+  )
+
+  while (mounted.length) mounted.pop()?.unmount()
+  document.body.innerHTML = ''
+  body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'GESTANTES',
+    imc_pregestacional: '21.484',
+    diagnostico_imc: 'Normal',
+    ganancia_peso_kg: '10',
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Ganancia de peso'))
+  expect([...body.querySelectorAll('.nutrition-table th')].map((cell) => cell.textContent)).toEqual(
+    ['IMC', 'Dx IMC', 'Ganancia de peso'],
+  )
+
+  while (mounted.length) mounted.pop()?.unmount()
+  document.body.innerHTML = ''
+  body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'PUERPERAS',
+    imc_pregestacional: '21.484',
+    diagnostico_imc: 'Normal',
+    ganancia_peso_kg: '9',
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Dx IMC'))
+  expect([...body.querySelectorAll('.nutrition-table th')].map((cell) => cell.textContent)).toEqual(
+    ['IMC', 'Dx IMC'],
+  )
+  expect(body.querySelector('.nutrition-table')?.textContent).not.toContain('Ganancia de peso')
+})
+
+test('un niño sin puntajes conserva la tabla infantil indicada por el servidor', async () => {
+  const body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
+    grupo_referencia: 'INFANTIL',
+    estado_nutricional: 'DATOS_INCOMPLETOS',
+    pe: null,
+    te: null,
+    pt: null,
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Valoración nutricional conservada'))
+  expect([...body.querySelectorAll('.nutrition-table th')].map((cell) => cell.textContent)).toEqual(
+    ['P/E', 'T/E', 'P/T'],
+  )
+  expect(body.querySelector('.nutrition-table')?.textContent).not.toContain('Dx IMC')
+})
+
+test('un adolescente conserva el grupo escolar con indicadores parcialmente aplicables', async () => {
+  const body = openSummary({
+    ...base,
+    grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
+    grupo_referencia: 'ESCOLAR',
+    estado_nutricional: 'CALCULADO',
+    pe: null,
+    te: '-0.500',
+    pt: null,
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Valoración nutricional conservada'))
+  const rows = [...body.querySelectorAll('.nutrition-table tr')]
+  expect(rows.map((row) => row.querySelector('th')?.textContent)).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows.map((row) => row.querySelector('td')?.textContent)).toEqual([
+    'No aplica',
+    'Z: -0.500',
+    'No aplica',
+  ])
 })
 
 test('la puérpera sin fecha de parto exige confirmar el faltante antes de imprimir', async () => {

@@ -1,6 +1,9 @@
 <template>
-  <el-container class="app-layout">
-    <el-aside width="264px" class="side">
+  <el-container class="app-layout" @keydown.esc="mobileMenuOpen = false">
+    <el-button class="mobile-menu-toggle" :aria-expanded="mobileMenuOpen" aria-controls="app-navigation" @click="mobileMenuOpen = !mobileMenuOpen">
+      {{ mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú' }}
+    </el-button>
+    <el-aside id="app-navigation" width="264px" class="side" :class="{ 'side--mobile-open': mobileMenuOpen }">
       <!-- Marca -->
       <div class="side__brand">
         <span class="side__logo"><el-icon><FirstAidKit /></el-icon></span>
@@ -120,7 +123,7 @@
       </div>
     </el-aside>
 
-    <el-container>
+    <el-container class="app-layout__content">
       <!-- La identidad del usuario vive solo en el pie de la barra lateral. -->
       <el-header class="topbar" height="52px">
         <div class="topbar__title">{{ currentTitle }}</div>
@@ -134,7 +137,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
@@ -151,6 +154,8 @@ interface NavItem {
 }
 
 const route = useRoute()
+const mobileMenuOpen = ref(false)
+watch(() => route.fullPath, () => { mobileMenuOpen.value = false })
 const router = useRouter()
 const auth = useAuthStore()
 const { seleccionado, seleccionar, notificarCambio } = usePacienteSeleccionado()
@@ -320,6 +325,18 @@ function cambiarContrasena(): void {
 <style scoped>
 .app-layout {
   height: 100%;
+}
+
+.app-layout__content { min-width: 0; min-height: 0; }
+.mobile-menu-toggle { display: none; }
+
+@media (max-width: 680px) {
+  .app-layout { flex-direction: column; }
+  .mobile-menu-toggle { display: flex; flex-shrink: 0; min-height: 44px; margin: 0; }
+  .app-layout .side { display: none; width: 100%; max-height: 45vh; flex-shrink: 0; overflow-y: auto; }
+  .app-layout .side--mobile-open { display: flex; }
+  .app-layout .side > * { flex-shrink: 0; }
+  .app-layout .side__nav { flex: none; overflow: visible; }
 }
 
 /* ---------- Barra lateral ---------- */

@@ -60,6 +60,7 @@ class Patient(Base):
         nullable=False,
     )
     numero_documento: Mapped[str] = mapped_column(String(30), nullable=False)
+    sufijo_documento: Mapped[str | None] = mapped_column(String(10), nullable=True)
     fecha_inscripcion: Mapped[date | None] = mapped_column(Date, nullable=True)
     fecha_nacimiento: Mapped[date] = mapped_column(Date, nullable=False)
     apellido_paterno: Mapped[str | None] = mapped_column(String(100), nullable=True)

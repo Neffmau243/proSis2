@@ -39,6 +39,18 @@ export interface FuaPrintSnapshot extends FuaPrintInput {
   presion_sistolica: number | null
   presion_diastolica: number | null
   imc: string | number | null
+  grupo_referencia?:
+    'INFANTIL' | 'ESCOLAR' | 'ADULTO' | 'ADULTO_MAYOR' | 'GESTANTE' | 'PUERPERA' | null
+  estado_nutricional?: string | null
+  pe?: string | number | null
+  te?: string | number | null
+  pt?: string | number | null
+  diagnostico_peso_edad?: string | null
+  diagnostico_talla_edad?: string | null
+  diagnostico_peso_talla?: string | null
+  diagnostico_imc?: string | null
+  imc_pregestacional?: string | number | null
+  ganancia_peso_kg?: string | number | null
   perimetro_abdominal_cm: string | number | null
   grupo_atencion_codigo: string
   fecha_probable_parto: string | null

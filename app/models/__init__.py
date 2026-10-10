@@ -12,6 +12,7 @@ from .catalog import (
     Cie10,
     DocumentType,
     Ethnicity,
+    FamilyHistoryPrefix,
     Insurance,
     Profession,
     ServiceOffering,
@@ -20,6 +21,7 @@ from .catalog import (
 )
 from .clinical import Attention, AttentionDiagnosis, AttentionService
 from .documents import Certificate, CertificateService, DocumentSequence, Fua, Referral
+from .legacy import LegacyAttention, LegacyImport, LegacyRecord
 from .organization import (
     Disa,
     Establishment,
@@ -40,7 +42,6 @@ from .patient import (
 )
 from .security import LoginRateLimit, Professional, ProfessionalSpecialty, Role, User, UserRole
 from .surveillance import NutritionalEvaluation, SurveillanceSien
-from .legacy import LegacyAttention, LegacyImport, LegacyRecord
 
 __all__ = [
     "LegacyAttention",
@@ -61,6 +62,7 @@ __all__ = [
     "DocumentSequence",
     "Establishment",
     "Ethnicity",
+    "FamilyHistoryPrefix",
     "Fua",
     "Insurance",
     "Localidad",

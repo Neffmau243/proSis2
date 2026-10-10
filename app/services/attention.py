@@ -17,6 +17,7 @@ from app.domain.clinical import (
     VitalSignPayload,
 )
 from app.domain.nutrition import NutritionalIndicators, calculate_nutritional_indicators
+from app.domain.patient_condition import condition_for_attention
 from app.exceptions import AuthorizationError, BusinessRuleError, ConflictError, NotFoundError
 from app.mappers.attention import attention_to_response
 from app.models.clinical import Attention
@@ -31,8 +32,10 @@ from app.schemas.attention import (
     NutritionalIndicatorsResponse,
     NutritionalSnapshotInput,
 )
+from app.schemas.nutrition_record import ADULT_FIELDS, CHILD_FIELDS, PREGNANT_FIELDS
 from app.services.age_group import AgeGroupService
 from app.services.fua_print import build_fua_snapshot
+from app.services.nutrition_context import nutrition_context
 
 
 class AttentionService:
@@ -132,8 +135,14 @@ class AttentionService:
                     message="Un paciente menor de edad requiere al menos un responsable activo.",
                 )
             age_group = self._age_groups.resolve(age_in_months)
+            condition = condition_for_attention(
+                age_group_code=age_group.codigo,
+                care_group_code=command.grupo_atencion_codigo.value,
+                age=age,
+            )
             self._validate_clinical_context(command)
             self._validate_vital_signs(command, age_in_months)
+            self._validate_nutrition_record(command, patient.fecha_nacimiento, age)
             indicators = calculate_nutritional_indicators(
                 care_group=command.grupo_atencion_codigo.value,
                 pregestational_weight_kg=command.peso_antes_embarazo_kg,
@@ -190,17 +199,20 @@ class AttentionService:
                 self._attentions.get_active_professional(command.profesional_id),
                 command.fua_datos,
             )
+            entity.contexto_clinico = nutrition_context(
+                patient,
+                self._attentions.get_active_establishment(command.establecimiento_id),
+                age,
+                condition,
+            )
             self._attentions.add(entity)
             self._attentions.flush()
             self._add_details(entity, command)
             self._add_nutritional_snapshot(entity, command, age, indicators)
             self._attentions.flush()
-            # The patient is already locked. Update the current condition in the
-            # same transaction; general encounters do not infer a new condition.
-            condition = {"GESTANTES": "GESTANTE", "PUERPERAS": "PUERPERA"}.get(
-                entity.grupo_atencion_codigo
-            )
-            if condition is not None and patient.condicion != condition:
+            # The locked patient and immutable encounter snapshot are updated in
+            # one transaction, so neither can expose a partially applied stage.
+            if patient.condicion != condition:
                 previous_condition = patient.condicion
                 self._patients.update_fields(patient, {"condicion": condition})
                 self._patients.add_audit_entry(
@@ -587,30 +599,68 @@ class AttentionService:
             return
         if snapshot is None:
             snapshot = NutritionalSnapshotInput()
+        captured = snapshot.model_dump(
+            exclude={
+                "tipo", "diagnostico_peso_edad", "diagnostico_talla_edad", "diagnostico_peso_talla",
+            }
+        )
+        kind = {"GESTANTES": "GESTANTE", "PUERPERAS": "PUERPERA"}.get(
+            command.grupo_atencion_codigo.value, "NINO" if age.years < 18 else "ADULTO"
+        )
         self._attentions.add_nutritional_evaluation(
             NutritionalEvaluation(
                 paciente_id=entity.paciente_id,
                 atencion_id=entity.id,
                 establecimiento_id=entity.establecimiento_id,
-                tipo=snapshot.tipo,
+                tipo=kind,
                 fecha=entity.fecha_atencion,
                 peso_kg=entity.peso_kg,
                 talla_cm=entity.talla_cm,
-                hemoglobina=snapshot.hemoglobina,
-                fecha_hemoglobina=snapshot.fecha_hemoglobina,
+                **captured,
                 edad_anios=age.years,
                 edad_meses=age.months,
                 edad_dias=age.days,
-                edad_gestacional_semanas=snapshot.edad_gestacional_semanas,
                 perimetro_abdominal_cm=entity.perimetro_abdominal_cm,
                 imc=indicators.imc,
                 whz=indicators.pt,
                 haz=indicators.te,
                 waz=indicators.pe,
                 **indicators.classifications,
-                diagnostico=snapshot.diagnostico,
+                estado_exportacion="PENDIENTE",
+                enviado=False,
             )
         )
+
+    @staticmethod
+    def _validate_nutrition_record(
+        command: AttentionCreate, birth_date: date, age: CalendarAge
+    ) -> None:
+        record = command.valoracion_nutricional
+        if record is None:
+            return
+        group = command.grupo_atencion_codigo.value
+        child = group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES" and age.years < 18
+        adult = group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES" and age.years >= 18
+        invalid = []
+        for applies, fields in (
+            (child, CHILD_FIELDS), (adult, ADULT_FIELDS), (group == "GESTANTES", PREGNANT_FIELDS)
+        ):
+            if not applies:
+                invalid.extend(name for name in fields if getattr(record, name) is not None)
+        if child and record.pending_legacy is not None:
+            invalid.append("pending_legacy")
+        if invalid:
+            raise BusinessRuleError(
+                code="CAMPOS_NUTRICION_NO_APLICAN",
+                message="Estos campos no corresponden al grupo y edad: " + ", ".join(invalid),
+            )
+        if record.fecha_hemoglobina is not None and not (
+            birth_date <= record.fecha_hemoglobina <= command.fecha_atencion.date()
+        ):
+            raise BusinessRuleError(
+                code="FECHA_HEMOGLOBINA_INVALIDA",
+                message="La fecha del resultado debe estar entre el nacimiento y la atención.",
+            )
 
     @staticmethod
     def _format_indicator(value: Decimal | None) -> str | None:

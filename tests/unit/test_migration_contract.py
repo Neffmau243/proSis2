@@ -9,7 +9,7 @@ VERSION_NUM_MAX_LENGTH = 32  # alembic_version.version_num es VARCHAR(32).
 def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
     script = ScriptDirectory.from_config(Config("alembic.ini"))
 
-    assert len(Base.metadata.tables) == 44
+    assert len(Base.metadata.tables) == 45
     assert {
         "pacientes",
         "atenciones",
@@ -17,10 +17,11 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
         "auditoria",
         "documento_series",
         "limites_inicio_sesion",
+        "historias_familiares_catalogo",
     } <= set(
         Base.metadata.tables
     )
-    assert script.get_current_head() == "20261007_0028_delivery_date"
+    assert script.get_current_head() == "20261010_0031_family_history"
 
 
 def test_every_revision_fits_the_alembic_version_column() -> None:

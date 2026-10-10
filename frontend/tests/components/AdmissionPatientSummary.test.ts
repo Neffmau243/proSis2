@@ -6,6 +6,8 @@ import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
 import AdmissionDocumentTypes from '@/components/admission/AdmissionDocumentTypes.vue'
 import PatientConditionSelect from '@/components/patients/PatientConditionSelect.vue'
+import PatientSisCodeFields from '@/components/patients/PatientSisCodeFields.vue'
+import FamilyHistorySelector from '@/components/patients/FamilyHistorySelector.vue'
 import type { Patient } from '@/services/pacientes'
 import { aPatient } from '../fixtures/patient'
 
@@ -38,10 +40,31 @@ vi.mock('@/services/catalogos', () => ({
         codigo_sis: '001',
         regimen: 'NINGUNO',
       },
+      {
+        id: 10,
+        codigo: 'SIS_NRUS',
+        nombre: 'S.I.S. NRUS',
+        activo: true,
+        codigo_sis: '005',
+        regimen: 'SIS',
+      },
     ]),
     etnias: vi.fn(async () => []),
     historiasFamiliares,
-    establecimientos: vi.fn(async () => emptyPage),
+    establecimientos: vi.fn(async () => ({
+      ...emptyPage,
+      items: [
+        {
+          id: 2,
+          codigo_renaes: '1300',
+          codigo_ideess: '1300',
+          disa_codigo: '040',
+          nombre: 'P.S. APURIMAC',
+          abreviatura: null,
+          activo: true,
+        },
+      ],
+    })),
     ubigeos: vi.fn(async () => emptyPage),
     localidades: vi.fn(async () => emptyPage),
   },
@@ -97,9 +120,65 @@ test('no expone el código técnico ETLSIS en el formulario', async () => {
   expect(wrapper.find('.patient-context__insurance-code').exists()).toBe(false)
 })
 
+test('muestra DIRESA y tipo SIS desde el establecimiento y seguro seleccionados', async () => {
+  const wrapper = await mountPanel(false, {
+    establecimiento_registro_id: 2,
+    seguro_id: 10,
+    sis_diresa: null,
+    sis_tipo: null,
+    sis_numero: null,
+  })
+
+  const fields = wrapper.findAll('.sis-code input')
+  expect(fields.map((field) => (field.element as HTMLInputElement).value)).toEqual([
+    '040',
+    '05',
+    '',
+  ])
+  expect(wrapper.text()).not.toContain('Tiene cambios sin guardar.')
+})
+
+test('guarda los códigos derivados cuando se registra el número SIS', async () => {
+  const wrapper = await mountPanel(false, {
+    establecimiento_registro_id: 2,
+    seguro_id: 10,
+    sis_diresa: null,
+    sis_tipo: null,
+    sis_numero: null,
+  })
+  wrapper.getComponent(PatientSisCodeFields).vm.$emit('update', { sis_numero: '00112233' })
+  await flushPromises()
+
+  update.mockResolvedValue(
+    aPatient({
+      establecimiento_registro_id: 2,
+      seguro_id: 10,
+      sis_diresa: '040',
+      sis_tipo: '05',
+      sis_numero: '00112233',
+    }),
+  )
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+
+  expect(update).toHaveBeenCalledWith(100, {
+    sis_diresa: '040',
+    sis_tipo: '05',
+    sis_numero: '00112233',
+  })
+})
+
 test('Historia familiar permite elegir un código reutilizable y lo guarda por PATCH', async () => {
   historiasFamiliares.mockResolvedValue({
-    items: [{ codigo: 'HF-VERDE-01' }],
+    items: [
+      {
+        codigo: 'VC',
+        nombre: 'VERDE CLARO',
+        tipo: 'COLOR',
+        color_hex: '#86C766',
+        activo: true,
+      },
+    ],
     total: 1,
     limit: 25,
     offset: 0,
@@ -108,22 +187,26 @@ test('Historia familiar permite elegir un código reutilizable y lo guarda por P
   const wrapper = await mountPanel(false)
   const familyField = wrapper
     .findAll('.el-form-item')
-    .find((field) => field.find('label').text() === 'Historia familiar')
+    .find((field) => {
+      const label = field.find('.el-form-item__label')
+      return label.exists() && label.text() === 'Historia familiar'
+    })
 
   expect(familyField).toBeDefined()
-  const selector = familyField!.getComponent(ElSelect)
-  expect(selector.find('input[aria-label="Historia familiar"]').exists()).toBe(true)
-  // Las opciones del catálogo viven en el desplegable teleportado: se abre para comprobarlas.
-  await selector.get('.el-select__wrapper').trigger('click')
-  await vi.waitFor(() => expect(document.body.textContent).toContain('HF-VERDE-01'))
+  const selector = familyField!.getComponent(FamilyHistorySelector)
+  expect(selector.find('input[aria-label="Color o sector de historia familiar"]').exists()).toBe(
+    true,
+  )
+  await selector.getComponent(ElSelect).get('.el-select__wrapper').trigger('click')
+  await vi.waitFor(() => expect(document.body.textContent).toContain('VERDE CLARO'))
 
-  selector.vm.$emit('update:modelValue', 'HF-VERDE-01')
+  selector.vm.$emit('update:modelValue', 'VC-0007')
   await flushPromises()
-  update.mockResolvedValue(aPatient({ historia_familiar: 'HF-VERDE-01' }))
+  update.mockResolvedValue(aPatient({ historia_familiar: 'VC-0007' }))
   await wrapper.find('form').trigger('submit')
   await flushPromises()
 
-  expect(update).toHaveBeenCalledWith(100, { historia_familiar: 'HF-VERDE-01' })
+  expect(update).toHaveBeenCalledWith(100, { historia_familiar: 'VC-0007' })
 })
 
 afterEach(() => {
@@ -214,10 +297,14 @@ test(
   async () => {
     const wrapper = await mountPanel(false)
     const documentRow = wrapper.get('.patient-context__form > .document-types').element
-    expect(documentRow.previousElementSibling?.querySelector('label')?.textContent).toBe(
+    expect(
+      documentRow.previousElementSibling?.querySelector('.el-form-item__label')?.textContent,
+    ).toBe(
       'Historia familiar',
     )
-    expect(documentRow.nextElementSibling?.querySelector('label')?.textContent).toBe(
+    expect(
+      documentRow.nextElementSibling?.querySelector('.el-form-item__label')?.textContent,
+    ).toBe(
       'N.° documento',
     )
     expect(wrapper.findAll('input[role="combobox"][aria-label="Tipo de documento"]')).toHaveLength(

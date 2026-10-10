@@ -11,21 +11,44 @@ from app.services.fua_print import build_fua_snapshot
 
 def fixtures():
     attention = SimpleNamespace(
-        modalidad_atencion_codigo="AMBULATORIA", fecha_atencion=datetime(2026, 9, 19, 9, 30),
-        historia_clinica_snapshot="HC-005", peso_kg=Decimal("60"), talla_cm=Decimal("160"),
-        presion_sistolica=120, presion_diastolica=80, imc=Decimal("23.438"),
-        perimetro_abdominal_cm=Decimal("80"), grupo_atencion_codigo="GESTANTES",
-        fecha_probable_parto=date(2027, 1, 1), fecha_parto=None,
+        modalidad_atencion_codigo="AMBULATORIA",
+        fecha_atencion=datetime(2026, 9, 19, 9, 30),
+        historia_clinica_snapshot="HC-005",
+        peso_kg=Decimal("60"),
+        talla_cm=Decimal("160"),
+        presion_sistolica=120,
+        presion_diastolica=80,
+        imc=Decimal("23.438"),
+        pe=None,
+        te=None,
+        pt=None,
+        valoracion_calculada={
+            "grupo_referencia": "GESTANTE",
+            "estado": "CALCULADO",
+            "diagnostico_imc": "Normal",
+            "imc_pregestacional": "21.484",
+            "ganancia_peso_kg": "5",
+        },
+        perimetro_abdominal_cm=Decimal("80"),
+        grupo_atencion_codigo="GESTANTES",
+        fecha_probable_parto=date(2027, 1, 1),
+        fecha_parto=None,
     )
     patient = SimpleNamespace(
         insurance=SimpleNamespace(codigo="SIS", regimen="SIS"),
-        tipo_documento_codigo="DNI", numero_documento="01234567", apellido_paterno="Pérez",
-        apellido_materno=None, primer_nombre="Ana", otros_nombres="María",
-        sexo_codigo="F", fecha_nacimiento=date(1990, 2, 3),
+        tipo_documento_codigo="DNI",
+        numero_documento="01234567",
+        apellido_paterno="Pérez",
+        apellido_materno=None,
+        primer_nombre="Ana",
+        otros_nombres="María",
+        sexo_codigo="F",
+        fecha_nacimiento=date(1990, 2, 3),
     )
     site = SimpleNamespace(codigo_renaes="00001234", nombre="IPRESS de prueba")
-    professional = SimpleNamespace(nombre_completo="Profesional de prueba",
-                                   numero_documento="76543210", colegiatura="00123")
+    professional = SimpleNamespace(
+        nombre_completo="Profesional de prueba", numero_documento="76543210", colegiatura="00123"
+    )
     return attention, patient, site, professional
 
 
@@ -33,20 +56,55 @@ def test_snapshot_maps_official_document_code_and_keeps_server_owned_values():
     a, p, s, professional = fixtures()
     p.sis_diresa, p.sis_tipo, p.sis_numero = "001", "2", "01234567"
     p.etnia_codigo = "58"
-    result = build_fua_snapshot(a, p, s, professional, FuaPrintInput(
-        personal_atiende="IPRESS", lugar_atencion="INTRAMURAL",
-        sis_diresa="001", sis_tipo="2", sis_numero="01234567", etnia_codigo="58",
-    ))
+    result = build_fua_snapshot(
+        a,
+        p,
+        s,
+        professional,
+        FuaPrintInput(
+            personal_atiende="IPRESS",
+            lugar_atencion="INTRAMURAL",
+            sis_diresa="001",
+            sis_tipo="2",
+            sis_numero="01234567",
+            etnia_codigo="58",
+        ),
+    )
     assert result["tdi"] == "2"
     assert result["sis_diresa"] == "001"
     assert result["codigo_renipress"] == "00001234"
     assert result["hora_atencion"] == "09:30:00"
     assert result["imc"] == "23.438"
+    assert result["grupo_referencia"] == "GESTANTE"
+    assert result["estado_nutricional"] == "CALCULADO"
+    assert result["imc_pregestacional"] == "21.484"
+    assert result["diagnostico_imc"] == "NORMAL"
+    assert result["ganancia_peso_kg"] == "5"
     assert result["historia_clinica"] == "HC-005"
     assert result["apellido_materno"] is None
     p.primer_nombre = "Cambio posterior"
     assert result["primer_nombre"] == "ANA"
     assert FuaPrintSnapshot.model_validate(result).version == 2
+
+
+def test_child_snapshot_keeps_growth_indicators_and_diagnoses():
+    a, p, s, professional = fixtures()
+    a.grupo_atencion_codigo = "NINOS_ADOLESCENTES_ADULTOS_MAYORES"
+    a.pe, a.te, a.pt = "0.125", "-0.250", "0.375"
+    a.valoracion_calculada = {
+        "grupo_referencia": "INFANTIL",
+        "estado": "CALCULADO",
+        "diagnostico_peso_edad": "Normal",
+        "diagnostico_talla_edad": "Talla baja",
+        "diagnostico_peso_talla": "Normal",
+    }
+
+    result = build_fua_snapshot(a, p, s, professional, None)
+
+    assert (result["pe"], result["te"], result["pt"]) == ("0.125", "-0.250", "0.375")
+    assert result["diagnostico_peso_edad"] == "NORMAL"
+    assert result["diagnostico_talla_edad"] == "TALLA BAJA"
+    assert result["diagnostico_peso_talla"] == "NORMAL"
 
 
 def test_puerperal_snapshot_carries_the_real_delivery_date_not_the_due_date():
@@ -86,13 +144,22 @@ def test_numeric_source_renipress_is_normalized_to_the_eight_digit_fua_box():
     assert build_fua_snapshot(a, p, s, professional, None)["codigo_renipress"] == "00001291"
 
 
-@pytest.mark.parametrize("value", [
-    {"sis_diresa": "001"}, {"sis_componente": "RN1"},
-    {"personal_atiende": "AISPED"}, {"codigo_aisped": "A001"},
-    {"tipo_atencion": "REFERENCIA"}, {"referencia_hoja": "0023"},
-    {"codigo_renipress": "123"}, {"etnia_codigo": "MESTIZO"},
-    {"imc": 99}, {"tdi": "2"}, {"numero_documento": "12345678"},
-])
+@pytest.mark.parametrize(
+    "value",
+    [
+        {"sis_diresa": "001"},
+        {"sis_componente": "RN1"},
+        {"personal_atiende": "AISPED"},
+        {"codigo_aisped": "A001"},
+        {"tipo_atencion": "REFERENCIA"},
+        {"referencia_hoja": "0023"},
+        {"codigo_renipress": "123"},
+        {"etnia_codigo": "MESTIZO"},
+        {"imc": 99},
+        {"tdi": "2"},
+        {"numero_documento": "12345678"},
+    ],
+)
 def test_invalid_or_client_owned_clinical_data_is_rejected(value):
     with pytest.raises(ValidationError):
         FuaPrintInput.model_validate(value)
@@ -100,9 +167,16 @@ def test_invalid_or_client_owned_clinical_data_is_rejected(value):
 
 def test_valid_reference_and_normalization():
     result = FuaPrintInput(
-        personal_atiende="aisped", codigo_aisped=" a001 ", tipo_atencion="REFERENCIA",
-        referencia_renipress="00000001", referencia_nombre="Origen", referencia_hoja="0002",
-        sis_diresa="001", sis_tipo="e", sis_numero="00042", etnia_codigo="  ",
+        personal_atiende="aisped",
+        codigo_aisped=" a001 ",
+        tipo_atencion="REFERENCIA",
+        referencia_renipress="00000001",
+        referencia_nombre="Origen",
+        referencia_hoja="0002",
+        sis_diresa="001",
+        sis_tipo="e",
+        sis_numero="00042",
+        etnia_codigo="  ",
     )
     assert result.codigo_aisped == "A001"
     assert result.sis_tipo == "E"
@@ -115,10 +189,21 @@ def test_patient_site_and_modality_override_old_client_supplements():
     p.sis_diresa, p.sis_tipo, p.sis_numero = "001", "E1", "000000001"
     p.sis_secuencia, p.etnia_codigo = "01", "2"
     s.fua_personal_atiende, s.fua_lugar_atencion = "ITINERANTE", "EXTRAMURAL"
-    result = build_fua_snapshot(a, p, s, professional, FuaPrintInput(
-        personal_atiende="IPRESS", lugar_atencion="INTRAMURAL", tipo_atencion="AMBULATORIA",
-        sis_diresa="999", sis_tipo="9", sis_numero="99999999", etnia_codigo="58",
-    ))
+    result = build_fua_snapshot(
+        a,
+        p,
+        s,
+        professional,
+        FuaPrintInput(
+            personal_atiende="IPRESS",
+            lugar_atencion="INTRAMURAL",
+            tipo_atencion="AMBULATORIA",
+            sis_diresa="999",
+            sis_tipo="9",
+            sis_numero="99999999",
+            etnia_codigo="58",
+        ),
+    )
     assert result["tipo_atencion"] == "EMERGENCIA"
     assert result["personal_atiende"] == "ITINERANTE"
     assert result["lugar_atencion"] == "EXTRAMURAL"

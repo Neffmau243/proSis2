@@ -3,8 +3,11 @@ from decimal import Decimal
 
 import pytest
 
-from app.domain.nutrition import WHO_2006_REFERENCE, calculate_nutritional_indicators
-from app.domain.nutrition import classify_score
+from app.domain.nutrition import (
+    WHO_2006_REFERENCE,
+    calculate_nutritional_indicators,
+    classify_score,
+)
 
 
 @pytest.mark.parametrize("kind,score,expected", [
@@ -41,6 +44,30 @@ def test_calculates_who_2006_scores_for_a_child_with_complete_measurements() -> 
     assert indicators.pt == Decimal("-0.056")
     assert indicators.estado == "CALCULADO"
     assert indicators.referencia == WHO_2006_REFERENCE
+
+
+def test_calculates_who_2006_scores_on_the_day_of_birth() -> None:
+    indicators = calculate_nutritional_indicators(
+        birth_date=date(2026, 10, 9),
+        sex_code="F",
+        measured_on=date(2026, 10, 9),
+        weight_kg=Decimal("3.20"),
+        height_cm=Decimal("50.00"),
+    )
+
+    assert indicators.grupo_referencia == "INFANTIL"
+    assert indicators.estado == "CALCULADO"
+    assert indicators.imc == Decimal("12.800")
+    assert (indicators.pe, indicators.te, indicators.pt) == (
+        Decimal("-0.071"),
+        Decimal("0.458"),
+        Decimal("-0.516"),
+    )
+    assert indicators.classifications == {
+        "diagnostico_peso_edad": "Normal",
+        "diagnostico_talla_edad": "Normal",
+        "diagnostico_peso_talla": "Normal",
+    }
 
 
 def test_keeps_bmi_but_does_not_extrapolate_child_scores_for_an_adult() -> None:

@@ -19,6 +19,7 @@ export interface RiskRow {
 }
 
 export interface PatientRegistrationDraft extends PatientSisData {
+  sufijo_documento?: string
   tipo_documento_codigo: string
   numero_documento: string
   historia_clinica: string

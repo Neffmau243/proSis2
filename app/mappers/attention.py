@@ -7,10 +7,18 @@ from app.schemas.attention import (
     AttentionResponse,
     AttentionServiceResponse,
 )
+from app.schemas.nutrition_record import NutritionRecordResponse
 
 
 def attention_to_response(entity: Attention) -> AttentionResponse:
     return AttentionResponse(
+        contexto_clinico=getattr(entity, "contexto_clinico", None),
+        evaluaciones_nutricionales=[
+            NutritionRecordResponse.model_validate(item)
+            for item in sorted(
+                getattr(entity, "evaluaciones_nutricionales", []), key=lambda x: x.id
+            )
+        ],
         valoracion_calculada=getattr(entity, "valoracion_calculada", None),
         fua_impresion=entity.fua_impresion,
         id=entity.id,
@@ -74,6 +82,9 @@ def attention_to_response(entity: Attention) -> AttentionResponse:
 def _age_display(entity: Attention) -> str | None:
     """Render the exact calendar age at the encounter date for history views."""
 
+    context = getattr(entity, "contexto_clinico", None)
+    if context is not None:
+        return context.get("edad_detallada")
     patient = entity.paciente
     if patient is None or patient.fecha_nacimiento > entity.fecha_atencion.date():
         return f"{entity.edad_anios} años" if entity.edad_anios is not None else None

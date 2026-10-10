@@ -18,8 +18,8 @@ from sqlalchemy.orm import Session
 
 from app.main import app
 from app.models.clinical import Attention
-from app.models.patient import Patient
 from app.models.organization import Establishment, Office
+from app.models.patient import Patient
 from app.models.security import Professional
 from app.models.surveillance import NutritionalEvaluation
 
@@ -107,6 +107,12 @@ try:
                         row = session.get(Patient, pid)
                         expect(all(str(getattr(row, k)) == str(sent[k]) for k in patient_keys), f"Patient SQL mismatch {pid}")
                     history = []
+                    age_condition = {
+                        "ADULTA": "ADULTO",
+                        "NINO": "NIÑO",
+                        "ADOLESCENTE": "ADOLESCENTE",
+                        "MAYOR": "ADULTO MAYOR",
+                    }[profile]
                     condition = "NO GESTANTE"
                     groups = (GENERAL, "GESTANTES", "PUERPERAS") if profile == "ADULTA" else (GENERAL,)
                     for mode in ("AMBULATORIA", "EMERGENCIA"):
@@ -141,8 +147,10 @@ try:
                             expect(snapshot["grupo_atencion_codigo"] == group, f"FUA group {aid}")
                             expect(snapshot["tipo_atencion"] == mode, f"FUA mode {aid}")
                             expect(snapshot["etnia_codigo"] == ethnicity, f"FUA ethnicity {aid}")
-                            if group != GENERAL:
-                                condition = {"GESTANTES": "GESTANTE", "PUERPERAS": "PUERPERA"}[group]
+                            condition = {
+                                "GESTANTES": "GESTANTE",
+                                "PUERPERAS": "PUERPERA",
+                            }.get(group, age_condition)
                             current = request("GET", f"/patients/{pid}")
                             expect(current["condicion"] == condition, f"Patient condition {aid}")
                             with Session(engine) as session:

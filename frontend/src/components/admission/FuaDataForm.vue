@@ -12,7 +12,7 @@ const choices = [
 const texts: { key: keyof FuaPrintInput; label: string; max: number }[] = [
   { key: 'codigo_renipress', label: 'RENIPRESS (8 dígitos)', max: 8 },
   { key: 'sis_diresa', label: 'SIS · DIRESA / otros', max: 3 },
-  { key: 'sis_tipo', label: 'SIS · Tipo de afiliación', max: 1 },
+  { key: 'sis_tipo', label: 'SIS · Tipo de afiliación', max: 2 },
   { key: 'sis_numero', label: 'SIS · Número de afiliación', max: 30 },
   { key: 'sis_componente', label: 'SIS · Componente RN (si aplica)', max: 20 },
   { key: 'etnia_codigo', label: 'Etnia · Código verificado', max: 3 },

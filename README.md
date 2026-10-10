@@ -451,8 +451,15 @@ Los rangos clínicos y las políticas de numeración son configurables o puertos
 - La unidad canónica es mes completo. Todo grupo activo necesita edad mínima,
   no puede haber solapes, solo uno puede quedar sin máximo y la cobertura
   continua se valida cuando la IPRESS la exige.
+- La configuración inicial aplica estas etapas: NIÑO de 0 a 11 años,
+  ADOLESCENTE de 12 a 17, JOVEN de 18 a 29, ADULTO de 30 a 59 y ADULTO MAYOR
+  desde los 60 años. Los límites se almacenan en meses completos.
 - Al crear una atención, el servidor calcula el grupo por fecha de nacimiento
-  y fecha de atención. El cliente nunca impone el grupo etario.
+  y fecha de atención. El cliente nunca impone el grupo etario. La atención
+  conserva ese grupo como dato histórico y la condición maestra del paciente
+  se sincroniza con la etapa vigente; GESTANTE y PUERPERA tienen prioridad
+  cuando corresponden al grupo de atención. RECIEN NACIDO se conserva durante
+  los primeros 28 días.
 
 ### RB-04: consultorios y profesionales
 

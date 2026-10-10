@@ -148,20 +148,22 @@ with TestClient(app, base_url="http://localhost") as client:
           and original["fecha_probable_parto"] == "2026-09-20")
     current = request("Revisar condición de ficha", "GET", f"/patients/{pid}", 200)
     check("Sincroniza PUERPERA sin PATCH adicional", current["condicion"] == "PUERPERA")
-    general = request("Grupo general no sobrescribe condición", "POST", "/atenciones", 201,
+    general = request("Grupo general restaura condición etaria", "POST", "/atenciones", 201,
                       {**base, "grupo_atencion_codigo": "NINOS_ADOLESCENTES_ADULTOS_MAYORES"})
     ids.append(general["id"])
     current = request("Recuperar condición actualizada", "GET", f"/patients/{pid}", 200)
-    check("General conserva PUERPERA", current["condicion"] == "PUERPERA")
+    check("General sincroniza ADULTO", current["condicion"] == "ADULTO")
     with Session(engine) as session:
         logs = session.scalars(select(AuditLog).where(
             AuditLog.tabla_nombre == "pacientes", AuditLog.registro_id == pid,
             AuditLog.accion == "UPDATE").order_by(AuditLog.id)).all()
-        check("Solo se auditan cambios efectivos", len(logs) == 2)
+        check("Solo se auditan cambios efectivos", len(logs) == 3)
         check("Auditoría de transición gestante", logs[0].datos_anteriores["condicion"] == "NO GESTANTE"
               and logs[0].datos_nuevos == {"condicion": "GESTANTE", "atencion_id": pregnant["id"]})
         check("Auditoría de transición puérpera", logs[1].datos_anteriores["condicion"] == "GESTANTE"
               and logs[1].datos_nuevos == {"condicion": "PUERPERA", "atencion_id": ids[0]})
+        check("Auditoría de retorno etario", logs[2].datos_anteriores["condicion"] == "PUERPERA"
+              and logs[2].datos_nuevos == {"condicion": "ADULTO", "atencion_id": general["id"]})
     # Fail after the patient update has been staged: neither write may survive.
     with patch.object(AttentionRepository, "add_audit", side_effect=RuntimeError("TEST_ROLLBACK")):
         try:
@@ -171,12 +173,12 @@ with TestClient(app, base_url="http://localhost") as client:
         else:
             raise AssertionError("Expected transaction failure")
     with Session(engine) as session:
-        check("Rollback de condición", session.get(Patient, pid).condicion == "PUERPERA")
+        check("Rollback de condición", session.get(Patient, pid).condicion == "ADULTO")
         check("Rollback de atención", session.scalar(select(func.count()).select_from(Attention)
               .where(Attention.paciente_id == pid)) == 4)
         check("Rollback de auditoría", session.scalar(select(func.count()).select_from(AuditLog)
               .where(AuditLog.tabla_nombre == "pacientes", AuditLog.registro_id == pid,
-                     AuditLog.accion == "UPDATE")) == 2)
+                     AuditLog.accion == "UPDATE")) == 3)
 
 report = {"database": target.database, "patient_id": pid, "attention_ids": [pregnant["id"], *ids], "cases": results}
 Path(__file__).with_name("puerpera_fields_results.json").write_text(json.dumps(report, indent=2), encoding="utf-8")

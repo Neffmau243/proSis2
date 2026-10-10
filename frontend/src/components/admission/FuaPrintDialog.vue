@@ -3,6 +3,8 @@ import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import fuaReferenceUrl from '@/assets/fua-referencia.webp'
 import type { FuaPrintSnapshot } from '@/types/fua'
+import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
+import { nutritionalTableRows, type NutritionalReferenceGroup } from '@/utils/nutritionalDisplay'
 import {
   defaultFuaLayout,
   FUA_LAYOUT_KEY,
@@ -37,6 +39,24 @@ const background = computed(() => customBackground.value || fuaReferenceUrl)
 const tab = ref('datos')
 const snapshot = computed(() => props.snapshot)
 const values = computed(() => fuaValues(snapshot.value))
+const nutritionGroup = computed<NutritionalReferenceGroup>(() => {
+  if (snapshot.value.grupo_referencia) return snapshot.value.grupo_referencia
+  if (snapshot.value.grupo_atencion_codigo === 'GESTANTES') return 'GESTANTE'
+  if (snapshot.value.grupo_atencion_codigo === 'PUERPERAS') return 'PUERPERA'
+  return [snapshot.value.pe, snapshot.value.te, snapshot.value.pt].some((value) => value != null)
+    ? 'INFANTIL'
+    : 'ADULTO'
+})
+const nutritionRows = computed(() =>
+  nutritionalTableRows(
+    {
+      ...snapshot.value,
+      grupo_referencia: snapshot.value.grupo_referencia ?? undefined,
+      estado: snapshot.value.estado_nutricional ?? undefined,
+    },
+    nutritionGroup.value,
+  ),
+)
 const warnings = computed(() => fuaWarnings(snapshot.value))
 // El recuadro de parto imprime FPP o fecha real según el grupo; el PAB solo
 // corresponde al grupo general.
@@ -138,11 +158,17 @@ async function print(test: boolean): Promise<void> {
   >
     <p class="fua-intro">
       Copia conservada al guardar la atención. Reimprimir no crea otra consulta. Solo se imprimen
-      datos y marcas; el número del formulario preimpreso no se reemplaza. Este sistema no envía datos al SIS.
+      datos y marcas; el número del formulario preimpreso no se reemplaza. Este sistema no envía
+      datos al SIS.
     </p>
     <el-alert v-if="localError" :title="localError" type="error" :closable="false" />
     <el-alert v-if="identityProblem" :title="identityProblem" type="error" :closable="false" />
-    <el-alert v-if="values.identity_note" :title="values.identity_note" type="info" :closable="false" />
+    <el-alert
+      v-if="values.identity_note"
+      :title="values.identity_note"
+      type="info"
+      :closable="false"
+    />
     <el-tabs v-model="tab">
       <el-tab-pane label="Datos de la FUA" name="datos">
         <dl class="fua-summary">
@@ -201,7 +227,9 @@ async function print(test: boolean): Promise<void> {
             <dt>Identificación</dt>
             <dd>
               {{ snapshot.tipo_documento }} {{ snapshot.numero_documento }} ·
-              {{ snapshot.tdi ? `TDI ${snapshot.tdi}` : 'Tipo indicado con abreviatura de uso local' }}
+              {{
+                snapshot.tdi ? `TDI ${snapshot.tdi}` : 'Tipo indicado con abreviatura de uso local'
+              }}
             </dd>
           </div>
           <div>
@@ -224,6 +252,13 @@ async function print(test: boolean): Promise<void> {
             <dd>{{ values.perimetro_abdominal_cm || '—' }} cm</dd>
           </div>
         </dl>
+        <section class="fua-nutrition" aria-labelledby="fua-nutrition-title">
+          <h3 id="fua-nutrition-title">Valoración nutricional conservada</h3>
+          <NutritionIndicatorsTable
+            :rows="nutritionRows"
+            label="Indicadores nutricionales conservados en la FUA"
+          />
+        </section>
         <p>
           La sede aporta personal y lugar; la ficha del paciente aporta afiliación y etnia. No
           necesita volver a seleccionarlos al imprimir.
@@ -426,6 +461,13 @@ async function print(test: boolean): Promise<void> {
 .fua-summary dd {
   margin: 4px 0 0;
   overflow-wrap: anywhere;
+}
+.fua-nutrition {
+  margin: 20px 0;
+}
+.fua-nutrition h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
 }
 .fua-calibration {
   display: grid;

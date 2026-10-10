@@ -900,7 +900,8 @@ def seed_demo_data() -> dict[str, int]:
         for code, name, minimum, maximum in (
             ("NINO", "Niño", 0, 143),
             ("ADOLESCENTE", "Adolescente", 144, 215),
-            ("ADULTO", "Adulto", 216, 719),
+            ("JOVEN", "Joven", 216, 359),
+            ("ADULTO", "Adulto", 360, 719),
             ("ADULTO_MAYOR", "Adulto mayor", 720, None),
         ):
             group = session.get(AgeGroup, code)

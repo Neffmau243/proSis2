@@ -77,6 +77,17 @@ class FuaPrintSnapshot(FuaPrintInput):
     presion_sistolica: int | None = None
     presion_diastolica: int | None = None
     imc: Decimal | None = None
+    grupo_referencia: str | None = None
+    estado_nutricional: str | None = None
+    pe: Decimal | None = None
+    te: Decimal | None = None
+    pt: Decimal | None = None
+    diagnostico_peso_edad: str | None = None
+    diagnostico_talla_edad: str | None = None
+    diagnostico_peso_talla: str | None = None
+    diagnostico_imc: str | None = None
+    imc_pregestacional: Decimal | None = None
+    ganancia_peso_kg: Decimal | None = None
     perimetro_abdominal_cm: Decimal | None = None
     grupo_atencion_codigo: str
     #: FPP de la gestante; en una puérpera el mismo recuadro del formato lleva

@@ -2,6 +2,7 @@
 import { computed, ref, toRef, watch } from 'vue'
 import PatientSisCodeFields from '@/components/patients/PatientSisCodeFields.vue'
 import PatientConditionSelect from '@/components/patients/PatientConditionSelect.vue'
+import FamilyHistorySelector from '@/components/patients/FamilyHistorySelector.vue'
 import AdmissionDocumentTypes from '@/components/admission/AdmissionDocumentTypes.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useAdmissionPatientDetails } from '@/composables/useAdmissionPatientDetails'
@@ -9,6 +10,7 @@ import { useAdmissionPatientEditor } from '@/composables/useAdmissionPatientEdit
 import AdmissionPatientRelations from '@/components/admission/AdmissionPatientRelations.vue'
 import { patientFields, type PatientFieldKey } from '@/utils/patientDraft'
 import { clearSisAffiliation, isSisInsurance, sisTypeFromInsurance } from '@/utils/patientInsurance'
+import type { PatientSisContractKey, PatientSisData } from '@/utils/patientSis'
 import { pacientes, type Patient } from '@/services/pacientes'
 import type { CodeCatalogItem, RiskGroupCatalogItem } from '@/services/catalogos'
 
@@ -62,6 +64,13 @@ const selectedInsurance = computed(() =>
 const selectedEstablishment = computed(() =>
   establishments.items.value.find((item) => item.id === draft.establecimiento_registro_id),
 )
+const derivedSisType = computed(() => sisTypeFromInsurance(selectedInsurance.value))
+const derivedSisDiresa = computed(() => selectedEstablishment.value?.disa_codigo ?? null)
+const sisDisplayValue = computed(() => ({
+  ...draft,
+  sis_diresa: draft.sis_diresa ?? derivedSisDiresa.value,
+  sis_tipo: draft.sis_tipo ?? derivedSisType.value,
+}))
 function changeInsurance(): void {
   if (!hasSisInsurance.value) {
     const hadAffiliation = Boolean(
@@ -72,19 +81,22 @@ function changeInsurance(): void {
       ElMessage.info('Se retiró la afiliación SIS del borrador. Guarde los cambios para confirmar.')
     return
   }
-  const sisType = sisTypeFromInsurance(selectedInsurance.value)
-  if (sisType && (draft.sis_diresa || draft.sis_numero || draft.sis_secuencia)) {
-    draft.sis_tipo = sisType
+  if (draft.sis_diresa || draft.sis_numero || draft.sis_secuencia) {
+    draft.sis_tipo = derivedSisType.value
   }
 }
 function changeEstablishment(): void {
-  const disaCode = selectedEstablishment.value?.disa_codigo
-  if (hasSisInsurance.value && disaCode && (draft.sis_tipo || draft.sis_numero || draft.sis_secuencia)) {
-    draft.sis_diresa = disaCode
+  if (hasSisInsurance.value && (draft.sis_tipo || draft.sis_numero || draft.sis_secuencia)) {
+    draft.sis_diresa = derivedSisDiresa.value
   }
 }
-function searchFamilyHistories(query: string): void {
-  familyHistories.search(query)
+function updateSisAffiliation(
+  changes: Partial<Pick<PatientSisData, PatientSisContractKey>>,
+): void {
+  Object.assign(draft, changes)
+  if (!draft.sis_numero) return
+  draft.sis_tipo ??= derivedSisType.value
+  draft.sis_diresa ??= derivedSisDiresa.value
 }
 const fullName = computed(
   () =>
@@ -259,10 +271,10 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
               </el-form-item>
               <PatientSisCodeFields
                 compact
-                :value="draft"
+                :value="sisDisplayValue"
                 :disabled="disabled || !hasSisInsurance"
                 :errors="fieldErrors"
-                @update="Object.assign(draft, $event)"
+                @update="updateSisAffiliation"
               />
             </div>
           </div>
@@ -281,27 +293,13 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
               :aria-label="field.label"
               :inputmode="field.key === 'telefono_principal' ? 'tel' : 'text'"
             />
-            <el-select
+            <FamilyHistorySelector
               v-else-if="field.key === 'historia_familiar'"
               v-model="draft.historia_familiar"
-              filterable
-              remote
-              allow-create
-              clearable
-              default-first-option
               :disabled="disabled"
+              :options="familyHistories.items.value"
               :loading="familyHistories.loading.value"
-              :remote-method="searchFamilyHistories"
-              :aria-label="field.label"
-              placeholder="Seleccione o escriba el código familiar"
-            >
-              <el-option
-                v-for="option in familyHistories.items.value"
-                :key="option.codigo"
-                :label="option.codigo"
-                :value="option.codigo"
-              />
-            </el-select>
+            />
             <el-input
               v-else-if="field.kind === 'date'"
               v-model="draft[field.key]"

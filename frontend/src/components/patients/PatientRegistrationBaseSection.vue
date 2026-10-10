@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import PatientSisFields from './PatientSisFields.vue'
 import PatientConditionSelect from './PatientConditionSelect.vue'
+import FamilyHistorySelector from './FamilyHistorySelector.vue'
 import { isSisInsurance } from '@/utils/patientInsurance'
 import type {
   CodeCatalogItem,
   EstablishmentCatalogItem,
+  FamilyHistoryCatalogItem,
   IdCatalogItem,
   LocalidadCatalogItem,
   UbigeoCatalogItem,
@@ -26,6 +28,8 @@ const props = defineProps<{
   ubigeosLoading: boolean
   localidades: LocalidadCatalogItem[]
   localidadesLoading: boolean
+  historiasFamiliares: FamilyHistoryCatalogItem[]
+  historiasFamiliaresLoading: boolean
 }>()
 
 const emit = defineEmits<{
@@ -60,10 +64,12 @@ function updateLocality(localidadId: number | null): void {
         />
       </el-form-item>
 
-      <el-form-item class="base-field" label="Historia familiar">
-        <el-input
+      <el-form-item class="base-field" label="Historia familiar" prop="historia_familiar">
+        <FamilyHistorySelector
           :model-value="form.historia_familiar"
-          @update:model-value="update({ historia_familiar: $event })"
+          :options="historiasFamiliares"
+          :loading="historiasFamiliaresLoading"
+          @update:model-value="update({ historia_familiar: $event ?? '' })"
         />
       </el-form-item>
 
@@ -106,6 +112,12 @@ function updateLocality(localidadId: number | null): void {
           :disabled-date="(date: Date) => date.getTime() > Date.now()"
           @update:model-value="update({ fecha_nacimiento: $event ?? '' })"
         />
+      </el-form-item>
+
+      <el-form-item class="base-field" label="Sufijo documento (origen, opcional)">
+        <el-input :model-value="form.sufijo_documento" :maxlength="10"
+          placeholder="Solo si figura en el registro original"
+          @update:model-value="update({ sufijo_documento: $event })" />
       </el-form-item>
 
       <el-form-item class="base-field" label="Apellido paterno">

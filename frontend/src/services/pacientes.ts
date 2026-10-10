@@ -23,6 +23,7 @@ export interface PatientRisk {
 }
 
 export interface Patient extends Partial<PatientSisData> {
+  sufijo_documento?: string | null
   id: number
   codclie_legacy: number | null
   historia_clinica: string | null
@@ -96,6 +97,7 @@ export interface RiskUpdatePayload {
 }
 
 export interface PatientCreatePayload extends Partial<PatientSisData> {
+  sufijo_documento?: string | null
   historia_clinica?: string | null
   historia_familiar?: string | null
   tipo_documento_codigo: string

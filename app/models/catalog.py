@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, CHAR, String, UniqueConstraint, text
+from sqlalchemy import CHAR, Boolean, SmallInteger, String, UniqueConstraint, text
 from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, MYSQL_TABLE_OPTIONS
+from .base import MYSQL_TABLE_OPTIONS, Base
 
 if TYPE_CHECKING:
     from .clinical import Attention, AttentionDiagnosis, AttentionService
@@ -62,6 +62,26 @@ class Sex(Base):
     pacientes: Mapped[list["Patient"]] = relationship(back_populates="sex")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
+
+
+class FamilyHistoryPrefix(Base):
+    """Prefix used to compose a family-history identifier (for example AM-0012)."""
+
+    __tablename__ = "historias_familiares_catalogo"
+
+    codigo: Mapped[str] = mapped_column(String(4), primary_key=True)
+    nombre: Mapped[str] = mapped_column(String(100), nullable=False)
+    tipo: Mapped[str] = mapped_column(String(10), nullable=False)
+    color_hex: Mapped[str | None] = mapped_column(CHAR(7), nullable=True)
+    orden: Mapped[int] = mapped_column(SmallInteger, nullable=False)
+    activo: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text("TRUE")
+    )
+
+    __table_args__ = (
+        UniqueConstraint("orden", name="uq_historias_familiares_catalogo_orden"),
+        MYSQL_TABLE_OPTIONS,
+    )
 
 
 class Insurance(Base):

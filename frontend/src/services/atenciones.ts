@@ -1,4 +1,5 @@
 import http from './http'
+import type { ClinicalContext, NutritionCapture, NutritionRecord } from '@/types/nutritionRecord'
 import type { PageResponse } from '@/types/api'
 import type { FuaPrintInput, FuaPrintSnapshot } from '@/types/fua'
 
@@ -22,6 +23,8 @@ export interface AttentionDiagnosisItem {
 }
 
 export interface Attention {
+  contexto_clinico?: ClinicalContext | null
+  evaluaciones_nutricionales?: NutritionRecord[]
   valoracion_calculada?: NutritionalIndicatorsPreview | null
   fua_impresion: FuaPrintSnapshot | null
   id: number
@@ -77,7 +80,7 @@ export interface AttentionSearchParams {
   offset: number
 }
 
-export interface NutritionalSnapshotPayload {
+export interface NutritionalSnapshotPayload extends NutritionCapture {
   diagnostico_peso_edad?: string | null
   diagnostico_talla_edad?: string | null
   diagnostico_peso_talla?: string | null
@@ -209,6 +212,14 @@ export interface ReferralResponse {
 }
 
 export const atenciones = {
+  async exportNutrition(id: number): Promise<Record<string, unknown>> {
+    const { data } = await http.post<Record<string, unknown>>(`/atenciones/${id}/nutricion/exportacion`)
+    return data
+  },
+  async confirmNutritionSent(id: number, constancia: string): Promise<Attention> {
+    const { data } = await http.post<Attention>(`/atenciones/${id}/nutricion/envio`, { constancia })
+    return data
+  },
   async search(params: AttentionSearchParams): Promise<PageResponse<Attention>> {
     const { data } = await http.get<PageResponse<Attention>>('/atenciones/busqueda', {
       params,

@@ -485,14 +485,10 @@
                     <strong class="nutrition-age__value">{{ nutritionalAge }}</strong>
                   </div>
                 </div>
-                <el-row :gutter="isAdmission ? 12 : 16" class="nutrition-fields">
-                  <el-col v-for="item in nutritionRows" :key="item.label" :span="24">
-                    <el-form-item class="nutrition-field" :label="item.label">
-                      <el-input :model-value="item.value" readonly />
-                    </el-form-item>
-                  </el-col>
-                </el-row>
-                <small role="status">{{ nutritionStatus }}</small>
+                <NutritionIndicatorsTable
+                  :rows="nutritionTableItems"
+                  :label="`Valoración nutricional ${nutritionReferenceGroup.toLowerCase()}`"
+                />
               </section>
             </el-form>
             <AdmissionFinalActions
@@ -549,6 +545,7 @@ import AdmissionHistory from '@/components/admission/AdmissionHistory.vue'
 import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterHeader.vue'
 import AdmissionFinalActions from '@/components/admission/AdmissionFinalActions.vue'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
+import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
 import { useSavedAdmission } from '@/composables/useSavedAdmission'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
 import {
@@ -568,12 +565,11 @@ import {
   type Attention,
   type AttentionCreatePayload,
   type CareGroupCode,
-  type NutritionalSnapshotPayload,
   type PregnancyTypeCode,
 } from '@/services/atenciones'
-import { formatCalendarAge } from '@/utils/calendarAge'
+import { formatCalendarAge, calculateCalendarAge } from '@/utils/calendarAge'
 import { useNutritionalIndicatorsPreview } from '@/composables/useNutritionalIndicatorsPreview'
-import { nutritionalRows, nutritionalBmiSummary } from '@/utils/nutritionalDisplay'
+import { nutritionalTableRows } from '@/utils/nutritionalDisplay'
 import { PREGNANCY_TYPES } from '@/utils/pregnancy'
 
 const props = withDefaults(
@@ -688,24 +684,45 @@ const nutritionalAge = computed(() => {
   return formatCalendarAge(birthDate, form.fecha_atencion || new Date()) ?? '—'
 })
 
-const { indicators: nutritionIndicators, loading: nutritionLoading, error: nutritionError } = useNutritionalIndicatorsPreview({
+const {
+  indicators: nutritionIndicators,
+  loading: nutritionLoading,
+} = useNutritionalIndicatorsPreview({
   patientId: () => nutritionalPatient.value?.id ?? null,
   attendedAt: () => form.fecha_atencion,
   weightKg: () => form.peso_kg,
   heightCm: () => form.talla_cm,
-  patientRevision: () => `${nutritionalPatient.value?.fecha_nacimiento}|${nutritionalPatient.value?.sexo_codigo}`,
+  patientRevision: () =>
+    `${nutritionalPatient.value?.fecha_nacimiento}|${nutritionalPatient.value?.sexo_codigo}`,
   careGroup: () => selectedCareGroup.value,
   pregestationalWeightKg: () => form.peso_antes_embarazo_kg,
 })
 
-const nutritionRows = computed(() => nutritionLoading.value || nutritionError.value
-  ? nutritionalRows(null).map(item => ({ ...item, value: nutritionLoading.value ? 'Calculando…' : 'No disponible' }))
-  : nutritionalRows(nutritionIndicators.value))
+const nutritionReferenceGroup = computed(() => {
+  const result = nutritionIndicators.value
+  const birth = nutritionalPatient.value?.fecha_nacimiento
+  const age = birth ? calculateCalendarAge(birth, form.fecha_atencion) : null
+  return (
+    result?.grupo_referencia ??
+    (result && [result.pe, result.te, result.pt].some((value) => value != null)
+      ? 'INFANTIL'
+      : isPregnant.value
+        ? 'GESTANTE'
+        : isPuerperal.value
+          ? 'PUERPERA'
+          : age && age.years >= 18
+            ? 'ADULTO'
+            : 'INFANTIL')
+  )
+})
 
-const nutritionStatus = computed(() => {
-  if (nutritionLoading.value) return 'Calculando…'
-  if (nutritionError.value) return nutritionError.value
-  return nutritionalBmiSummary(nutritionIndicators.value) || nutritionIndicators.value?.mensaje || ''
+const nutritionTableItems = computed(() => {
+  const pendingValue = nutritionLoading.value ? 'Calculando…' : 'No disponible'
+  return nutritionalTableRows(
+    nutritionIndicators.value,
+    nutritionReferenceGroup.value,
+    pendingValue,
+  )
 })
 
 function patientIdFromQuery(value: unknown): number | null {
@@ -763,12 +780,6 @@ function onPatientRemoved(removed: Patient): void {
   // salida no debe bloquear la vuelta al listado.
   patientContextDirty.value = false
   void router.push({ name: 'inicio' })
-}
-
-/** Convierte el bloque en el payload del backend; `null` si no se registró nada. */
-function buildNutritionalPayload(): NutritionalSnapshotPayload | null {
-  // The server recalculates and persists the classifications atomically.
-  return null
 }
 
 function selectCareGroup(group: CareGroupCode): void {
@@ -915,7 +926,6 @@ async function submit(): Promise<void> {
     return
   }
 
-  const valoracion = buildNutritionalPayload()
   errorMessage.value = null
   try {
     const payload: AttentionCreatePayload = {
@@ -941,7 +951,6 @@ async function submit(): Promise<void> {
       hora_inicio: form.hora_inicio,
       hora_fin: form.hora_fin,
       admision: form.admision || null,
-      valoracion_nutricional: valoracion,
     }
     const created = await atenciones.create(payload)
     remember(created)
@@ -1221,11 +1230,6 @@ onMounted(async () => {
   text-align: end;
 }
 
-.nutrition-fields {
-  display: grid;
-  gap: 2px;
-}
-
 .vital-signs,
 .vital-signs__pressure,
 .vital-signs__temperature {
@@ -1323,33 +1327,20 @@ onMounted(async () => {
   margin-left: 0 !important;
 }
 
-:deep(.measurement-field),
-:deep(.nutrition-field) {
+:deep(.measurement-field) {
   display: flex;
   align-items: center;
   gap: var(--admission-space);
 }
 
-.nutrition-fields :deep(.nutrition-field) {
-  margin-bottom: 0;
-  padding: 6px 0;
-  border-bottom: 1px solid var(--el-border-color-lighter);
-}
-
-.nutrition-fields :deep(.el-col:last-child .nutrition-field) {
-  border-bottom: 0;
-}
-
-:deep(.measurement-field .el-form-item__label),
-:deep(.nutrition-field .el-form-item__label) {
+:deep(.measurement-field .el-form-item__label) {
   flex: 0 1 170px;
   min-width: 124px;
   justify-content: flex-start;
   padding: 0;
 }
 
-:deep(.measurement-field .el-form-item__content),
-:deep(.nutrition-field .el-form-item__content) {
+:deep(.measurement-field .el-form-item__content) {
   flex: 1 1 auto;
   min-width: 0;
   margin-left: 0 !important;
@@ -1426,15 +1417,13 @@ onMounted(async () => {
     padding-bottom: 5px;
   }
 
-  :deep(.measurement-field),
-  :deep(.nutrition-field) {
+  :deep(.measurement-field) {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
   }
 
-  :deep(.measurement-field .el-form-item__label),
-  :deep(.nutrition-field .el-form-item__label) {
+  :deep(.measurement-field .el-form-item__label) {
     flex-basis: auto;
     min-width: 0;
     padding-bottom: 5px;

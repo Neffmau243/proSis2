@@ -89,6 +89,36 @@ class SurveillanceSien(Base):
 class NutritionalEvaluation(Base):
     __tablename__ = "evaluaciones_nutricionales"
 
+    hemoglobina_corregida: Mapped[Decimal | None] = mapped_column(mysql.DECIMAL(5, 2), nullable=True)
+    metodo_correccion_hb: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    hematocrito: Mapped[Decimal | None] = mapped_column(mysql.DECIMAL(5, 2), nullable=True)
+    altitud_msnm: Mapped[Decimal | None] = mapped_column(mysql.DECIMAL(8, 2), nullable=True)
+    estado_ganancia_peso: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    juntos: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    pin: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    crecer: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    pending_legacy: Mapped[bool | None] = mapped_column(Boolean, nullable=True)
+    nro_controles_cred: Mapped[int | None] = mapped_column(mysql.SMALLINT(unsigned=True), nullable=True)
+    nro_sachets: Mapped[int | None] = mapped_column(mysql.SMALLINT(unsigned=True), nullable=True)
+    nro_consejerias: Mapped[int | None] = mapped_column(mysql.SMALLINT(unsigned=True), nullable=True)
+    nro_sesiones: Mapped[int | None] = mapped_column(mysql.SMALLINT(unsigned=True), nullable=True)
+    nro_visitas: Mapped[int | None] = mapped_column(mysql.SMALLINT(unsigned=True), nullable=True)
+    institucion_educativa: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    nivel_educativo: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    grado: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    turno: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    codigo_matricula: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    seccion: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    aula: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    p65: Mapped[int | None] = mapped_column(mysql.INTEGER, nullable=True)
+    vl: Mapped[int | None] = mapped_column(mysql.INTEGER, nullable=True)
+    cp: Mapped[int | None] = mapped_column(mysql.INTEGER, nullable=True)
+    flag_legacy: Mapped[int | None] = mapped_column(mysql.INTEGER, nullable=True)
+    estado_exportacion: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    exportado_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    enviado_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    constancia_envio: Mapped[str | None] = mapped_column(String(200), nullable=True)
+
     id: Mapped[int] = mapped_column(
         mysql.BIGINT(unsigned=True), primary_key=True, autoincrement=True
     )

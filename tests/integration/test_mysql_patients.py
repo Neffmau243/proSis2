@@ -69,38 +69,61 @@ def test_personal_and_family_histories_persist_and_update_together(
     """The two histories are distinct patient fields throughout the HTTP flow."""
 
     token = uuid4().hex[:8].upper()
+    family_number = str(uuid4().int)[:12]
     created = create_patient(
         clinic_scene.professional_client,
         historia_clinica=f"HC-{token}",
-        historia_familiar=f"HF-VERDE-{token}",
+        historia_familiar=f"VC-{family_number}",
     )
     assert created["historia_clinica"] == f"HC-{token}"
-    assert created["historia_familiar"] == f"HF-VERDE-{token}"
+    assert created["historia_familiar"] == f"VC-{family_number}"
 
     stored = db_session.get(Patient, created["id"])
     assert stored is not None
     assert stored.historia_clinica == f"HC-{token}"
-    assert stored.historia_familiar == f"HF-VERDE-{token}"
+    assert stored.historia_familiar == f"VC-{family_number}"
 
     updated = clinic_scene.professional_client.patch(
         f"{api_prefix}/patients/{created['id']}",
         json={
             "historia_clinica": f"HC-ACTUALIZADA-{token}",
-            "historia_familiar": f"HF-AZUL-{token}",
+            "historia_familiar": f"AZ-{family_number}",
         },
     )
     assert updated.status_code == 200, updated.text
     assert updated.json()["historia_clinica"] == f"HC-ACTUALIZADA-{token}"
-    assert updated.json()["historia_familiar"] == f"HF-AZUL-{token}"
+    assert updated.json()["historia_familiar"] == f"AZ-{family_number}"
 
     reread = clinic_scene.professional_client.get(f"{api_prefix}/patients/{created['id']}")
     assert reread.status_code == 200, reread.text
     assert reread.json()["historia_clinica"] == f"HC-ACTUALIZADA-{token}"
-    assert reread.json()["historia_familiar"] == f"HF-AZUL-{token}"
+    assert reread.json()["historia_familiar"] == f"AZ-{family_number}"
 
     db_session.refresh(stored)
     assert stored.historia_clinica == f"HC-ACTUALIZADA-{token}"
-    assert stored.historia_familiar == f"HF-AZUL-{token}"
+    assert stored.historia_familiar == f"AZ-{family_number}"
+
+
+def test_family_history_rejects_unknown_prefix_and_invalid_number(
+    clinic_scene, api_prefix
+) -> None:
+    base = {
+        "tipo_documento_codigo": "DNI",
+        "numero_documento": _document(),
+        "fecha_nacimiento": "1990-05-10",
+    }
+    malformed = clinic_scene.professional_client.post(
+        f"{api_prefix}/patients", json={**base, "historia_familiar": "AM-12A"}
+    )
+    assert malformed.status_code == 422
+    assert _error(malformed)["code"] == "HISTORIA_FAMILIAR_INVALIDA"
+
+    unknown = clinic_scene.professional_client.post(
+        f"{api_prefix}/patients",
+        json={**base, "numero_documento": _document(), "historia_familiar": "XX-001"},
+    )
+    assert unknown.status_code == 422
+    assert _error(unknown)["code"] == "CATALOGO_NO_DISPONIBLE"
 
 
 def test_administrator_keeps_break_glass_read_access(

@@ -13,6 +13,7 @@ from app.mappers.catalog import (
     cie10_to_catalog_item,
     document_type_to_catalog_item,
     establishment_to_catalog_item,
+    family_history_to_catalog_item,
     insurance_to_catalog_item,
     localidad_to_catalog_item,
     office_to_catalog_item,
@@ -42,7 +43,6 @@ from app.schemas.catalog import (
     UbigeoCatalogItem,
 )
 from app.schemas.common import PageResponse
-
 
 SourceT = TypeVar("SourceT")
 ResultT = TypeVar("ResultT")
@@ -90,7 +90,7 @@ class CatalogService:
         )
         return self._page(
             page,
-            lambda code: FamilyHistoryCatalogItem(codigo=code),
+            family_history_to_catalog_item,
             limit=limit,
             offset=offset,
         )

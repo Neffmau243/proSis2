@@ -10,6 +10,7 @@ from typing import Annotated, Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from app.schemas.fua_print import FuaPrintInput, FuaPrintSnapshot
+from app.schemas.nutrition_record import NutritionRecordInput, NutritionRecordResponse
 
 
 class AttentionModeCode(str, Enum):
@@ -67,17 +68,13 @@ class AttentionDiagnosisInput(BaseModel):
         return value.strip() if isinstance(value, str) else value
 
 
-class NutritionalSnapshotInput(BaseModel):
+class NutritionalSnapshotInput(NutritionRecordInput):
     """Optional historic nutrition record created atomically with an attention."""
 
     tipo: Annotated[str, Field(max_length=20)] | None = None
-    hemoglobina: Annotated[Decimal, Field(ge=0, max_digits=5, decimal_places=2)] | None = None
-    fecha_hemoglobina: date | None = None
-    edad_gestacional_semanas: Annotated[int, Field(ge=0, le=60)] | None = None
     diagnostico_peso_edad: Annotated[str, Field(max_length=100)] | None = None
     diagnostico_talla_edad: Annotated[str, Field(max_length=100)] | None = None
     diagnostico_peso_talla: Annotated[str, Field(max_length=100)] | None = None
-    diagnostico: Annotated[str, Field(max_length=500)] | None = None
 
 
 class AttentionCreate(BaseModel):
@@ -223,6 +220,8 @@ class AttentionDiagnosisResponse(BaseModel):
 
 
 class AttentionResponse(BaseModel):
+    contexto_clinico: dict[str, Any] | None = None
+    evaluaciones_nutricionales: list[NutritionRecordResponse] = Field(default_factory=list)
     valoracion_calculada: NutritionalIndicatorsResponse | None = None
     model_config = ConfigDict(from_attributes=True)
 

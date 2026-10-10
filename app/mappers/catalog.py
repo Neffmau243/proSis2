@@ -7,6 +7,7 @@ from app.models.catalog import (
     AttentionMode,
     Cie10,
     DocumentType,
+    FamilyHistoryPrefix,
     Insurance,
     Profession,
     ServiceOffering,
@@ -21,6 +22,7 @@ from app.schemas.catalog import (
     Cie10CatalogItem,
     CodeCatalogItem,
     EstablishmentCatalogItem,
+    FamilyHistoryCatalogItem,
     IdCatalogItem,
     InsuranceCatalogItem,
     LocalidadCatalogItem,
@@ -49,6 +51,16 @@ def insurance_to_catalog_item(entity: Insurance) -> InsuranceCatalogItem:
         activo=entity.activo,
         codigo_sis=entity.codigo_sis,
         regimen=entity.regimen,
+    )
+
+
+def family_history_to_catalog_item(entity: FamilyHistoryPrefix) -> FamilyHistoryCatalogItem:
+    return FamilyHistoryCatalogItem(
+        codigo=entity.codigo,
+        nombre=entity.nombre,
+        tipo=entity.tipo,
+        color_hex=entity.color_hex,
+        activo=entity.activo,
     )
 
 

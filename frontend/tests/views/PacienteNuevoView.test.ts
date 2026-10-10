@@ -20,6 +20,7 @@ const { catalogos } = vi.hoisted(() => ({
     sexos: vi.fn(),
     seguros: vi.fn(),
     gruposRiesgo: vi.fn(),
+    historiasFamiliares: vi.fn(),
     establecimientos: vi.fn(),
     ubigeos: vi.fn(),
   },
@@ -97,6 +98,19 @@ beforeEach(() => {
   catalogos.sexos.mockResolvedValue([{ codigo: 'F', nombre: 'Femenino', activo: true }])
   catalogos.seguros.mockResolvedValue([{ id: 2, codigo: 'SIS', nombre: 'SIS', activo: true }])
   catalogos.gruposRiesgo.mockResolvedValue([])
+  catalogos.historiasFamiliares.mockResolvedValue({
+    items: [
+      {
+        codigo: 'AM',
+        nombre: 'AMARILLO',
+        tipo: 'COLOR',
+        color_hex: '#F2C94C',
+        activo: true,
+      },
+    ],
+    total: 1,
+    has_more: false,
+  })
   catalogos.establecimientos.mockResolvedValue({ items: [], total: 0, has_more: false })
   catalogos.ubigeos.mockResolvedValue({ items: [], total: 0, has_more: false })
   create.mockResolvedValue(aPatient({ id: 77 }))
@@ -143,6 +157,7 @@ test('el alta envía solo los campos del contrato y navega a la ficha creada', a
   await submit(wrapper)
 
   expect(create).toHaveBeenCalledWith({
+    sufijo_documento: null,
     tipo_documento_codigo: 'DNI',
     numero_documento: '12345678',
     historia_clinica: null,
@@ -173,6 +188,17 @@ test('el alta envía solo los campos del contrato y navega a la ficha creada', a
   })
   expect(router.currentRoute.value.name).toBe('paciente-detalle')
   expect(router.currentRoute.value.params.id).toBe('77')
+})
+
+test('el alta conserva el identificador familiar compuesto y sus ceros iniciales', async () => {
+  const { wrapper } = await mountView()
+  await fillIdentity(wrapper, { ...validIdentity, historia_familiar: 'AM-00042' })
+
+  await submit(wrapper)
+
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({ historia_familiar: 'AM-00042' }),
+  )
 })
 
 test('la fecha de inscripción elegida reemplaza a la de hoy', async () => {
@@ -247,6 +273,49 @@ test('los responsables viajan con el parentesco y los riesgos con su grupo', asy
       observacion: null,
     },
   ])
+})
+
+test('un recién nacido se registra el mismo día con condición y responsable', async () => {
+  const { wrapper, router } = await mountView()
+  await fillIdentity(wrapper, {
+    tipo_documento_codigo: 'OTRO',
+    numero_documento: 'RN-20260315',
+    primer_nombre: 'Bebé',
+    fecha_nacimiento: '2026-03-15',
+    sexo_codigo: 'F',
+    condicion: 'RECIEN NACIDO',
+  })
+  wrapper.findComponent(PatientRegistrationFamilySections).vm.$emit('update:responsables', [
+    {
+      parentesco: 'MADRE',
+      nombre_completo: 'Madre ficticia',
+      tipo_documento_codigo: 'DNI',
+      numero_documento: '87654321',
+      telefono: null,
+      es_principal: true,
+    },
+  ])
+  await flushPromises()
+
+  await submit(wrapper)
+
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      tipo_documento_codigo: 'OTRO',
+      numero_documento: 'RN-20260315',
+      fecha_nacimiento: '2026-03-15',
+      fecha_inscripcion: '2026-03-15',
+      condicion: 'RECIEN NACIDO',
+      responsables: [
+        expect.objectContaining({
+          parentesco: 'MADRE',
+          nombre_completo: 'Madre ficticia',
+          activo: true,
+        }),
+      ],
+    }),
+  )
+  expect(router.currentRoute.value.name).toBe('paciente-detalle')
 })
 
 test('una afiliación SIS incompleta bloquea el alta con su motivo', async () => {

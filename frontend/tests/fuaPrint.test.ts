@@ -219,6 +219,14 @@ test('oversized text and fields outside the paper block printing instead of trun
 test('partial SIS affiliation and incomplete reference are rejected; missing data is visible', () => {
   expect(validateFuaInput(emptyFuaInput())).toEqual([])
   expect(validateFuaInput({ ...emptyFuaInput(), sis_diresa: '001' }).length).toBeTruthy()
+  expect(
+    validateFuaInput({
+      ...emptyFuaInput(),
+      sis_diresa: '040',
+      sis_tipo: '05',
+      sis_numero: '00112233',
+    }),
+  ).toEqual([])
   expect(validateFuaInput({ ...emptyFuaInput(), tipo_atencion: 'REFERENCIA' }).length).toBeTruthy()
   expect(fuaWarnings({ ...snapshot, tdi: null }).some((x) => x.includes('TDI'))).toBe(true)
 })

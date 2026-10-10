@@ -13,7 +13,7 @@ from typing import Any
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.models.catalog import DocumentType, Ethnicity, Insurance, Sex
+from app.models.catalog import DocumentType, Ethnicity, FamilyHistoryPrefix, Insurance, Sex
 from app.models.clinical import Attention
 from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
 from app.models.patient import Patient, PatientResponsible, PatientRisk, RiskGroup
@@ -85,6 +85,13 @@ class PatientRepository:
         statement = select(Insurance).where(
             Insurance.id == insurance_id,
             Insurance.activo.is_(True),
+        )
+        return self._session.execute(statement).scalar_one_or_none()
+
+    def get_active_family_history_prefix(self, code: str) -> FamilyHistoryPrefix | None:
+        statement = select(FamilyHistoryPrefix).where(
+            FamilyHistoryPrefix.codigo == code,
+            FamilyHistoryPrefix.activo.is_(True),
         )
         return self._session.execute(statement).scalar_one_or_none()
 

@@ -34,7 +34,7 @@ def _moment(days_ago: int = 1) -> str:
 LEGACY_SIS_ROW: dict[str, object] = {
     "codclie_legacy": 27773,
     "historia_clinica": "72769512",
-    "historia_familiar": "-28159",
+    "historia_familiar": "AM-28159",
     "tipo_documento_codigo": "DNI",
     "numero_documento": "72769512",
     "apellido_paterno": "PACCO",
@@ -148,7 +148,7 @@ def test_encounter_records_services_and_diagnoses(
                     "observacion": "Seguimiento",
                 }
             ],
-            valoracion_nutricional={"diagnostico": "NORMAL", "hemoglobina": "13.5"},
+            valoracion_nutricional={"diagnostico": "NORMAL", "hemoglobina": "13.5", "fecha_hemoglobina": _moment()[:10]},
         ),
     )
     assert created.status_code == 201, created.text
@@ -515,6 +515,8 @@ def test_legacy_sis_patient_stamps_the_affiliation_on_the_fua_snapshot(
         f"{api_prefix}/patients",
         json={
             **LEGACY_SIS_ROW,
+            # At the historical registration date this patient was a minor.
+            "responsables": [{"parentesco": "TUTOR", "nombre_completo": "TUTOR FICTICIO DE PRUEBA"}],
             "ubigeo_residencia_codigo": clinic_scene.ubigeo_codigo,
             "establecimiento_registro_id": clinic_scene.establecimiento_id,
             "seguro_id": insurance.id,

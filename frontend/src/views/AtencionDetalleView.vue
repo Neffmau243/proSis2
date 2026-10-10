@@ -3,8 +3,11 @@
     <div class="page-header">
       <h2>Atención #{{ attention?.id ?? attentionId }}</h2>
       <div>
-        <el-button v-if="attention?.estado === 'ATENDIDO' && attention.fua_impresion"
-          @click="printDialog = true">Imprimir S.I.S.</el-button>
+        <el-button
+          v-if="attention?.estado === 'ATENDIDO' && attention.fua_impresion"
+          @click="printDialog = true"
+          >Imprimir S.I.S.</el-button
+        >
         <el-button
           v-if="attention?.estado === 'ATENDIDO' && can('ATENCION_ANULAR')"
           type="danger"
@@ -51,32 +54,103 @@
             {{ attention?.estado }}
           </el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="Grupo etario">{{ attention?.grupo_etario_codigo }}</el-descriptions-item>
-        <el-descriptions-item label="Grupo de atención">{{ careGroupLabel(attention?.grupo_atencion_codigo) }}</el-descriptions-item>
-        <el-descriptions-item label="Fecha de atención">{{ attention?.fecha_atencion }}</el-descriptions-item>
-        <el-descriptions-item label="Fecha efectiva">{{ attention?.fecha_atendido || '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Modalidad">{{ attention?.modalidad_atencion_codigo }}</el-descriptions-item>
-        <el-descriptions-item label="Establecimiento ID">{{ attention?.establecimiento_id }}</el-descriptions-item>
-        <el-descriptions-item label="Consultorio ID">{{ attention?.consultorio_id }}</el-descriptions-item>
-        <el-descriptions-item label="Profesional ID">{{ attention?.profesional_id }}</el-descriptions-item>
-        <el-descriptions-item label="Especialidad">{{ attention?.especialidad_codigo || '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Edad registrada">{{ attention ? `${attention.edad_anios ?? '—'} años` : '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Historia clínica">{{ attention?.historia_clinica_snapshot || '—' }}</el-descriptions-item>
+        <el-descriptions-item label="Grupo etario">{{
+          attention?.grupo_etario_codigo
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Grupo de atención">{{
+          careGroupLabel(attention?.grupo_atencion_codigo)
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Fecha de atención">{{
+          attention?.fecha_atencion
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Fecha efectiva">{{
+          attention?.fecha_atendido || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Modalidad">{{
+          attention?.modalidad_atencion_codigo
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Establecimiento ID">{{
+          attention?.establecimiento_id
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Consultorio ID">{{
+          attention?.consultorio_id
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Profesional ID">{{
+          attention?.profesional_id
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Especialidad">{{
+          attention?.especialidad_codigo || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Edad registrada">{{
+          attention ? `${attention.edad_anios ?? '—'} años` : '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Historia clínica">{{
+          attention?.historia_clinica_snapshot || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Historia familiar a la atención">{{
+          attention?.contexto_clinico?.historia_familiar ?? 'Sin copia histórica'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Documento a la atención"
+          >{{ attention?.contexto_clinico?.tipo_documento_codigo }}
+          {{
+            attention?.contexto_clinico?.numero_documento ?? 'Sin copia histórica'
+          }}</el-descriptions-item
+        >
+        <el-descriptions-item label="Sufijo documental">{{
+          attention?.contexto_clinico?.sufijo_documento ?? 'Sin dato'
+        }}</el-descriptions-item>
         <el-descriptions-item label="Peso">{{ attention?.peso_kg ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="Talla">{{ attention?.talla_cm ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Perímetro abdominal">{{ attention?.perimetro_abdominal_cm ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Tipo de embarazo">{{ pregnancyTypeLabel(attention?.tipo_embarazo_codigo) }}</el-descriptions-item>
-        <el-descriptions-item label="Peso antes del embarazo">{{ attention?.peso_antes_embarazo_kg ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item v-if="attention?.grupo_atencion_codigo === 'PUERPERAS'" label="Fecha del parto">{{ attention?.fecha_parto ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item v-else label="Fecha probable de parto">{{ attention?.fecha_probable_parto ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="P. sistólica">{{ attention?.presion_sistolica ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="P. diastólica">{{ attention?.presion_diastolica ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Temperatura">{{ attention?.temperatura_c ?? '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Hora inicio">{{ attention?.hora_inicio || '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Hora fin">{{ attention?.hora_fin || '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Admisión">{{ attention?.admision || '—' }}</el-descriptions-item>
-        <el-descriptions-item label="Observaciones" :span="3">{{ attention?.observaciones || '—' }}</el-descriptions-item>
+        <el-descriptions-item label="Perímetro abdominal">{{
+          attention?.perimetro_abdominal_cm ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Tipo de embarazo">{{
+          pregnancyTypeLabel(attention?.tipo_embarazo_codigo)
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Peso antes del embarazo">{{
+          attention?.peso_antes_embarazo_kg ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item
+          v-if="attention?.grupo_atencion_codigo === 'PUERPERAS'"
+          label="Fecha del parto"
+          >{{ attention?.fecha_parto ?? '—' }}</el-descriptions-item
+        >
+        <el-descriptions-item v-else label="Fecha probable de parto">{{
+          attention?.fecha_probable_parto ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="P. sistólica">{{
+          attention?.presion_sistolica ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="P. diastólica">{{
+          attention?.presion_diastolica ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Temperatura">{{
+          attention?.temperatura_c ?? '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Hora inicio">{{
+          attention?.hora_inicio || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Hora fin">{{
+          attention?.hora_fin || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Admisión">{{
+          attention?.admision || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Observaciones" :span="3">{{
+          attention?.observaciones || '—'
+        }}</el-descriptions-item>
       </el-descriptions>
+
+      <NutritionRecordSummary
+        :records="attention?.evaluaciones_nutricionales ?? []"
+        :indicator-rows="historicalNutritionRows"
+      />
+      <NutritionExportPanel
+        v-if="attention"
+        :attention="attention"
+        :can-manage="can('ATENCION_CREAR')"
+        @updated="attention = $event"
+      />
 
       <el-divider />
       <h3>Prestaciones</h3>
@@ -96,10 +170,17 @@
       </el-table>
     </el-card>
 
-    <FuaPrintDialog v-if="attention?.fua_impresion && attention.estado === 'ATENDIDO'"
-      v-model="printDialog" :snapshot="attention.fua_impresion" />
-    <el-alert v-if="attention && !attention.fua_impresion" type="info" :closable="false"
-      title="Esta atención anterior no tiene una copia de datos FUA guardada. No se reconstruye con datos actuales del paciente." />
+    <FuaPrintDialog
+      v-if="attention?.fua_impresion && attention.estado === 'ATENDIDO'"
+      v-model="printDialog"
+      :snapshot="attention.fua_impresion"
+    />
+    <el-alert
+      v-if="attention && !attention.fua_impresion"
+      type="info"
+      :closable="false"
+      title="Esta atención anterior no tiene una copia de datos FUA guardada. No se reconstruye con datos actuales del paciente."
+    />
 
     <!-- Anulación -->
     <el-dialog v-model="cancelDialog" title="Anular atención" width="480px" destroy-on-close>
@@ -167,7 +248,9 @@
       </el-form>
       <template #footer>
         <el-button @click="certDialog = false">Cancelar</el-button>
-        <el-button type="primary" :loading="emitting" @click="doEmitirCertificado">Emitir</el-button>
+        <el-button type="primary" :loading="emitting" @click="doEmitirCertificado"
+          >Emitir</el-button
+        >
       </template>
     </el-dialog>
 
@@ -187,12 +270,7 @@
             style="width: 100%"
             placeholder="Busque el establecimiento destino"
           >
-            <el-option
-              v-for="est in destinos"
-              :key="est.id"
-              :label="est.nombre"
-              :value="est.id"
-            />
+            <el-option v-for="est in destinos" :key="est.id" :label="est.nombre" :value="est.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="Motivo" required>
@@ -219,7 +297,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 
@@ -230,10 +308,19 @@ import {
   type ServiceCatalogItem,
 } from '@/services/catalogos'
 import { pacientes } from '@/services/pacientes'
-import { atenciones, type Attention, type FuaResponse, type CertificateResponse, type ReferralResponse } from '@/services/atenciones'
+import {
+  atenciones,
+  type Attention,
+  type FuaResponse,
+  type CertificateResponse,
+  type ReferralResponse,
+} from '@/services/atenciones'
 import { careGroupLabel } from '@/utils/careGroup'
 import { pregnancyTypeLabel } from '@/utils/pregnancy'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
+import NutritionRecordSummary from '@/components/admission/NutritionRecordSummary.vue'
+import NutritionExportPanel from '@/components/admission/NutritionExportPanel.vue'
+import { nutritionalTableRows } from '@/utils/nutritionalDisplay'
 
 const route = useRoute()
 const router = useRouter()
@@ -241,6 +328,11 @@ const auth = useAuthStore()
 const attentionId = Number(route.params.id)
 
 const attention = ref<Attention | null>(null)
+const historicalNutritionRows = computed(() =>
+  attention.value?.valoracion_calculada
+    ? nutritionalTableRows(attention.value.valoracion_calculada)
+    : [],
+)
 const printDialog = ref(false)
 const patientName = ref('—')
 const loading = ref(false)
@@ -410,8 +502,7 @@ async function doCrearReferencia(): Promise<void> {
     refDialog.value = false
     showResult('Referencia creada', `Número: ${result.numero_referencia ?? result.id}`)
   } catch (error) {
-    errorMessage.value =
-      error instanceof Error ? error.message : 'No se pudo crear la referencia.'
+    errorMessage.value = error instanceof Error ? error.message : 'No se pudo crear la referencia.'
   } finally {
     emitting.value = false
   }
@@ -423,9 +514,26 @@ onMounted(async () => {
     attention.value = await atenciones.get(attentionId)
     printDialog.value = route.query.imprimirFua === '1' && !!attention.value.fua_impresion
     if (attention.value) {
+      const historical = attention.value.contexto_clinico
+      if (historical) {
+        patientName.value =
+          [
+            historical.apellido_paterno,
+            historical.apellido_materno,
+            historical.primer_nombre,
+            historical.otros_nombres,
+          ]
+            .filter(Boolean)
+            .join(' ') || `Paciente #${attention.value.paciente_id}`
+        return
+      }
       try {
         const patient = await pacientes.get(attention.value.paciente_id)
-        patientName.value = [patient.apellido_paterno, patient.apellido_materno, patient.primer_nombre]
+        patientName.value = [
+          patient.apellido_paterno,
+          patient.apellido_materno,
+          patient.primer_nombre,
+        ]
           .filter(Boolean)
           .join(' ')
       } catch {
