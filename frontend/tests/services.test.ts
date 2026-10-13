@@ -7,7 +7,9 @@ import { catalogos } from '@/services/catalogos'
 import { configuracion } from '@/services/configuracion'
 import http from '@/services/http'
 import { pacientes } from '@/services/pacientes'
+import { profesionales } from '@/services/profesionales'
 import { usuarios } from '@/services/usuarios'
+import { consultorios } from '@/services/consultorios'
 
 interface Recorded {
   method: string
@@ -281,5 +283,120 @@ test('usuarios: el alta de cuenta envía roles y profesional', async () => {
     password: '12345678',
     profesional_id: 12,
     roles: ['PROFESIONAL'],
+  })
+})
+
+test('usuarios: listar con y sin inactivos, updateRoles, resetPassword y deactivate', async () => {
+  stub([{ id: 1, nombre_usuario: 'admin' }])
+  await usuarios.list()
+  expect(requests[0]).toMatchObject({ method: 'get', url: '/usuarios', params: undefined })
+
+  stub([{ id: 2, nombre_usuario: 'medico', activo: false }])
+  await usuarios.list(true)
+  expect(requests[1]).toMatchObject({ method: 'get', url: '/usuarios', params: { incluir_inactivos: true } })
+
+  stub({ id: 1, roles: ['ADMIN', 'PROFESIONAL'] })
+  await usuarios.updateRoles(1, ['ADMIN', 'PROFESIONAL'])
+  expect(requests[2]).toMatchObject({ method: 'put', url: '/usuarios/1/roles', body: { roles: ['ADMIN', 'PROFESIONAL'] } })
+
+  stub(null)
+  await usuarios.resetPassword(1, { new_password: '87654321', new_password_confirmation: '87654321' })
+  expect(requests[3]).toMatchObject({ method: 'put', url: '/usuarios/1/password' })
+
+  stub({ id: 1, activo: false })
+  await usuarios.deactivate(1)
+  expect(requests[4]).toMatchObject({ method: 'delete', url: '/usuarios/1' })
+})
+
+test('profesionales: CRUD completo y reemplazo de especialidades', async () => {
+  stub([{ id: 1, nombre_completo: 'Dr. Pérez' }])
+  await profesionales.list()
+  expect(requests[0]).toMatchObject({ method: 'get', url: '/configuracion/profesionales', params: undefined })
+
+  stub([{ id: 2, nombre_completo: 'Dra. López', activo: false }])
+  await profesionales.list(true)
+  expect(requests[1]).toMatchObject({ method: 'get', url: '/configuracion/profesionales', params: { incluir_inactivos: true } })
+
+  stub({ id: 3, nombre_completo: 'Dr. Nuevo' })
+  await profesionales.get(3)
+  expect(requests[2]).toMatchObject({ method: 'get', url: '/configuracion/profesionales/3' })
+
+  stub({ id: 4, nombre_completo: 'Dr. Creado' })
+  await profesionales.create({
+    nombre_completo: 'Dr. Creado',
+    numero_documento: '12345678',
+    profesion_id: 5,
+    colegiatura: 'COL-001',
+    especialidades: [{ especialidad_codigo: 'MEDICINA_GENERAL', es_principal: true }],
+  })
+  expect(requests[3]).toMatchObject({ method: 'post', url: '/configuracion/profesionales' })
+
+  stub({ id: 4, nombre_completo: 'Dr. Editado' })
+  await profesionales.update(4, { nombre_completo: 'Dr. Editado', colegiatura: 'COL-002' })
+  expect(requests[4]).toMatchObject({ method: 'patch', url: '/configuracion/profesionales/4' })
+
+  stub({ id: 4, especialidades: [{ especialidad_codigo: 'CARDIOLOGIA', es_principal: true }] })
+  await profesionales.replaceSpecialties(4, [{ especialidad_codigo: 'CARDIOLOGIA', es_principal: true }])
+  expect(requests[5]).toMatchObject({ method: 'put', url: '/configuracion/profesionales/4/especialidades' })
+
+  stub({ id: 4, activo: false })
+  await profesionales.deactivate(4)
+  expect(requests[6]).toMatchObject({ method: 'delete', url: '/configuracion/profesionales/4' })
+})
+
+test('consultorios: CRUD completo, asignaciones y cierre', async () => {
+  stub([{ id: 1, codico: 'CON-001', nombre: 'Consultorio 1' }])
+  await consultorios.list()
+  expect(requests[0]).toMatchObject({ method: 'get', url: '/configuracion/consultorios', params: undefined })
+
+  stub([{ id: 2, codigo: 'CON-002', nombre: 'Consultorio 2', activo: false }])
+  await consultorios.list({ establecimientoId: 3, incluirInactivos: true })
+  expect(requests[1]).toMatchObject({
+    method: 'get',
+    url: '/configuracion/consultorios',
+    params: { establecimiento_id: 3, incluir_inactivos: true },
+  })
+
+  stub({ id: 5, codigo: 'CON-005', nombre: 'Consultorio Nuevo' })
+  await consultorios.create({
+    establecimiento_id: 3,
+    codigo: 'CON-005',
+    nombre: 'Consultorio Nuevo',
+    especialidad_codigo: 'MEDICINA_GENERAL',
+  })
+  expect(requests[2]).toMatchObject({ method: 'post', url: '/configuracion/consultorios' })
+
+  stub({ id: 5, nombre: 'Consultorio Editado' })
+  await consultorios.update(5, { nombre: 'Consultorio Editado', area_codigo: 'AREA-01' })
+  expect(requests[3]).toMatchObject({ method: 'patch', url: '/configuracion/consultorios/5' })
+
+  stub({ id: 5, activo: false })
+  await consultorios.deactivate(5)
+  expect(requests[4]).toMatchObject({ method: 'delete', url: '/configuracion/consultorios/5' })
+})
+
+test('consultorios: asignaciones de profesionales y cierre', async () => {
+  stub([{ consultorio_id: 1, profesional_id: 10, fecha_inicio: '2026-01-01', fecha_fin: null, es_responsable: true }])
+  await consultorios.listAssignments(1)
+  expect(requests[0]).toMatchObject({ method: 'get', url: '/configuracion/consultorios/1/profesionales' })
+
+  stub({ consultorio_id: 1, profesional_id: 10, fecha_inicio: '2026-01-01', fecha_fin: null, es_responsable: false })
+  await consultorios.assign(1, {
+    profesional_id: 10,
+    fecha_inicio: '2026-01-01',
+    es_responsable: false,
+  })
+  expect(requests[1]).toMatchObject({
+    method: 'post',
+    url: '/configuracion/consultorios/1/profesionales',
+    body: { profesional_id: 10, fecha_inicio: '2026-01-01', es_responsable: false },
+  })
+
+  stub({ consultorio_id: 1, profesional_id: 10, fecha_inicio: '2026-01-01', fecha_fin: '2026-06-01', es_responsable: false })
+  await consultorios.closeAssignment(1, 10, '2026-01-01', '2026-06-01')
+  expect(requests[2]).toMatchObject({
+    method: 'patch',
+    url: '/configuracion/consultorios/1/profesionales/10/2026-01-01/cierre',
+    body: { fecha_fin: '2026-06-01' },
   })
 })
