@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 
 from app.models.catalog import Cie10, Insurance, ServiceOffering, Specialty
 from app.models.clinical import Attention
-from app.models.organization import Office
+from app.models.organization import Office, OfficeProfessional
 from app.models.patient import Patient
 
 pytestmark = pytest.mark.integration
@@ -178,10 +178,13 @@ def test_encounter_records_services_and_diagnoses(
 
 
 def test_linked_professional_can_select_an_active_attending_professional(
-    clinic_scene, create_professional, create_patient, api_prefix
+    clinic_scene, create_professional, create_patient, db_session, api_prefix
 ) -> None:
     patient = create_patient(clinic_scene.professional_client)
     other = create_professional()
+    db_session.add(OfficeProfessional(consultorio_id=clinic_scene.consultorio_id,
+        profesional_id=other.id, fecha_inicio=date(2020, 1, 1)))
+    db_session.commit()
 
     response = clinic_scene.professional_client.post(
         f"{api_prefix}/atenciones",
@@ -223,8 +226,8 @@ def test_encounter_validates_site_and_office_context(
         f"{api_prefix}/atenciones",
         json=_payload(clinic_scene, patient, consultorio_id=unassigned_office.id),
     )
-    assert active_office.status_code == 201, active_office.text
-    assert active_office.json()["consultorio_id"] == unassigned_office.id
+    assert active_office.status_code == 422, active_office.text
+    assert active_office.json()["error"]["code"] == "PROFESIONAL_NO_ASIGNADO"
 
     unknown_mode = clinic_scene.professional_client.post(
         f"{api_prefix}/atenciones",

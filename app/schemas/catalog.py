@@ -20,6 +20,8 @@ class IdCatalogItem(BaseModel):
 
 class SpecialtyCatalogItem(CodeCatalogItem):
     grupo: str | None = None
+    area_codigos: list[str] = Field(default_factory=list)
+    es_area: bool = False
 
 
 class InsuranceCatalogItem(IdCatalogItem):
@@ -89,6 +91,12 @@ class OfficeCatalogItem(BaseModel):
     nombre: str
     especialidad_codigo: str | None = None
     activo: bool
+    consultorio_padre_id: int | None = None
+    area_codigo: str | None = None
+    area_nombre: str | None = None
+    ruta: str = ""
+    activo_efectivo: bool = True
+    servicios_habilitados: list[CodeCatalogItem] = Field(default_factory=list)
 
 
 class ProfessionalCatalogItem(BaseModel):

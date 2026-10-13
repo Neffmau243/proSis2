@@ -7,7 +7,14 @@ import { aPatient } from './fixtures/patient'
 const api = vi.hoisted(() => ({ create: vi.fn(), search: vi.fn(), patients: vi.fn() }))
 vi.mock('@/services/atenciones', () => ({ atenciones: { create: api.create, search: api.search } }))
 vi.mock('@/services/pacientes', () => ({ pacientes: { search: api.patients } }))
-vi.mock('@/services/catalogos', () => ({ catalogos: {} }))
+vi.mock('@/services/catalogos', () => ({
+  catalogos: {
+    profesionales: async () => ({
+      items: [{ id: 4, nombre_completo: 'Profesional asignado' }],
+      has_more: false,
+    }),
+  },
+}))
 const scopes: ReturnType<typeof effectScope>[] = []
 beforeEach(() => {
   vi.resetAllMocks()

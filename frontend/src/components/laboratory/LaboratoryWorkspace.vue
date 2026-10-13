@@ -12,6 +12,7 @@ import { usePacienteSeleccionado } from '@/composables/usePacienteSeleccionado'
 import { useAuthStore } from '@/stores/auth'
 import { printLaboratoryClinical } from '@/utils/laboratoryPrint'
 import type { Patient } from '@/services/pacientes'
+import { officeLabel } from '@/utils/officeHierarchy'
 import { isSisInsurance } from '@/utils/patientInsurance'
 
 const FuaPrintDialog = defineAsyncComponent(
@@ -41,6 +42,8 @@ const {
   establishments,
   offices,
   professionals,
+  professionalsLoading,
+  services,
   form,
   office,
   shift,
@@ -76,7 +79,7 @@ const officeOptions = computed(() => {
   return offices.value.map((item) => {
     const siteName =
       siteNames.get(item.establecimiento_id) || `Establecimiento #${item.establecimiento_id}`
-    return { id: item.id, label: `${item.nombre} — ${siteName}`.toUpperCase() }
+    return { id: item.id, label: `${officeLabel(item)} — ${siteName}`.toUpperCase() }
   })
 })
 function updatePatient(value: Patient): void {
@@ -242,13 +245,28 @@ onMounted(() => void initialize(initialPatientId))
                   />
                 </el-select>
               </el-form-item>
+              <el-form-item v-if="services.length" label="Servicio / especialidad">
+                <el-select
+                  v-model="form.serviceCode"
+                  :disabled="encounterLocked || !office"
+                  aria-label="Servicio de laboratorio"
+                >
+                  <el-option
+                    v-for="item in services"
+                    :key="item.codigo"
+                    :label="item.nombre"
+                    :value="item.codigo"
+                  />
+                </el-select>
+              </el-form-item>
               <el-form-item label="Profesional:">
                 <el-select
                   v-model="form.professionalId"
                   filterable
+                  :loading="professionalsLoading"
                   aria-label="Profesional responsable"
                   placeholder="Seleccione"
-                  :disabled="encounterLocked || loading"
+                  :disabled="encounterLocked || loading || professionalsLoading || !office"
                 >
                   <el-option
                     v-for="item in professionals"

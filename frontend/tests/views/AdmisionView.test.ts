@@ -27,7 +27,11 @@ vi.mock('@/services/atenciones', () => ({
 }))
 vi.mock('@/services/catalogos', () => ({
   catalogos: {
-    especialidades: async () => [{ codigo: '001', nombre: 'MEDICINA' }],
+    especialidades: async () => [
+      { codigo: '001', nombre: 'MEDICINA' },
+      { codigo: 'ESP_MEDICINA:003', nombre: 'PEDIATRIA' },
+      { codigo: 'ESP_NUTRICION:001', nombre: 'CONSULTA NUTRICIONAL' },
+    ],
     establecimientos: async () => ({ items: [{ id: 1, nombre: 'Sede de prueba' }] }),
     profesionales: async () => ({ items: [{ id: 2, nombre_completo: 'Profesional de prueba' }] }),
     consultorios: async () => ({
@@ -36,7 +40,14 @@ vi.mock('@/services/catalogos', () => ({
           id: 3,
           nombre: 'Consultorio de prueba',
           establecimiento_id: 1,
+          codigo: 'MED',
           especialidad_codigo: '001',
+          area_codigo: 'ESPECIALIDADES:003',
+          area_nombre: 'Medicina',
+          servicios_habilitados: [
+            { codigo: '001', nombre: 'MEDICINA GENERAL', activo: true },
+            { codigo: 'ESP_MEDICINA:003', nombre: 'PEDIATRIA', activo: true },
+          ],
         },
       ],
     }),
@@ -85,9 +96,9 @@ test('la edad y la valoración se actualizan con nacimiento y fecha de atención
       talla_cm: 75.2,
     }),
   )
-  const rows = wrapper.findAll('.nutrition-table tr')
-  expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E', 'P/T'])
-  expect(rows[0]!.get('td').text()).toBe('Normal · Z: -0.147')
+  const rows = wrapper.findAll('.nutrition-results__diagnosis-row')
+  expect(rows.map((row) => row.get('label').text())).toEqual(['P/E', 'T/E', 'P/T'])
+  expect((rows[0]!.get('input').element as HTMLInputElement).value).toBe('Normal · Z: -0.147')
 })
 
 test('el adulto muestra IMC y diagnóstico en la valoración compacta', async () => {
@@ -119,23 +130,24 @@ test('el adulto muestra IMC y diagnóstico en la valoración compacta', async ()
   expect(previewNutritionalIndicators).toHaveBeenLastCalledWith(
     expect.objectContaining({ peso_kg: 80, talla_cm: 180 }),
   )
-  const rows = wrapper.findAll('.nutrition-table tr')
-  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC'])
-  expect(rows[0]!.get('td').text()).toBe('24.691')
-  expect(rows[1]!.get('td').text()).toBe('Normal')
+  expect(
+    wrapper.findAll('.nutrition-results__diagnosis-row').map((row) => row.get('label').text()),
+  ).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(wrapper.get('.nutrition-results__bmi').text()).toContain('24.691')
+  expect(wrapper.get('.nutrition-results__bmi').text()).toContain('Normal')
   expect(wrapper.text()).not.toContain('Datos complementarios de nutrición')
   expect(wrapper.text()).not.toContain('Códigos del registro legado')
   const height = field('Talla (cm)').get('input')
   ;(height.element as HTMLInputElement).value = ''
   await height.trigger('input')
-  expect(wrapper.get('.nutrition-table').text()).toContain('Calculando…')
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect(wrapper.get('.nutrition-table').text()).not.toContain('24.691')
+  expect(wrapper.text()).not.toContain('24.691')
 })
 
 test('la gestante identifica el IMC pregestacional y su diagnóstico', async () => {
   const wrapper = await mountAdmission()
+  await wrapper.get('input[value="GESTANTES"]').setValue(true)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
   const field = (label: string) =>
@@ -163,6 +175,7 @@ test('la gestante identifica el IMC pregestacional y su diagnóstico', async () 
 
 test('la puérpera muestra solo IMC y Dx IMC', async () => {
   const wrapper = await mountAdmission()
+  await wrapper.get('input[value="PUERPERAS"]').setValue(true)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
   const field = (label: string) =>
@@ -210,9 +223,13 @@ test('el escolar conserva claramente P/E, T/E y P/T en el panel compacto', async
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 152)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  const rows = wrapper.findAll('.nutrition-table tr')
-  expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E', 'P/T'])
-  expect(rows.map((row) => row.get('td').text())).toEqual(['No aplica', 'Z: -0.500', 'No aplica'])
+  const rows = wrapper.findAll('.nutrition-results__diagnosis-row')
+  expect(rows.map((row) => row.get('label').text())).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows.map((row) => (row.get('input').element as HTMLInputElement).value)).toEqual([
+    'No aplica',
+    'Z: -0.500',
+    'No aplica',
+  ])
 })
 
 test('la valoración muestra cálculos de solo lectura y descarta resultados al borrar medidas', async () => {
@@ -236,13 +253,28 @@ test('la valoración muestra cálculos de solo lectura y descarta resultados al 
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 75.2)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('Normal · Z: -0.147')
+  expect(
+    (
+      wrapper.findAll('.nutrition-results__diagnosis-row')[0]!.get('input')
+        .element as HTMLInputElement
+    ).value,
+  ).toBe('Normal · Z: -0.147')
   field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('update:modelValue', null)
   await flushPromises()
-  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('Calculando…')
+  expect(
+    (
+      wrapper.findAll('.nutrition-results__diagnosis-row')[0]!.get('input')
+        .element as HTMLInputElement
+    ).value,
+  ).toBe('Calculando…')
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).toBe('No disponible')
+  expect(
+    (
+      wrapper.findAll('.nutrition-results__diagnosis-row')[0]!.get('input')
+        .element as HTMLInputElement
+    ).value,
+  ).toBe('No disponible')
 })
 afterEach(() => {
   while (mounted.length) mounted.pop()?.unmount()
@@ -284,6 +316,7 @@ test(
     expect(wrapper.find('.encounter-header h2').exists()).toBe(false)
     expect(wrapper.get('.encounter-header').text()).not.toContain('Sede de prueba')
     field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+    await flushPromises()
     field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
     await wrapper.get('input[value="EMERGENCIA"]').setValue(true)
     expect(wrapper.text()).toContain('Perímetro abdominal (cm)')
@@ -365,6 +398,7 @@ test.each(['GESTANTES', 'PUERPERAS'])(
     const field = (label: string) =>
       wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
     field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+    await flushPromises()
     field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
     await wrapper.get(`input[value="${group}"]`).setValue(true)
     const condition = group === 'GESTANTES' ? 'GESTANTE' : 'PUERPERA'
@@ -389,6 +423,7 @@ test('fallar el refresco de ficha después del POST no permite duplicar la atenc
   const field = (label: string) =>
     wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
   field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+  await flushPromises()
   field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
   await wrapper.get('input[value="PUERPERAS"]').setValue(true)
   get.mockRejectedValue(new Error('Refresh unavailable'))
@@ -407,6 +442,7 @@ test('una atención rechazada conserva la condición visible y no refresca la fi
   const field = (label: string) =>
     wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
   field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+  await flushPromises()
   field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
   await wrapper.get('input[value="GESTANTES"]').setValue(true)
   const reads = get.mock.calls.length
@@ -422,4 +458,41 @@ test('una atención rechazada conserva la condición visible y no refresca la fi
   )
   expect(wrapper.text()).toContain('Atención rechazada de prueba')
   expect(wrapper.text()).not.toContain('Atención guardada')
+})
+
+test('Medicina ofrece sus servicios habilitados y permite guardar Pediatría sin mezclar Nutrición', async () => {
+  const wrapper = await mountAdmission()
+  const field = (label: string) =>
+    wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
+  field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+  await flushPromises()
+  const services = field('Servicio / especialidad').getComponent(ElSelect)
+  expect(
+    services.findAllComponents({ name: 'ElOption' }).map((item) => item.props('label')),
+  ).toEqual(['MEDICINA GENERAL', 'PEDIATRIA'])
+  services.vm.$emit('update:modelValue', 'ESP_MEDICINA:003')
+  field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
+  await flushPromises()
+  create.mockImplementation(async (payload) => ({ ...payload, id: 503, fua_impresion: null }))
+  await wrapper
+    .findAll('button')
+    .find((item) => item.text() === 'Guardar atención')!
+    .trigger('click')
+  await flushPromises()
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      consultorio_id: 3,
+      especialidad_codigo: 'ESP_MEDICINA:003',
+      profesional_id: 2,
+    }),
+  )
+  const contextFields = wrapper
+    .findAllComponents(ElFormItem)
+    .map((item) => item.props('label') || '')
+    .filter((label) =>
+      ['Área asistencial', 'Consultorio', 'Servicio / especialidad', 'Profesional'].includes(label),
+    )
+  expect(contextFields).toEqual(['Consultorio', 'Servicio / especialidad', 'Profesional'])
+
+  expect(field('Servicio / especialidad').getComponent(ElSelect).props('disabled')).toBe(true)
 })

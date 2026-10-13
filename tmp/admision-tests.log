@@ -1,0 +1,200 @@
+
+> ipress-frontend@0.1.0 test
+> vitest run tests/views/AdmisionView.test.ts
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+
+stderr | tests/views/AdmisionView.test.ts > la edad y la valoración se actualizan con nacimiento y fecha de atención
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+stderr | tests/views/AdmisionView.test.ts > el adulto muestra IMC y diagnóstico en la valoración compacta
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+stderr | tests/views/AdmisionView.test.ts > la gestante identifica el IMC pregestacional y su diagnóstico
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+stderr | tests/views/AdmisionView.test.ts > la puérpera muestra solo IMC y Dx IMC
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+stderr | tests/views/AdmisionView.test.ts > el escolar conserva claramente P/E, T/E y P/T en el panel compacto
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+stderr | tests/views/AdmisionView.test.ts > la valoración muestra cálculos de solo lectura y descarta resultados al borrar medidas
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteLeave()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+[VUE_ROUTER_R0020] No active route record was found when calling `onBeforeRouteUpdate()`. Maybe you called it inside of App.vue?
+├▶ fix: Call it from a component rendered inside <router-view> (a page component or one of its children), not from App.vue.
+╰▶ see: https://router.vuejs.org/guide/advanced/composition-api.html#Navigation-Guards
+
+ ❯ tests/views/AdmisionView.test.ts (12 tests | 6 failed) 21221ms
+   × la edad y la valoración se actualizan con nacimiento y fecha de atención 2694ms
+   × el adulto muestra IMC y diagnóstico en la valoración compacta 1340ms
+   × la gestante identifica el IMC pregestacional y su diagnóstico 1848ms
+   × la puérpera muestra solo IMC y Dx IMC 2464ms
+   × el escolar conserva claramente P/E, T/E y P/T en el panel compacto 2240ms
+   × la valoración muestra cálculos de solo lectura y descarta resultados al borrar medidas 1123ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > la edad y la valoración se actualizan con nacimiento y fecha de atención
+AssertionError: expected [] to deeply equal [ 'P/E', 'T/E', 'P/T' ]
+
+- Expected
++ Received
+
+- [
+-   "P/E",
+-   "T/E",
+-   "P/T",
+- ]
++ []
+
+ ❯ tests/views/AdmisionView.test.ts:89:51
+     87|   )
+     88|   const rows = wrapper.findAll('.nutrition-table tr')
+     89|   expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E…
+       |                                                   ^
+     90|   expect(rows[0]!.get('td').text()).toBe('Normal · Z: -0.147')
+     91| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > el adulto muestra IMC y diagnóstico en la valoración compacta
+AssertionError: expected [] to deeply equal [ 'IMC', 'Dx IMC' ]
+
+- Expected
++ Received
+
+- [
+-   "IMC",
+-   "Dx IMC",
+- ]
++ []
+
+ ❯ tests/views/AdmisionView.test.ts:123:51
+    121|   )
+    122|   const rows = wrapper.findAll('.nutrition-table tr')
+    123|   expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx …
+       |                                                   ^
+    124|   expect(rows[0]!.get('td').text()).toBe('24.691')
+    125|   expect(rows[1]!.get('td').text()).toBe('Normal')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > la gestante identifica el IMC pregestacional y su diagnóstico
+AssertionError: expected [] to deeply equal [ 'IMC', 'Dx IMC', 'Ganancia de peso' ]
+
+- Expected
++ Received
+
+- [
+-   "IMC",
+-   "Dx IMC",
+-   "Ganancia de peso",
+- ]
++ []
+
+ ❯ tests/views/AdmisionView.test.ts:160:51
+    158|   await flushPromises()
+    159|   const rows = wrapper.findAll('.nutrition-table tr')
+    160|   expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx …
+       |                                                   ^
+    161|   expect(rows.map((row) => row.get('td').text())).toEqual(['22.491', '…
+    162| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > la puérpera muestra solo IMC y Dx IMC
+AssertionError: expected [] to deeply equal [ 'IMC', 'Dx IMC' ]
+
+- Expected
++ Received
+
+- [
+-   "IMC",
+-   "Dx IMC",
+- ]
++ []
+
+ ❯ tests/views/AdmisionView.test.ts:187:51
+    185|   await flushPromises()
+    186|   const rows = wrapper.findAll('.nutrition-table tr')
+    187|   expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx …
+       |                                                   ^
+    188|   expect(rows.map((row) => row.get('td').text())).toEqual(['21.484', '…
+    189|   expect(wrapper.get('.nutrition-table').text()).not.toContain('Gananc…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > el escolar conserva claramente P/E, T/E y P/T en el panel compacto
+AssertionError: expected [] to deeply equal [ 'P/E', 'T/E', 'P/T' ]
+
+- Expected
++ Received
+
+- [
+-   "P/E",
+-   "T/E",
+-   "P/T",
+- ]
++ []
+
+ ❯ tests/views/AdmisionView.test.ts:214:51
+    212|   await flushPromises()
+    213|   const rows = wrapper.findAll('.nutrition-table tr')
+    214|   expect(rows.map((row) => row.get('th').text())).toEqual(['P/E', 'T/E…
+       |                                                   ^
+    215|   expect(rows.map((row) => row.get('td').text())).toEqual(['No aplica'…
+    216| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  tests/views/AdmisionView.test.ts > la valoración muestra cálculos de solo lectura y descarta resultados al borrar medidas
+TypeError: Cannot read properties of undefined (reading 'get')
+ ❯ tests/views/AdmisionView.test.ts:239:51
+    237|   await new Promise((resolve) => setTimeout(resolve, 400))
+    238|   await flushPromises()
+    239|   expect(wrapper.findAll('.nutrition-table tr')[0]!.get('td').text()).…
+       |                                                   ^
+    240|   field('Peso actual (kg)').getComponent(ElInputNumber).vm.$emit('upda…
+    241|   await flushPromises()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 6 passed (12)
+   Start at  08:19:41
+   Duration  39.77s (tests 54%, transform 32%, import 8%, environment 6%)
+
+  Transform  transforming modules took 12.56s · 32% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

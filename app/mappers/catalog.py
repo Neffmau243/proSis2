@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from app.domain.office import AREA_NAMES, areas_for_service
+from app.mappers.office import office_to_response
 from app.models.catalog import (
     AgeGroup,
     AttentionMode,
@@ -65,7 +67,9 @@ def family_history_to_catalog_item(entity: FamilyHistoryPrefix) -> FamilyHistory
 
 
 def profession_to_catalog_item(entity: Profession) -> IdCatalogItem:
-    return IdCatalogItem(id=entity.id, codigo=str(entity.id), nombre=entity.nombre, activo=entity.activo)
+    return IdCatalogItem(
+        id=entity.id, codigo=str(entity.id), nombre=entity.nombre, activo=entity.activo
+    )
 
 
 def specialty_to_catalog_item(entity: Specialty) -> SpecialtyCatalogItem:
@@ -74,6 +78,8 @@ def specialty_to_catalog_item(entity: Specialty) -> SpecialtyCatalogItem:
         nombre=entity.nombre,
         grupo=entity.grupo,
         activo=entity.activo,
+        area_codigos=areas_for_service(entity.codigo),
+        es_area=entity.codigo in AREA_NAMES,
     )
 
 
@@ -131,15 +137,10 @@ def establishment_to_catalog_item(entity: Establishment) -> EstablishmentCatalog
     )
 
 
-def office_to_catalog_item(entity: Office) -> OfficeCatalogItem:
-    return OfficeCatalogItem(
-        id=entity.id,
-        establecimiento_id=entity.establecimiento_id,
-        codigo=entity.codigo,
-        nombre=entity.nombre,
-        especialidad_codigo=entity.especialidad_codigo,
-        activo=entity.activo,
-    )
+def office_to_catalog_item(
+    entity: Office, specialties: dict[str, str] | None = None
+) -> OfficeCatalogItem:
+    return OfficeCatalogItem.model_validate(office_to_response(entity, specialties).model_dump())
 
 
 def professional_to_catalog_item(entity: Professional) -> ProfessionalCatalogItem:

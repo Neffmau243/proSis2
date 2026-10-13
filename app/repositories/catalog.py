@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from datetime import date
+from typing import Any, TypeVar
 
-from sqlalchemy import Select, func, or_, select
-from sqlalchemy.orm import Session
+from sqlalchemy import Select, exists, func, or_, select
+from sqlalchemy.orm import Session, selectinload
 
+from app.domain.office import office_context
 from app.models.catalog import (
     AgeGroup,
     AttentionMode,
@@ -21,15 +23,15 @@ from app.models.catalog import (
     Sex,
     Specialty,
 )
-from app.models.organization import Establishment, Localidad, Office, Ubigeo
+from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
 from app.models.patient import RiskGroup
-from app.models.security import Professional
+from app.models.security import Professional, ProfessionalSpecialty
 
 EntityT = TypeVar("EntityT")
 
 
 @dataclass(frozen=True, slots=True)
-class CatalogPage(Generic[EntityT]):
+class CatalogPage[EntityT]:
     """Persistence result before it is mapped to a public page DTO."""
 
     items: list[EntityT]
@@ -84,14 +86,20 @@ class CatalogRepository:
                     FamilyHistoryPrefix.tipo.ilike(pattern, escape="\\"),
                 )
             )
-        statement = select(FamilyHistoryPrefix).where(*conditions).order_by(
-            FamilyHistoryPrefix.orden,
-            FamilyHistoryPrefix.codigo,
+        statement = (
+            select(FamilyHistoryPrefix)
+            .where(*conditions)
+            .order_by(
+                FamilyHistoryPrefix.orden,
+                FamilyHistoryPrefix.codigo,
+            )
         )
         count_statement = select(func.count()).select_from(FamilyHistoryPrefix).where(*conditions)
         return self._page(statement, count_statement, limit=limit, offset=offset)
 
-    def page_services(self, *, query: str | None, limit: int, offset: int) -> CatalogPage[ServiceOffering]:
+    def page_services(
+        self, *, query: str | None, limit: int, offset: int
+    ) -> CatalogPage[ServiceOffering]:
         conditions = [ServiceOffering.activo.is_(True)]
         if query:
             pattern = self._contains_pattern(query)
@@ -135,7 +143,11 @@ class CatalogRepository:
                     Establishment.codigo_ideess.ilike(pattern, escape="\\"),
                 )
             )
-        statement = select(Establishment).where(*conditions).order_by(Establishment.nombre, Establishment.id)
+        statement = (
+            select(Establishment)
+            .where(*conditions)
+            .order_by(Establishment.nombre, Establishment.id)
+        )
         count_statement = select(func.count()).select_from(Establishment).where(*conditions)
         return self._page(statement, count_statement, limit=limit, offset=offset)
 
@@ -158,14 +170,60 @@ class CatalogRepository:
                     Office.nombre.ilike(pattern, escape="\\"),
                 )
             )
-        statement = select(Office).where(*conditions).order_by(Office.establecimiento_id, Office.codigo)
-        count_statement = select(func.count()).select_from(Office).where(*conditions)
-        return self._page(statement, count_statement, limit=limit, offset=offset)
+        statement = (
+            select(Office)
+            .options(selectinload(Office.establecimiento))
+            .where(*conditions)
+            .order_by(Office.establecimiento_id, Office.codigo)
+        )
+        # Tree availability must be applied before paging/counting, including hidden ancestors.
+        items = [
+            item
+            for item in self._session.scalars(statement)
+            if (context := office_context(item)).active
+            and (context.area_code is None or context.service_codes)
+            and item.establecimiento.activo
+        ]
+        return CatalogPage(items=items[offset : offset + limit], total=len(items))
 
     def page_professionals(
-        self, *, query: str | None, limit: int, offset: int
+        self,
+        *,
+        query: str | None,
+        limit: int,
+        offset: int,
+        office_id: int | None = None,
+        on_date: date | None = None,
     ) -> CatalogPage[Professional]:
         conditions = [Professional.activo.is_(True)]
+        if office_id is not None:
+            office = self._session.get(Office, office_id)
+            if office is None or not office_context(office).active:
+                return CatalogPage(items=[], total=0)
+            context = office_context(office)
+            day = on_date or date.today()
+            conditions.append(
+                exists(
+                    select(OfficeProfessional.profesional_id).where(
+                        OfficeProfessional.profesional_id == Professional.id,
+                        OfficeProfessional.consultorio_id.in_([office.id, *context.ancestor_ids]),
+                        OfficeProfessional.fecha_inicio <= day,
+                        or_(
+                            OfficeProfessional.fecha_fin.is_(None),
+                            OfficeProfessional.fecha_fin >= day,
+                        ),
+                    )
+                )
+            )
+            if context.required_specialty:
+                conditions.append(
+                    exists(
+                        select(ProfessionalSpecialty.profesional_id).where(
+                            ProfessionalSpecialty.profesional_id == Professional.id,
+                            ProfessionalSpecialty.especialidad_codigo == context.required_specialty,
+                        )
+                    )
+                )
         if query:
             pattern = self._contains_pattern(query)
             conditions.append(
@@ -175,7 +233,11 @@ class CatalogRepository:
                     Professional.colegiatura.ilike(pattern, escape="\\"),
                 )
             )
-        statement = select(Professional).where(*conditions).order_by(Professional.nombre_completo, Professional.id)
+        statement = (
+            select(Professional)
+            .where(*conditions)
+            .order_by(Professional.nombre_completo, Professional.id)
+        )
         count_statement = select(func.count()).select_from(Professional).where(*conditions)
         return self._page(statement, count_statement, limit=limit, offset=offset)
 
@@ -192,11 +254,15 @@ class CatalogRepository:
                     Ubigeo.localidad.ilike(pattern, escape="\\"),
                 )
             )
-        statement = select(Ubigeo).where(*conditions).order_by(
-            Ubigeo.departamento,
-            Ubigeo.provincia,
-            Ubigeo.distrito,
-            Ubigeo.codigo,
+        statement = (
+            select(Ubigeo)
+            .where(*conditions)
+            .order_by(
+                Ubigeo.departamento,
+                Ubigeo.provincia,
+                Ubigeo.distrito,
+                Ubigeo.codigo,
+            )
         )
         count_statement = select(func.count()).select_from(Ubigeo).where(*conditions)
         return self._page(statement, count_statement, limit=limit, offset=offset)

@@ -13,6 +13,7 @@ from typing import Any
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.domain.office import office_context
 from app.models.catalog import DocumentType, Ethnicity, FamilyHistoryPrefix, Insurance, Sex
 from app.models.clinical import Attention
 from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
@@ -75,7 +76,9 @@ class PatientRepository:
         return self._session.execute(statement).scalar_one_or_none()
 
     def get_active_ethnicity(self, code: str) -> Ethnicity | None:
-        return self._session.scalar(select(Ethnicity).where(Ethnicity.codigo == code, Ethnicity.activo.is_(True)))
+        return self._session.scalar(
+            select(Ethnicity).where(Ethnicity.codigo == code, Ethnicity.activo.is_(True))
+        )
 
     def get_active_sex(self, code: str) -> Sex | None:
         statement = select(Sex).where(Sex.codigo == code, Sex.activo.is_(True))
@@ -143,7 +146,7 @@ class PatientRepository:
 
         reference_date = on_date or date.today()
         statement = (
-            select(Office.establecimiento_id)
+            select(Office)
             .join(
                 OfficeProfessional,
                 OfficeProfessional.consultorio_id == Office.id,
@@ -161,7 +164,11 @@ class PatientRepository:
             )
             .distinct()
         )
-        return set(self._session.scalars(statement))
+        return {
+            item.establecimiento_id
+            for item in self._session.scalars(statement)
+            if office_context(item).active and item.establecimiento.activo
+        }
 
     def is_patient_in_professional_scope(
         self,

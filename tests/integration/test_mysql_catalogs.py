@@ -62,7 +62,7 @@ def test_simple_catalogs_return_seeded_reference_values(
 
     specialties = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/especialidades")
     assert specialties.status_code == 200
-    assert {"codigo", "nombre", "activo", "grupo"} == set(specialties.json()[0])
+    assert {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"} == set(specialties.json()[0])
 
     risk_groups = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/grupos-riesgo")
     assert risk_groups.status_code == 200
@@ -108,7 +108,7 @@ def test_paginated_catalogs_accept_a_search_term(
     # ``especialidades`` and ``grupos-riesgo`` are complete lists: they are
     # short enough to render every option at once.
     list_cases = {
-        "/catalogos/especialidades": (f"Especialidad {token}", {"codigo", "nombre", "activo", "grupo"}),
+        "/catalogos/especialidades": (f"Especialidad {token}", {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"}),
         "/catalogos/grupos-riesgo": (
             f"Riesgo {token}",
             {"id", "codigo", "nombre", "activo", "descripcion"},

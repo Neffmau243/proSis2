@@ -169,6 +169,7 @@ test('el alta envía el contrato del consultorio y refresca', async () => {
   await flushPromises()
 
   await selectField(wrapper, 'Establecimiento', 1)
+  await selectField(wrapper, 'Área asistencial', 'CARD')
   await setField(wrapper, 'Código', 'CONS-02')
   await setField(wrapper, 'Nombre', 'Consultorio B')
   await button(wrapper, 'Guardar').trigger('click')
@@ -179,9 +180,11 @@ test('el alta envía el contrato del consultorio y refresca', async () => {
     codigo: 'CONS-02',
     nombre: 'Consultorio B',
     consultorio_padre_id: null,
-    especialidad_codigo: null,
+    especialidad_codigo: 'CARD',
+    area_codigo: 'CARD',
+    servicios_codigos: null,
   })
-  expect(list).toHaveBeenCalledTimes(2)
+  expect(list).toHaveBeenLastCalledWith({ establecimientoId: undefined, incluirInactivos: false })
 })
 
 test('la tabla de asignaciones se muestra aunque venga vacía', async () => {
@@ -237,7 +240,7 @@ test('la baja es informativa y refresca la lista', async () => {
   await flushPromises()
 
   expect(ElMessageBox.confirm).toHaveBeenCalledWith(
-    expect.stringContaining('La baja es lógica'),
+    expect.stringContaining('subconsultorios activos'),
     'Dar de baja consultorio',
     expect.objectContaining({ type: 'info' }),
   )
@@ -246,7 +249,9 @@ test('la baja es informativa y refresca la lista', async () => {
 })
 
 test('un rechazo del backend se muestra con su mensaje', async () => {
-  create.mockRejectedValue(new Error('Ya existe un consultorio con ese código en el establecimiento.'))
+  create.mockRejectedValue(
+    new Error('Ya existe un consultorio con ese código en el establecimiento.'),
+  )
   const wrapper = await mountView()
   await button(wrapper, 'Nuevo consultorio').trigger('click')
   await flushPromises()
@@ -254,6 +259,7 @@ test('un rechazo del backend se muestra con su mensaje', async () => {
   await selectField(wrapper, 'Establecimiento', 1)
   await setField(wrapper, 'Código', 'CONS-01')
   await setField(wrapper, 'Nombre', 'Duplicado')
+  await selectField(wrapper, 'Área asistencial', 'CARD')
   await button(wrapper, 'Guardar').trigger('click')
   await flushPromises()
 

@@ -21,7 +21,7 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
     } <= set(
         Base.metadata.tables
     )
-    assert script.get_current_head() == "20261010_0031_family_history"
+    assert script.get_current_head() == "20261013_0033_office_hierarchy"
 
 
 def test_every_revision_fits_the_alembic_version_column() -> None:

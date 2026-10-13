@@ -66,6 +66,7 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
   const form = reactive({
     officeId: null as number | null,
     professionalId: null as number | null,
+    serviceCode: null as string | null,
     date: localDateTime(),
     mode: 'AMBULATORIA' as 'AMBULATORIA' | 'EMERGENCIA',
     notes: '',
@@ -73,6 +74,9 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     counterReference: '',
   })
   const office = computed(() => offices.value.find((item) => item.id === form.officeId))
+  const services = computed(() => office.value?.servicios_habilitados ?? [])
+  const professionalsLoading = shallowRef(false)
+  let staffRequest = 0
   const shift = computed(() => laboratoryShift(form.date))
   const establishment = computed(() =>
     establishments.value.find((item) => item.id === office.value?.establecimiento_id),
@@ -98,15 +102,19 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
         catalogos.sexos(),
         catalogos.seguros(),
         allPages((offset) => catalogos.establecimientos(undefined, 100, offset)),
-        allPages((offset) => catalogos.consultorios(undefined, 'LAB', 100, offset)),
-        allPages((offset) => catalogos.profesionales(undefined, 100, offset)),
+        allPages((offset) => catalogos.consultorios(undefined, undefined, 100, offset)),
+        Promise.resolve([] as ProfessionalCatalogItem[]),
       ])
       documents.value = types
       sexes.value = sex
       insurances.value = insurance
       establishments.value = sites
       offices.value = rooms.filter(
-        (item) => item.activo && (item.codigo === 'LAB' || /laboratorio/i.test(item.nombre)),
+        (item) =>
+          item.activo &&
+          item.activo_efectivo !== false &&
+          (item.area_codigo === 'ESPECIALIDADES:002' ||
+            (!item.area_codigo && (item.codigo === 'LAB' || /laboratorio/i.test(item.nombre)))),
       )
       professionals.value = staff
       if (offices.value.length === 1) form.officeId = offices.value[0]!.id
@@ -259,7 +267,7 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
         paciente_id: patient.value.id,
         establecimiento_id: office.value.establecimiento_id,
         consultorio_id: office.value.id,
-        especialidad_codigo: office.value.especialidad_codigo,
+        especialidad_codigo: form.serviceCode ?? office.value.especialidad_codigo,
         profesional_id: form.professionalId,
         modalidad_atencion_codigo: form.mode,
         fecha_atencion: form.date,
@@ -291,6 +299,39 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     error.value = ''
   }
 
+  async function refreshProfessionals(): Promise<void> {
+    const request = ++staffRequest
+    if (!form.officeId) {
+      professionals.value = []
+      form.professionalId = null
+      return
+    }
+    professionalsLoading.value = true
+    try {
+      const staff = await allPages((offset) =>
+        catalogos.profesionales(undefined, 100, offset, form.officeId!, form.date.slice(0, 10)),
+      )
+      if (request === staffRequest) {
+        professionals.value = staff
+        if (!staff.some((item) => item.id === form.professionalId)) form.professionalId = null
+      }
+    } catch (cause) {
+      if (request === staffRequest) {
+        professionals.value = []
+        catalogError.value = message(cause)
+      }
+    } finally {
+      if (request === staffRequest) professionalsLoading.value = false
+    }
+  }
+  watch(
+    () => form.officeId,
+    () => {
+      form.serviceCode = services.value[0]?.codigo ?? office.value?.especialidad_codigo ?? null
+    },
+  )
+  watch([() => form.officeId, () => form.date.slice(0, 10)], () => void refreshProfessionals())
+
   watch([() => patient.value?.id, () => form.officeId], () => {
     page.value = 1
     void refreshHistory()
@@ -320,6 +361,8 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     establishments,
     offices,
     professionals,
+    professionalsLoading,
+    services,
     form,
     office,
     shift,

@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 
 from sqlalchemy import exists, false, func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.domain.office import office_context
 from app.models.clinical import Attention
 from app.models.organization import Office, OfficeProfessional
 from app.models.patient import Patient, PatientRisk
@@ -19,7 +20,7 @@ EntityT = TypeVar("EntityT")
 
 
 @dataclass(frozen=True, slots=True)
-class DiscoveryPage(Generic[EntityT]):
+class DiscoveryPage[EntityT]:
     items: list[EntityT]
     total: int
 
@@ -47,7 +48,7 @@ class PatientDiscoveryRepository:
 
         today = date.today()
         statement = (
-            select(Office.establecimiento_id)
+            select(Office)
             .join(OfficeProfessional, OfficeProfessional.consultorio_id == Office.id)
             .where(
                 OfficeProfessional.profesional_id == professional_id,
@@ -60,7 +61,13 @@ class PatientDiscoveryRepository:
             )
             .distinct()
         )
-        return list(self._session.scalars(statement))
+        return sorted(
+            {
+                item.establecimiento_id
+                for item in self._session.scalars(statement)
+                if office_context(item).active and item.establecimiento.activo
+            }
+        )
 
     def search(
         self,
@@ -130,9 +137,7 @@ class PatientDiscoveryRepository:
         count_statement = count_statement.where(*conditions)
         return DiscoveryPage(
             items=list(
-                self._session.execute(
-                    statement.limit(criteria.limit).offset(criteria.offset)
-                )
+                self._session.execute(statement.limit(criteria.limit).offset(criteria.offset))
                 .unique()
                 .scalars()
             ),
@@ -168,7 +173,7 @@ class AttentionDiscoveryRepository:
 
         today = date.today()
         statement = (
-            select(Office.establecimiento_id)
+            select(Office)
             .join(OfficeProfessional, OfficeProfessional.consultorio_id == Office.id)
             .where(
                 OfficeProfessional.profesional_id == professional_id,
@@ -181,7 +186,13 @@ class AttentionDiscoveryRepository:
             )
             .distinct()
         )
-        return list(self._session.scalars(statement))
+        return sorted(
+            {
+                item.establecimiento_id
+                for item in self._session.scalars(statement)
+                if office_context(item).active and item.establecimiento.activo
+            }
+        )
 
     def search(
         self,
@@ -202,7 +213,9 @@ class AttentionDiscoveryRepository:
         if criteria.desde is not None:
             conditions.append(Attention.fecha_atencion >= self._day_start(criteria.desde))
         if criteria.hasta is not None:
-            conditions.append(Attention.fecha_atencion < self._day_start(criteria.hasta + timedelta(days=1)))
+            conditions.append(
+                Attention.fecha_atencion < self._day_start(criteria.hasta + timedelta(days=1))
+            )
         if criteria.fecha_hora_desde is not None:
             conditions.append(Attention.fecha_atencion >= criteria.fecha_hora_desde)
         if criteria.fecha_hora_hasta is not None:
@@ -230,9 +243,7 @@ class AttentionDiscoveryRepository:
         count_statement = select(func.count()).select_from(Attention).where(*conditions)
         return DiscoveryPage(
             items=list(
-                self._session.execute(
-                    statement.limit(criteria.limit).offset(criteria.offset)
-                )
+                self._session.execute(statement.limit(criteria.limit).offset(criteria.offset))
                 .unique()
                 .scalars()
             ),

@@ -31,6 +31,8 @@ export interface FamilyHistoryCatalogItem {
 
 export interface SpecialtyCatalogItem extends CodeCatalogItem {
   grupo: string | null
+  area_codigos?: string[]
+  es_area?: boolean
 }
 
 export interface ServiceCatalogItem {
@@ -73,6 +75,12 @@ export interface OfficeCatalogItem {
   nombre: string
   especialidad_codigo: string | null
   activo: boolean
+  consultorio_padre_id?: number | null
+  area_codigo?: string | null
+  area_nombre?: string | null
+  ruta?: string
+  activo_efectivo?: boolean
+  servicios_habilitados?: CodeCatalogItem[]
 }
 
 export interface ProfessionalCatalogItem {
@@ -144,15 +152,32 @@ export const catalogos = {
     searchPage<Cie10CatalogItem>('/catalogos/cie10', { q, limit, offset }),
   establecimientos: (q: string | undefined, limit = 25, offset = 0) =>
     searchPage<EstablishmentCatalogItem>('/catalogos/establecimientos', { q, limit, offset }),
-  consultorios: (establecimientoId: number | undefined, q: string | undefined, limit = 25, offset = 0) =>
+  consultorios: (
+    establecimientoId: number | undefined,
+    q: string | undefined,
+    limit = 25,
+    offset = 0,
+  ) =>
     searchPage<OfficeCatalogItem>('/catalogos/consultorios', {
       establecimiento_id: establecimientoId,
       q,
       limit,
       offset,
     }),
-  profesionales: (q: string | undefined, limit = 25, offset = 0) =>
-    searchPage<ProfessionalCatalogItem>('/catalogos/profesionales', { q, limit, offset }),
+  profesionales: (
+    q: string | undefined,
+    limit = 25,
+    offset = 0,
+    consultorioId?: number,
+    fecha?: string,
+  ) =>
+    searchPage<ProfessionalCatalogItem>('/catalogos/profesionales', {
+      q,
+      limit,
+      offset,
+      consultorio_id: consultorioId,
+      fecha,
+    }),
   ubigeos: (q: string | undefined, limit = 25, offset = 0) =>
     searchPage<UbigeoCatalogItem>('/catalogos/ubigeos', { q, limit, offset }),
   localidades: (ubigeoCodigo: string | undefined, q: string | undefined, limit = 50, offset = 0) =>

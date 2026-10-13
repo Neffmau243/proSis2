@@ -1,0 +1,380 @@
+[
+  {
+    "id": 1,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 2,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 3,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 4,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 5,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 6,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 7,
+    "establecimiento_id": 1,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  },
+  {
+    "id": 8,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 9,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 10,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 11,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 12,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 13,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 14,
+    "establecimiento_id": 2,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  },
+  {
+    "id": 15,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 16,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 17,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 18,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 19,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 20,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 21,
+    "establecimiento_id": 4,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  },
+  {
+    "id": 22,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 23,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 24,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 25,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 26,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 27,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 28,
+    "establecimiento_id": 3,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  },
+  {
+    "id": 29,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 30,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 31,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 32,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 33,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 34,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 35,
+    "establecimiento_id": 5,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  },
+  {
+    "id": 36,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "MED",
+    "nombre": "MEDICINA",
+    "especialidad_codigo": "ESPECIALIDADES:003",
+    "activo": 1
+  },
+  {
+    "id": 37,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "ENF",
+    "nombre": "ENFERMERIA",
+    "especialidad_codigo": "ESPECIALIDADES2:001",
+    "activo": 1
+  },
+  {
+    "id": 38,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "ODO",
+    "nombre": "ODONTOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES2:006",
+    "activo": 1
+  },
+  {
+    "id": 39,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "PSI",
+    "nombre": "PSICOLOGIA",
+    "especialidad_codigo": "ESPECIALIDADES:006",
+    "activo": 1
+  },
+  {
+    "id": 40,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "OBS",
+    "nombre": "OBSTETRICIA",
+    "especialidad_codigo": "ESPECIALIDADES:008",
+    "activo": 1
+  },
+  {
+    "id": 41,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "NUT",
+    "nombre": "NUTRICION",
+    "especialidad_codigo": "ESPECIALIDADES:005",
+    "activo": 1
+  },
+  {
+    "id": 42,
+    "establecimiento_id": 6,
+    "consultorio_padre_id": null,
+    "codigo": "LAB",
+    "nombre": "LABORATORIO",
+    "especialidad_codigo": "ESPECIALIDADES:002",
+    "activo": 1
+  }
+]

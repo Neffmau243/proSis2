@@ -8,6 +8,14 @@ export interface OfficeResponse {
   nombre: string
   especialidad_codigo: string | null
   activo: boolean
+  area_codigo?: string | null
+  area_nombre?: string | null
+  servicios_codigos?: string[] | null
+  servicios_habilitados?: { codigo: string; nombre: string; activo: boolean }[]
+  ruta?: string
+  activo_efectivo?: boolean
+  establecimiento_nombre?: string | null
+  consultorio_padre_nombre?: string | null
 }
 
 export interface OfficeCreatePayload {
@@ -16,6 +24,8 @@ export interface OfficeCreatePayload {
   nombre: string
   consultorio_padre_id?: number | null
   especialidad_codigo?: string | null
+  area_codigo?: string | null
+  servicios_codigos?: string[] | null
 }
 
 /**
@@ -64,10 +74,7 @@ export const consultorios = {
     return data
   },
   async update(id: number, payload: OfficeUpdatePayload): Promise<OfficeResponse> {
-    const { data } = await http.patch<OfficeResponse>(
-      `/configuracion/consultorios/${id}`,
-      payload,
-    )
+    const { data } = await http.patch<OfficeResponse>(`/configuracion/consultorios/${id}`, payload)
     return data
   },
   async deactivate(id: number): Promise<OfficeResponse> {

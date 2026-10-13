@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query
@@ -27,7 +28,6 @@ from app.schemas.catalog import (
 )
 from app.schemas.common import PageResponse
 from app.services.catalog import CatalogService
-
 
 router = APIRouter(prefix="/catalogos", tags=["Catálogos"])
 
@@ -151,8 +151,12 @@ def list_professionals(
     q: SearchText = None,
     limit: PageLimit = 25,
     offset: PageOffset = 0,
+    consultorio_id: Annotated[int | None, Query(gt=0)] = None,
+    fecha: date | None = None,
 ) -> PageResponse[ProfessionalCatalogItem]:
-    return CatalogService(db).professionals(query=q, limit=limit, offset=offset)
+    return CatalogService(db).professionals(
+        query=q, limit=limit, offset=offset, office_id=consultorio_id, on_date=fecha
+    )
 
 
 @router.get("/localidades", response_model=PageResponse[LocalidadCatalogItem])

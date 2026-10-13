@@ -6,11 +6,11 @@ from datetime import date
 from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Boolean, CHAR, Date, ForeignKey, Index, String, UniqueConstraint, text
+from sqlalchemy import CHAR, JSON, Boolean, Date, ForeignKey, Index, String, UniqueConstraint, text
 from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, MYSQL_TABLE_OPTIONS
+from .base import MYSQL_TABLE_OPTIONS, Base
 
 if TYPE_CHECKING:
     from .catalog import Specialty
@@ -29,11 +29,9 @@ class Disa(Base):
     )
     codigo: Mapped[str] = mapped_column(String(20), nullable=False)
     nombre: Mapped[str] = mapped_column(String(200), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    redes: Mapped[list["Network"]] = relationship(back_populates="disa")
+    redes: Mapped[list[Network]] = relationship(back_populates="disa")
 
     __table_args__ = (
         UniqueConstraint("codigo", name="uq_disa_codigo"),
@@ -59,12 +57,10 @@ class Network(Base):
     )
     codigo: Mapped[str] = mapped_column(String(20), nullable=False)
     nombre: Mapped[str] = mapped_column(String(200), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    disa: Mapped["Disa"] = relationship(back_populates="redes")
-    microredes: Mapped[list["MicroNetwork"]] = relationship(back_populates="red")
+    disa: Mapped[Disa] = relationship(back_populates="redes")
+    microredes: Mapped[list[MicroNetwork]] = relationship(back_populates="red")
 
     __table_args__ = (
         UniqueConstraint("id_disa", "codigo", name="uq_redes_disa_codigo"),
@@ -90,14 +86,10 @@ class MicroNetwork(Base):
     )
     codigo: Mapped[str] = mapped_column(String(20), nullable=False)
     nombre: Mapped[str] = mapped_column(String(200), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    red: Mapped["Network"] = relationship(back_populates="microredes")
-    establecimientos: Mapped[list["Establishment"]] = relationship(
-        back_populates="microred"
-    )
+    red: Mapped[Network] = relationship(back_populates="microredes")
+    establecimientos: Mapped[list[Establishment]] = relationship(back_populates="microred")
 
     __table_args__ = (
         UniqueConstraint("id_red", "codigo", name="uq_microredes_red_codigo"),
@@ -113,18 +105,12 @@ class Ubigeo(Base):
     provincia: Mapped[str] = mapped_column(String(100), nullable=False)
     distrito: Mapped[str] = mapped_column(String(100), nullable=False)
     localidad: Mapped[str | None] = mapped_column(String(150), nullable=True)
-    altitud_msnm: Mapped[Decimal | None] = mapped_column(
-        mysql.DECIMAL(8, 2), nullable=True
-    )
+    altitud_msnm: Mapped[Decimal | None] = mapped_column(mysql.DECIMAL(8, 2), nullable=True)
     quintil: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
-    establecimientos: Mapped[list["Establishment"]] = relationship(
-        back_populates="ubigeo"
-    )
-    localidades: Mapped[list["Localidad"]] = relationship(back_populates="ubigeo")
-    pacientes: Mapped[list["Patient"]] = relationship(
-        back_populates="ubigeo_residencia"
-    )
+    establecimientos: Mapped[list[Establishment]] = relationship(back_populates="ubigeo")
+    localidades: Mapped[list[Localidad]] = relationship(back_populates="ubigeo")
+    pacientes: Mapped[list[Patient]] = relationship(back_populates="ubigeo_residencia")
 
     __table_args__ = (
         Index("idx_ubigeos_distrito", "distrito"),
@@ -157,20 +143,14 @@ class Localidad(Base):
     codigo_sis: Mapped[str] = mapped_column(String(10), nullable=False)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
     nombre_norm: Mapped[str] = mapped_column(String(150), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    ubigeo: Mapped["Ubigeo"] = relationship(back_populates="localidades")
-    pacientes: Mapped[list["Patient"]] = relationship(back_populates="localidad_catalogo")
+    ubigeo: Mapped[Ubigeo] = relationship(back_populates="localidades")
+    pacientes: Mapped[list[Patient]] = relationship(back_populates="localidad_catalogo")
 
     __table_args__ = (
-        UniqueConstraint(
-            "ubigeo_codigo", "codigo_sis", name="uq_localidades_ubigeo_codigo"
-        ),
-        UniqueConstraint(
-            "ubigeo_codigo", "nombre_norm", name="uq_localidades_ubigeo_nombre"
-        ),
+        UniqueConstraint("ubigeo_codigo", "codigo_sis", name="uq_localidades_ubigeo_codigo"),
+        UniqueConstraint("ubigeo_codigo", "nombre_norm", name="uq_localidades_ubigeo_nombre"),
         Index("ix_localidades_nombre_norm", "nombre_norm"),
         MYSQL_TABLE_OPTIONS,
     )
@@ -182,9 +162,7 @@ class Establishment(Base):
     id: Mapped[int] = mapped_column(
         mysql.BIGINT(unsigned=True), primary_key=True, autoincrement=True
     )
-    codigo_legacy: Mapped[int | None] = mapped_column(
-        mysql.BIGINT(unsigned=True), nullable=True
-    )
+    codigo_legacy: Mapped[int | None] = mapped_column(mysql.BIGINT(unsigned=True), nullable=True)
     id_microred: Mapped[int | None] = mapped_column(
         mysql.BIGINT(unsigned=True),
         ForeignKey(
@@ -199,10 +177,16 @@ class Establishment(Base):
     #: Código DIRESA/DISA de tres caracteres que entrega la sede en SIS.
     disa_codigo: Mapped[str | None] = mapped_column(String(3), nullable=True)
     # Site defaults, independent of the account's role or medical profession.
-    fua_personal_atiende: Mapped[str] = mapped_column(String(20), nullable=False, server_default=text("'IPRESS'"))
-    fua_lugar_atencion: Mapped[str] = mapped_column(String(20), nullable=False, server_default=text("'INTRAMURAL'"))
+    fua_personal_atiende: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'IPRESS'")
+    )
+    fua_lugar_atencion: Mapped[str] = mapped_column(
+        String(20), nullable=False, server_default=text("'INTRAMURAL'")
+    )
     fua_codigo_aisped: Mapped[str | None] = mapped_column(String(20), nullable=True)
-    fua_renipress_preimpreso: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
+    fua_renipress_preimpreso: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text("TRUE")
+    )
     codigo_ideess: Mapped[str | None] = mapped_column(String(30), nullable=True)
     nombre: Mapped[str] = mapped_column(String(200), nullable=False)
     abreviatura: Mapped[str | None] = mapped_column(String(50), nullable=True)
@@ -217,40 +201,28 @@ class Establishment(Base):
         nullable=True,
     )
     area_urbana: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    microred: Mapped["MicroNetwork | None"] = relationship(
-        back_populates="establecimientos"
-    )
-    ubigeo: Mapped["Ubigeo | None"] = relationship(back_populates="establecimientos")
-    pacientes_registrados: Mapped[list["Patient"]] = relationship(
+    microred: Mapped[MicroNetwork | None] = relationship(back_populates="establecimientos")
+    ubigeo: Mapped[Ubigeo | None] = relationship(back_populates="establecimientos")
+    pacientes_registrados: Mapped[list[Patient]] = relationship(
         back_populates="establecimiento_registro"
     )
-    consultorios: Mapped[list["Office"]] = relationship(
-        back_populates="establecimiento"
-    )
-    atenciones: Mapped[list["Attention"]] = relationship(
-        back_populates="establecimiento"
-    )
-    referencias_origen: Mapped[list["Referral"]] = relationship(
+    consultorios: Mapped[list[Office]] = relationship(back_populates="establecimiento")
+    atenciones: Mapped[list[Attention]] = relationship(back_populates="establecimiento")
+    referencias_origen: Mapped[list[Referral]] = relationship(
         "Referral",
         foreign_keys="Referral.establecimiento_origen_id",
         back_populates="establecimiento_origen",
     )
-    referencias_destino: Mapped[list["Referral"]] = relationship(
+    referencias_destino: Mapped[list[Referral]] = relationship(
         "Referral",
         foreign_keys="Referral.establecimiento_destino_id",
         back_populates="establecimiento_destino",
     )
-    certificados: Mapped[list["Certificate"]] = relationship(
-        back_populates="establecimiento"
-    )
-    vigilancia_sien: Mapped[list["SurveillanceSien"]] = relationship(
-        back_populates="establecimiento"
-    )
-    evaluaciones_nutricionales: Mapped[list["NutritionalEvaluation"]] = relationship(
+    certificados: Mapped[list[Certificate]] = relationship(back_populates="establecimiento")
+    vigilancia_sien: Mapped[list[SurveillanceSien]] = relationship(back_populates="establecimiento")
+    evaluaciones_nutricionales: Mapped[list[NutritionalEvaluation]] = relationship(
         back_populates="establecimiento"
     )
 
@@ -291,6 +263,13 @@ class Office(Base):
     )
     codigo: Mapped[str] = mapped_column(String(30), nullable=False)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
+    area_codigo: Mapped[str | None] = mapped_column(
+        String(20), ForeignKey("especialidades.codigo", name="fk_consultorios_area"), nullable=True
+    )
+    # NULL inherits the parent/default area services; [] intentionally disables care.
+    servicios_codigos: Mapped[list[str] | None] = mapped_column(
+        JSON(none_as_null=True), nullable=True
+    )
     especialidad_codigo: Mapped[str | None] = mapped_column(
         String(20),
         ForeignKey(
@@ -301,29 +280,23 @@ class Office(Base):
         ),
         nullable=True,
     )
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    establecimiento: Mapped["Establishment"] = relationship(
-        back_populates="consultorios"
-    )
-    padre: Mapped["Office | None"] = relationship(
+    establecimiento: Mapped[Establishment] = relationship(back_populates="consultorios")
+    padre: Mapped[Office | None] = relationship(
         "Office",
         back_populates="hijos",
         foreign_keys=[consultorio_padre_id],
         remote_side="Office.id",
     )
-    hijos: Mapped[list["Office"]] = relationship(back_populates="padre")
-    especialidad: Mapped["Specialty | None"] = relationship(
-        "Specialty", back_populates="consultorios"
+    hijos: Mapped[list[Office]] = relationship(back_populates="padre")
+    especialidad: Mapped[Specialty | None] = relationship(
+        "Specialty", back_populates="consultorios", foreign_keys=[especialidad_codigo]
     )
-    profesionales_asignados: Mapped[list["OfficeProfessional"]] = relationship(
+    profesionales_asignados: Mapped[list[OfficeProfessional]] = relationship(
         back_populates="consultorio"
     )
-    atenciones: Mapped[list["Attention"]] = relationship(
-        back_populates="consultorio"
-    )
+    atenciones: Mapped[list[Attention]] = relationship(back_populates="consultorio")
 
     __table_args__ = (
         UniqueConstraint(
@@ -365,10 +338,8 @@ class OfficeProfessional(Base):
         Boolean, nullable=False, server_default=text("FALSE")
     )
 
-    consultorio: Mapped["Office"] = relationship(
-        back_populates="profesionales_asignados"
-    )
-    profesional: Mapped["Professional"] = relationship(
+    consultorio: Mapped[Office] = relationship(back_populates="profesionales_asignados")
+    profesional: Mapped[Professional] = relationship(
         "Professional", back_populates="asignaciones_consultorio"
     )
 

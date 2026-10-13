@@ -36,16 +36,10 @@ class DocumentType(Base):
 
     codigo: Mapped[str] = mapped_column(String(10), primary_key=True)
     nombre: Mapped[str] = mapped_column(String(100), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    pacientes: Mapped[list["Patient"]] = relationship(
-        back_populates="document_type"
-    )
-    responsables: Mapped[list["PatientResponsible"]] = relationship(
-        back_populates="document_type"
-    )
+    pacientes: Mapped[list[Patient]] = relationship(back_populates="document_type")
+    responsables: Mapped[list[PatientResponsible]] = relationship(back_populates="document_type")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
 
@@ -55,11 +49,9 @@ class Sex(Base):
 
     codigo: Mapped[str] = mapped_column(CHAR(1), primary_key=True)
     nombre: Mapped[str] = mapped_column(String(30), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    pacientes: Mapped[list["Patient"]] = relationship(back_populates="sex")
+    pacientes: Mapped[list[Patient]] = relationship(back_populates="sex")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
 
@@ -74,9 +66,7 @@ class FamilyHistoryPrefix(Base):
     tipo: Mapped[str] = mapped_column(String(10), nullable=False)
     color_hex: Mapped[str | None] = mapped_column(CHAR(7), nullable=True)
     orden: Mapped[int] = mapped_column(SmallInteger, nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
     __table_args__ = (
         UniqueConstraint("orden", name="uq_historias_familiares_catalogo_orden"),
@@ -96,11 +86,9 @@ class Insurance(Base):
     codigo_sis: Mapped[str | None] = mapped_column(String(10), nullable=True)
     #: SIS / ESSALUD / SANIDAD / PARTICULAR / NINGUNO / OTRO.
     regimen: Mapped[str | None] = mapped_column(String(20), nullable=True)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    pacientes: Mapped[list["Patient"]] = relationship(back_populates="insurance")
+    pacientes: Mapped[list[Patient]] = relationship(back_populates="insurance")
 
     __table_args__ = (
         UniqueConstraint("codigo", name="uq_seguros_codigo"),
@@ -116,13 +104,9 @@ class Profession(Base):
         mysql.BIGINT(unsigned=True), primary_key=True, autoincrement=True
     )
     nombre: Mapped[str] = mapped_column(String(100), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    profesionales: Mapped[list["Professional"]] = relationship(
-        back_populates="profesion"
-    )
+    profesionales: Mapped[list[Professional]] = relationship(back_populates="profesion")
 
     __table_args__ = (
         UniqueConstraint("nombre", name="uq_profesiones_nombre"),
@@ -136,19 +120,15 @@ class Specialty(Base):
     codigo: Mapped[str] = mapped_column(String(20), primary_key=True)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
     grupo: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    profesionales_especialidad: Mapped[list["ProfessionalSpecialty"]] = relationship(
+    profesionales_especialidad: Mapped[list[ProfessionalSpecialty]] = relationship(
         back_populates="especialidad"
     )
-    consultorios: Mapped[list["Office"]] = relationship(
-        back_populates="especialidad"
+    consultorios: Mapped[list[Office]] = relationship(
+        back_populates="especialidad", foreign_keys="Office.especialidad_codigo"
     )
-    atenciones: Mapped[list["Attention"]] = relationship(
-        back_populates="especialidad"
-    )
+    atenciones: Mapped[list[Attention]] = relationship(back_populates="especialidad")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
 
@@ -159,14 +139,12 @@ class ServiceOffering(Base):
     codigo: Mapped[str] = mapped_column(String(30), primary_key=True)
     descripcion: Mapped[str] = mapped_column(String(300), nullable=False)
     grupo: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    atenciones_prestacion: Mapped[list["AttentionService"]] = relationship(
+    atenciones_prestacion: Mapped[list[AttentionService]] = relationship(
         back_populates="prestacion"
     )
-    certificados_prestacion: Mapped[list["CertificateService"]] = relationship(
+    certificados_prestacion: Mapped[list[CertificateService]] = relationship(
         back_populates="prestacion"
     )
 
@@ -179,13 +157,9 @@ class Cie10(Base):
     codigo: Mapped[str] = mapped_column(String(20), primary_key=True)
     descripcion: Mapped[str] = mapped_column(String(500), nullable=False)
     categoria: Mapped[str | None] = mapped_column(String(200), nullable=True)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    atenciones_diagnostico: Mapped[list["AttentionDiagnosis"]] = relationship(
-        back_populates="cie10"
-    )
+    atenciones_diagnostico: Mapped[list[AttentionDiagnosis]] = relationship(back_populates="cie10")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
 
@@ -195,13 +169,9 @@ class AttentionMode(Base):
 
     codigo: Mapped[str] = mapped_column(String(20), primary_key=True)
     nombre: Mapped[str] = mapped_column(String(100), nullable=False)
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    atenciones: Mapped[list["Attention"]] = relationship(
-        back_populates="modalidad_atencion"
-    )
+    atenciones: Mapped[list[Attention]] = relationship(back_populates="modalidad_atencion")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)
 
@@ -217,12 +187,8 @@ class AgeGroup(Base):
     edad_maxima_meses: Mapped[int | None] = mapped_column(
         mysql.SMALLINT(unsigned=True), nullable=True
     )
-    activo: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("TRUE")
-    )
+    activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
-    atenciones: Mapped[list["Attention"]] = relationship(
-        back_populates="grupo_etario"
-    )
+    atenciones: Mapped[list[Attention]] = relationship(back_populates="grupo_etario")
 
     __table_args__ = (MYSQL_TABLE_OPTIONS,)

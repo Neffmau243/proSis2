@@ -7,6 +7,7 @@ from datetime import date
 from sqlalchemy import delete, or_, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.domain.office import office_context
 from app.models.catalog import Profession, Specialty
 from app.models.organization import Office, OfficeProfessional
 from app.models.security import Professional, ProfessionalSpecialty
@@ -71,15 +72,18 @@ class ProfessionalRepository:
         """Specialties still needed by current or future office assignments."""
 
         statement = (
-            select(Office.especialidad_codigo)
+            select(Office)
             .join(OfficeProfessional, OfficeProfessional.consultorio_id == Office.id)
             .where(
                 OfficeProfessional.profesional_id == professional_id,
-                Office.especialidad_codigo.is_not(None),
                 or_(
                     OfficeProfessional.fecha_fin.is_(None),
                     OfficeProfessional.fecha_fin >= on_or_after,
                 ),
             )
         )
-        return {code for code in self._session.scalars(statement) if code is not None}
+        return {
+            context.required_specialty
+            for item in self._session.scalars(statement)
+            if (context := office_context(item)).required_specialty is not None
+        }

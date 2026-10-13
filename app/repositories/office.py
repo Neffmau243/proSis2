@@ -48,11 +48,33 @@ class OfficeRepository:
         statement = statement.order_by(Office.establecimiento_id, Office.codigo)
         return list(self._session.scalars(statement))
 
-    def get_active_establishment(self, establishment_id: int) -> Establishment | None:
-        return self._session.scalar(
-            select(Establishment).where(
-                Establishment.id == establishment_id,
-                Establishment.activo.is_(True),
+    def get_active_establishment(
+        self, establishment_id: int, *, lock: bool = False
+    ) -> Establishment | None:
+        statement = select(Establishment).where(
+            Establishment.id == establishment_id,
+            Establishment.activo.is_(True),
+        )
+        if lock:
+            statement = statement.with_for_update()
+        return self._session.scalar(statement)
+
+    def active_specialties(self) -> dict[str, str]:
+        return {
+            item.codigo: item.nombre
+            for item in self._session.scalars(select(Specialty).where(Specialty.activo.is_(True)))
+        }
+
+    def nonexpired_professionals(self, office_id: int) -> set[int]:
+        return set(
+            self._session.scalars(
+                select(OfficeProfessional.profesional_id).where(
+                    OfficeProfessional.consultorio_id == office_id,
+                    or_(
+                        OfficeProfessional.fecha_fin.is_(None),
+                        OfficeProfessional.fecha_fin >= date.today(),
+                    ),
+                )
             )
         )
 
@@ -66,16 +88,21 @@ class OfficeRepository:
 
     def get_active_professional(self, professional_id: int) -> Professional | None:
         return self._session.scalar(
-            select(Professional).where(Professional.id == professional_id, Professional.activo.is_(True))
+            select(Professional).where(
+                Professional.id == professional_id, Professional.activo.is_(True)
+            )
         )
 
     def professional_has_specialty(self, professional_id: int, specialty_code: str) -> bool:
-        return self._session.scalar(
-            select(ProfessionalSpecialty.profesional_id).where(
-                ProfessionalSpecialty.profesional_id == professional_id,
-                ProfessionalSpecialty.especialidad_codigo == specialty_code,
+        return (
+            self._session.scalar(
+                select(ProfessionalSpecialty.profesional_id).where(
+                    ProfessionalSpecialty.profesional_id == professional_id,
+                    ProfessionalSpecialty.especialidad_codigo == specialty_code,
+                )
             )
-        ) is not None
+            is not None
+        )
 
     def list_assignments(self, office_id: int) -> list[OfficeProfessional]:
         return list(
@@ -107,7 +134,9 @@ class OfficeRepository:
                 OfficeProfessional.consultorio_id == office_id,
                 OfficeProfessional.es_responsable.is_(True),
                 OfficeProfessional.fecha_inicio <= on_date,
-                or_(OfficeProfessional.fecha_fin.is_(None), OfficeProfessional.fecha_fin >= on_date),
+                or_(
+                    OfficeProfessional.fecha_fin.is_(None), OfficeProfessional.fecha_fin >= on_date
+                ),
             )
             .order_by(OfficeProfessional.fecha_inicio.desc())
         )
@@ -161,7 +190,9 @@ class OfficeRepository:
     def add(self, assignment: OfficeProfessional) -> None:
         self._session.add(assignment)
 
-    def audit(self, *, actor_id: int, action: str, record_id: int, after: dict[str, object]) -> None:
+    def audit(
+        self, *, actor_id: int, action: str, record_id: int, after: dict[str, object]
+    ) -> None:
         self._session.add(
             AuditLog(
                 usuario_id=actor_id,

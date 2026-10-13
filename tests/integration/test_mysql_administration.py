@@ -82,6 +82,15 @@ def test_office_crud_is_administrative_and_audited(
     assert cyclic.status_code == 422
     assert cyclic.json()["error"]["code"] == "JERARQUIA_CONSULTORIO_CICLICA"
 
+    blocked = clinic_scene.admin_client.delete(
+        f"{api_prefix}/configuracion/consultorios/{office['id']}"
+    )
+    assert blocked.status_code == 422
+    assert blocked.json()["error"]["code"] == "CONSULTORIO_CON_HIJOS_ACTIVOS"
+    closed_child = clinic_scene.admin_client.delete(
+        f"{api_prefix}/configuracion/consultorios/{relative.json()['id']}"
+    )
+    assert closed_child.status_code == 200
     deactivated = clinic_scene.admin_client.delete(
         f"{api_prefix}/configuracion/consultorios/{office['id']}"
     )

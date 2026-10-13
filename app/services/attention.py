@@ -17,6 +17,7 @@ from app.domain.clinical import (
     VitalSignPayload,
 )
 from app.domain.nutrition import NutritionalIndicators, calculate_nutritional_indicators
+from app.domain.office import office_context
 from app.domain.patient_condition import condition_for_attention
 from app.exceptions import AuthorizationError, BusinessRuleError, ConflictError, NotFoundError
 from app.mappers.attention import attention_to_response
@@ -187,7 +188,9 @@ class AttentionService:
                 te=self._format_indicator(indicators.te),
                 pt=self._format_indicator(indicators.pt),
                 referencia_nutricional=indicators.referencia,
-                valoracion_calculada=NutritionalIndicatorsResponse(**asdict(indicators), **indicators.classifications).model_dump(mode="json"),
+                valoracion_calculada=NutritionalIndicatorsResponse(
+                    **asdict(indicators), **indicators.classifications
+                ).model_dump(mode="json"),
                 hora_inicio=command.hora_inicio,
                 hora_fin=command.hora_fin,
                 admision=command.admision,
@@ -361,7 +364,8 @@ class AttentionService:
     def _validate_clinical_context(self, command: AttentionCreate) -> None:
         if self._attentions.get_active_establishment(command.establecimiento_id) is None:
             raise NotFoundError(
-                code="ESTABLECIMIENTO_NO_ACTIVO", message="El establecimiento no existe o está inactivo."
+                code="ESTABLECIMIENTO_NO_ACTIVO",
+                message="El establecimiento no existe o está inactivo.",
             )
         if self._attentions.get_active_professional(command.profesional_id) is None:
             raise NotFoundError(
@@ -381,18 +385,41 @@ class AttentionService:
             raise NotFoundError(
                 code="MODALIDAD_NO_ACTIVA", message="La modalidad de atención no está activa."
             )
-        required_specialty = office.especialidad_codigo
+        context = office_context(office)
+        if not context.active:
+            raise BusinessRuleError(
+                code="JERARQUIA_CONSULTORIO_NO_ACTIVA",
+                message="El consultorio o alguno de sus padres está inactivo.",
+            )
+        required_specialty = context.required_specialty
         selected_specialty = command.especialidad_codigo
-        if required_specialty is not None and selected_specialty != required_specialty:
+        if (context.area_code is not None and selected_specialty not in context.service_codes) or (
+            getattr(office, "servicios_codigos", None) == []
+        ):
             raise BusinessRuleError(
                 code="ESPECIALIDAD_INCOMPATIBLE",
-                message="La especialidad de la atención debe coincidir con la del consultorio.",
+                message="Seleccione un servicio o especialidad habilitado en este consultorio.",
             )
         if selected_specialty is not None:
             if self._attentions.get_active_specialty(selected_specialty) is None:
                 raise NotFoundError(
-                    code="ESPECIALIDAD_NO_ACTIVA", message="La especialidad no existe o está inactiva."
+                    code="ESPECIALIDAD_NO_ACTIVA",
+                    message="La especialidad no existe o está inactiva.",
                 )
+        if not self._attentions.professional_is_assigned(
+            office, command.profesional_id, command.fecha_atencion.date()
+        ):
+            raise BusinessRuleError(
+                code="PROFESIONAL_NO_ASIGNADO",
+                message="Seleccione un profesional asignado y vigente en esa fecha.",
+            )
+        if required_specialty and not self._attentions.professional_has_specialty(
+            command.profesional_id, required_specialty
+        ):
+            raise BusinessRuleError(
+                code="PROFESIONAL_SIN_ESPECIALIDAD",
+                message="El profesional no tiene la especialidad base requerida.",
+            )
 
     def _ensure_actor_is_linked_professional(
         self,
@@ -460,7 +487,10 @@ class AttentionService:
         if scope is None:
             return
         professional_id, establishment_ids = scope
-        if entity.profesional_id == professional_id or entity.establecimiento_id in establishment_ids:
+        if (
+            entity.profesional_id == professional_id
+            or entity.establecimiento_id in establishment_ids
+        ):
             return
         raise AuthorizationError(
             code="ATENCION_FUERA_DE_AMBITO",
@@ -603,7 +633,10 @@ class AttentionService:
             snapshot = NutritionalSnapshotInput()
         captured = snapshot.model_dump(
             exclude={
-                "tipo", "diagnostico_peso_edad", "diagnostico_talla_edad", "diagnostico_peso_talla",
+                "tipo",
+                "diagnostico_peso_edad",
+                "diagnostico_talla_edad",
+                "diagnostico_peso_talla",
             }
         )
         kind = {"GESTANTES": "GESTANTE", "PUERPERAS": "PUERPERA"}.get(
@@ -645,7 +678,9 @@ class AttentionService:
         adult = group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES" and age.years >= 18
         invalid = []
         for applies, fields in (
-            (child, CHILD_FIELDS), (adult, ADULT_FIELDS), (group == "GESTANTES", PREGNANT_FIELDS)
+            (child, CHILD_FIELDS),
+            (adult, ADULT_FIELDS),
+            (group == "GESTANTES", PREGNANT_FIELDS),
         ):
             if not applies:
                 invalid.extend(name for name in fields if getattr(record, name) is not None)

@@ -94,20 +94,31 @@
                           style="width: 100%"
                           placeholder="Seleccione el consultorio"
                         >
-                          <el-option
-                            v-for="office in consultorios"
-                            :key="office.id"
-                            :label="office.nombre"
-                            :value="office.id"
-                          />
+                          <el-option-group
+                            v-for="group in officeGroups"
+                            :key="group.codigo"
+                            :label="group.nombre"
+                          >
+                            <el-option
+                              v-for="office in group.items"
+                              :key="office.id"
+                              :label="officeLabel(office)"
+                              :value="office.id"
+                            />
+                          </el-option-group>
                         </el-select>
                       </el-form-item>
                     </el-col>
                     <el-col :span="24">
-                      <el-form-item class="admission-context-field" label="Especialidad">
-                        <el-select v-model="form.especialidad_codigo" clearable style="width: 100%">
+                      <el-form-item class="admission-context-field" label="Servicio / especialidad">
+                        <el-select
+                          v-model="form.especialidad_codigo"
+                          :disabled="saving || attentionCreated || !form.consultorio_id"
+                          style="width: 100%"
+                          placeholder="Seleccione el servicio"
+                        >
                           <el-option
-                            v-for="esp in especialidades"
+                            v-for="esp in availableSpecialties"
                             :key="esp.codigo"
                             :label="esp.nombre"
                             :value="esp.codigo"
@@ -127,6 +138,7 @@
                           remote
                           :remote-method="searchProfesionales"
                           :loading="profesionalesLoading"
+                          :disabled="saving || attentionCreated || !form.consultorio_id"
                           style="width: 100%"
                           placeholder="Seleccione el profesional"
                         >
@@ -192,12 +204,18 @@
                           style="width: 100%"
                           placeholder="Según establecimiento"
                         >
-                          <el-option
-                            v-for="office in consultorios"
-                            :key="office.id"
-                            :label="office.nombre"
-                            :value="office.id"
-                          />
+                          <el-option-group
+                            v-for="group in officeGroups"
+                            :key="group.codigo"
+                            :label="group.nombre"
+                          >
+                            <el-option
+                              v-for="office in group.items"
+                              :key="office.id"
+                              :label="officeLabel(office)"
+                              :value="office.id"
+                            />
+                          </el-option-group>
                         </el-select>
                       </el-form-item>
                     </el-col>
@@ -209,6 +227,7 @@
                           remote
                           :remote-method="searchProfesionales"
                           :loading="profesionalesLoading"
+                          :disabled="saving || attentionCreated || !form.consultorio_id"
                           style="width: 100%"
                           placeholder="Busque"
                         >
@@ -222,10 +241,15 @@
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item label="Especialidad">
-                        <el-select v-model="form.especialidad_codigo" clearable style="width: 100%">
+                      <el-form-item label="Servicio / especialidad">
+                        <el-select
+                          v-model="form.especialidad_codigo"
+                          :disabled="saving || attentionCreated || !form.consultorio_id"
+                          style="width: 100%"
+                          placeholder="Seleccione el servicio"
+                        >
                           <el-option
-                            v-for="esp in especialidades"
+                            v-for="esp in availableSpecialties"
                             :key="esp.codigo"
                             :label="esp.nombre"
                             :value="esp.codigo"
@@ -591,6 +615,9 @@ const isAdmission = computed(() => props.admission)
 // `pacienteId` para que los accesos creados antes de este cambio no se rompan.
 const preselectedPatientId = patientIdFromQuery(route.query.patientId ?? route.query.pacienteId)
 
+import { officeLabel } from '@/utils/officeHierarchy'
+import { allCatalogPages } from '@/services/catalogPages'
+
 const formRef = ref<FormInstance>()
 const saving = ref(false)
 const errorMessage = ref<string | null>(null)
@@ -607,6 +634,28 @@ const establecimientos = ref<EstablishmentCatalogItem[]>([])
 const establecimientosLoading = ref(false)
 const consultorios = ref<OfficeCatalogItem[]>([])
 const consultoriosLoading = ref(false)
+const officeGroups = computed(() => {
+  const groups = new Map<string, { codigo: string; nombre: string; items: OfficeCatalogItem[] }>()
+  for (const item of consultorios.value) {
+    const code = item.area_codigo || item.especialidad_codigo || 'SIN_AREA'
+    if (!groups.has(code))
+      groups.set(code, { codigo: code, nombre: item.area_nombre || 'Consultorios', items: [] })
+    groups.get(code)!.items.push(item)
+  }
+  return [...groups.values()]
+})
+const selectedOffice = computed(() =>
+  consultorios.value.find((item) => item.id === form.consultorio_id),
+)
+const availableSpecialties = computed(
+  () =>
+    selectedOffice.value?.servicios_habilitados ??
+    especialidades.value.filter(
+      (item) =>
+        !selectedOffice.value?.especialidad_codigo ||
+        item.codigo === selectedOffice.value.especialidad_codigo,
+    ),
+)
 const profesionales = ref<ProfessionalCatalogItem[]>([])
 const profesionalesLoading = ref(false)
 const especialidades = ref<SpecialtyCatalogItem[]>([])
@@ -819,28 +868,63 @@ async function searchEstablecimientos(query: string): Promise<void> {
   }
 }
 
+let professionalRequest = 0
+let officeRequest = 0
 async function searchProfesionales(query: string): Promise<void> {
+  const request = ++professionalRequest
+  const officeId = form.consultorio_id
+  if (!officeId) {
+    profesionales.value = []
+    profesionalesLoading.value = false
+    return
+  }
   profesionalesLoading.value = true
   try {
-    const page = await catalogos.profesionales(query || undefined, 25, 0)
-    profesionales.value = page.items
+    const items = await allCatalogPages((offset) =>
+      catalogos.profesionales(
+        query || undefined,
+        100,
+        offset,
+        officeId,
+        form.fecha_atencion.slice(0, 10) || undefined,
+      ),
+    )
+    if (request === professionalRequest) {
+      profesionales.value = items
+      if (!query && !items.some((item) => item.id === form.profesional_id))
+        form.profesional_id = null
+    }
+  } catch (cause) {
+    if (request === professionalRequest) {
+      profesionales.value = []
+      errorMessage.value =
+        cause instanceof Error
+          ? cause.message
+          : 'No se pudieron cargar los profesionales asignados.'
+    }
   } finally {
-    profesionalesLoading.value = false
+    if (request === professionalRequest) profesionalesLoading.value = false
   }
 }
 
 async function loadConsultorios(): Promise<void> {
+  const request = ++officeRequest
   consultoriosLoading.value = true
   try {
-    const page = await catalogos.consultorios(
-      form.establecimiento_id ?? undefined,
-      undefined,
-      50,
-      0,
+    const items = await allCatalogPages((offset) =>
+      catalogos.consultorios(form.establecimiento_id ?? undefined, undefined, 100, offset),
     )
-    consultorios.value = page.items
+    if (request === officeRequest) {
+      consultorios.value = items
+    }
+  } catch (cause) {
+    if (request === officeRequest) {
+      consultorios.value = []
+      errorMessage.value =
+        cause instanceof Error ? cause.message : 'No se pudieron cargar los consultorios.'
+    }
   } finally {
-    consultoriosLoading.value = false
+    if (request === officeRequest) consultoriosLoading.value = false
   }
 }
 
@@ -895,18 +979,25 @@ watch(
   },
 )
 
-// El consultorio define la sede y la especialidad cuando las trae asignadas.
 watch(
   () => form.consultorio_id,
   (id) => {
-    if (id === null) return
+    form.profesional_id = null
+    form.especialidad_codigo = null
     const office = consultorios.value.find((item) => item.id === id)
-    if (office && form.establecimiento_id !== office.establecimiento_id) {
-      form.establecimiento_id = office.establecimiento_id
+    if (office) {
+      if (form.establecimiento_id !== office.establecimiento_id)
+        form.establecimiento_id = office.establecimiento_id
+      form.especialidad_codigo =
+        office.servicios_habilitados?.[0]?.codigo ?? office.especialidad_codigo
     }
-    if (office?.especialidad_codigo) {
-      form.especialidad_codigo = office.especialidad_codigo
-    }
+    void searchProfesionales('')
+  },
+)
+watch(
+  () => form.fecha_atencion.slice(0, 10),
+  () => {
+    void searchProfesionales('')
   },
 )
 
@@ -1018,7 +1109,7 @@ onMounted(async () => {
     ] = await Promise.all([
       catalogos.especialidades(),
       catalogos.establecimientos(undefined, 25, 0),
-      catalogos.profesionales(undefined, 50, 0),
+      Promise.resolve({ items: [] as ProfessionalCatalogItem[] }),
       catalogos.tiposDocumento(),
       catalogos.gruposRiesgo(),
       preselectedPatientId === null ? Promise.resolve(null) : pacientes.get(preselectedPatientId),

@@ -1,0 +1,118 @@
+{
+  "offices": [
+    {
+      "total": 42,
+      "active": "42",
+      "with_parent": "0",
+      "establishments": 6
+    }
+  ],
+  "hierarchy_integrity": [
+    {
+      "active_child_inactive_parent": null,
+      "cross_site_parent": null
+    }
+  ],
+  "specialty_groups": [
+    {
+      "grupo": "Certificado",
+      "total": 2
+    },
+    {
+      "grupo": "Esp_Enfermeria",
+      "total": 2
+    },
+    {
+      "grupo": "Esp_Medicina",
+      "total": 4
+    },
+    {
+      "grupo": "Esp_Nutricion",
+      "total": 3
+    },
+    {
+      "grupo": "Esp_Obstetricia",
+      "total": 4
+    },
+    {
+      "grupo": "Esp_Odontologia",
+      "total": 1
+    },
+    {
+      "grupo": "Esp_Psicologia",
+      "total": 1
+    },
+    {
+      "grupo": "Esp_Topico",
+      "total": 2
+    },
+    {
+      "grupo": "Especialidades",
+      "total": 9
+    },
+    {
+      "grupo": "Especialidades2",
+      "total": 2
+    },
+    {
+      "grupo": "Especialidades3",
+      "total": 3
+    }
+  ],
+  "assignment_scope_distribution": [
+    {
+      "sites": 6,
+      "professionals": 62
+    }
+  ],
+  "assignment_specialty_integrity": [
+    {
+      "incompatible_current_or_future": 0
+    }
+  ],
+  "organization_links": [
+    {
+      "active_sites": 6,
+      "without_microred": "6"
+    }
+  ],
+  "assignment_count": [
+    {
+      "total": 372
+    }
+  ],
+  "detached_probes": {
+    "deactivation": {
+      "parent_active": false,
+      "child_active": true,
+      "repository_calls": [
+        "get_by_id"
+      ]
+    },
+    "clinical_context": {
+      "child_without_specialty_accepted": true,
+      "repository_calls": [
+        "get_active_establishment",
+        "get_active_professional",
+        "get_active_office",
+        "get_active_mode"
+      ],
+      "caveat": "Context validator only; patient/actor/date checks run elsewhere."
+    },
+    "catalog_fields": [
+      "activo",
+      "codigo",
+      "especialidad_codigo",
+      "establecimiento_id",
+      "id",
+      "nombre"
+    ],
+    "catalog_exposes_parent": false,
+    "pediatrics_in_medicine_error": "ESPECIALIDAD_INCOMPATIBLE",
+    "office_specialty_change_repository_calls": [
+      "get_by_id",
+      "get_active_establishment",
+      "get_active_specialty"
+    ]
+  }
+}

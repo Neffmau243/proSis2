@@ -1,0 +1,107 @@
+{
+  "scope": "configured local DB; read-only aggregate queries",
+  "queries": {
+    "patients": [
+      {
+        "total": 16,
+        "missing_first_name": "0",
+        "missing_both_surnames": "0",
+        "missing_sex": "0",
+        "missing_history": "0",
+        "sis_missing_type_or_number": "0",
+        "sis_missing_diresa": "0",
+        "sis_patients": "10",
+        "malformed_dni": "0"
+      }
+    ],
+    "attentions": [
+      {
+        "total": 14,
+        "missing_fua_snapshot": "0",
+        "without_services": "14",
+        "without_diagnoses": "14",
+        "missing_weight_or_height": "1",
+        "missing_complete_bp": "2",
+        "maternal_missing_waist": "0",
+        "incoming_reference_not_marked_in_fua": "0"
+      }
+    ],
+    "snapshot_records": [
+      {
+        "snapshot_version": "2",
+        "total": 14
+      }
+    ],
+    "fua_documents": [
+      {
+        "total": 0,
+        "non_current_number_structure": "0",
+        "missing_current_components": "0"
+      }
+    ],
+    "rmcv_catalog": [],
+    "diagnosis_types": [],
+    "establishments": [
+      {
+        "total": 6,
+        "unusable_renipress": "0",
+        "uses_preprinted_code": "6",
+        "defaults_ipress_intramural": "6"
+      }
+    ],
+    "professional_identity": [
+      {
+        "total": 72,
+        "missing_document": "1",
+        "missing_registration": "35"
+      }
+    ],
+    "responsible_in_saved_snapshot": [
+      {
+        "total": 14,
+        "missing_document": "0",
+        "missing_registration": "11"
+      }
+    ],
+    "maternal_dates": [
+      {
+        "total": 14,
+        "pregnant": "0",
+        "puerperal": "0",
+        "delivery_after_attention": "0",
+        "pregnant_missing_due_date": "0",
+        "puerperal_missing_delivery_date": "0"
+      }
+    ],
+    "used_professional_profiles": [
+      {
+        "profession": "BIOLOGO",
+        "attention_count": 8,
+        "missing_registration_in_snapshot": "8"
+      },
+      {
+        "profession": "ENFERMERA",
+        "attention_count": 3,
+        "missing_registration_in_snapshot": "0"
+      },
+      {
+        "profession": "NUTRICIONISTA",
+        "attention_count": 2,
+        "missing_registration_in_snapshot": "2"
+      },
+      {
+        "profession": "MEDICO",
+        "attention_count": 1,
+        "missing_registration_in_snapshot": "1"
+      }
+    ]
+  },
+  "schema": {
+    "table_count": 46,
+    "missing_orm_tables": [],
+    "missing_orm_columns": {},
+    "alembic_revisions": [
+      "20261012_0032_lab_references"
+    ]
+  }
+}

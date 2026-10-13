@@ -3,17 +3,19 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from datetime import date
 from decimal import Decimal
 
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.domain.office import office_context
 from app.models.audit import AuditLog
 from app.models.catalog import AttentionMode, Cie10, ServiceOffering, Specialty
 from app.models.clinical import Attention, AttentionDiagnosis, AttentionService
 from app.models.documents import Certificate, Fua, Referral
-from app.models.organization import Establishment, Office
-from app.models.security import Professional, User
+from app.models.organization import Establishment, Office, OfficeProfessional
+from app.models.security import Professional, ProfessionalSpecialty, User
 from app.models.surveillance import NutritionalEvaluation
 
 
@@ -96,6 +98,36 @@ class AttentionRepository:
     def get_active_office(self, office_id: int) -> Office | None:
         return self._session.scalar(
             select(Office).where(Office.id == office_id, Office.activo.is_(True))
+        )
+
+    def professional_is_assigned(self, office: Office, professional_id: int, on_date: date) -> bool:
+        context = office_context(office)
+        return (
+            self._session.scalar(
+                select(OfficeProfessional.profesional_id)
+                .where(
+                    OfficeProfessional.consultorio_id.in_([office.id, *context.ancestor_ids]),
+                    OfficeProfessional.profesional_id == professional_id,
+                    OfficeProfessional.fecha_inicio <= on_date,
+                    or_(
+                        OfficeProfessional.fecha_fin.is_(None),
+                        OfficeProfessional.fecha_fin >= on_date,
+                    ),
+                )
+                .limit(1)
+            )
+            is not None
+        )
+
+    def professional_has_specialty(self, professional_id: int, code: str) -> bool:
+        return (
+            self._session.scalar(
+                select(ProfessionalSpecialty.profesional_id).where(
+                    ProfessionalSpecialty.profesional_id == professional_id,
+                    ProfessionalSpecialty.especialidad_codigo == code,
+                )
+            )
+            is not None
         )
 
     def get_active_mode(self, code: str) -> AttentionMode | None:

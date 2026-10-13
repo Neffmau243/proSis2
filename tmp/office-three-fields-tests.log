@@ -1,0 +1,17 @@
+
+> ipress-frontend@0.1.0 test
+> vitest run tests/views/AdmisionView.test.ts tests/views/ConsultoriosView.test.ts tests/laboratory.test.ts
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  09:01:15
+   Duration  33.68s (transform 46%, tests 33%, import 11%, environment 10%)
+
+  Transform  transforming modules took 25.77s · 46% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+

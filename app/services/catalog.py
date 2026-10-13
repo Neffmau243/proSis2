@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from datetime import date
 from typing import TypeVar
 
 from sqlalchemy.orm import Session
@@ -55,14 +56,18 @@ class CatalogService:
         self._repository = repository or CatalogRepository(session)
 
     def document_types(self) -> list[CodeCatalogItem]:
-        return [document_type_to_catalog_item(item) for item in self._repository.list_document_types()]
+        return [
+            document_type_to_catalog_item(item) for item in self._repository.list_document_types()
+        ]
 
     def sexes(self) -> list[CodeCatalogItem]:
         return [sex_to_catalog_item(item) for item in self._repository.list_sexes()]
 
     def ethnicities(self) -> list[CodeCatalogItem]:
-        return [CodeCatalogItem(codigo=item.codigo, nombre=item.nombre, activo=item.activo)
-                for item in self._repository.list_ethnicities()]
+        return [
+            CodeCatalogItem(codigo=item.codigo, nombre=item.nombre, activo=item.activo)
+            for item in self._repository.list_ethnicities()
+        ]
 
     def insurances(self) -> list[InsuranceCatalogItem]:
         return [insurance_to_catalog_item(item) for item in self._repository.list_insurances()]
@@ -74,7 +79,9 @@ class CatalogService:
         return [specialty_to_catalog_item(item) for item in self._repository.list_specialties()]
 
     def attention_modes(self) -> list[CodeCatalogItem]:
-        return [attention_mode_to_catalog_item(item) for item in self._repository.list_attention_modes()]
+        return [
+            attention_mode_to_catalog_item(item) for item in self._repository.list_attention_modes()
+        ]
 
     def age_groups(self) -> list[AgeGroupCatalogItem]:
         return [age_group_to_catalog_item(item) for item in self._repository.list_age_groups()]
@@ -103,7 +110,9 @@ class CatalogService:
         )
         return self._page(page, service_to_catalog_item, limit=limit, offset=offset)
 
-    def cie10(self, *, query: str | None, limit: int, offset: int) -> PageResponse[Cie10CatalogItem]:
+    def cie10(
+        self, *, query: str | None, limit: int, offset: int
+    ) -> PageResponse[Cie10CatalogItem]:
         page = self._repository.page_cie10(
             query=self._normalized_query(query), limit=limit, offset=offset
         )
@@ -131,13 +140,26 @@ class CatalogService:
             limit=limit,
             offset=offset,
         )
-        return self._page(page, office_to_catalog_item, limit=limit, offset=offset)
+        names = {item.codigo: item.nombre for item in self._repository.list_specialties()}
+        return self._page(
+            page, lambda item: office_to_catalog_item(item, names), limit=limit, offset=offset
+        )
 
     def professionals(
-        self, *, query: str | None, limit: int, offset: int
+        self,
+        *,
+        query: str | None,
+        limit: int,
+        offset: int,
+        office_id: int | None = None,
+        on_date: date | None = None,
     ) -> PageResponse[ProfessionalCatalogItem]:
         page = self._repository.page_professionals(
-            query=self._normalized_query(query), limit=limit, offset=offset
+            query=self._normalized_query(query),
+            limit=limit,
+            offset=offset,
+            office_id=office_id,
+            on_date=on_date,
         )
         return self._page(page, professional_to_catalog_item, limit=limit, offset=offset)
 

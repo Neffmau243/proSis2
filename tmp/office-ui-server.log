@@ -1,0 +1,206 @@
+INFO:     Started server process [19684]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57158 - "GET /api/v1/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50607 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50615 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50615 - "GET /api/v1/catalogos/consultorios?limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50615 - "GET /api/v1/catalogos/profesionales?consultorio_id=1&limit=100 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50607 - "POST /api/v1/configuracion/consultorios HTTP/1.1" 201 Created
+INFO:     127.0.0.1:50615 - "POST /api/v1/patients HTTP/1.1" 201 Created
+INFO:     127.0.0.1:52396 - "GET /login?redirect=/admision%3FpatientId%3D1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52396 - "GET /assets/index-2VwRFWc3.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56467 - "GET /assets/index-CyjdbSHV.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53495 - "GET /assets/runtime-core.esm-bundler-Bxf39hhW.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50118 - "GET /assets/runtime-dom.esm-bundler-Dq9ul2jo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65444 - "GET /assets/dist-QaRSYLCn.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56842 - "GET /assets/message-CJEGOULX.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53495 - "GET /assets/LoginView-c5s_m32l.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56467 - "GET /assets/_plugin-vue_export-helper-BDNMzG2s.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65444 - "GET /assets/password-BV3LcbVR.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52396 - "GET /assets/LoginView-W1jGWFmt.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65444 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52396 - "GET /api/v1/auth/usuarios-activos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /assets/AppLayout-Q9PeeaYh.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50774 - "GET /assets/usePacienteSeleccionado-B5BQDJTV.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56806 - "GET /assets/pacientes-C3NPUMyQ.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /assets/AppLayout-CcIuPPQn.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "GET /assets/AdmisionView-DowebKE3.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /assets/FuaPrintDialog-DyUJbxYw.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /assets/FuaPrintDialog-Bp15wMT0.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56806 - "GET /assets/calendarAge-L5d_u0Xw.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /assets/RiskDialog-CT2_oNFJ.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "GET /assets/AdmisionView-CUDlhwFY.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50774 - "GET /assets/FamilyHistorySelector-CKWh2M5e.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /assets/calendarAge-CVcHihNh.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /assets/patientDocument-BlF0Xoee.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56806 - "GET /assets/FamilyHistorySelector-4q51qt-x.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /assets/pregnancy-CapJt-MM.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "GET /assets/RiskDialog-Cy-Pg49K.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /assets/atenciones-TUWnVSbv.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50774 - "GET /assets/catalogos-DLVKyZ74.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /assets/officeHierarchy-DmZNspXU.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /api/v1/catalogos/especialidades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "GET /api/v1/catalogos/establecimientos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /api/v1/catalogos/grupos-riesgo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /api/v1/catalogos/tipos-documento HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50774 - "GET /api/v1/patients/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /api/v1/catalogos/consultorios?establecimiento_id=1&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "GET /api/v1/catalogos/seguros HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56806 - "GET /api/v1/catalogos/historias-familiares?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50774 - "GET /api/v1/atenciones?paciente_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59132 - "GET /api/v1/catalogos/establecimientos?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50480 - "GET /api/v1/catalogos/ubigeos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51023 - "GET /api/v1/catalogos/etnias HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62862 - "POST /api/v1/atenciones/indicadores-nutricionales/vista-previa HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64587 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=1&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57821 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57821 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54584 - "POST /api/v1/atenciones HTTP/1.1" 201 Created
+INFO:     127.0.0.1:54584 - "GET /api/v1/patients/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55437 - "GET /api/v1/atenciones?paciente_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /admision?patientId=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /assets/index-e5XU-EF6.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /assets/runtime-core.esm-bundler-Bxf39hhW.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /assets/index-CyjdbSHV.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /assets/dist-QaRSYLCn.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /assets/message-CJEGOULX.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /assets/runtime-dom.esm-bundler-Dq9ul2jo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /assets/AppLayout-PgktfjD1.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /assets/usePacienteSeleccionado-B5BQDJTV.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /assets/AppLayout-CcIuPPQn.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /assets/_plugin-vue_export-helper-BDNMzG2s.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /assets/AdmisionView-8QQu2xBw.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /assets/pacientes-JjsSONzn.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /assets/FuaPrintDialog-Bp15wMT0.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /assets/AdmisionView-BHRF3J-2.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /assets/FamilyHistorySelector-CKWh2M5e.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /assets/RiskDialog-CT2_oNFJ.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /assets/calendarAge-L5d_u0Xw.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /assets/FuaPrintDialog-DyUJbxYw.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /assets/catalogos-Dh9g31hc.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /assets/RiskDialog-C0Vz_Bb-.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /assets/patientDocument-BlF0Xoee.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /assets/calendarAge-CVcHihNh.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /assets/atenciones-D1ilAVqB.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /assets/FamilyHistorySelector-4q51qt-x.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /assets/pregnancy-CapJt-MM.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /assets/officeHierarchy-DmZNspXU.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /api/v1/catalogos/tipos-documento HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /api/v1/catalogos/especialidades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /api/v1/catalogos/establecimientos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /api/v1/catalogos/grupos-riesgo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /api/v1/patients/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /api/v1/catalogos/seguros HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "GET /api/v1/catalogos/consultorios?establecimiento_id=1&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58628 - "GET /api/v1/catalogos/etnias HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50628 - "GET /api/v1/atenciones?paciente_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65491 - "GET /api/v1/catalogos/historias-familiares?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50429 - "GET /api/v1/catalogos/ubigeos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54220 - "POST /api/v1/atenciones/indicadores-nutricionales/vista-previa HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56712 - "GET /api/v1/catalogos/establecimientos?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51336 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "POST /api/v1/atenciones HTTP/1.1" 201 Created
+INFO:     127.0.0.1:60724 - "GET /api/v1/patients/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /api/v1/atenciones?paciente_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51857 - "GET /assets/LoginView-CJwEo4OR.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62289 - "GET /assets/LoginView-c5s_m32l.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60251 - "GET /assets/password-BV3LcbVR.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60251 - "GET /api/v1/auth/usuarios-activos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /assets/DashboardView-BNq3XgY3.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53314 - "GET /assets/DashboardView-Bra12FVt.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53314 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53314 - "GET /api/v1/patients?incluir_inactivos=false&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58678 - "GET /configuracion/consultorios HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58678 - "GET /assets/runtime-core.esm-bundler-Bxf39hhW.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55171 - "GET /assets/index-CyjdbSHV.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:62632 - "GET /assets/dist-QaRSYLCn.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55316 - "GET /assets/index-e5XU-EF6.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:63994 - "GET /assets/runtime-dom.esm-bundler-Dq9ul2jo.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:59373 - "GET /assets/message-CJEGOULX.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:63994 - "GET /assets/_plugin-vue_export-helper-BDNMzG2s.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55316 - "GET /assets/usePacienteSeleccionado-B5BQDJTV.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:59373 - "GET /assets/AppLayout-PgktfjD1.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55171 - "GET /assets/pacientes-JjsSONzn.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:58678 - "GET /assets/ConsultoriosView-C243KUdm.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62632 - "GET /assets/ConsultoriosView-SfA3FwE0.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59373 - "GET /assets/officeHierarchy-DmZNspXU.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55316 - "GET /assets/catalogos-Dh9g31hc.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:63994 - "GET /assets/AppLayout-CcIuPPQn.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55316 - "GET /api/v1/catalogos/establecimientos?limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62632 - "GET /api/v1/catalogos/especialidades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59373 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63994 - "GET /api/v1/configuracion/consultorios HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63648 - "GET /login?redirect=/admision%3FpatientId%3D1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63648 - "GET /assets/index--3v-ubJh.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49940 - "GET /assets/message-CJEGOULX.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53780 - "GET /assets/runtime-core.esm-bundler-Bxf39hhW.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53730 - "GET /assets/index-CyjdbSHV.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62746 - "GET /assets/runtime-dom.esm-bundler-Dq9ul2jo.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60797 - "GET /assets/dist-QaRSYLCn.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63648 - "GET /assets/AppLayout-DpZmkAcp.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49940 - "GET /assets/DashboardView-dxAY8gIk.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62746 - "GET /assets/AppLayout-CcIuPPQn.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60797 - "GET /assets/pacientes-O7BtPL9M.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53780 - "GET /assets/usePacienteSeleccionado-B5BQDJTV.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53730 - "GET /assets/_plugin-vue_export-helper-BDNMzG2s.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63648 - "GET /assets/DashboardView-Bra12FVt.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49940 - "GET /assets/catalogos-ByQTncKl.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49940 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49940 - "GET /api/v1/patients?incluir_inactivos=false&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58077 - "GET /assets/LoginView-DYfnIRGP.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55104 - "GET /assets/LoginView-c5s_m32l.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52828 - "GET /assets/password-BV3LcbVR.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55104 - "GET /api/v1/auth/usuarios-activos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56267 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56267 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56267 - "GET /api/v1/patients?incluir_inactivos=false&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /admision?patientId=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /assets/runtime-core.esm-bundler-Bxf39hhW.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57362 - "GET /assets/index-CyjdbSHV.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55033 - "GET /assets/dist-QaRSYLCn.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:60768 - "GET /assets/index--3v-ubJh.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:59333 - "GET /assets/message-CJEGOULX.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:65233 - "GET /assets/runtime-dom.esm-bundler-Dq9ul2jo.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:59333 - "GET /assets/usePacienteSeleccionado-B5BQDJTV.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55033 - "GET /assets/AdmisionView-BON4AyvT.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65233 - "GET /assets/AppLayout-DpZmkAcp.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:60768 - "GET /assets/pacientes-O7BtPL9M.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57362 - "GET /assets/_plugin-vue_export-helper-BDNMzG2s.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:58897 - "GET /assets/AppLayout-CcIuPPQn.css HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:59333 - "GET /assets/AdmisionView-2xgwNDl2.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /assets/RiskDialog-CT2_oNFJ.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57362 - "GET /assets/FamilyHistorySelector-CKWh2M5e.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65233 - "GET /assets/FuaPrintDialog-Bp15wMT0.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /assets/calendarAge-L5d_u0Xw.css HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /assets/FuaPrintDialog-DyUJbxYw.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65233 - "GET /assets/RiskDialog-BKJqL6g7.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /assets/FamilyHistorySelector-4q51qt-x.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59333 - "GET /assets/patientDocument-BlF0Xoee.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /assets/catalogos-ByQTncKl.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:58897 - "GET /assets/atenciones-C67bwrJE.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57362 - "GET /assets/calendarAge-CVcHihNh.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /assets/pregnancy-CapJt-MM.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /assets/officeHierarchy-DmZNspXU.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59333 - "GET /api/v1/catalogos/grupos-riesgo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /api/v1/catalogos/especialidades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/v1/catalogos/tipos-documento HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /api/v1/catalogos/establecimientos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57362 - "GET /api/v1/patients/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /api/v1/catalogos/etnias HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59333 - "GET /api/v1/catalogos/seguros HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60768 - "GET /api/v1/catalogos/consultorios?establecimiento_id=1&limit=100&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/v1/catalogos/sexos HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57362 - "GET /api/v1/atenciones?paciente_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59333 - "GET /api/v1/catalogos/ubigeos?limit=25&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55033 - "GET /api/v1/catalogos/historias-familiares?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65233 - "GET /api/v1/catalogos/establecimientos?limit=50&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "POST /api/v1/atenciones/indicadores-nutricionales/vista-previa HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64435 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58077 - "GET /api/v1/catalogos/profesionales?limit=100&offset=0&consultorio_id=43&fecha=2026-10-13 HTTP/1.1" 200 OK
