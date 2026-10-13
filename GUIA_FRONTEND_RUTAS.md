@@ -27,14 +27,14 @@ Navegador → ruta de la SPA → cliente HTTP → /api/v1 → FastAPI → MySQL
 | --- | --- | --- |
 | `/login` | Acceso | Pública |
 | `/` | Base de datos (tabla de pacientes) | Sesión |
-| `/laboratorio` | Referencia de laboratorio | Sesión |
+| `/laboratorio` | Atenciones de laboratorio | `PACIENTE_LEER`; registro con `ATENCION_CREAR`, historial con `ATENCION_LEER` |
 | `/cuenta/cambiar-contrasena` | Cambio de clave propia | Sesión |
 | `/admision?patientId=:id` | Admisión: contexto del paciente + atención | `ATENCION_CREAR` |
 | `/pacientes/nuevo` | Registro de paciente | `PACIENTE_EDITAR` |
 | `/pacientes/:id` | Ficha del paciente | `PACIENTE_LEER` |
 | `/pacientes` | Redirección a `/` | Sesión |
-| `/atenciones` | Historial de atenciones | `ATENCION_LEER` |
-| `/atenciones/nueva` | Nueva atención fuera de admisión | `ATENCION_CREAR` |
+| `/atenciones` | Pantalla general oculta; redirige a Base de datos | Sesión |
+| `/atenciones/nueva` | Pantalla oculta; con `patientId` válido redirige a Admisión, sin paciente vuelve a Base de datos | Sesión; Admisión exige `ATENCION_CREAR` |
 | `/atenciones/:id` | Detalle de atención | `ATENCION_LEER` |
 | `/configuracion/usuarios` | Alta de usuarios | `USUARIO_GESTIONAR` |
 | `/configuracion/auditoria` | Auditoría (placeholder) | `AUDITORIA_LEER` |
@@ -131,9 +131,9 @@ ADMIN
 └─ Mi cuenta
 
 PROFESIONAL
-├─ Pacientes
-├─ Nueva atención
-├─ Historial de atenciones
+├─ Base de datos → seleccionar paciente
+├─ Admisión / Laboratorio
+├─ Ver paciente → Atenciones → Detalle
 └─ Mi cuenta
 ```
 
@@ -211,7 +211,7 @@ calcular sin persistir. Estado actual de la SPA: el composable existe, pero
 la vista no lo conecta; tampoco ofrece controles de prestaciones/CIE-10
 al crear atención. Estas son capacidades del contrato, no funciones terminadas.
 
-La búsqueda paginada acepta `paciente_id`, `establecimiento_id`,
+La búsqueda paginada acepta `paciente_id`, `establecimiento_id`, `consultorio_id`,
 `profesional_id`, `desde`, `hasta`, `estado` (`ATENDIDO` o `ANULADO`), `limit`
 y `offset`. Aunque la página tenga filtros de profesional/establecimiento, el
 backend impone la identidad y consultorios activos del profesional conectado.

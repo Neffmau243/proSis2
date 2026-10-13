@@ -23,6 +23,8 @@ export interface AttentionDiagnosisItem {
 }
 
 export interface Attention {
+  numero_referencia_ingreso?: string | null
+  numero_contrarreferencia_ingreso?: string | null
   contexto_clinico?: ClinicalContext | null
   evaluaciones_nutricionales?: NutritionRecord[]
   valoracion_calculada?: NutritionalIndicatorsPreview | null
@@ -70,7 +72,10 @@ export interface Attention {
 }
 
 export interface AttentionSearchParams {
+  fecha_hora_desde?: string
+  fecha_hora_hasta?: string
   paciente_id?: number
+  consultorio_id?: number
   establecimiento_id?: number
   profesional_id?: number
   desde?: string
@@ -87,6 +92,8 @@ export interface NutritionalSnapshotPayload extends NutritionCapture {
 }
 
 export interface AttentionCreatePayload {
+  numero_referencia_ingreso?: string | null
+  numero_contrarreferencia_ingreso?: string | null
   fua_datos?: FuaPrintInput | null
   paciente_id: number
   establecimiento_id: number

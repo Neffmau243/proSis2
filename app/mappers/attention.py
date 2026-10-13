@@ -12,6 +12,8 @@ from app.schemas.nutrition_record import NutritionRecordResponse
 
 def attention_to_response(entity: Attention) -> AttentionResponse:
     return AttentionResponse(
+        numero_referencia_ingreso=getattr(entity, "numero_referencia_ingreso", None),
+        numero_contrarreferencia_ingreso=getattr(entity, "numero_contrarreferencia_ingreso", None),
         contexto_clinico=getattr(entity, "contexto_clinico", None),
         evaluaciones_nutricionales=[
             NutritionRecordResponse.model_validate(item)

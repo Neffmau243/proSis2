@@ -9,7 +9,7 @@ import {
 } from '../utils/patientDraft.ts'
 
 export function useAdmissionPatientEditor(options: {
-  patient: MaybeRefOrGetter<Patient>
+  patient: MaybeRefOrGetter<Patient | null>
   canEdit: MaybeRefOrGetter<boolean>
   blocked: MaybeRefOrGetter<boolean>
   update: (id: number, payload: PatientUpdatePayload) => Promise<Patient>
@@ -33,10 +33,12 @@ export function useAdmissionPatientEditor(options: {
 
   // Related-record updates must not erase an unfinished patient draft.
   watch(source, (patient, previous) => {
-    if (patient.id !== previous.id || (!dirty.value && !saving.value)) reset()
+    if (patient?.id !== previous?.id || (!dirty.value && !saving.value)) reset()
   })
 
   async function save(): Promise<void> {
+    const patient = source()
+    if (!patient) return
     if (saving.value || toValue(options.blocked) || !toValue(options.canEdit) || !dirty.value)
       return
     const now = new Date()
@@ -51,7 +53,7 @@ export function useAdmissionPatientEditor(options: {
     saving.value = true
     error.value = null
     try {
-      const updated = await options.update(source().id, patch.value)
+      const updated = await options.update(patient.id, patch.value)
       baseline.value = createPatientDraft(updated)
       Object.assign(draft, baseline.value)
       options.onSaved(updated)

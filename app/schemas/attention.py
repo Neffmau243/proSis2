@@ -81,6 +81,8 @@ class AttentionCreate(BaseModel):
     """Input excluding fields that the backend must calculate or own."""
 
     paciente_id: Annotated[int, Field(gt=0)]
+    numero_referencia_ingreso: Annotated[str, Field(max_length=50)] | None = None
+    numero_contrarreferencia_ingreso: Annotated[str, Field(max_length=50)] | None = None
     establecimiento_id: Annotated[int, Field(gt=0)]
     profesional_id: Annotated[int, Field(gt=0)]
     especialidad_codigo: Annotated[str, Field(max_length=20)] | None = None
@@ -115,7 +117,10 @@ class AttentionCreate(BaseModel):
     def normalize_specialty(cls, value: Any) -> Any:
         return value.strip().upper() if isinstance(value, str) else value
 
-    @field_validator("admision", "observaciones", mode="before")
+    @field_validator(
+        "admision", "observaciones", "numero_referencia_ingreso",
+        "numero_contrarreferencia_ingreso", mode="before",
+    )
     @classmethod
     def trim_text(cls, value: Any) -> Any:
         return value.strip() if isinstance(value, str) else value
@@ -220,6 +225,8 @@ class AttentionDiagnosisResponse(BaseModel):
 
 
 class AttentionResponse(BaseModel):
+    numero_referencia_ingreso: str | None = None
+    numero_contrarreferencia_ingreso: str | None = None
     contexto_clinico: dict[str, Any] | None = None
     evaluaciones_nutricionales: list[NutritionRecordResponse] = Field(default_factory=list)
     valoracion_calculada: NutritionalIndicatorsResponse | None = None

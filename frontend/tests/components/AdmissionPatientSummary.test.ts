@@ -41,6 +41,14 @@ vi.mock('@/services/catalogos', () => ({
         regimen: 'NINGUNO',
       },
       {
+        id: 3,
+        codigo: 'ESSALUD',
+        nombre: 'EsSalud',
+        activo: true,
+        codigo_sis: '007',
+        regimen: 'ESSALUD',
+      },
+      {
         id: 10,
         codigo: 'SIS_NRUS',
         nombre: 'S.I.S. NRUS',
@@ -103,16 +111,38 @@ beforeEach(() => {
 })
 
 test('cambiar seguro limpia SIS en el borrador y envía el borrado por PATCH', async () => {
-  const wrapper = await mountPanel(false, { seguro_id: 2, sis_diresa: '040', sis_tipo: '2', sis_numero: '00112233', sis_secuencia: '01', etnia_codigo: '58' })
+  const wrapper = await mountPanel(false, {
+    seguro_id: 2,
+    sis_diresa: '040',
+    sis_tipo: '2',
+    sis_numero: '00112233',
+    sis_secuencia: '01',
+    etnia_codigo: '58',
+  })
   const select = wrapper.get('.patient-context__insurance-selector').getComponent(ElSelect)
   select.vm.$emit('update:modelValue', 1)
   select.vm.$emit('change', 1)
   await flushPromises()
-  update.mockResolvedValue(aPatient({ seguro_id: 1, sis_diresa: null, sis_tipo: null, sis_numero: null, sis_secuencia: null, etnia_codigo: '58' }))
+  update.mockResolvedValue(
+    aPatient({
+      seguro_id: 1,
+      sis_diresa: null,
+      sis_tipo: null,
+      sis_numero: null,
+      sis_secuencia: null,
+      etnia_codigo: '58',
+    }),
+  )
   await wrapper.find('form').trigger('submit')
   await flushPromises()
-  expect(update).toHaveBeenCalledWith(100, { seguro_id: 1, sis_diresa: null, sis_tipo: null, sis_numero: null, sis_secuencia: null })
-  expect(wrapper.findAll('.sis-code input').every((input) => input.attributes('disabled') !== undefined)).toBe(true)
+  expect(update).toHaveBeenCalledWith(100, {
+    seguro_id: 1,
+    sis_diresa: null,
+    sis_tipo: null,
+    sis_numero: null,
+    sis_secuencia: null,
+  })
+  expect(wrapper.findComponent(PatientSisCodeFields).exists()).toBe(false)
 })
 
 test('no expone el código técnico ETLSIS en el formulario', async () => {
@@ -120,7 +150,36 @@ test('no expone el código técnico ETLSIS en el formulario', async () => {
   expect(wrapper.find('.patient-context__insurance-code').exists()).toBe(false)
 })
 
-test('muestra DIRESA y tipo SIS desde el establecimiento y seguro seleccionados', async () => {
+test('la marca sigue el borrador, el descarte y el seguro guardado por PATCH', async () => {
+  const wrapper = await mountPanel(false, { seguro_id: 2 })
+  const select = wrapper.get('.patient-context__insurance-selector').getComponent(ElSelect)
+  expect(wrapper.get('.patient-context__sis-brand img').attributes('alt')).toContain('SIS')
+  select.vm.$emit('update:modelValue', 3)
+  select.vm.$emit('change', 3)
+  await flushPromises()
+  expect(wrapper.get('.patient-context__sis-brand img').attributes('alt')).toContain('EsSalud')
+  expect(wrapper.findComponent(PatientSisCodeFields).exists()).toBe(false)
+
+  await wrapper
+    .findAll('button')
+    .find((button) => button.text() === 'Descartar cambios')!
+    .trigger('click')
+  expect(wrapper.get('.patient-context__sis-brand img').attributes('alt')).toContain('SIS')
+
+  select.vm.$emit('update:modelValue', 3)
+  select.vm.$emit('change', 3)
+  await flushPromises()
+  update.mockResolvedValue(aPatient({ seguro_id: 3 }))
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(100, { seguro_id: 3 })
+  expect(wrapper.get('.patient-context__sis-brand img').attributes('alt')).toContain('EsSalud')
+  await wrapper.setProps({ patient: aPatient({ seguro_id: 1 }) })
+  expect(wrapper.get('.patient-context__sis-brand').text()).toBe('Sin seguro')
+  expect(wrapper.find('.patient-context__sis-brand img').exists()).toBe(false)
+})
+
+test('no deduce el contrato SIS desde el establecimiento o el plan ETLSIS', async () => {
   const wrapper = await mountPanel(false, {
     establecimiento_registro_id: 2,
     seguro_id: 10,
@@ -130,15 +189,11 @@ test('muestra DIRESA y tipo SIS desde el establecimiento y seguro seleccionados'
   })
 
   const fields = wrapper.findAll('.sis-code input')
-  expect(fields.map((field) => (field.element as HTMLInputElement).value)).toEqual([
-    '040',
-    '05',
-    '',
-  ])
+  expect(fields.map((field) => (field.element as HTMLInputElement).value)).toEqual(['', '', ''])
   expect(wrapper.text()).not.toContain('Tiene cambios sin guardar.')
 })
 
-test('guarda los códigos derivados cuando se registra el número SIS', async () => {
+test('guarda los códigos de la acreditación ingresados junto al número SIS', async () => {
   const wrapper = await mountPanel(false, {
     establecimiento_registro_id: 2,
     seguro_id: 10,
@@ -146,15 +201,17 @@ test('guarda los códigos derivados cuando se registra el número SIS', async ()
     sis_tipo: null,
     sis_numero: null,
   })
-  wrapper.getComponent(PatientSisCodeFields).vm.$emit('update', { sis_numero: '00112233' })
+  wrapper
+    .getComponent(PatientSisCodeFields)
+    .vm.$emit('update', { sis_diresa: '039', sis_tipo: '2', sis_numero: '00112233' })
   await flushPromises()
 
   update.mockResolvedValue(
     aPatient({
       establecimiento_registro_id: 2,
       seguro_id: 10,
-      sis_diresa: '040',
-      sis_tipo: '05',
+      sis_diresa: '039',
+      sis_tipo: '2',
       sis_numero: '00112233',
     }),
   )
@@ -162,8 +219,8 @@ test('guarda los códigos derivados cuando se registra el número SIS', async ()
   await flushPromises()
 
   expect(update).toHaveBeenCalledWith(100, {
-    sis_diresa: '040',
-    sis_tipo: '05',
+    sis_diresa: '039',
+    sis_tipo: '2',
     sis_numero: '00112233',
   })
 })

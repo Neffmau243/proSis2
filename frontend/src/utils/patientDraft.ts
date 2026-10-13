@@ -46,9 +46,9 @@ function normalized(value: string | number | null | undefined): string | number 
   return typeof value === 'string' ? value.trim() || null : (value ?? null)
 }
 
-export function createPatientDraft(patient: Patient): PatientDraft {
+export function createPatientDraft(patient: Patient | null): PatientDraft {
   return Object.fromEntries(
-    editableFields.map(({ key }) => [key, patient[key] ?? null]),
+    editableFields.map(({ key }) => [key, patient?.[key] ?? null]),
   ) as PatientDraft
 }
 
@@ -115,8 +115,7 @@ export function validatePatientDraft(
     : null
   if (documentError) errors.numero_documento = documentError
   const familyHistoryChanged =
-    !baseline ||
-    normalized(draft.historia_familiar) !== normalized(baseline.historia_familiar)
+    !baseline || normalized(draft.historia_familiar) !== normalized(baseline.historia_familiar)
   const familyHistoryError = familyHistoryChanged
     ? familyHistoryProblem(draft.historia_familiar)
     : null

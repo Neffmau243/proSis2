@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, toRef, watch } from 'vue'
 import PatientSisCodeFields from '@/components/patients/PatientSisCodeFields.vue'
+import PatientInsuranceBrand from '@/components/patients/PatientInsuranceBrand.vue'
 import PatientConditionSelect from '@/components/patients/PatientConditionSelect.vue'
 import FamilyHistorySelector from '@/components/patients/FamilyHistorySelector.vue'
 import AdmissionDocumentTypes from '@/components/admission/AdmissionDocumentTypes.vue'
@@ -9,7 +10,7 @@ import { useAdmissionPatientDetails } from '@/composables/useAdmissionPatientDet
 import { useAdmissionPatientEditor } from '@/composables/useAdmissionPatientEditor'
 import AdmissionPatientRelations from '@/components/admission/AdmissionPatientRelations.vue'
 import { patientFields, type PatientFieldKey } from '@/utils/patientDraft'
-import { clearSisAffiliation, isSisInsurance, sisTypeFromInsurance } from '@/utils/patientInsurance'
+import { clearSisAffiliation, isSisInsurance } from '@/utils/patientInsurance'
 import type { PatientSisContractKey, PatientSisData } from '@/utils/patientSis'
 import { pacientes, type Patient } from '@/services/pacientes'
 import type { CodeCatalogItem, RiskGroupCatalogItem } from '@/services/catalogos'
@@ -55,22 +56,10 @@ const {
   loadLocalities,
 } = useAdmissionPatientDetails(toRef(props, 'patient'))
 const removing = ref(false)
-const hasSisInsurance = computed(() =>
-  isSisInsurance(seguros.value.find((item) => item.id === draft.seguro_id)),
-)
 const selectedInsurance = computed(() =>
   seguros.value.find((item) => item.id === draft.seguro_id),
 )
-const selectedEstablishment = computed(() =>
-  establishments.items.value.find((item) => item.id === draft.establecimiento_registro_id),
-)
-const derivedSisType = computed(() => sisTypeFromInsurance(selectedInsurance.value))
-const derivedSisDiresa = computed(() => selectedEstablishment.value?.disa_codigo ?? null)
-const sisDisplayValue = computed(() => ({
-  ...draft,
-  sis_diresa: draft.sis_diresa ?? derivedSisDiresa.value,
-  sis_tipo: draft.sis_tipo ?? derivedSisType.value,
-}))
+const hasSisInsurance = computed(() => isSisInsurance(selectedInsurance.value))
 function changeInsurance(): void {
   if (!hasSisInsurance.value) {
     const hadAffiliation = Boolean(
@@ -81,22 +70,11 @@ function changeInsurance(): void {
       ElMessage.info('Se retiró la afiliación SIS del borrador. Guarde los cambios para confirmar.')
     return
   }
-  if (draft.sis_diresa || draft.sis_numero || draft.sis_secuencia) {
-    draft.sis_tipo = derivedSisType.value
-  }
-}
-function changeEstablishment(): void {
-  if (hasSisInsurance.value && (draft.sis_tipo || draft.sis_numero || draft.sis_secuencia)) {
-    draft.sis_diresa = derivedSisDiresa.value
-  }
 }
 function updateSisAffiliation(
   changes: Partial<Pick<PatientSisData, PatientSisContractKey>>,
 ): void {
   Object.assign(draft, changes)
-  if (!draft.sis_numero) return
-  draft.sis_tipo ??= derivedSisType.value
-  draft.sis_diresa ??= derivedSisDiresa.value
 }
 const fullName = computed(
   () =>
@@ -112,7 +90,7 @@ const canRemove = computed(
 )
 // La condición se muestra al final, en la fila «Grupo etáreo».
 const admissionFields = patientFields.filter(
-  (field) => !['fecha_inscripcion', 'condicion'].includes(field.key),
+  (field) => !['fecha_inscripcion', 'condicion', 'sufijo_documento'].includes(field.key),
 )
 const options = computed<
   Partial<Record<PatientFieldKey, { label: string; value: string | number }[]>>
@@ -244,7 +222,11 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
             :error="fieldErrors.tipo_documento_codigo"
           />
           <div v-else-if="field.key === 'seguro_id'" class="patient-context__sis">
-            <span class="patient-context__sis-brand" aria-hidden="true">SIS</span>
+            <PatientInsuranceBrand
+              class="patient-context__sis-brand"
+              :insurance="selectedInsurance"
+              :insurance-id="draft.seguro_id"
+            />
             <div class="patient-context__sis-fields">
               <el-form-item
                 class="patient-context__insurance-selector"
@@ -270,9 +252,10 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
                 </el-select>
               </el-form-item>
               <PatientSisCodeFields
+                v-if="hasSisInsurance"
                 compact
-                :value="sisDisplayValue"
-                :disabled="disabled || !hasSisInsurance"
+                :value="draft"
+                :disabled="disabled"
                 :errors="fieldErrors"
                 @update="updateSisAffiliation"
               />
@@ -347,7 +330,6 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
                   ? districts.loading.value
                   : field.key === 'establecimiento_registro_id' && establishments.loading.value
               "
-              @change="field.key === 'establecimiento_registro_id' ? changeEstablishment() : undefined"
             >
               <el-option
                 v-for="option in fieldOptions(field.key)"
@@ -537,17 +519,10 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
   gap: 8px;
   align-items: center;
   min-width: 0;
+  min-height: calc(var(--el-component-size, 26px) * 2 + 2px);
 }
 .patient-context__sis-brand {
   justify-self: end;
-  padding: 0 8px;
-  color: #17496a;
-  background: #fff;
-  border: 1px solid var(--admission-border, #b9cbdf);
-  font-size: 24px;
-  font-style: italic;
-  font-weight: 800;
-  line-height: 1.2;
 }
 .patient-context__sis-fields {
   display: grid;

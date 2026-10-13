@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laboratorio · prueba visual sin API</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import { createApp, h } from 'vue'
+      import { createPinia } from 'pinia'
+      import { createRouter, createMemoryHistory, RouterView } from 'vue-router'
+      import ElementPlus from 'element-plus'
+      import * as icons from '@element-plus/icons-vue'
+      import 'element-plus/dist/index.css'
+      import '../src/assets/main.css'
+      import AppLayout from '../src/layouts/AppLayout.vue'
+      import Laboratory from '../src/components/laboratory/LaboratoryWorkspace.vue'
+      import { aPatient } from './fixtures/patient.ts'
+      import { catalogos } from '../src/services/catalogos.ts'
+      import { pacientes } from '../src/services/pacientes.ts'
+      import { atenciones } from '../src/services/atenciones.ts'
+      import { useAuthStore } from '../src/stores/auth.ts'
+      import { usePacienteSeleccionado } from '../src/composables/usePacienteSeleccionado.ts'
+      import { emptyFuaInput } from '../src/utils/fuaPrint.ts'
+
+      const params = new URLSearchParams(location.search)
+      let patient = aPatient({
+        apellido_paterno: 'Prueba', apellido_materno: 'Visual', primer_nombre: 'Paciente',
+        otros_nombres: 'Sintético', establecimiento_registro_id: 2,
+        sis_diresa: '040', sis_tipo: '2', sis_numero: '00112233', sis_secuencia: '01',
+      })
+      if(params.get('insurance') === 'none') patient = {...patient,seguro_id:1,sis_diresa:null,sis_tipo:null,sis_numero:null,sis_secuencia:null}
+      if(params.get('insurance') === 'unset') patient = {...patient,seguro_id:null,sis_diresa:null,sis_tipo:null,sis_numero:null,sis_secuencia:null}
+      const page = (items) => ({ items, total: items.length, has_more: false, limit: 100, offset: 0 })
+      catalogos.tiposDocumento = async () => ['DNI', 'CE', 'PAS', 'DE', 'OTRO'].map(codigo => ({codigo,nombre:codigo,activo:true}))
+      catalogos.sexos = async () => [{codigo:'F',nombre:'Femenino',activo:true}]
+      catalogos.seguros = async () => [{id:2,codigo:'SIS_GRATUITO',nombre:'S.I.S. Gratuito',regimen:'SIS',codigo_sis:'002',activo:true},{id:1,codigo:'SIN_SEGURO',nombre:'Sin seguro',regimen:'NINGUNO',codigo_sis:null,activo:true}]
+      catalogos.establecimientos = async () => page([{id:2,nombre:'Establecimiento de prueba',activo:true}])
+      catalogos.consultorios = async () => page([{id:8,establecimiento_id:2,codigo:'LAB',nombre:'LABORATORIO',especialidad_codigo:'002',activo:true}])
+      catalogos.profesionales = async () => page([{id:4,nombre_completo:'Profesional de prueba',activo:true}])
+      pacientes.get = async () => patient
+      pacientes.search = async () => page([patient])
+      pacientes.update = async (id,patch) => {
+        if(id !== patient.id) throw new Error('Paciente sintético incorrecto')
+        patient = {...patient,...patch}
+        return patient
+      }
+      const entries = Array.from({length:12}, (_,i) => ({id:1000+i,paciente_id:100,fecha_atencion:`2026-10-${String(12-i).padStart(2,'0')}T09:00:00`,estado:i===3?'ANULADO':'ATENDIDO',modalidad_atencion_codigo:'AMBULATORIA',historia_clinica_snapshot:'HC-TEST'}))
+      atenciones.search = async (query) => ({
+        items: query.profesional_id ? [] : entries.slice(query.offset,query.offset+query.limit),
+        total:12,has_more:false,limit:query.limit,offset:query.offset,
+      })
+      atenciones.create = async (input) => ({
+        ...input, id: 9000, estado: 'ATENDIDO', consultorio_nombre: 'LABORATORIO',
+        fua_impresion: {
+          ...emptyFuaInput(), ...patient, version: 2,
+          ipress_nombre: 'Establecimiento de prueba', profesional_nombre: 'Profesional de prueba',
+          profesional_documento: null, profesional_colegiatura: null, tipo_documento: 'DNI',
+          fecha_atencion: input.fecha_atencion.slice(0,10), hora_atencion: input.fecha_atencion.slice(11,19),
+          personal_atiende: 'IPRESS', lugar_atencion: 'INTRAMURAL', tipo_atencion: 'AMBULATORIA',
+          codigo_renipress: '00001300', renipress_preimpreso: true,
+          peso_kg:null,talla_cm:null,presion_sistolica:null,presion_diastolica:null,imc:null,
+          perimetro_abdominal_cm:null,grupo_atencion_codigo:'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
+          fecha_probable_parto:null,fecha_parto:null,
+        },
+      })
+      const pinia = createPinia()
+      const auth = useAuthStore(pinia)
+      auth.permisos=['PACIENTE_LEER','PACIENTE_EDITAR','ATENCION_LEER','ATENCION_CREAR']
+      auth.nombreUsuario='Prueba visual sin API'
+      if(!params.has('empty')) usePacienteSeleccionado().seleccionar(patient)
+      const router = createRouter({history:createMemoryHistory(),routes:[
+        {path:'/',component:AppLayout,children:[{path:'laboratorio',name:'laboratorio',component:Laboratory,meta:{title:'Laboratorio · datos sintéticos'}},{path:'atencion/:id',name:'atencion-detalle',component:{render:()=>h('p','Atención de prueba')}}]},
+      ]})
+      await router.push('/laboratorio')
+      await router.isReady()
+      const app = createApp({render:()=>h(RouterView)})
+      app.use(pinia).use(router).use(ElementPlus)
+      for(const [name,icon] of Object.entries(icons)) app.component(name,icon)
+      app.mount('#app')
+    </script>
+  </body>
+</html>

@@ -155,6 +155,8 @@ class AttentionService:
 
             entity = Attention(
                 paciente_id=patient.id,
+                numero_referencia_ingreso=command.numero_referencia_ingreso or None,
+                numero_contrarreferencia_ingreso=command.numero_contrarreferencia_ingreso or None,
                 establecimiento_id=command.establecimiento_id,
                 profesional_id=command.profesional_id,
                 especialidad_codigo=command.especialidad_codigo,
@@ -691,4 +693,8 @@ class AttentionService:
             "referencia_nutricional": entity.referencia_nutricional,
             "estado": entity.estado,
             "observaciones": entity.observaciones,
+            "numero_referencia_ingreso": getattr(entity, "numero_referencia_ingreso", None),
+            "numero_contrarreferencia_ingreso": getattr(
+                entity, "numero_contrarreferencia_ingreso", None
+            ),
         }

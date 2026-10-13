@@ -46,10 +46,10 @@ beforeEach(async () => {
 })
 
 test('sin sesión cualquier ruta protegida lleva al login recordando el destino', async () => {
-  const route = await goTo('/atenciones')
+  const route = await goTo('/atenciones/42')
 
   expect(route.name).toBe('login')
-  expect(route.query.redirect).toBe('/atenciones')
+  expect(route.query.redirect).toBe('/atenciones/42')
 })
 
 test('la raíz también está protegida', async () => {
@@ -62,16 +62,16 @@ test('la raíz también está protegida', async () => {
 test('una sesión vencida no da acceso', async () => {
   saveSession(session({ expires_at: Date.now() - 1000 }))
 
-  const route = await goTo('/atenciones')
+  const route = await goTo('/atenciones/42')
 
   expect(route.name).toBe('login')
-  expect(route.query.redirect).toBe('/atenciones')
+  expect(route.query.redirect).toBe('/atenciones/42')
 })
 
 test('sin el permiso de la ruta se vuelve a la base de datos', async () => {
   saveSession(session({ permisos: ['PACIENTE_LEER'] }))
 
-  const route = await goTo('/atenciones')
+  const route = await goTo('/atenciones/42')
 
   expect(route.name).toBe('inicio')
 })
@@ -79,10 +79,18 @@ test('sin el permiso de la ruta se vuelve a la base de datos', async () => {
 test('con el permiso la ruta se abre normalmente', async () => {
   saveSession(session({ permisos: ['PACIENTE_LEER', 'ATENCION_LEER'] }))
 
-  const route = await goTo('/atenciones')
+  const route = await goTo('/atenciones/42')
 
-  expect(route.name).toBe('atenciones')
-  expect(route.path).toBe('/atenciones')
+  expect(route.name).toBe('atencion-detalle')
+  expect(route.path).toBe('/atenciones/42')
+})
+
+test('las pantallas clínicas generales están ocultas incluso con permisos', async () => {
+  saveSession(session({ permisos: ['PACIENTE_LEER', 'ATENCION_LEER', 'ATENCION_CREAR'] }))
+  expect((await goTo('/atenciones')).name).toBe('inicio')
+  expect((await goTo('/atenciones/nueva')).name).toBe('inicio')
+  expect((await goTo('/atenciones/nueva?patientId=42')).name).toBe('admision')
+  expect(router.currentRoute.value.query.patientId).toBe('42')
 })
 
 test('un usuario autenticado no vuelve a ver el login', async () => {

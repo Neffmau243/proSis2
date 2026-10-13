@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue'
+import SingleChoiceCheckboxes from '@/components/SingleChoiceCheckboxes.vue'
 import type { CodeCatalogItem } from '@/services/catalogos'
 
 const props = defineProps<{
   options: CodeCatalogItem[]
   disabled?: boolean
   error?: string
+  checkboxes?: boolean
 }>()
 const model = defineModel<string | null>({ required: true })
 const id = useId()
@@ -22,25 +24,34 @@ const choices = computed(() => {
 </script>
 
 <template>
-  <div class="document-types">
-    <label :for="id" class="document-types__label">Tipo documento</label>
-    <el-select
-      :id="id"
+  <div class="document-types" :class="{ 'document-types--checkboxes': checkboxes }">
+    <SingleChoiceCheckboxes
+      v-if="checkboxes"
       v-model="model"
+      :options="choices"
       :disabled="disabled"
-      aria-label="Tipo de documento"
-      :aria-invalid="Boolean(error)"
-      :aria-describedby="error ? `${id}-error` : undefined"
-      placeholder="Seleccione"
-      class="document-types__options"
-    >
-      <el-option
-        v-for="item in choices"
-        :key="item.value"
-        :value="item.value"
-        :label="item.label"
-      />
-    </el-select>
+      label="Tipo de documento"
+    />
+    <template v-else>
+      <label :for="id" class="document-types__label">Tipo documento</label>
+      <el-select
+        :id="id"
+        v-model="model"
+        :disabled="disabled"
+        aria-label="Tipo de documento"
+        :aria-invalid="Boolean(error)"
+        :aria-describedby="error ? `${id}-error` : undefined"
+        placeholder="Seleccione"
+        class="document-types__options"
+      >
+        <el-option
+          v-for="item in choices"
+          :key="item.value"
+          :value="item.value"
+          :label="item.label"
+        />
+      </el-select>
+    </template>
     <p v-if="error" :id="`${id}-error`" class="document-types__error" role="alert">{{ error }}</p>
   </div>
 </template>
@@ -51,6 +62,9 @@ const choices = computed(() => {
   grid-template-columns: 102px minmax(0, 1fr);
   align-items: center;
   gap: 4px 8px;
+}
+.document-types--checkboxes {
+  display: block;
 }
 .document-types__label {
   font-size: 12px;

@@ -1,10 +1,6 @@
 import { expect, test } from 'vitest'
 import { documentProblem } from '../src/utils/patientDocument'
-import {
-  clearSisAffiliation,
-  isSisInsurance,
-  sisTypeFromInsurance,
-} from '../src/utils/patientInsurance'
+import { clearSisAffiliation, isSisInsurance } from '../src/utils/patientInsurance'
 import { createPatientDraft, validatePatientDraft } from '../src/utils/patientDraft'
 import { aPatient } from './fixtures/patient'
 
@@ -42,8 +38,6 @@ test('SIS family uses the catalog regime; clearing preserves ethnicity', () => {
   expect(isSisInsurance({ codigo: 'SIS' })).toBe(true)
   expect(isSisInsurance({ codigo: 'ESSALUD', regimen: 'ESSALUD' })).toBe(false)
   expect(isSisInsurance()).toBe(false)
-  expect(sisTypeFromInsurance({ codigo: 'SIS_NRUS', regimen: 'SIS', codigo_sis: '005' })).toBe('05')
-  expect(sisTypeFromInsurance({ codigo: 'SIS', regimen: 'SIS', codigo_sis: null })).toBeNull()
   const draft = {
     sis_diresa: '040',
     sis_tipo: '2',

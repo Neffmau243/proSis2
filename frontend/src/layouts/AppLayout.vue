@@ -200,19 +200,8 @@ const navSections = computed(() => {
   // Ref. Laboratorio pasó al bloque de acciones principales, sobre la navegación.
   if (main.length) sections.push({ title: 'Principal', items: main })
 
-  const clinic: NavItem[] = []
-  if (can('ATENCION_LEER')) {
-    clinic.push({
-      to: '/atenciones',
-      label: 'Historial de atenciones',
-      icon: 'Document',
-      match: (path) => path.startsWith('/atenciones') && path !== '/atenciones/nueva',
-    })
-  }
-  if (can('ATENCION_CREAR')) {
-    clinic.push({ to: '/atenciones/nueva', label: 'Nueva atención', icon: 'FirstAidKit' })
-  }
-  if (clinic.length) sections.push({ title: 'Clínico', items: clinic })
+  // El registro parte del paciente seleccionado y del botón Admisión.
+  // El historial y el detalle se consultan dentro de la ficha del paciente.
 
   const admin: NavItem[] = []
   // Profesionales y cuentas viven en una sola vista con pestañas.
@@ -263,7 +252,7 @@ function nuevoPaciente(): void {
 }
 
 function irLaboratorio(): void {
-  router.push({ name: 'laboratorio' })
+  router.push({ name: 'laboratorio', query: seleccionado.value ? { paciente_id: seleccionado.value.id } : {} })
 }
 
 function verPaciente(): void {

@@ -6,6 +6,7 @@ import {
   defaultFuaLayout,
   emptyFuaInput,
   fuaDeliveryBox,
+  fuaFieldFont,
   fuaPrintHtml,
   fuaValues,
   fuaWarnings,
@@ -71,22 +72,25 @@ test('local document labels print without invented TDI; inconsistent identity st
   expect(fuaIdentityProblem({ ...snapshot, numero_documento: ' ' })).toBeTruthy()
 })
 
-test.each(['PAS', 'DE', 'OTRO'])('prints %s and its number with an explicit local legend', (tipo_documento) => {
-  const source = { ...snapshot, tipo_documento, tdi: null, numero_documento: 'AB001234' }
-  const values = fuaValues(source)
-  expect(values.tdi).toBe(tipo_documento)
-  expect(values.numero_documento).toBe('AB001234')
-  expect(values.identity_note).toContain('Uso local; no es un código TDI SIS')
-  const layout = defaultFuaLayout()
-  expect(layoutProblems(layout, values)).toEqual([])
-  const html = fuaPrintHtml(layout, values)
-  expect(html).toContain('AB001234')
-  expect(html).toContain(values.identity_note)
-  expect(fuaPrintHtml(layout, values, true)).not.toContain('AB001234')
-  expect(source.tdi).toBeNull()
-  layout.fields.find((f) => f.id === 'identity_note')!.enabled = false
-  expect(layoutProblems(layout, values).length).toBeGreaterThan(0)
-})
+test.each(['PAS', 'DE', 'OTRO'])(
+  'prints %s and its number with an explicit local legend',
+  (tipo_documento) => {
+    const source = { ...snapshot, tipo_documento, tdi: null, numero_documento: 'AB001234' }
+    const values = fuaValues(source)
+    expect(values.tdi).toBe(tipo_documento)
+    expect(values.numero_documento).toBe('AB001234')
+    expect(values.identity_note).toContain('Uso local; no es un código TDI SIS')
+    const layout = defaultFuaLayout()
+    expect(layoutProblems(layout, values)).toEqual([])
+    const html = fuaPrintHtml(layout, values)
+    expect(html).toContain('AB001234')
+    expect(html).toContain(values.identity_note)
+    expect(fuaPrintHtml(layout, values, true)).not.toContain('AB001234')
+    expect(source.tdi).toBeNull()
+    layout.fields.find((f) => f.id === 'identity_note')!.enabled = false
+    expect(layoutProblems(layout, values).length).toBeGreaterThan(0)
+  },
+)
 
 test('old calibration preserves coordinates and requires review of the new legend', () => {
   const layout = { ...defaultFuaLayout(), calibrated: true }
@@ -130,25 +134,45 @@ test('FUA fields use marks, preserve leading zeros, split dates and never invent
 
 test('el recuadro de parto imprime la FPP de la gestante y la fecha real de la puérpera', () => {
   const gestante = fuaValues({
-    ...snapshot, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15', fecha_parto: null,
+    ...snapshot,
+    grupo_atencion_codigo: 'GESTANTES',
+    fecha_probable_parto: '2027-01-15',
+    fecha_parto: null,
   })
-  expect([gestante.parto_dia, gestante.parto_mes, gestante.parto_anio]).toEqual(['15', '01', '2027'])
+  expect([gestante.parto_dia, gestante.parto_mes, gestante.parto_anio]).toEqual([
+    '15',
+    '01',
+    '2027',
+  ])
   expect(gestante.gestante).toBe('X')
   expect(gestante.puerpera).toBe('')
 
   const puerpera = fuaValues({
-    ...snapshot, grupo_atencion_codigo: 'PUERPERAS', fecha_probable_parto: null, fecha_parto: '2026-09-20',
+    ...snapshot,
+    grupo_atencion_codigo: 'PUERPERAS',
+    fecha_probable_parto: null,
+    fecha_parto: '2026-09-20',
   })
-  expect([puerpera.parto_dia, puerpera.parto_mes, puerpera.parto_anio]).toEqual(['20', '09', '2026'])
+  expect([puerpera.parto_dia, puerpera.parto_mes, puerpera.parto_anio]).toEqual([
+    '20',
+    '09',
+    '2026',
+  ])
   expect(puerpera.puerpera).toBe('X')
   expect(puerpera.gestante).toBe('')
 })
 
 test('el recuadro de parto del formato depende del grupo declarado', () => {
-  expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15' }))
-    .toEqual({ label: 'Fecha probable de parto', value: '2027-01-15' })
-  expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' }))
-    .toEqual({ label: 'Fecha del parto', value: '2026-09-20' })
+  expect(
+    fuaDeliveryBox({
+      ...snapshot,
+      grupo_atencion_codigo: 'GESTANTES',
+      fecha_probable_parto: '2027-01-15',
+    }),
+  ).toEqual({ label: 'Fecha probable de parto', value: '2027-01-15' })
+  expect(
+    fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' }),
+  ).toEqual({ label: 'Fecha del parto', value: '2026-09-20' })
   // El grupo general no tiene fecha de parto en el formato.
   expect(fuaDeliveryBox({ ...snapshot, grupo_atencion_codigo: 'GENERAL' })).toBeNull()
 })
@@ -162,22 +186,33 @@ test('los avisos de FUA se adaptan al grupo: el PAB solo aplica al grupo general
   expect(general).not.toContain('Fecha del parto')
   expect(general).not.toContain('Fecha probable de parto')
 
-  const puerpera = fuaWarnings({ ...maternal, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: '2026-09-20' })
+  const puerpera = fuaWarnings({
+    ...maternal,
+    grupo_atencion_codigo: 'PUERPERAS',
+    fecha_parto: '2026-09-20',
+  })
   expect(fuaUsesAbdominalPerimeter({ ...maternal, grupo_atencion_codigo: 'PUERPERAS' })).toBe(false)
   expect(puerpera).not.toContain('Perímetro abdominal')
   expect(puerpera).not.toContain('Fecha del parto')
   // La FPP no es un campo de la puérpera: no debe pedirse.
   expect(puerpera).not.toContain('Fecha probable de parto')
 
-  const gestante = fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2027-01-15' })
+  const gestante = fuaWarnings({
+    ...maternal,
+    grupo_atencion_codigo: 'GESTANTES',
+    fecha_probable_parto: '2027-01-15',
+  })
   expect(gestante).not.toContain('Perímetro abdominal')
   expect(gestante).not.toContain('Fecha probable de parto')
   expect(gestante).not.toContain('Fecha del parto')
 
   // Sin la fecha del recuadro, sí se advierte el faltante real de cada grupo.
-  expect(fuaWarnings({ ...maternal, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: null })).toContain('Fecha del parto')
-  expect(fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: null }))
-    .toContain('Fecha probable de parto')
+  expect(
+    fuaWarnings({ ...maternal, grupo_atencion_codigo: 'PUERPERAS', fecha_parto: null }),
+  ).toContain('Fecha del parto')
+  expect(
+    fuaWarnings({ ...maternal, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: null }),
+  ).toContain('Fecha probable de parto')
 })
 
 test('geometry storage is allowlisted and rejects malformed or out-of-range values', () => {
@@ -195,7 +230,9 @@ test('geometry storage is allowlisted and rejects malformed or out-of-range valu
 test('print output escapes names, uses custom page size and excludes background/chrome', () => {
   const html = fuaPrintHtml(defaultFuaLayout(), fuaValues(snapshot))
   expect(defaultFuaLayout()).toMatchObject(FUA_DEFAULT_PAPER_MM)
-  expect(html).toMatch(new RegExp(`size:${FUA_DEFAULT_PAPER_MM.width}mm ${FUA_DEFAULT_PAPER_MM.height}mm;margin:0`))
+  expect(html).toMatch(
+    new RegExp(`size:${FUA_DEFAULT_PAPER_MM.width}mm ${FUA_DEFAULT_PAPER_MM.height}mm;margin:0`),
+  )
   expect(html).toMatch(/&lt;script&gt;/)
   expect(html).not.toMatch(/<script>|<img|<button|border:/)
   const testPrint = fuaPrintHtml(defaultFuaLayout(), fuaValues(snapshot), true)
@@ -214,6 +251,37 @@ test('oversized text and fields outside the paper block printing instead of trun
       primer_nombre: 'N'.repeat(100),
     }).some((x) => x.includes('no cabe')),
   ).toBe(true)
+})
+
+test('la historia clínica se ajusta a la casilla calibrada sin moverla ni recortar caracteres', () => {
+  const layout = { ...defaultFuaLayout(), calibrated: true }
+  const history = layout.fields.find((field) => field.id === 'historia_clinica')!
+  const before = { ...history }
+  const value = 'DEMO-ETNIA-98032888'
+  const values = { historia_clinica: value }
+  const font = fuaFieldFont(history, value)
+  expect(font).toBeGreaterThanOrEqual(5)
+  expect(font).toBeLessThan(history.font)
+  expect(layoutProblems(layout, values)).toEqual([])
+  const html = fuaPrintHtml(layout, values)
+  expect(html).toContain(`font-size:${font}pt`)
+  expect(html).toContain(value)
+  expect(html).toContain(`left:${history.x}mm;top:${history.y}mm;width:${history.width}mm`)
+  expect(history).toEqual(before)
+  expect(layout.calibrated).toBe(true)
+})
+
+test('el autoajuste no altera el paso de las casillas y bloquea el texto que tampoco cabe a 5 pt', () => {
+  const layout = defaultFuaLayout()
+  const history = layout.fields.find((field) => field.id === 'historia_clinica')!
+  expect(fuaFieldFont(history, 'HC-1')).toBe(history.font)
+  expect(fuaFieldFont(history, 'N'.repeat(100))).toBe(5)
+  expect(layoutProblems(layout, { historia_clinica: 'N'.repeat(100) })).toContain(
+    'Historia clínica: texto no cabe; ajuste ancho, paso o fuente',
+  )
+  history.step = 3
+  expect(fuaFieldFont(history, 'DEMO-ETNIA-98032888')).toBe(history.font)
+  expect(layoutProblems(layout, { historia_clinica: 'DEMO-ETNIA-98032888' })).toHaveLength(1)
 })
 
 test('partial SIS affiliation and incomplete reference are rejected; missing data is visible', () => {
@@ -260,9 +328,9 @@ test('la impresión real exige calibración y mediciones válidas antes de abrir
   )
 
   const calibrated = { ...defaultFuaLayout(), calibrated: true }
-  await expect(
-    printFua(calibrated, { primer_nombre: 'N'.repeat(100) }),
-  ).rejects.toThrow('Revise la calibración antes de imprimir.')
+  await expect(printFua(calibrated, { primer_nombre: 'N'.repeat(100) })).rejects.toThrow(
+    'Revise la calibración antes de imprimir.',
+  )
 
   // El modo prueba permite calibrar sin cumplir todavía las mediciones.
   const { frame } = stubIframe()

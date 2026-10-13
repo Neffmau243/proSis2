@@ -9,6 +9,7 @@ import {
   defaultFuaLayout,
   FUA_LAYOUT_KEY,
   fuaDeliveryBox,
+  fuaFieldFont,
   fuaValues,
   fuaWarnings,
   fuaIdentityProblem,
@@ -21,6 +22,7 @@ import {
 const visible = defineModel<boolean>({ required: true })
 const props = defineProps<{
   snapshot: FuaPrintSnapshot
+  additionalCopy?: boolean
 }>()
 const layout = ref(defaultFuaLayout())
 const availableFields = computed(() =>
@@ -64,12 +66,40 @@ const deliveryBox = computed(() => fuaDeliveryBox(snapshot.value))
 const usesAbdominalPerimeter = computed(() => fuaUsesAbdominalPerimeter(snapshot.value))
 const identityProblem = computed(() => fuaIdentityProblem(snapshot.value))
 const geometryErrors = computed(() => layoutProblems(layout.value, values.value))
+const personalCategory = computed(() => {
+  const labels = {
+    IPRESS: 'De la IPRESS',
+    ITINERANTE: 'Itinerante',
+    AISPED: 'Oferta flexible / AISPED',
+  }
+  return snapshot.value.personal_atiende ? labels[snapshot.value.personal_atiende] : 'Sin registrar'
+})
+const careLocation = computed(() => {
+  const labels = { INTRAMURAL: 'Intramural', EXTRAMURAL: 'Extramural' }
+  return snapshot.value.lugar_atencion ? labels[snapshot.value.lugar_atencion] : 'Sin registrar'
+})
 const canPrint = computed(
   () =>
     !identityProblem.value &&
     layout.value.calibrated &&
     !geometryErrors.value.length &&
     (!warnings.value.length || acknowledged.value),
+)
+const printBlockReason = computed(() => {
+  if (identityProblem.value) return identityProblem.value
+  if (geometryErrors.value.length) return geometryErrors.value.join(' · ')
+  if (!layout.value.calibrated)
+    return 'Falta confirmar la calibración: pruebe el tamaño y la alineación antes de imprimir sobre la FUA preimpresa.'
+  if (warnings.value.length && !acknowledged.value)
+    return 'Confirme los campos pendientes en Datos de la FUA antes de imprimir.'
+  return ''
+})
+const setupTab = computed(() =>
+  identityProblem.value
+    ? 'datos'
+    : !layout.value.calibrated || geometryErrors.value.length
+      ? 'calibracion'
+      : 'datos',
 )
 const fieldControls = [
   { key: 'x', label: 'X (mm)', min: 0, max: 400 },
@@ -112,6 +142,11 @@ function saveLayout(): void {
 function changeGeometry(): void {
   layout.value.calibrated = false
 }
+function useA4(): void {
+  layout.value.width = 210
+  layout.value.height = 297
+  changeGeometry()
+}
 function loadBackground(event: Event): void {
   const file = (event.target as HTMLInputElement).files?.[0]
   if (!file) return
@@ -150,7 +185,9 @@ async function print(test: boolean): Promise<void> {
 <template>
   <el-dialog
     v-model="visible"
-    title="Imprimir FUA · uso local"
+    :title="
+      additionalCopy ? 'FUA adicional · copia de la atención guardada' : 'Imprimir FUA · uso local'
+    "
     width="min(1120px, 96vw)"
     top="3vh"
     :close-on-click-modal="false"
@@ -173,37 +210,34 @@ async function print(test: boolean): Promise<void> {
       <el-tab-pane label="Datos de la FUA" name="datos">
         <dl class="fua-summary">
           <div>
-            <dt>Personal que atiende</dt>
-            <dd>
-              {{
-                snapshot.personal_atiende === 'IPRESS'
-                  ? 'De la IPRESS'
-                  : snapshot.personal_atiende || 'Sin registrar'
-              }}
-            </dd>
+            <dt>Profesional responsable de la atención</dt>
+            <dd>{{ snapshot.profesional_nombre?.trim() || 'Sin registrar' }}</dd>
+          </div>
+          <div>
+            <dt>Personal que atiende · categoría FUA</dt>
+            <dd>{{ personalCategory }}</dd>
           </div>
           <div>
             <dt>Lugar de atención</dt>
-            <dd>
-              {{
-                snapshot.lugar_atencion === 'INTRAMURAL'
-                  ? 'Intramural'
-                  : snapshot.lugar_atencion || 'Sin registrar'
-              }}
-            </dd>
+            <dd>{{ careLocation }}</dd>
           </div>
           <div>
             <dt>Atención en la FUA</dt>
             <dd>{{ snapshot.tipo_atencion || 'Sin registrar' }} · según la modalidad guardada</dd>
           </div>
           <div>
+            <dt>IPRESS de la atención</dt>
+            <dd>{{ snapshot.ipress_nombre || 'Sin registrar' }}</dd>
+          </div>
+          <div>
             <dt>RENIPRESS</dt>
             <dd>
-              {{
+              {{ snapshot.codigo_renipress || 'Sin registrar' }}
+              <span class="fua-field-note">{{
                 snapshot.renipress_preimpreso !== false
-                  ? 'Ya viene impreso en la hoja; no se sobreimprime.'
-                  : snapshot.codigo_renipress || 'Sin registrar'
-              }}
+                  ? 'Configurado como preimpreso: no se sobreimprime. Compruebe el código de su hoja.'
+                  : 'Se imprime el código guardado de la IPRESS.'
+              }}</span>
             </dd>
           </div>
           <div>
@@ -260,8 +294,11 @@ async function print(test: boolean): Promise<void> {
           />
         </section>
         <p>
-          La sede aporta personal y lugar; la ficha del paciente aporta afiliación y etnia. No
-          necesita volver a seleccionarlos al imprimir.
+          El profesional se conserva con la atención. La categoría de personal y el lugar se copian
+          de la configuración de la sede: «De la IPRESS» corresponde a personal con vínculo
+          contractual con esa IPRESS; «Intramural» corresponde a atención dentro de la IPRESS.
+          Compruebe que describan la atención realizada. La afiliación y la etnia provienen de la
+          ficha del paciente; este módulo no acredita la cobertura SIS.
         </p>
         <el-alert
           v-if="warnings.length"
@@ -285,9 +322,22 @@ async function print(test: boolean): Promise<void> {
           type="warning"
           :closable="false"
         />
+        <ol class="fua-calibration-steps">
+          <li>Seleccione el tamaño real de su hoja. Use A4 solo si mide 210 × 297 mm.</li>
+          <li>
+            Imprima una prueba sin datos en papel en blanco y compárela con su FUA preimpresa.
+          </li>
+          <li>Ajuste las posiciones, confirme la prueba física y guarde la calibración.</li>
+        </ol>
+        <p>
+          El texto continuo se ajusta automáticamente dentro de cada casilla, hasta un mínimo de 5
+          pt. La vista previa y la impresión usan el mismo tamaño; no se recortan los datos ni se
+          cambian las posiciones guardadas.
+        </p>
         <div class="fua-calibration">
           <div class="fua-controls">
             <el-form label-position="top" @change="changeGeometry">
+              <el-button class="fua-paper-preset" @click="useA4">Usar A4 (210 × 297 mm)</el-button>
               <el-form-item label="Ancho de la hoja (mm)"
                 ><el-input-number
                   v-model="layout.width"
@@ -387,7 +437,7 @@ async function print(test: boolean): Promise<void> {
                   top: `${field.y + layout.offsetY}mm`,
                   width: `${field.width}mm`,
                   height: `${field.height}mm`,
-                  fontSize: `${field.font}pt`,
+                  fontSize: `${fuaFieldFont(field, (values[field.id] || '').slice(field.skip))}pt`,
                 }"
                 @click="selectedId = field.id"
               >
@@ -429,13 +479,10 @@ async function print(test: boolean): Promise<void> {
     </el-tabs>
     <template #footer>
       <div class="fua-footer">
-        <span v-if="!canPrint">{{
-          identityProblem
-            ? 'Revise la identificación guardada.'
-            : !layout.calibrated || geometryErrors.length
-              ? 'Revise la pestaña de calibración.'
-              : 'Confirme los campos pendientes en Datos de la FUA.'
-        }}</span>
+        <span v-if="!canPrint" role="status">{{ printBlockReason }}</span>
+        <el-button v-if="!canPrint && tab !== setupTab" @click="tab = setupTab">{{
+          setupTab === 'calibracion' ? 'Ir a calibración' : 'Revisar datos'
+        }}</el-button>
         <el-button @click="visible = false">Cerrar</el-button>
         <el-button type="primary" :loading="printing" :disabled="!canPrint" @click="print(false)"
           >Imprimir solo datos</el-button
@@ -461,6 +508,20 @@ async function print(test: boolean): Promise<void> {
 .fua-summary dd {
   margin: 4px 0 0;
   overflow-wrap: anywhere;
+}
+.fua-field-note {
+  display: block;
+  margin-top: 4px;
+  color: var(--el-text-color-regular);
+  font-size: 13px;
+}
+.fua-calibration-steps {
+  margin: 16px 0;
+  padding-left: 24px;
+  line-height: 1.5;
+}
+.fua-paper-preset {
+  margin-bottom: 16px;
 }
 .fua-nutrition {
   margin: 20px 0;

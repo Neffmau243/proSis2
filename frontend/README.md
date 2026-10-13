@@ -104,14 +104,45 @@ todavía no se eligió consultorio. Si ya se eligió, se conserva esa sede clín
 | `/pacientes/nuevo` | Alta con identidad, residencia, responsables y riesgos. |
 | `/pacientes/:id` | Ficha y gestión de responsables/riesgos; historial según permiso. |
 | `/admision?patientId=<id>` | Editor del paciente y alta de atención. |
-| `/atenciones/nueva` | Alta clínica con selección de paciente. |
-| `/atenciones` | Búsqueda paginada de atenciones. |
+| `/atenciones/nueva` | Pantalla oculta. Los enlaces con `patientId` válido abren Admisión; sin paciente vuelven a Base de datos. |
+| `/atenciones` | Pantalla general oculta; redirige a Base de datos. El historial continúa en la ficha del paciente. |
 | `/atenciones/:id` | Detalle, anulación, FUA, certificado y referencia. |
 | `/cuenta/cambiar-contrasena` | Cambio de contraseña propia y cierre de sesión. |
 | `/configuracion/usuarios` | Solo alta; la API no ofrece lista/detalle de usuarios. |
 | `/configuracion/grupos-etarios` | Lectura y reemplazo de rangos completos. |
 | `/configuracion/profesionales`, `/configuracion/consultorios` | Pantallas pendientes; sí existen APIs administrativas. |
-| `/configuracion/auditoria`, `/laboratorio` | Pantallas pendientes, sin API de consulta implementada. |
+| `/configuracion/auditoria` | Consulta de auditoría según permisos. |
+| `/laboratorio` | Registro de atenciones en consultorios de laboratorio, búsqueda de pacientes, datos SIS, historial paginado y conteo diario por profesional. Reutiliza el flujo clínico y la impresión SIS de admisión. |
+
+Laboratorio recibe `paciente_id` al abrirse desde un paciente seleccionado en Base de datos.
+Requiere `PACIENTE_LEER`; guardar requiere `ATENCION_CREAR` y consultar el registro requiere
+`ATENCION_LEER`. El filtro `consultorio_id` de `/atenciones/busqueda` se aplica tanto al
+historial como al conteo, conservando el alcance de acceso del usuario. El conteo corresponde
+a los turnos configurados en hora de Lima (07:00–13:00 y 13:00–19:00). La ficha permite
+editar sus campos visibles con `PACIENTE_EDITAR`; usa el mismo borrador, PATCH y
+validaciones de Admisión. «Guardar cambios» confirma la ficha y «Descartar» la restaura.
+No se puede cambiar de paciente ni registrar una atención con cambios pendientes.
+La edad se calcula desde el nacimiento. Al pasar a un seguro ajeno a SIS o vaciar
+el seguro, se limpia la afiliación del borrador; «Sin seguro» y seguro sin registrar
+se presentan sin campos SIS. HCI continúa disponible tras guardar la atención;
+las impresiones SIS se habilitan exclusivamente para pacientes con seguro SIS.
+La impresión utiliza exclusivamente la instantánea de una atención guardada.
+Las órdenes de exámenes y los resultados siguen fuera de este flujo.
+
+Laboratorio conserva los elementos de la captura del sistema anterior con la
+estética actual de Admisión: paneles azul suave, tipografía de la aplicación,
+controles Element Plus y acciones primaria/secundarias/salida. Mantiene los
+grupos de documento y modalidad arriba, fecha/hora separadas, consultorio y
+profesional en orden vertical y los cinco botones. El historial mantiene 10 registros por
+página y separa los apellidos y nombres; usa la identidad de la instantánea
+cuando está disponible. Estado y acceso al detalle permanecen en su pie.
+Los números de referencia y contrarreferencia son identificadores de ingreso
+de la atención, conservan ceros iniciales y no crean documentos de salida.
+Imprimir HCI imprime el resumen de la atención guardada; FUA adicional imprime
+un ejemplar del mismo FUA y no genera otra numeración. Observaciones continúa
+disponible en su sección desplegable. En móvil los paneles se apilan.
+El arnés `tests/laboratory-workspace-harness.html` usa únicamente datos sintéticos
+y simula el guardado en memoria, sin consultar ni modificar pacientes reales.
 
 Las búsquedas DNI, historia clínica similar y nombres usan `q` (mínimo dos
 caracteres); historia clínica exacta usa `historia_clinica`. Historia familiar

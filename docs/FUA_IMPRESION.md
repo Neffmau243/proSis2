@@ -55,8 +55,11 @@ este ajuste visual no requiere otra migración ni inventa datos para pacientes.
    atención.
 2. Pulse **Guardar atención**. Se muestra la confirmación sin navegar ni borrar
    los datos; la atención queda en modo lectura para evitar un segundo registro.
-3. **Imprimir S.I.S.** se habilita con la copia devuelta por el servidor. Personal
-   y lugar salen de la sede; el tipo sale de la modalidad de atención. No hay un
+3. **Imprimir S.I.S.** se habilita con la copia devuelta por el servidor. El resumen
+   muestra en **Personal que atiende** el nombre del profesional guardado en la
+   atención. **Tipo de personal en la FUA** muestra la categoría de la sede
+   (por ejemplo, **De la IPRESS**); el lugar también sale de la sede y el tipo de
+   atención sale de la modalidad guardada. No hay un
    segundo formulario para definir SIS, etnia, personal o lugar al imprimir.
 4. Revise los pendientes y calibre la hoja en la vista previa conservada.
    **Imprimir solo datos** abre el diálogo del navegador; también puede elegir
@@ -77,6 +80,12 @@ Todos, `007` EsSalud, `008` Sanidad y `009` Particular. El catálogo genérico
 de origen. Este código de catálogo **no es** la casilla `sis_tipo` del
 asegurado: esta última proviene de la afiliación/acreditación individual y no
 se deduce del nombre de su seguro.
+
+La revisión de fuentes oficiales y la diferencia con el catálogo de financiadores
+HIS están documentadas en [SEGUROS_PERU.md](SEGUROS_PERU.md). El editor y el
+backend conservan el tipo/formato y la DISA del contrato ingresado, sin deducirlos
+del plan ETLSIS ni de la sede de registro.
+
 6. La reimpresión desde el detalle reutiliza la copia guardada; no hace otro POST
    de atención ni emite otro número.
 
@@ -109,6 +118,30 @@ en la misma transacción que la atención, con el paciente bloqueado por el fluj
 existente. No se acepta un IMC/documento/nombre proporcionado como complemento.
 La migración `20260919_0014_fua_print` agrega una columna nullable; no borra ni
 modifica las atenciones previas. Se aplicó a la base local durante la implementación.
+
+### Revisión de campos y bloqueo de impresión (12/10/2026)
+
+El instructivo de la Directiva 002-2024-SIS/GREP-V.02, pp. 15–17, define
+**De la IPRESS** como personal con vínculo contractual con la IPRESS e
+**Intramural** como atención dentro de ella. Son categorías válidas, pero la
+aplicación las copia de la configuración de la sede; no verifica automáticamente
+el vínculo contractual ni la ubicación física de cada atención. El nombre del
+profesional corresponde al responsable conservado en la atención, no a esa
+categoría. El resumen ahora distingue ambos conceptos y muestra la IPRESS y su
+RENIPRESS guardado incluso cuando el código está configurado para no imprimirse.
+
+Una historia clínica de 19 caracteres podía superar el ancho del perfil inicial
+a 8 pt y bloquear la impresión pese a tener posiciones calibradas. El texto
+continuo ahora reduce su fuente dentro de la casilla, hasta 5 pt, usando el mismo
+resultado en vista previa e impresión. No se cambian coordenadas, ancho, paso ni
+contenido guardados. Los caracteres con paso fijo mantienen su separación; el
+texto que tampoco cabe al tamaño mínimo sigue exigiendo ajustar la casilla.
+
+La impresión sobre papel preimpreso sigue requiriendo una prueba física. El
+diálogo muestra el motivo del bloqueo y ofrece acceso directo a calibración.
+La opción A4 cambia únicamente el tamaño del perfil y lo deja pendiente de
+calibrar: debe usarse solo cuando la hoja física mida 210 × 297 mm, no por el
+tamaño de la página del PDF que contiene el anexo.
 
 ## Límites detectados
 

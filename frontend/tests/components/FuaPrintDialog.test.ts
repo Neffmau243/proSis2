@@ -2,7 +2,7 @@ import { expect, test, vi, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ElementPlus from 'element-plus'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
-import { emptyFuaInput, FUA_LAYOUT_KEY } from '@/utils/fuaPrint'
+import { defaultFuaLayout, emptyFuaInput, FUA_LAYOUT_KEY } from '@/utils/fuaPrint'
 import type { FuaPrintSnapshot } from '@/types/fua'
 
 vi.mock('@/assets/fua-referencia.webp', () => ({ default: 'referencia.webp' }))
@@ -83,6 +83,44 @@ afterEach(() => {
   while (mounted.length) mounted.pop()?.unmount()
   document.body.innerHTML = ''
   localStorage.clear()
+})
+
+test('el resumen distingue responsable y categoría, y muestra el RENIPRESS aunque no se imprima', async () => {
+  const body = openSummary({ ...base, codigo_renipress: '00001291' })
+  await vi.waitFor(() =>
+    expect(body.textContent).toContain('Profesional responsable de la atención'),
+  )
+  expect(body.textContent).toContain('DRA. PRUEBA')
+  expect(body.textContent).toContain('Personal que atiende · categoría FUA')
+  expect(body.textContent).toContain('De la IPRESS')
+  expect(body.textContent).toContain('IPRESS de la atención')
+  expect(body.textContent).toContain('00001291')
+  expect(body.textContent).toContain('Configurado como preimpreso')
+})
+
+test('el bloqueo por calibración explica el paso pendiente y abre la pestaña correcta', async () => {
+  const body = openSummary(base)
+  await vi.waitFor(() => expect(body.textContent).toContain('Falta confirmar la calibración'))
+  findButton(body, 'Ir a calibración')!.click()
+  await vi.waitFor(() =>
+    expect(body.querySelector('.el-tabs__item.is-active')?.textContent).toContain(
+      'Vista previa y calibración',
+    ),
+  )
+  findButton(body, 'Usar A4 (210 × 297 mm)')!.click()
+  findButton(body, 'Guardar calibración')!.click()
+  const saved = JSON.parse(localStorage.getItem(FUA_LAYOUT_KEY)!)
+  expect(saved).toMatchObject({ width: 210, height: 297, calibrated: false })
+})
+
+test('una historia clínica larga no bloquea la impresión con posiciones ya calibradas', async () => {
+  localStorage.setItem(FUA_LAYOUT_KEY, JSON.stringify({ ...defaultFuaLayout(), calibrated: true }))
+  const body = openCalibration({ ...base, historia_clinica: 'DEMO-ETNIA-98032888' })
+  await vi.waitFor(() => expect(findButton(body, 'Imprimir solo datos')?.disabled).toBe(false))
+  expect(body.textContent).not.toContain('Historia clínica: texto no cabe')
+  const preview = body.querySelector<HTMLElement>('[aria-label="Ajustar Historia clínica"]')!
+  expect(Number.parseFloat(preview.style.fontSize)).toBeLessThan(8)
+  expect(preview.textContent).toContain('DEMO-ETNIA-98032888')
 })
 
 test('el resumen de la puérpera muestra la fecha real del parto y no el PAB', async () => {

@@ -41,7 +41,7 @@ const router = createRouter({
           path: 'laboratorio',
           name: 'laboratorio',
           component: () => import('@/views/LaboratorioView.vue'),
-          meta: { title: 'Referencia de laboratorio' },
+          meta: { title: 'Laboratorio', permissions: ['PACIENTE_LEER'] },
         },
         {
           path: 'cuenta/cambiar-contrasena',
@@ -84,14 +84,20 @@ const router = createRouter({
         {
           path: 'atenciones',
           name: 'atenciones',
-          component: () => import('@/views/AtencionesListView.vue'),
-          meta: { title: 'Historial de atenciones', permissions: ['ATENCION_LEER'] },
+          // Pantalla general oculta: la consulta continúa en la ficha del paciente.
+          redirect: { name: 'inicio' },
         },
         {
           path: 'atenciones/nueva',
           name: 'atencion-nueva',
-          component: () => import('@/views/AtencionNuevaView.vue'),
-          meta: { title: 'Nueva atención', permissions: ['ATENCION_CREAR'] },
+          // Conserva enlaces antiguos sin abrir un segundo formulario de registro.
+          redirect: (to) => {
+            const rawId = to.query.patientId ?? to.query.pacienteId
+            const id = typeof rawId === 'string' ? Number(rawId) : NaN
+            return Number.isSafeInteger(id) && id > 0
+              ? { name: 'admision', query: { patientId: String(id) } }
+              : { name: 'inicio' }
+          },
         },
         {
           path: 'atenciones/:id',

@@ -114,12 +114,6 @@ function updateLocality(localidadId: number | null): void {
         />
       </el-form-item>
 
-      <el-form-item class="base-field" label="Sufijo documento (origen, opcional)">
-        <el-input :model-value="form.sufijo_documento" :maxlength="10"
-          placeholder="Solo si figura en el registro original"
-          @update:model-value="update({ sufijo_documento: $event })" />
-      </el-form-item>
-
       <el-form-item class="base-field" label="Apellido paterno">
         <el-input
           :model-value="form.apellido_paterno"

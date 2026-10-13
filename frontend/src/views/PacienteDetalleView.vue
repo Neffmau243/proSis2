@@ -13,12 +13,6 @@
       </div>
       <div>
         <el-button
-          v-if="can('ATENCION_CREAR') && patient?.estado"
-          @click="router.push({ name: 'atencion-nueva', query: { patientId: String(patientId) } })"
-        >
-          Nueva atención
-        </el-button>
-        <el-button
           v-if="can('PACIENTE_DAR_BAJA') && patient?.estado"
           type="danger"
           plain

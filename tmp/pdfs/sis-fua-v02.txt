@@ -1,0 +1,2779 @@
+
+=== PAGINA 1 ===
+DIRECTIVA N°02-2024-SIS/GREP – V.02 
+ 
+ 
+DIRECTIVA PARA EL REGISTRO DE LA INFORMACIÓN DE 
+LAS PRESTACIONES OTORGADAS A LOS ASEGURADOS 
+DEL SEGURO INTEGRAL DE SALUD (SIS) EN EL 
+FORMATO ÚNICO DE ATENCIÓN (FUA). 
+ 
+ 
+RESPONSABLE FIRMA o SELLO 
+Propuesto por el Gerencia de Riesgos y  
+Órgano o Unidad 
+Funcional: 
+Evaluación de las Prestaciones 
+ 
+ 
+Revisado  por  el Gerencia de Negocios y  
+órgano de Financiamiento 
+ 
+Revisado por el 
+órgano de 
+Oficina General de Tecnología 
+de la Información 
+ 
+ 
+Revisado  por  el Oficina General de  
+órgano de: Planeamiento, Presupuesto y 
+Desarrollo Organizacional 
+ 
+Revisado por el 
+órgano de: 
+Oficina General de Asesoría 
+Jurídica 
+ 
+Revisado por: Secretaría General 
+ 
+Aprobado por: Jefatura 
+ 
+ 
+ 
+ 
+* Actualización autorizada con Proveído N° 003968-2024-SIS/J 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PAGINA 2 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 2 de 50 
+  
+DIRECTIVA N°02-2024-SIS/GREP – V.02 
+I. FINALIDAD 
+Mejorar el registro de la información de las prestaciones otorgadas a los asegurados del 
+Seguro Integral de Salud, en el Formato Único de Atención (FUA). 
+ 
+II. OBJETIVO 
+ 
+2.1. Objetivo General 
+Estandarizar y regular el proceso de registro de datos, de las prestaciones de salud 
+y administrativas, en el Formato Único de Atención (FUA). 
+ 
+2.2. Objetivos Específicos 
+• Establecer criterios para el registro de las prestaciones de salud. 
+• Establecer criterios para el registro de prestaciones por traslado de emergencia 
+y prestaciones por asignación de alimentación en casas maternas para 
+gestantes y/o puérperas (prestaciones administrativas). 
+ 
+III. ÁMBITO DE APLICACIÓN 
+La presente directiva es de aplicación en las unidades orgánicas del pliego Seguro 
+Integral de Salud (SIS), las Direcciones Regionales de Salud (DIRESA), las Gerencias 
+Regionales de Salud (GERESA), las Direcciones de Redes Integradas de Salud (DIRIS), 
+las Unidades de Gestión de IPRESS (UGIPRESS), las Unidades Ejecutoras y las 
+Instituciones Prestadoras de Servicios de Salud Públicas (IPRESS) Públicas, Privadas y 
+Mixtas, que brinden prestaciones a los asegurados del SIS, en el marco de los convenios 
+o contratos suscritos. 
+ 
+IV. BASE LEGAL 
+4.1. Ley N° 26842, Ley General de Salud y modificatorias. 
+4.2. Ley N° 27269, Ley de firmas y certificados digitales y modificatorias. 
+4.3. Ley N° 27310, Ley que modifica la ley de firmas y certificados digitales. 
+4.4. Ley N° 27604, Ley que modifica la Ley General de Salud N° 26842, respecto de la 
+Obligación de los Establecimientos de Salud a dar atención médica en casos de 
+Emergencias y Partos. 
+4.5. Ley N° 29344, Ley Marco de Aseguramiento Universal en Salud y modificatorias. 
+
+=== PAGINA 3 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 3 de 50 
+  
+4.6. Ley N° 31951, Ley que declara de interés nacional el fortalecimiento del Archivo 
+General de la Nación, del sistema nacional de archivos y la digitalización del 
+patrimonio documental de la Nación. 
+4.7. Decreto Legislativo Nº 1161, Decreto Legislativo que Aprueba la Ley de 
+Organización y Funciones del Ministerio de Salud y modificatorias. 
+4.8. Decreto Legislativo Nº 1163, Decreto Legislativo que Aprueba Disposiciones para 
+el Fortalecimiento del Seguro Integral de Salud y modificatorias. 
+4.9. Decreto Legislativo Nº 1164, Decreto Legislativo que Establece Disposiciones para 
+la Extensión de la Cobertura Poblacional del Seguro Integral de Salud en Materia 
+de Afiliación al Régimen de Financiamiento Subsidiado y modificatorias. 
+4.10. Decreto Supremo N° 016-2002-SA que aprueba el Reglamento de la Ley N° 27604 
+- Ley que modifica la Ley General de Salud N° 26842, respecto de la obligación de 
+los establecimientos de salud a dar atención médica en casos de emergencia y 
+partos. 
+4.11. Decreto Supremo Nº 052-2008-PCM, que reglamenta la Ley de firmas y certificados 
+digitales y su modificatoria Decreto Supremo Nº 070-2011-PCM y modificatorias. 
+4.12. Decreto Supremo Nº 008-2010-SA, que aprueba el Reglamento de la Ley Nº 29344, 
+Ley Marco de Aseguramiento en Salud y modificatorias. 
+4.13. Decreto Supremo N° 011 -2011-S que aprueba el Reglamento de Organización y 
+Funciones del SIS y sus modificatorias. 
+4.14. Decreto Supremo Nº 030 -2014-SA, que aprueba el Reglamento del Decreto 
+Legislativo Nº 1163 que aprueba disposiciones para el Fortalecimiento del Seguro 
+Integral de Salud y modificatorias. 
+4.15. Decreto Supremo N° 004-2019-JUS, Decreto Supremo que aprueba el Texto Único 
+Ordenado de la Ley N° 27444, Ley de Procedimiento Administrativo General. 
+4.16. Resolución de Contraloría N° 320 -2006-CG, que aprueba las Normas de Control 
+Interno. 
+4.17. Resolución Ministerial N°546 -2011- MINSA, que aprueba la NTS N° 021 - 
+MINSA/DGSP-V.03 Norma técnica de Salud “Categorías de Establecimientos del 
+Sector Salud”. 
+4.18. Resolución de Superintendencia N°121 -2019-SUSALUD/S, que aprueba las 
+disposiciones del Modelo de Transacción Electrónica del Proceso de Acreditación 
+de Asegurados en el Aseguramiento Universal en Salud - Modelo SITEDS. 
+
+=== PAGINA 4 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 4 de 50 
+  
+4.19. Resolución Jefatural N° 112-2020/SIS, que aprueba la Directiva Administrativa que 
+regula los procedimientos de afiliación al Seguro Integral de Salud y sus 
+modificatorias. 
+4.20. Resolución Jefatural N° 064 -2023-SIS/J, que aprueba la directiva N° 004 -2023- 
+SIS/OGTI–V.01 que aprueba la” Directiva que regula el uso de las aplicaciones 
+Informáticas del Seguro Integral de Salud” 
+4.21. Resolución Jefatural N° 000022 -2024-SIS/J, rectificada por Resolución Jefatural 
+N°000029-2024-SIS/J, que aprueba la Directiva N° 001 -2024-SIS/OGPPDO-V.01 
+que regula la elaboración, modificación, actualización y/o aprobación de los 
+documentos normativos del Seguro Integral de Salud. 
+ 
+V. DISPOSICIONES GENERALES 
+5.1. Acrónimos 
+DIRESA : Dirección Regional de Salud 
+DIRIS : Dirección de Redes Integradas de Salud 
+FUA : Formato Único de Atención 
+GERESA : Gerencia Regional de Salud 
+GMR : Gerencia Macro Regional 
+GNF : Gerencia de Negocios y Financiamiento 
+GREP : Gerencia de Riesgos y Evaluación de las Prestaciones 
+IAFAS : Institución Administradora de Fondos de Aseguramiento en Salud 
+IPRESS : Institución Prestadora de Servicios de Salud 
+OGTI : Oficina General de Tecnologías de la Información 
+RENIPRESS : Registro Nacional de IPRESS 
+SIS : Seguro Integral de Salud 
+SITEDS : Sistema de Acreditación del Asegurado 
+UDR : Unidad Desconcentrada Regional 
+UE : Unidad Ejecutora 
+UGIPRESS : Unidad de Gestión de IPRESS 
+UPSS : Unidad Productora de Servicios de Salud. 
+
+=== PAGINA 5 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 5 de 50 
+  
+5.2. Definiciones operativas 
+5.2.1. Asegurado1 
+Toda persona residente en el país, que esté bajo la cobertura financiera en 
+alguno de los regímenes de financiamiento de la IAFAS SIS. 
+5.2.2. Representante del asegurado SIS2 
+Es la persona con capacidad de ejercicio que actúa a nombre del 
+asegurado SIS. 
+5.2.3. Firma digital3 
+Es aquella firma electrónica que cumple con todas las funciones de la firma 
+manuscrita, en particular se trata de aquella firma electrónica basada en 
+criptografía asimétrica. Permite la identificación del signatario, la integridad 
+del contenido y tiene la misma validez que el uso de una firma manuscrita, 
+siempre y cuando haya sido generada dentro de la Infraestructura Oficial 
+de Firma Electrónica - IOFE. La firma digital está vinculada únicamente al 
+signatario. Las propiedades de la firma digital son: 
+• Autenticidad: Poder atribuir el documento únicamente a su autor de 
+forma fidedigna, de manera de poder identificarlo. 
+• Integridad: Estar vinculada a los datos del documento digital, poniendo 
+en evidencia cualquier alteración luego de que fue firmado. 
+• Exclusividad: Garantizar que la firma se encuentre bajo el absoluto y 
+exclusivo control del firmante. 
+• No repudio: Garantizar que el emisor no pueda negar o repudiar su 
+autoría o existencia; ser susceptible de verificación ante terceros. 
+5.2.4. Código de Acreditación del Asegurado - SITEDS4 
+Es el código electrónico generado producto del proceso de acreditación del 
+asegurado que resume el conjunto de datos mínimos estandarizados que 
+se consulta y se conoce en línea en la fecha y hora previa a la atención del 
+asegurado, en cumplimiento a la cobertura de salud que brinda la IAFAS. 
+ 
+ 
+1 Resolución Jefatural N°112-2020/SIS. Directiva Administrativa N° 001-2020-SIS/GA - V.01, “Directiva administrativa que regula los 
+procedimientos de afiliación al Seguro Integral de Salud” 
+2 Resolución Jefatural N°112-2020/SIS. Directiva Administrativa N° 001-2020-SIS/GA - V.01, “Directiva administrativa que regula los 
+procedimientos de afiliación al Seguro Integral de Salud” 
+3 Resolución Jefatural N° 036-2021-SIS/J Directiva Administrativa N° 001-2021-SIS/OGTI – V.01, “Directiva Administrativa que regula el 
+procedimiento para el uso del certificado y firma digital en el Seguro Integral de Salud” 
+4 Adecuado de la Resolución de Superintendencia N°121-2019-SUSALUD/S, que aprueba las disposiciones del Modelo de Transacción 
+Electrónica del Proceso de Acreditación de Asegurados en el Aseguramiento Universal en Salud - Modelo SITEDS. 
+
+=== PAGINA 6 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 6 de 50 
+ 
+5.2.5. Formato Único de Atención (FUA) 
+Es el instrumento en el que se registran y acreditan, en físico o en medio 
+magnético, los datos requeridos por el SIS sobre las prestaciones 
+asistenciales y/o administrativas, como los del asegurado que la recibe. Se 
+caracteriza por contener una numeración única que lo identifica y se utiliza 
+como fuente de información para los registros informáticos del SIS, así 
+como para los procesos de validación prestacional y financiera. El FUA 
+tiene carácter de declaración jurada5. 
+5.2.6. Prestación6 
+Es la unidad básica que describe los procedimientos realizados para la 
+atención de las condiciones de salud de los usuarios. 
+5.2.7. Prestaciones de salud7 
+Son atenciones de salud otorgadas a los asegurados SIS en las IPRESS 
+de acuerdo a su categoría y cartera de servicios. Pueden ser prestaciones 
+promocionales, preventivas, recuperativas, paliativas y de rehabilitación, 
+se desarrollan de forma intramural y extramural. 
+5.2.8. Prestaciones administrativas8 
+Son los servicios complementarios a las prestaciones de salud brindadas 
+a los asegurados por las IPRESS o proveedores. 
+Para efectos de la presente directiva se describen los criterios para las 
+prestaciones administrativas por traslado de emergencia y por asignación 
+de alimentación en casas maternas para gestantes y/o puérperas. 
+ 
+5.3. Custodia del FUA 
+Es responsabilidad de las instituciones que mantienen convenios o contratos con el 
+SIS, resguardar el FUA, según la normatividad vigente en materia de archivos9. Los 
+FUA estarán disponibles para efectos de supervisión y control por parte del SIS. 
+ 
+5 La importancia de la declaración jurada se halla en el hecho que permite abreviar procedimientos tanto ante autoridades judiciales como administrativas, y al 
+mismo tiempo genera una responsabilidad legal para el declarante en caso de que la declaración jurada resulte ser contraria a la verdad de los hechos que se  
+acrediten posteriormente, equiparando la declaración jurada con un efectivo juramento o promesa de decir la verdad. Este último elemento puede tener  
+consecuencias a nivel penal en los ordenamientos jurídicos que consideran al perjurio (o violación de juramento) como un delito, o en los países que imponen  
+castigos penales o administrativos para quien formula cualquier declaración falsa ante ciertas autoridades.  
+6 Ley N°29344., Ley Marco de Aseguramiento Universal en Salud. 
+7 Resolución Jefatural N°015-2021/SIS, Directiva Administrativa N° 001 -2021- SIS/GREP - V.01, “Directiva administrativa para la gestión del Formato Único de  
+Atención (FUA) en las instituciones prestadoras de servicios de salud (IPRESS) públicas, privadas o mixtas en el marco de los  convenios o contratos aprobados  
+por el Seguro Integral de Salud (SIS)” 
+8 Resolución Ministerial N°446-2021-MINSA.Directiva administrativa N°308-MINSA/2021/DGAIN Directiva Administrativa : Metodologías para el pago de 
+prestaciones administrativas (por expediente) del SIS  
+9 Ley N° 31951, Ley que declara de intereses nacional el Fortalecimiento del Archivo General de la Nación, del sistema nacional de archivos y la digitalización 
+del patrimonio documental de la nación. 
+
+=== PAGINA 7 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 7 de 50 
+  
+ 
+VI. DISPOSICIONES ESPECIFICAS 
+ 
+ 
+6.1. Criterios para la identificación del responsable de las prestaciones realizadas 
+y la identificación de asegurado SIS. 
+6.1.1. Los datos de la prestación de salud son registrados y firmados por el 
+personal de salud que brindó la atención, según corresponda. 
+6.1.2. Para las prestaciones administrativas, el FUA debe ser firmado por el 
+responsable de la Unidad de Seguros de la Unidad Ejecutora que las 
+registra y no requiere la firma del asegurado SIS o su representante. 
+6.1.3. Respecto a las prestaciones de salud, los datos de productos 
+farmacéuticos e insumos deben ser registrados y firmados por el 
+responsable de la UPSS farmacia o la que haga sus veces. 
+6.1.4. Para efectos del apoyo al diagnóstico cualquiera sea el nivel de atención, 
+los datos son registrados y firmados por el responsable de la UPSS que 
+corresponda o las que hagan sus veces. 
+6.1.5. El registro de la cantidad prescrita y entregada de productos farmacéuticos, 
+insumos y procedimientos médicos quirúrgicos son de carácter obligatorio. 
+6.1.6. Para el FUA físico (FUA en papel) que registran las prestaciones de salud, 
+se debe contar con la firma y huella digital del asegurado, en señal de 
+conformidad. En caso de que el paciente no pueda colocar su huella digital, 
+debe firmar el representante del asegurado SIS, quien debe consignar 
+adicionalmente sus nombres y apellidos completos y el número de su 
+Documento Nacional de Identidad o carné de extranjería. Para el caso del 
+FUA digital es necesario el código de acreditación del asegurado único 
+emitido por el SITEDS y la firma digital del personal responsable de la 
+prestación quien garantiza en señal de conformidad. 
+6.1.7. Para el caso de las prestaciones de salud brindadas por Telemedicina, la 
+firma y sello del profesional de salud que brindó la atención, garantiza la 
+prestación realizada, no requiriendo la firma ni la identificación del 
+asegurado o su representante. 
+
+=== PAGINA 8 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 8 de 50 
+  
+6.2. Criterios para el registro de Prestaciones en el FUA. 
+6.2.1. Se registra sólo una (01) prestación por FUA, con excepción de las 
+prestaciones de salud preventivas, permitiéndose registrar varias de estas 
+prestaciones cuando se realizan en el mismo día. 
+6.2.2. El SIS reconoce el registro de datos de las prestaciones tanto en formato 
+físico (FUA en papel), como digital (FUA digital). 
+6.2.3. Formato Único de Atención Físico (FUA en papel) 
+a) El llenado de los espacios para el registro de información, deben 
+asegurar legibilidad. 
+b) La IPRESS debe asegurar la incorporación del FUA físico en la Historia 
+Clínica del asegurado SIS, para efectos de procesos de control u otros 
+que el SIS realice. 
+c) El FUA físico será digitado en los aplicativos informáticos del SIS, de 
+acuerdo a los criterios de oportunidad acordados con el SIS. 
+6.2.4. Formato Único de Atención Digital 
+a) Instrumento electrónico que debe contener todos los componentes del 
+FUA, además de firma digital del personal responsable de la prestación 
+y el código de acreditación único emitido por el SITEDS, que acredita al 
+asegurado SIS que recibió la atención en salud. 
+b) Al finalizar la atención, las IPRESS custodian 10 el FUA digital en un 
+repositorio de archivos digitales, debiendo garantizar la disponibilidad, 
+integridad y confidencialidad de la información registrada, permitiendo 
+el acceso a dicha información a solicitud del SIS en sus procesos de 
+control correspondientes. 
+6.2.5. En los procesos de supervisión, control y auditoria que realice el SIS, se 
+darán por rechazados los registros que por sus características no 
+sustenten su autenticidad. 
+ 
+6.3. Numeración del Formato Único de Atención (FUA): 
+6.3.1. Para las prestaciones de salud y administrativas, se aplicarán los criterios 
+establecidos en el Anexo N°3 y el Anexo N°4 respectivamente 
+ 
+ 
+ 
+10 Ley N° 31951, Ley que declara de intereses nacional el Fortalecimiento del Archivo General de la Nación, del sistema nacional de archivos y la digitalización 
+del patrimonio documental de la nación. 
+
+=== PAGINA 9 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 9 de 50 
+ 
+VII. RESPONSABILIDADES 
+7.1. La Gerencia de Riesgos y Evaluación de las Prestaciones (GREP), en el marco de 
+sus competencias, es la responsable de monitorear el cumplimiento de la presente 
+directiva y gestionar los aspectos operativos no contemplados en la misma, 
+respecto al registro de las prestaciones de salud en el FUA. 
+7.2.  La Gerencia de Negocios y Financiamiento (GNF), en el marco de sus 
+competencias, es la responsable de monitorear el cumplimiento de la presente 
+directiva y gestionar los aspectos operativos no contemplados respecto al registro 
+de las prestaciones administrativas en el FUA. 
+7.3. Las Gerencias Macro Regionales, a través de las Unidades Desconcentradas 
+Regionales (UDR), supervisan y brindan asistencia técnica respecto a la correcta 
+aplicación de los criterios de registro del FUA en su jurisdicción. 
+7.4. La Oficina General de Tecnología de la Información es responsable de la 
+adecuación de los aplicativos informáticos del SIS para el registro del FUA, según 
+los criterios establecidos en la presente directiva. 
+7.5. La Oficina General de Tecnología de la Información es responsable de brindar la 
+asistencia técnica a las instituciones que brindan prestaciones a los asegurados 
+SIS, que requieran implementar el FUA Digital. 
+ 
+VIII. DISPOSICIONES FINALES 
+8.1. Las DIRESA / GERESA / DIRIS / UGIPRESS, Unidades Ejecutoras e IPRESS o las 
+que hagan sus veces, que tengan Formatos Únicos de Atención físicos para 
+prestaciones de salud con lote 24 (correspondientes al año 2024) y cuya estructura 
+corresponda con la establecida en la Directiva Administrativa N°001-2021- 
+SIS/GREP-V.01, pueden hacer uso de dichos FUAS hasta agotar sus existencias. 
+Una vez agotadas los FUAS físicos (en papel) conforme al formato previsto en la 
+Directiva Administrativa N°001-2021-SIS/GREP-V.01, los nuevos se adecuarán a la 
+nueva estructura señalada en la presente directiva. 
+8.2. La gestión de la información registrada en el FUA, desde la digitación en los 
+aplicativos informáticos del SIS hasta su incorporación en la Base de Datos de 
+producción están reguladas en la Directiva N° 004-2023-SIS/OGTI–V.01 “Directiva 
+que regula el uso de las aplicaciones Informáticas del Seguro Integral de Salud” 
+aprobada con la Resolución Jefatural N° 064-2023-SIS/J. 
+
+=== PAGINA 10 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 10 de 50 
+  
+ 
+IX. ANEXOS 
+ 
+ 
+Anexo N° 01 : Formato Único de Atención (FUA) para prestaciones de salud. 
+Anexo N° 02 : Formato Único de Atención (FUA) para prestaciones administrativas. 
+Anexo N° 03 : Criterios para el registro de prestaciones de salud en el FUA. 
+Anexo N° 04 : Criterios para el registro de prestaciones administrativas en el FUA. 
+Anexo N° 05 : Flujograma del uso del Formato Único de Atención (FUA). 
+
+=== PAGINA 11 ===
+ 
+ 
+DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA). 
+ 
+ 
+Página 11 de 50 
+ 
+ 
+ANEXO N° 01 
+FORMATO ÚNICO DE ATENCIÓN (FUA) Prestaciones de salud. 
+ 
+ITINERANTE EXTRAMURAL
+1
+2
+3
+4
+5
+REPRESENTANTE DEL ASEGURADO:
+    NOMBRES Y APELLIDOS 
+  FIRMA Y SELLO DEL RESPONSABLE DE LA ATENCIÓN    DNI  o CE DEL REPRESENTANTE:
+        
+P.A. (mmHg) P.AB 
+(cm)IMC (Kg/m2)PESO (Kg)
+HB.GLICOSILADA 
+(mg/dL)
+DOSAJE DE ALBUMINA EN 
+ORINA (ug/mL)
+DEPURACION DE 
+CREATININA 
+(mL/min)
+CPN (N°)
+CONTROL 
+PUERP (N°)
+TALLA (cm)
+AMBULATORIA CÓD. RENIPRESS NOMBRE DE LA IPRESS N° HOJA DE REFERENCIA
+PERSONAL QUE ATIENDE LUGAR DE ATENCIÓN ATENCIÓN REFERENCIA REALIZADA POR
+DE LA IPRESS CÓDIGO DE AISPED INTRAMURAL
+DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD
+CÓDIGO RENIPRESS DE LA IPRESS NOMBRE  DE LA IPRESS QUE REALIZA LA ATENCIÓN
+ANEXO 1
+    FORMATO ÚNICO DE ATENCIÓN - FUA
+        NÚMERO DE FORMATO
+REFERENCIA
+DEL ASEGURADO 
+IDENTIFICACIÓN CÓDIGO DEL ASEGURADO  SIS ASEGURADO DE OTRA IAFAS
+AISPED EMERGENCIA
+PRIMER NOMBRE OTROS NOMBRES
+COD. SEGURO
+TDI N° DOCUMENTO DE
+ IDENTIDAD
+DIRESA / 
+OTROS NÚMERO INSTITUCIÓN
+APELLIDO PATERNO APELLIDO MATERNO
+SEXO FECHA DIA MES AÑO N° DE HISTORIA CLÍNICA ETNIA
+  FECHA DE 
+NACIMIENTO 
+ DNI / CNV / AFILIACIÓN DEL  RN  1 
+GESTANTE  DNI / CNV / AFILIACIÓN DEL  RN  2 
+MASCULINO FECHA PROBABLE DE 
+PARTO / FECHA DE 
+PARTO FEMENINO
+DE LA ATENCIÓN
+FECHA DE ATENCIÓN HORA UPS CÓD. 
+PRESTA.
+CÓD. PRESTACION (ES) 
+ADICIONAL (ES)
+HOSPITALIZACIÓN
+FECHA 
+PUERPERA  DNI / CNV / AFILIACIÓN DEL  RN  3 
+FECHA DE 
+FALLECIMIENTO
+DIA MES AÑO
+DIA MES AÑO DE INGRESO
+:
+ DE ALTA
+CONCEPTO PRESTACIONAL
+REPORTE VINCULADO
+CÓD. AUTORIZACIÓN N° FUA A VINCULAR DE CORTE 
+ADMINISTRATIVO
+SEPELIO 
+NATIMUERTO OBITO OTRO
+ATENCIÓN 
+DIRECTA
+DEL DESTINO DEL ASEGURADO/USUARIO
+ALTA CITA HOSPITALIZACIÓN
+REFERIDO CONTRA
+REFERIDO
+ACTIVIDADES PREVENTIVAS Y OTROS VACUNAS N° DE DOSIS
+BCG INFLUENZA ANTIAMARILICA
+RUBEOLA ANTITETANICAAPO
+PAROTID ANTINEUMOC
+DE LA
+ GESTANTE DEL RECIEN NACIDO GESTANTE / RN /  NIÑO / ADOLESCENTE / 
+JOVEN Y ADULTO / ADULTO MAYOR
+JOVEN Y 
+ADULTO
+DPT
+EDAD 
+GEST APGAR 1° 5°
+EVALUACIÓN 
+INTEGRAL
+EDAD GEST RN 
+(SEM) CRED N°
+ROTAVIRUS
+ COMPLETAS 
+PARA LA EDAD 
+(410)
+SI NO
+R.N. PREMATURO TAP/ EEDP o  
+TEPSI ADULTO MAYOR
+ASA
+VACAM DT ADULTO (N° 
+DOSIS) VPH
+OTRA VACUNA
+SPR
+PAT.
+NOR.
+HVB PENTAVAL
+TAMIZAJE DE PATOLOGÍAS CRÓNICAS
+PARTO 
+VERTICAL
+Corte Tardío de 
+Cordón (2 a 3 min)
+ENFER. CONGENITA / 
+SECUELA AL NACER
+CONSEJERIA 
+ INTEGRAL
+TAM IZAJE DE 
+SALUD M ENTAL 
+ALTURA 
+UTERINA 
+BAJO PESO AL 
+NACER
+CONSEJERIA 
+NUTRICIONAL
+____________
+SR IPV
+GRUPO DE RIESGO HVB: 1 . TRABAJADOR DE SALUD   2. TRABAJAD. SEXUALES   3. HSH   4. PRIVADO 
+LIBERTAD   5. FF. AA.  6. POLICIA NACIONAL   7. ESTUDIANTES DE SALUD   8. POLITRANFUNDIDOS  9. 
+DROGO DEPENDIENTES 
+DIAGNÓSTICOS
+N° DESCRIPCIÓN INGRESO EGRESO
+TIPO DE DX CIE - 10 TIPO DE DX CIE - 10
+P D R D R
+R
+P D R D R
+P D R D
+P D R D R
+P D R D
+REPRESENTANTE
+EGRESADO
+1. MÉDICO   2. FARMACEUTICO   3. CIRUJANO DENTISTA    4. BIÓLOGO   5. OBSTETRIZ    6. ENFERMERA 7. TRABAJADORA SOCIAL   8. PSICOLOGA  9.TECNOLOGO MEDICO 
+10.NUTRICION    11. TECNICO ENFERMERIA  12. AUXILIAR DE ENFERMERIA    13. OTRO 
+FIRMA
+ASEGURADO
+RESPONSABLE DE LA ATENCIÓN ESPECIALIDAD N° RNE
+N° DE DNI NOMBRE DEL RESPONSABLE DE LA ATENCIÓN N° DE COLEGIATURA
+R
+GRUPO DE 
+RIESGO 
+HVB
+SE REFIERE / CONTRARREFIERE A:
+CÓDIGO RENIPRESS DE LA IPRESS NOMBRE DE LA IPRESS A LA QUE SE REFIERE / CONTRARREFIERE N° HOJA DE REFER / CONTRARR.
+FALLECIDO CORTE 
+ADMINIS.EMERGENCIA CONSULTA 
+EXTERNA
+SALUD MATERNA
+APOYO AL
+DIAGNÓSTICO
+PERÚ M in is te r io
+d e  S a lu d Seguro Integral de Salud
+REPU BLICA DEL PERU
+Huella Digital del Asegurado o 
+del Representante
+
+=== PAGINA 12 ===
+ 
+ 
+DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA). 
+ 
+ 
+Página 12 de 50 
+  
+ 
+ 
+FF CONCENTR PRES ENTR DX FF CONCENTR PRES ENTR DX
+PR CARACT PRES ENTR DX PR CARACT PRES ENTR DX
+IND EJE DX RES IND EJE DX RES
+ FIRMA  
+ ASEGURADO 
+REPRESENTANTE  
+  
+   NOMBRES Y APELLIDOS  
+   DNI o CE DEL REPRESENTANTE
+PRODUCTOS FARMACEUTICOS / MEDICAMENTOS
+TERAPEUTICA, INSUMOS, PROCEDIMIENTOS Y APOYO AL DIAGNOSTICO
+CÓDIGO 
+SISMED
+NOMBRE CÓD. 
+SISMED NOMBRE
+DISPOSITIVOS MÉDICOS / PRODUCTOS SANITARIOS
+CÓDIGO NOMBRE CÓDIGO NOMBRE
+PROCEDIMIENTOS/ DIAGNÓSTICO POR IMÁGENES/ LABORATORIO 
+CÓDIGO NOMBRE CÓDIGO NOMBRE
+SUB COMPONENTE PRESTACIONAL (PROCEDIMIENTOS) 
+CÓDIGO NOMBRE CARACT IND/ PRES EJE/ ENTR DX RES N°
+TICKET PO
+FORMATO DE ATENCIÓN  Nº
+Firma y Sello del Responsable de UPSS de apoyo diagnóstico 
+(Procedimiento y/o Farmacia y/o Laboratorio o el que corresponda)
+Huella Digital del 
+Asegurado o Representante
+OBSERVACIONES
+
+=== PAGINA 13 ===
+ 
+ 
+DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA). 
+ 
+ 
+Página 13 de 50 
+  
+ANEXO 02 
+FORMATO ÚNICO DE ATENCIÓN (FUA) Prestaciones Administrativas 
+ 
+ANEXO 2
+FIRMA Y SELLO DEL RESPONSABLE DE LA UNIDAD DE SEGUROS O 
+LA QUE HAGA SUS VECES
+COD. TIPO TRANSPORTE 1. AEREO 2. TERRESTRE 3.FLUVIAL 4. MARÍTIMO 5. LACUSTRE C OD . GA ST O VIA T IC O  1 . HOSPEDAJE 2. ALIM ENTACIÓN 3. M OVILIDAD LOCAL C OD . OT R OS GA ST OS  1 . COM BUSTIBLE 2. PEAJE  3. TUUA 4. ALIM ENTACION TRASLADOS 5. 
+ALIM ENTACION CASA M ATERNAS 
+PRECIO 
+UNITARIOTOTAL
+COD. TIPO GASTO 
+VIATICO
+COD.  
+GASTO
+DETALLE DE 
+VIÁTICOS
+N° 
+DÍAS
+NRO 
+COM ISIONADO
+S
+COD. TIPO 
+TRANSPORTE
+COD.  
+TRANSPOR
+TE
+DETALLE DE TRANSPORTE NRO 
+PASAJEROS CANTIDAD PRECIO 
+UNITARIO
+D
+DE LA RENDICION DE GASTOS
+TRANSPORTE VIÁTICOS OTROS GASTOS
+5 P D R
+CANTI
+DAD
+R
+TOTALTOTAL
+COD. 
+TIPO 
+OTRO
+S 
+GAST
+COD. OTROS 
+GASTOS DETALLE DE OTROS GASTOS
+N° 
+DIAS 
+(ALI)
+4 P D R D R
+R
+R
+3 P D R D R
+D
+2 P D R D
+1 P D R
+DIAGNÓSTICOS
+N° DESCRIPCIÓN INGRESO EGRESO
+TIPO DE DX CIE-10 CIE-10TIPO DE DX
+DEL DESTINO DEL ASEGURADO CÓDIGO 
+RENIPRESS NOMBRE DE LA IPRESS DE DESTINO
+NRO HOJA DE 
+REFERENCIA 
+/CONTRAREFEREN
+DEL TRASLADO DE EMERGENCIA
+CURADO
+REFERIDO
+EMERGENCIA CONTRA 
+REFERIDOAPOYO AL DIAGNÓSTICO MEJORADO
+FALLECIDO
+AÑO
+CARECE DE ASISTENCIA DOMICILIARIA
+HORAFECHA
+CÓDIGO CASA 
+MATERNA
+:
+PRESENTA COMPLICACIONES
+:
+FIN
+DE LA PRESTACIÓN ADMINISTRATIVA
+DE LA ALIMENTACIÓN EN CASA MATERNA
+MOTIVO DE 
+INGRESO A LA 
+CASA MATERNA
+RESIDE EN UNA LOCALIDAD DISTANTE
+OTRO
+NOMBRE CASA MATERNA
+INICIO
+DÍA MES
+DE ALTA
+:
+AÑODÍA MES AÑO
+DE LA ATENCIÓN EN LA IPRESS DE ORIGEN
+FECHA DE ATENCIÓN HORA UPS COD. PRESTA.
+HOSPITALIZACIÓN
+FECHA DÍA MES
+DE INGRESO
+FECHA DE NACIMIENTOSALUD MATERNA
+GESTANTE FECHA DE FALLECIMIENTOPUERPERA
+DNI / CNV / AFILIACIÓN DEL RN 1
+DNI / CNV / AFILIACIÓN DEL RN 2
+DNI / CNV / AFILIACIÓN DEL RN 3
+ETNIA
+MASCULINO FECHA PROBABLE DE PARTO / 
+FECHA DE PARTOFEMENINO
+PRIMER NOMBRE OTROS NOMBRES
+SEXO FECHA DÍA MES AÑO N° DE HISTORIA CLÍNICA
+COD. SEGURO
+APELLIDO PATERNO APELLIDO MATERNO
+INSTITUCIÓN 
+IDENTIFICACIÓN CÓDIGO DEL ASEGURADO SIS ASEGURADO DE OTRA IAFASTDI N° DOCUMENTO DE IDENTIDAD DIRESA / OTROS NÚMERO
+DE LA IPRESS DE ORIGEN
+CÓDIGO RENIPRESS DE LA IPRESS NOMBRE DE LA IPRESS QUE REALIZA LA ATENCIÓN
+DEL ASEGURADO / USUARIO
+FORMATO ÚNICO DE ATENCIÓN - FUA
+NÚMERO DE FORMATO N° FUA PRESTACIÓN DE SALUD A VINCULAR
+PERÚ M in is te r io
+d e  S a lu d Seguro Integral de Salud
+REPU BLICA DEL PERU
+ 
+
+=== PAGINA 14 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 14 de 50 
+ 
+ANEXO N° 03 
+CRITERIOS PARA EL REGISTRO DE 
+PRESTACIONES DE SALUD EN EL FUA 
+ 
+ 
+1. Anverso del Formato Único de Atención (FUA): 
+1.1. De la numeración del Formato Único de Atención: 
+Es el número que identificará la atención brindada por la IPRESS y debe estar pre 
+impreso en el FUA antes de su distribución (FUA físico), debiendo figurar el mismo 
+número de FUA tanto en el anverso como en el reverso de este en los casilleros 
+correspondientes. 
+ 
+El número de FUA consta de tres campos: 
+a) El primer campo, estará conformado por OCHO dígitos, que identifican al código 
+RENIPRESS (código numérico) correspondiente a la IPRESS. 
+b) El segundo campo, conformado por DOS dígitos numéricos, corresponde al lote 
+del año. 
+c) El tercer campo constará de OCHO dígitos que corresponden al número 
+correlativo de la atención prestacional o administrativa de ser el caso. Para ello, 
+la DIRESA / GERESA / DIRIS / UGIPRESS, Unidad Ejecutora o la que haga sus 
+veces, en coordinación con la UDR de la respectiva GMR asignará un tope de 
+numeración que debe iniciar en 00000001. 
+ 
+Debe tenerse en cuenta que: 
+• En ningún caso deben existir formatos con numeración duplicada. 
+• No debe duplicarse la numeración de los FUA digitales con la numeración de los 
+FUA físicos. 
+• En el caso de los FUA digitales, su numeración debe generarse automáticamente 
+al momento de la atención. 
+• Para el caso de IPRESS privadas, la numeración de los FUA es asignada por el 
+SIS. 
+• En el caso de los FUA de prestación administrativa se deberá colocar, en el campo 
+correspondiente, el número del FUA de prestación de salud que se encuentra 
+vinculada a la prestación administrativa. 
+
+=== PAGINA 15 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 15 de 50 
+  
+• Para el caso de las FUA generados para la ejecución de procedimientos de apoyo 
+al diagnóstico (Cod. Servicio 071), se deberá registrar el FUA vinculante cuando 
+la solicitud tenga como origen un FUA con códigos de servicio 056 (Consulta 
+externa), 906 (Consulta externa por profesional no médico ni odontólogo) o 908 
+(Atención domiciliaria). 
+ 
+Ejemplo 
+FUA que corresponde a la atención N° 18 de la IPRESS Instituto Nacional de 
+Enfermedades Neoplásicas (código RENIPRESS 00006210) impreso por la IPRESS en 
+el año 2024. 
+NUMERO DE FORMATO 
+00006210 24 00000018 
+ 
+1.2. De la Institución Prestadora de Servicios de Salud (IPRESS) 
+a) Nombre y Código RENIPRESS de la IPRESS: 
+Se registrará el código RENIPRESS asignado a la IPRESS y el nombre de la 
+misma. 
+ 
+Ejemplo 
+Centro de Salud C.S. I-3 SANTA MARIA DE NANAY, Provincia de Maynas, 
+Departamento de Loreto Amazonas, con código RENIPRESS 00000004. 
+ 
+DE LA INSTITUCIÓN PRESTADORA DE SERVICIOS DE SALUD 
+CODIGO RENIPRESS DE LA 
+IPRESS 
+NOMBRE DE LA IPRESS QUE REALIZA 
+LA ATENCIÓN 
+00000004 C.S SANTA MARIA DE NANAY 
+ 
+b) Personal que Atiende: 
+La atención puede ser realizada por personal en los siguientes escenarios: 
+i. De la IPRESS: Personal de salud que brinda la atención en una IPRESS 
+con la cual tiene vínculo contractual. 
+ii. Itinerante11: Personal de salud que brinda la atención en una IPRESS de 
+ 
+11 Resolución Ministerial N°437-2005/MINSA, NTS 028—MINSA/DGSP-V.01, Norma Técnicas de Salud de los Equipos de Atención Integral de Salud a las 
+Poblaciones Excluidas y Dispersas. 
+
+=== PAGINA 16 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 16 de 50 
+ 
+la cual no depende su vínculo contractual. 
+iii. Oferta Flexible  12 : Equipo de salud que brinda atención extramural 
+preventiva y/o recuperativa de manera complementaria a la red local de 
+servicios de salud. En los casos que la atención sea realizada por los 
+Equipos de Atención Integral de Salud a las Poblaciones Excluidas y 
+Dispersas (AISPED), se debe registrar el código de ésta en la casilla 
+correspondiente. 
+ 
+Ejemplo 
+Brigada AISPED con código A025005 que brinda atención en una comunidad 
+de la Región Loreto, a la cual el EE.SS. “9 DE OCTUBRE”, con código 
+RENIPRESS 5556, proporciona los insumos necesarios. 
+ 
+CÓDIGO RENIPRESS DE LA IPRESS 
+NOMBRE DE LA IPRESS QUE REALIZA LA 
+ATENCIÓN 
+5556 9 DE OCTUBRE 
+PERSONAL QUE ATIENDE 
+LUGAR DE 
+ATENCIÓN 
+ATENCIÓN 
+DE LA IPRESS 
+ CÓDIGO DE LA 
+OFERTA FLEXIBLE 
+INTRAMURAL 
+ 
+AMBULATORIA X 
+ITINERANTE  
+A025005 
+EXTRAMURAL X REFERENCIA  
+OFERTA FLEXIBLE X  EMERGENCIA  
+ 
+c) Lugar de Atención: 
+Si el personal que atiende lo hace en una IPRESS se registra como “Intramural”; 
+de hacerlo fuera de la misma se registra como “Extramural”. 
+ 
+Ejemplo 
+Consulta externa de medicina general en la IPRESS C.S. I -3 SANTA MARIA DE 
+NANAY, en este caso se marcará en el recuadro correspondiente a 
+INTRAMURAL. 
+ 
+ 
+ 
+ 
+12 Resolución Ministerial N°437-2005/MINSA, NTS 028—MINSA/DGSP-V.01 Norma Técnicas de Salud de los Equipos de Atención Integral de Salud a las 
+Poblaciones Excluidas y Dispersas. 
+
+=== PAGINA 17 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 17 de 50 
+  
+LUGAR DE ATENCIÓN 
+INTRAMURAL X 
+EXTRAMURAL  
+ 
+d) Atención: 
+Corresponde a las formas por las cuales el asegurado o usuario entra en contacto 
+con la IPRESS para ser atendido; estas pueden ser: 
+• Ambulatoria: Es la atención de consulta externa o extramural brindada por 
+la IPRESS que realiza la atención. Se registra esta opción cuando el 
+asegurado o usuario se atiende por consulta externa sin hoja de referencia, 
+correspondiendo su atención de acuerdo a la categoría de la IPRESS y 
+normatividad vigente. 
+• Referencia: Es un proceso administrativo -asistencial mediante el cual el 
+personal de una IPRESS, transfiere la responsabilidad de la atención de las 
+necesidades de salud de un asegurado a otra IPRESS de mayor capacidad 
+resolutiva. Obligatoriamente se deben registrar los datos de la IPRESS 
+origen de la referencia (código RENIPRESS, nombre y número de Hoja de 
+Referencia). 
+• Emergencia: Toda condición repentina o inesperada que requiere atención 
+inmediata al poner en peligro inminente la vida, la salud o que puede dejar 
+secuelas invalidantes en el paciente. En este caso, se marcará con un aspa 
+el recuadro “Emergencia”. 
+ 
+Ejemplos 
+Ejm. 01: Asegurado o usuario de 10 años atendido en consulta externa por 
+Infección Respiratoria Aguda (IRA). 
+ATENCIÓN 
+AMBULATORIA X 
+REFERENCIA  
+EMERGENCIA  
+ 
+Ejm. 02: Paciente asegurado que acude referido del C.S. I -3 SANTA MARIA DE 
+NANAY con código RENIPRESS 0000004 para atención especializada con Hoja 
+de Referencia N° 0431. 
+
+=== PAGINA 18 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 18 de 50 
+  
+ATENCIÓN 
+AMBULATORIA  
+REFERENCIA X 
+EMERGENCIA  
+ 
+Ejm. 03: Paciente varón de 48 años de edad con dolor precordial 
+ 
+ATENCIÓN 
+AMBULATORIA  
+REFERENCIA  
+EMERGENCIA X 
+ 
+ 
+e) De la Institución Prestadora de Servicios de Salud (IPRESS) que realizó la 
+referencia al paciente: 
+Cuando se realiza la atención de un paciente referido, se registrará el nombre de 
+la IPRESS o AISPED que refirió al paciente, consignando el código 
+correspondiente y el Número de Hoja de Referencia. Necesariamente en el campo 
+de “ATENCIÓN” debe marcarse con un aspa el ítem “REFERIDO”. 
+ 
+Ejemplo 
+Paciente asegurado acude a atenderse referido del C.S. I-3 SANTA MARIA DE 
+NANAY, con código RENIPRESS N° 00000004 y Hoja de Referencia N° 00054. 
+ 
+REFERENCIA REALIZADA POR: 
+COD. RENIPRESS 
+NOMBRE DE LA 
+IPRESS 
+N° HOJA DE 
+REFERENCIA 
+00000004 
+C.S. I-3 SANTA 
+MARIA DE NANAY 
+00054 
+ 
+ 
+1.3. Del Asegurado: 
+a) Identificación: 
+La identificación del paciente es con el documento de identidad y se registra según 
+corresponda el tipo de documento (DNI/CE), el número y los datos. 
+
+=== PAGINA 19 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 19 de 50 
+  
+i. Tipo de Documento de Identidad 
+Se debe registrar de acuerdo a lo siguiente: 
+2 = Documento Nacional de Identidad (DNI) 
+3 = Carné de Extranjería 
+ 
+ 
+ii. Número de Documento 
+Se registra el número del DNI o del Carné de Extranjería según 
+corresponda. 
+Ejemplo 
+Usuario presenta DNI al momento de la atención. 
+ 
+ 
+IDENTIFICACIÓN 
+TDI N° DOCUMENTO DE IDENTIDAD 
+2 21734301 
+ 
+b) Código del Asegurado SIS: 
+Corresponde al número asignado en el formato digital de afiliación para la 
+identificación del asegurado. 
+ 
+Consta de tres campos, excepto para el caso de los recién nacidos para quienes 
+consta de cuatro campos: 
+• En el primer campo se consignarán los primeros tres dígitos, que 
+corresponden al código de la DIRESA / GERESA o la que haga sus veces. 
+• En el siguiente campo se consignará el dígito o letra que corresponde al tipo 
+de plan de seguro que tenga el asegurado según normatividad vigente, por 
+ 
+Ejemplo 
+2= Afiliado a Régimen Subsidiado con DNI. 
+3 = Afiliado a Régimen Subsidiado con Carne de extranjería (CE). 
+E = Afiliación Temporal. 
+9 = SIS Independiente. 
+R = SIS Emprendedor-NRUS 
+8 = SIS Microempresas 
+
+=== PAGINA 20 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 20 de 50 
+  
+• En el tercer campo se coloca el número de DNI del Carné de Extranjería del 
+asegurado cuando se trata del Régimen Subsidiado – Plan de Seguro SIS 
+Gratuito y Plan de Seguro SIS Para Todos. 
+ 
+c) Asegurado de Otra Institución Administradora de Fondos de Aseguramiento 
+en Salud (IAFAS): 
+En el caso de un asegurado de otra Institución Administradora de Fondos de 
+Aseguramiento en Salud (IAFAS), se registrará el código de la Institución de la cual 
+procede el asegurado. 
+1 = ESSALUD 
+2 = FFAA 
+3 = SALUDPOL 
+4 = Otros 
+5 = Sin seguro 
+En la casilla inferior, se registrará el código o número del seguro. 
+ 
+ 
+Ejemplo 
+El Sr. Liderato Guzmán Gonzales, asegurado de ESSALUD, acude con su 
+autogenerado N° 63012861PSHR007 para atenderse en la IPRESS C.S. I -3 
+SANTA MARIA DE NANAY del Gobierno Regional de Loreto. 
+ 
+CÓDIGO DE AFILIACIÓN DE SEGURO 
+INSTITUCIÓN 1 
+COD. SEGURO 63012861PSHR007 
+ 
+d) Apellidos y Nombres: 
+Se registrará en los espacios según corresponde: el apellido paterno, el materno 
+y los nombres del asegurado. 
+• En caso de que el asegurado cuente con un solo apellido, ya sea paterno o 
+materno, se procederá a llenar el dato en la casilla correspondiente, y el otro 
+se dejará en blanco. 
+• Si el asegurado tuviera más de dos nombres, en el campo “otros nombres” se 
+consignarán los que correspondan. 
+Ejemplo: 
+
+=== PAGINA 21 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 21 de 50 
+  
+Asegurado SIS cuyos apellidos son: Gonzales del Valle de Ugarteche, Violeta 
+Regina. 
+ 
+APELLIDO PATERNO  APELLIDO MATERNO 
+GONZALES DEL VALLE  DE UGARTECHE 
+ 
+PRIMER NOMBRE  OTROS NOMBRES 
+VIOLETA  REGINA 
+ 
+e) Sexo: 
+En el espacio correspondiente al sexo, marcar con un aspa el género masculino 
+o femenino. 
+ 
+Ejemplo 
+Paciente de sexo femenino acude a la IPRESS para recibir atención. 
+ 
+SEXO 
+MASCULINO  
+FEMENINO X 
+ 
+ 
+f) Fecha de Parto / Fecha Probable de Parto: 
+En este recuadro se registrará de manera obligatoria la fecha real del parto en las 
+siguientes prestaciones: Atención de parto vaginal (Cod. Servicio 054), Cesárea 
+(Cod. Servicio 055) y Atención de puerperio normal (Cod. Servicio 010). 
+Ejemplos 
+Ejem. 01: Paciente Monzón Magallanes, Lila; atendida por cesárea, quien tuvo a 
+un recién nacido (RN) el día 15 de enero de 2014. 
+FECHA DIA MES AÑO 
+FECHA PROBABLE DE PARTO 
+/ FECHA DE PARTO 
+1 5 0 1 2 0 2 4 
+FECHA DE NACIMIENTO         
+FECHA DE FALLECIMIENTO         
+ 
+Ejem. 02: Paciente gestante Aguayo de la Torre, Rebeca; atendida por consulta 
+externa, cuya fecha probable de parto es calculada para el día 19 de agosto de 
+2024. 
+
+=== PAGINA 22 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 22 de 50 
+  
+FECHA DIA MES AÑO 
+FECHA PROBABLE DE 
+PARTO / FECHA DE PARTO 
+1 9 0 8 2 0 2 4 
+FECHA DE NACIMIENTO         
+FECHA DE FALLECIMIENTO         
+ 
+g) Fecha de Nacimiento: 
+En la fecha de nacimiento se registrarán los datos en los espacios 
+correspondientes: para el día, dos dígitos (01 al 31); para el mes, dos dígitos (01 
+al 12) y para el año, cuatro dígitos que corresponden al año de nacimiento. 
+ 
+Ejemplo 
+Asegurada de sexo femenino que nació el 01 de marzo de 2024. 
+ 
+FECHA DIA MES AÑO 
+FECHA PROBABLE DE 
+PARTO / FECHA DE PARTO 
+        
+FECHA DE NACIMIENTO 0 1 0 3 2 0 2 4 
+FECHA DE FALLECIMIENTO         
+ 
+h) Fecha de Fallecimiento: 
+En este recuadro se registrará de manera obligatoria la fecha de fallecimiento del 
+asegurado. 
+ 
+Ejemplo 
+Paciente asegurado SIS atendido en el servicio de internamiento en la Unidad de 
+Cuidados Intensivos (Cod. Servicio 068) quien falleció el 18 de febrero del 2024. 
+FECHA DIA MES AÑO 
+FECHA PROBABLE DE PARTO / 
+FECHA DE PARTO 
+        
+FECHA DE NACIMIENTO         
+FECHA DE FALLECIMIENTO 1 8 0 2 2 0 2 4 
+i) Número de Historia Clínica: 
+Se registrará el número o la denominación alfanumérica que la IPRESS asigne a 
+la historia clínica del usuario. 
+
+=== PAGINA 23 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 23 de 50 
+  
+ 
+Ejemplo 
+Asegurado con historia clínica 10002637. 
+ 
+ 
+j) Código de Acreditación 
+Código de acreditación único emitido por el SITEDS, que acredita al asegurado 
+SIS previa a la atención en salud brindado por la IAFAS. Solo para el FUA Digital 
+ 
+CÓDIGO DE ACREDITACIÓN 
+12345678911 
+ 
+k) Etnia: 
+El personal de salud colocará el código que corresponda a la etnia a la que 
+pertenezca el asegurado atendido, cuando sea pertinente y de acuerdo a 
+normatividad vigente. 
+ 
+l) Salud Materna: 
+Se registrará marcando con un aspa si en la fecha de la atención la asegurada 
+está gestando o está en período de puerperio. 
+ 
+Ejemplo: 
+Asegurada gestante acude a la IPRESS para atención en consulta externa. 
+ 
+SALUD MATERNA 
+GESTANTE X 
+PUERPERA  
+ 
+m) Numero de Documento Nacional de Identidad (DNI), certificado de nacido 
+vivo (CNV) o Afiliación del recién nacido: 
+• Estos campos sólo deben ser registrados en caso de atención del parto (Cod. 
+servicio 054 ó 055) de una asegurada del SIS. 
+• Se registra en el campo correspondiente el número de DNI o número de 
+10002637 
+N° DE HISTORIA 
+CLÍNICA 
+
+=== PAGINA 24 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 24 de 50 
+  
+Certificado de Nacido Vivo – CNV o número de afiliación del recién nacido. 
+• De producirse dos o más nacimientos se registran en cada campo el número 
+de cada recién nacido según el orden de nacimiento en la casilla 
+correspondiente. 
+• Están exceptuados de este registro los óbitos fetales o natimuertos, en cuyo 
+caso se registra el CIE 10 correspondiente. 
+• Las Instituciones Prestadoras de Servicios de Salud (IPRESS) que cuentan 
+con una Oficina Registral Auxiliar del RENIEC (ORA RENIEC), registra el 
+número del DNI. 
+• La IPRESS que no cuenta con ORA RENIEC, pero cuenta con el registro del 
+CNV digital se registra el número del CNV en línea, cuya numeración es 
+correlativa. 
+• La IPRESS que no cuente con ORA RENIEC o CNV en línea, se debe registrar 
+el número de afiliación temporal (sin DNI) en el marco de la normatividad 
+vigente. 
+ 
+Ejemplos: 
+Ejm. 01: Se produjo un parto vaginal (Cod. Servicio 054) en el C.S. I -3 SANTA 
+MARIA DE NANAY sin ORA RENIEC, y el trámite del CNV es manual, es una 
+gestante afiliada al SIS Subsidiado con un solo recién nacido. La afiliación es de 
+manera directa y temporal. 
+ 
+DNI / CNV / AFILIACIÓN DEL RN 1 E-80396257 
+DNI / CNV / AFILIACIÓN DEL RN 2  
+DNI / CNV / AFILIACIÓN DEL RN 3  
+ 
+ 
+ 
+Ejm. 02: Se produjo una Cesárea (Cod. Servicio 055) en el Hospital Regional de 
+Loreto, que cuenta con ORA RENIEC, y trámite de Certificado de Nacido Vivo en 
+línea, es una paciente afiliada al SIS Subsidiado con dos (2) recién nacidos vivos. 
+ 
+DNI / CNV / AFILIACIÓN DEL RN 1 2-80693528 
+DNI / CNV / AFILIACIÓN DEL RN 2 2-80693529 
+DNI / CNV / AFILIACIÓN DEL RN 3  
+
+=== PAGINA 25 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 25 de 50 
+  
+ 
+Ejm. 03: Se produjo un parto vaginal (Cod. Servicio 054) en el C.S. I -3 SANTA 
+MARIA DE NANAY, que no cuenta con ORA RENIEC, pero si con trámite de CNV 
+digital, es una paciente afiliada al SIS Subsidiado con un solo recién nacido. 
+ 
+DNI / CNV / AFILIACIÓN DEL RN 1 1000253691 
+DNI / CNV / AFILIACIÓN DEL RN 2  
+DNI / CNV / AFILIACIÓN DEL RN 3  
+ 
+1.4. De la Atención: 
+a) Fecha de Atención: 
+Registra el día (del 01 al 31) y el mes (del 01 al 12). Los dos primeros dígitos del 
+año podrían estar pre impresos. En Hospitalizados, la fecha de atención es la 
+misma de la fecha de alta a fin de evitar extemporaneidad en el reembolso o para 
+efectos de supervisión que la IAFAS SIS realice. 
+ 
+En los casos de pacientes asegurados del SIS, con estancia hospitalaria mayor a 
+ciento ochenta (180) días, que continúan hospitalizados luego de registrada la 
+atención en el FUA, la fecha de atención corresponde a la fecha de corte 
+administrativo; por tanto, el registro de las prestaciones en estos casos se 
+considera como fecha de atención a la fecha de corte administrativo. 
+ 
+Ejemplos 
+Ejm. 01: Asegurado se atendió el 14 de enero de 2024. 
+ 
+FECHA DE ATENCIÓN 
+DIA MES AÑO 
+1 4 0 1 2 0 2 4 
+ 
+Ejm. 02: Asegurado fue hospitalizado el día 18 de diciembre de 2023 siendo dado 
+de alta el 01 de febrero de 2024. 
+ 
+ 
+HOSPITALIZA 
+CIÓN 
+ 
+FECHA 
+ 
+DÍA 
+ 
+MES 
+ 
+AÑO 
+DE INGRESO 1 8 1 2 2 0 2 3 
+
+=== PAGINA 26 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 26 de 50 
+  
+ 
+DE ALTA 0 1 0 2 2 0 2 4 
+DE CORTE 
+ADMINISTRATIVO 
+        
+ 
+ 
+ 
+ 
+b) Unidad Productora de Servicios (UPS): 
+Se colocará el código de la Unidad Productora de Servicios (UPS) de la IPRESS 
+donde se brinda la prestación, de acuerdo con la normatividad vigente del MINSA. 
+ 
+Ejemplo: 
+Asegurado acude al servicio de consulta externa de la especialidad de Urología, 
+en este caso corresponde registrar el código de UPS 221400. 
+ 
+ 
+c) Código de Prestación: 
+En este campo se registrará de manera obligatoria el código de prestación que se 
+brinda. Firmará en el anverso del FUA el profesional de la salud que haya brindado 
+la prestación. 
+ 
+Ejemplo: 
+Se brinda una atención de internamiento con intervención quirúrgica mayor; se 
+registrará en el casillero correspondiente el código de la prestación. 
+ 
+ 
+d) Código(s) de Prestación (es) Adicional (es): 
+Campo donde solamente se podrá registrar una o más prestaciones preventivas 
+diferentes y que hayan sido brindadas al asegurado en la IPRESS el mismo día. En 
+tal sentido, en un mismo FUA pueden registrarse varias prestaciones preventivas, 
+221400 
+UPS 
+067 
+CÓD. PRESTA. 
+
+=== PAGINA 27 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 27 de 50 
+  
+debiendo registrarse los diagnósticos, actividades, productos farmacéuticos, 
+dispositivos médicos, productos sanitarios y/o procedimientos, según corresponda. 
+ 
+Ejemplo: 
+Se registran los datos de una adolescente de 13 años a quien se le brinda la 
+prestación “Atención Integral del Adolescente” (Cod. Prestacional 017). Asimismo, 
+se le realiza profilaxis antiparasitaria (Cod. Prestacional 08) y tamizaje de violencia 
+intrafamiliar para la detección de problemas de salud mental (Cod. Prestacional 
+022). 
+CÓD. 
+PRESTA. 
+ CÓD. PRESTACION(ES) 
+ADICIONALES 
+017  008, 022 
+ 
+e) Fecha de Ingreso, Alta y Corte Administrativo: 
+Sólo aplica en pacientes asegurados hospitalizados. Se registrará la fecha de 
+ingreso en el recuadro asignado. La Fecha de Alta corresponde a la fecha en que 
+el paciente egresa de la IPRESS. En los casos de parto inminente, la Fecha de 
+Alta debe ser la misma que se registra en el espacio correspondiente a la Fecha 
+de Atención. 
+ 
+Para aquellos casos en los cuales la estancia hospitalaria de un paciente debe 
+superar los ciento ochenta (180) días, se realiza el corte administrativo y se 
+apertura una nueva FUA para la atención posterior al corte. Se debe registrar la 
+fecha de corte administrativo. 
+ 
+ 
+Ejemplos: 
+ 
+Ejm. 01: Paciente asegurado ingresa a las 20:00 horas por el servicio de 
+emergencia el 27 de enero de 2024, se mantiene en observación y al día siguiente 
+es internado, saliendo de alta el 04 de febrero de 2024. 
+ 
+ 
+HOSPITALIZA 
+CIÓN 
+ 
+FECHA 
+ 
+DÍA 
+ 
+MES 
+ 
+AÑO 
+DE INGRESO 2 7 0 1 2 0 2 4 
+
+=== PAGINA 28 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 28 de 50 
+  
+ 
+DE ALTA 0 4 0 2 2 0 2 4 
+DE CORTE 
+ADMINISTRATIVO 
+        
+ 
+Ejm. 02: Paciente asegurado hospitalizado desde el 01 de julio de 2023 por cuya 
+atención el hospital solicitó pago con corte administrativo al 30 de enero de 2024, 
+por primera vez, por requerir continuar con la hospitalización. 
+ 
+ 
+ 
+HOSPITALIZACIÓN 
+ 
+FECHA 
+ 
+DÍA 
+ 
+MES 
+ 
+AÑO 
+DE INGRESO 0 1 0 7 2 0 2 3 
+DE ALTA 
+        
+DE CORTE 
+ADMINISTRATIVO 3 0 0 1 2 0 2 4 
+ 
+Ejm. 03: Paciente asegurado hospitalizado desde el 01 de julio de 2023 por cuya 
+atención el hospital solicitó pago con corte administrativo al 30 de enero de 2024 
+con FUA N°00007633 -23-00503768 y posteriormente solicita un segundo pago 
+con fecha de corte administrativo al 30 de julio de 2024. 
+ 
+ 
+HOSPITALIZACIÓN 
+ 
+FECHA 
+ 
+DÍA 
+ 
+MES 
+ 
+AÑO 
+DE INGRESO 0 1 0 7 2 0 2 3 
+DE ALTA 
+        
+DE CORTE 
+ADMINISTRATIVO 3 0 0 1 2 0 2 4 
+ 
+f) Reporte Vinculado: 
+• Para los casos de asegurados con estancia hospitalaria mayor a ciento 
+ochenta (180) días, cuando se solicita el pago en una segunda o posterior 
+oportunidad, luego de un anterior corte administrativo, se debe realizar la 
+vinculación con el FUA previo con el que se reportó el anterior corte 
+administrativo. 
+
+=== PAGINA 29 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 29 de 50 
+  
+• Para crear dicho vínculo se registrará el número del FUA de la atención previa 
+con la cual se desea realizar la vinculación. 
+• Para ello se consignará el número del último FUA con el cual se solicitó el 
+pago anterior. 
+ 
+Ejemplo: 
+Paciente asegurado hospitalizado desde el 01 de abril de 2023 por cuya atención 
+el hospital solicitó pago con corte administrativo al 30 de enero de 2024 con FUA 
+N°00007633-23-00503768 y posteriormente solicita un segundo pago con fecha 
+de corte administrativo al 31 de mayo de 2024. 
+ 
+ 
+REPORTE 
+VINCULADO 
+CÓD. AUTORIZACIÓN N°FUA A VINCULAR 
+ 00007633-23-00503768 
+g) Sepelio: 
+Se llenará un FUA de manera exclusiva, cuando se trate de un asegurado con 
+prestación económica de sepelio, el cual contendrá datos de acuerdo con lo 
+establecido a la normatividad de la prestación económica de sepelio, pudiendo ser 
+“Natimuerto”, “Óbito” u “Otro” siendo este último otra causa del sepelio. 
+ 
+1.5. Actividades Preventivas y Otros: 
+a) Peso, talla, presión arterial y perímetro abdominal 
+Es obligatorito el registro del peso en kilogramos y la talla en centímetro, la presión 
+arterial en mmHg y el perímetro abdominal en centímetros, en todas las 
+prestaciones de salud preventivas y recuperaciones. 
+ 
+b) Micro-albuminuria y depuración de creatinina 
+Se registrarán los campos correspondientes a la atención de un paciente con 
+diagnóstico definitivo de diabetes mellitus. 
+ 
+c) De la gestante 
+Se registrarán los campos correspondientes a la atención materno- infantil de 
+manera obligatoria en las IPRESS del primer y segundo nivel de atención. 
+
+=== PAGINA 30 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 30 de 50 
+  
+• Control pre – natal. Se indica el número de control de la atención pre natal 
+de la asegurada gestante. 
+En caso de brindarse sesiones de psicoprofilaxis, se registrará el código 
+CPMS respectivo en el reverso del FUA. Asimismo, en caso de brindarse 
+consejería nutricional a la asegurada gestante, se marca la opción de 
+consejería nutricional. 
+ 
+• Edad gestacional.  Se debe registrar de manera obligatoria la edad 
+gestacional de la asegurada en los campos de Actividades preventivas, así 
+como en los campos de Atención de parto o Cesárea. 
+ 
+• Altura uterina. Se debe registrar de manera numérica desde 0 a 45 cm, de 
+acuerdo a la condición. A partir de la semana 14 de gestación, su registro es 
+obligatorio en la gestante y en la puérpera. 
+• Parto vertical. Se marca con un aspa (X) en el recuadro correspondiente en 
+caso de parto vertical. 
+ 
+• Control del puerperio. En el control del puerperio registrar 1 ó 2 dependiendo 
+de si se trata del primer o el segundo control puerperal, incluyendo de manera 
+obligatoria en cada control, los valores de peso (Kg), talla (cm) y presión 
+arterial (mmHg). Es necesario registrar en este caso la fecha de parto. 
+ 
+d) De la atención del recién nacido: 
+• En la atención inmediata del recién nacido se debe indicar la edad gestacional 
+del recién nacido expresada en número de semanas, así como el peso, la talla 
+y el APGAR al minuto y a los 5 minutos del nacimiento. 
+• De ser el caso, se marcará con un aspa (X), si el corte del cordón se ha 
+realizado a partir de los 2 a 3 minutos de nacimiento. 
+ 
+Ejemplo: 
+Se registran los datos de un recién nacido con un peso de 2.3 Kg, 47 cm de talla, 
+con una valoración de la edad gestacional por Capurro de 38 semanas, con 
+APGAR 8 al minuto y 9 a los cinco minutos. El corte del cordón se suscitó después 
+de los 2 minutos de nacido. 
+
+=== PAGINA 31 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 31 de 50 
+  
+ 
+e) De la atención del niño: 
+• Dentro de la atención integral del niño: Control de crecimiento y desarrollo en 
+menores de 0-04 años (Cod. Servicio 001), Control de crecimiento y desarrollo 
+en menores de 05 -09 años (Cod. Servicio 118) y Control de crecimiento y 
+desarrollo en menores de 10 -12 años (Cod. Servicio 119), se registra de 
+manera obligatoria el número de control CRED, el peso y la talla del niño. 
+• Para la atención del CRED “Control del Recién Nacido con menos de 2,500 
+gramos” (Cod. Servicio 002), en menores de 01 año de edad, se marca en la 
+casilla correspondiente cuando tengan antecedentes de prematuridad, 
+enfermedad congénita, secuela al nacer o bajo peso al nacer. 
+• Asimismo, el Cod. Servicio 002 podrá ser utilizado para los Controles de CRED 
+en niños que tengan peso mayor de 2,500 gramos al nacer con antecedentes 
+de prematuridad, enfermedad congénita o secuela al nacer, para lo cual se 
+debe marcar la casilla correspondiente. 
+• El Test Abreviado Peruano (TAP) o pauta breve, es realizado dentro de la 
+evaluación psicomotora; de corresponder, se realizará la Escala de Evaluación 
+de Desarrollo Psicomotor (EEDP) o el Test de Desarrollo Psicomotor (TEPSI), 
+debiendo registrarse en el formato con un aspa (X) en la casilla 
+correspondiente. 
+• La administración suplementaria de micronutrientes y la consejería nutricional 
+se encuentran incluidos dentro del paquete de atención integral de los 
+diferentes servicios preventivos (Cod. Servicio 001, Cod. Servicio 005) por lo 
+que una vez realizados se procederá a su registro en el FUA en el segmento 
+de “Actividades Preventivas y otros”. 
+ 
+Ejemplo: 
+La atención corresponde al primer control de crecimiento y desarrollo de un niño 
+de 4 años de edad, que pesa 18 Kg y mide 103 cm, se brinda consejería nutricional 
+a la madre y acompañante y, se administra suplemento de hierro. Como parte del 
+CRED se le realiza el Test Abreviado Peruano (TAP) además, se le realiza 
+tamizaje de salud mental en cuyo caso es normal. 
+
+=== PAGINA 32 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 32 de 50 
+ 
+ 
+ACTIVIDADES PREVENTIVAS Y OTROS 
+PESO (Kg) 18 TALLA (cm) 103 P.A. (mmHg)  IMC (Kg/m2)  P.AB 
+(cm)  
+DE LA 
+GESTANTE 
+ 
+DEL RECIEN NACIDO 
+ GESTANTE / RN / NIÑO / ADOLESCENTE / 
+JOVEN Y ADULTO / ADULTO MAYOR 
+ 
+ 
+ 
+ 
+ 
+ 
+JOVEN Y 
+ADULTO 
+ 
+ 
+CPN (N°) 
+ EDAD GEST RN 
+(SEM) 
+  
+CRED N° 1 
+ EVALUACIÓN 
+INTEGRAL 
+ 
+   
+ 
+EDAD GEST 
+  
+ 
+ 
+APGAR 
+ 
+ 
+ 
+1° 
+  
+ 
+ 
+5° 
+ R.N. PREMATURO  TAP/ EEDP o 
+TEPSI 
+ 
+ ADULTO MAYOR 
+  
+VACAM 
+ 
+ALTURA 
+UTERINA 
+ BAJO PESO AL 
+NACER 
+ CONSEJERIA 
+NUTRICIONAL 
+ 
+ 
+ 
+PARTO 
+VERTICAL 
+  
+Corte Tardío de 
+Cordón (2 a 3 min) 
+  
+ENFER. CONGENITA / 
+SECUELA AL NACER 
+  
+CONSEJERIA 
+INTEGRAL 
+  
+TAMIZAJE DE 
+SALUD MENTAL 
+PAT. 
+NOR. 
+ 
+CONTROL 
+PUERP (N°) 
+ TAMIZAJE DE PATOLOGÍAS CRÓNICAS 
+ 
+HB.GLICOSILADA 
+(mg/dL) 
+  
+DOSAJE DE ALBUMINA EN 
+ORINA (ug/mL) 
+  
+DEPURACION DE 
+CREATININA (mL/min) 
+ 
+ 
+ 
+f) Del adolescente: 
+• En la atención integral del adolescente (Cod. Servicio 017) se debe registrar 
+el peso, talla, índice de masa corporal (IMC), perímetro abdominal (PAB) y la 
+consejería integral que se realiza. Además, se puede registrar la presión 
+arterial, y otros campos, de ser necesarios. 
+• En el caso de adolescentes, se registrará la aplicación de las vacunas VPH y 
+DT adulto (el número de la dosis). 
+• Se debe registrar si se realizó la consejería en planificación familiar y en el 
+reverso del formato se debe indicar el insumo prescrito. 
+ 
+Ejemplo: 
+Se registra los datos del adolescente asegurado con un peso de 52 Kg, con 160 
+cm de talla, con un índice de masa corporal de 20.8 kg/m 2, con Perímetro 
+Abdominal 68 cm, se le brinda la primera sesión de Consejería nutricional y se 
+realiza tamizaje de salud mental siendo el resultado normal. 
+
+
+=== PAGINA 33 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 33 de 50 
+ 
+ 
+ACTIVIDADES PREVENTIVAS Y OTROS 
+PESO (Kg) 52 TALLA (cm) 160 P.A. (mmHg)  IMC (Kg/m2) 20.8 P.AB 
+(cm) 68 
+DE LA 
+GESTANTE 
+ 
+DEL RECIEN NACIDO 
+ GESTANTE / RN / NIÑO / ADOLESCENTE / 
+JOVEN Y ADULTO / ADULTO MAYOR 
+ JOVEN Y 
+ADULTO 
+ 
+ 
+CPN (N°) 
+ EDAD GEST RN 
+(SEM) 
+  
+CRED N° 
+  EVALUACIÓN 
+INTEGRAL 
+ 
+   
+ 
+EDAD GEST 
+  
+ 
+APGAR 
+ 
+ 
+ 
+1° 
+  
+ 
+ 
+5° 
+ R.N. PREMATURO  TAP/ EEDP o 
+TEPSI 
+ ADULTO MAYOR 
+  
+VACAM 
+ 
+ALTURA 
+UTERINA 
+ BAJO PESO AL 
+NACER 
+ CONSEJERIA 
+NUTRICIONAL 
+ 
+ 
+ 
+PARTO 
+VERTICAL 
+  
+Corte Tardío de 
+Cordón (2 a 3 min) 
+  
+ENFER. CONGENITA / 
+SECUELA AL NACER 
+  
+CONSEJERIA 
+INTEGRAL 
+  
+TAMIZAJE  DE 
+SALUD MENTAL 
+PAT. 
+NOR. 
+ 
+CONTROL 
+PUERP (N°) 
+ TAMIZAJE DE PATOLOGÍAS CRÓNICAS 
+HB.GLICOSILADA 
+(mg/dL) 
+ DOSAJE DE ALBUMINA EN 
+ORINA (ug/mL) 
+ DEPURACION DE 
+CREATININA (mL/min) 
+ 
+ 
+ 
+g) Del joven y adulto: 
+En la prestación Atención integral de salud del joven y adulto (Cod. Servicio 904) 
+se debe registrar el peso, talla, presión arterial de manera obligatoria y la 
+Evaluación Integral que se realiza; además se puede registrar otros campos de 
+ser necesarios. 
+ 
+h) Del adulto mayor: 
+En la prestación Atención integral de salud del adulto mayor (Cod. Servicio 903), 
+se debe registrar el peso, talla, presión arterial del paciente; así como la consejería 
+integral y la valoración clínica del adulto mayor (VACAM) realizadas. Además, se 
+pueden registrar otros campos de ser necesarios. 
+ 
+i) Otras Consideraciones: 
+• En caso de realizar consejería nutricional o consejería integral, se debe marcar 
+con un aspa la casilla correspondiente de manera obligatoria. 
+• Cuando se realiza el tamizaje de Violencia Intrafamiliar (VIF), sea en el recién 
+Nacido (RN), niño, adolescente, joven, adulto y adulto mayor, así como en la 
+atención pre -natal de la gestante, se marcará con un aspa en el campo 
+correspondiente de “Tamizaje de salud mental” si es “NORMAL” o 
+“PATOLÓGICO”, dependiendo del resultado. En caso de ser patológico, se 
+deben registrar el diagnóstico CIE correspondiente. 
+
+
+=== PAGINA 34 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 34 de 50 
+  
+• De realizarse el dosaje de hemoglobina se debe registrar en el reverso del 
+formato de atención el resultado respectivo, expresado en gr/dL (con un 
+decimal de aproximación). 
+ 
+1.6. Vacunación: 
+En lo que respecta a inmunizaciones, se colocará el número de dosis de la(s) 
+vacunas(s) que se está(n) aplicando, de acuerdo al calendario de vacunación vigente. 
+ 
+1.7. Diagnóstico: 
+a) Descripción: 
+Registrar la(s) patología(s) que se atiende(n). En el primer diagnóstico se registra 
+el más relevante según criterio del profesional de la salud, diagnóstico que más 
+recursos demande o el motivo de la consulta. Con el enfoque de atención integral, 
+indagar si hubiera evidencia de otras patologías y registrar los diagnósticos según 
+el orden de importancia. 
+ 
+El registro de los cinco (05) diagnósticos es opcional y fundamentalmente para 
+pacientes hospitalizados. 
+ 
+b) Diagnóstico de Ingreso: 
+• Tipo de diagnóstico. Marcar con un aspa (X) sobre la letra P o D o R, si el 
+diagnóstico realizado de ingreso es presuntivo (P) o definitivo (D) o repetido 
+(R) respectivamente. 
+• CIE10. Registre aquí el código correspondiente a cada diagnóstico de ingreso 
+según la Clasificación Internacional de Enfermedades en su décima versión 
+(CIE-10) o lo que disponga el Ministerio de Salud. 
+ 
+Ejemplo: 
+Se registran tres diagnósticos probables: apendicitis aguda (K35.9), anemia por 
+deficiencia de hierro (D50.9) y pancreatitis aguda (K85.9), en una paciente mujer 
+de 26 años. 
+DIAGNÓSTICOS 
+N° DESCRIPCIÓN 
+INGRESO EGRESO 
+TIPO DE DX CIE - 10 TIPO DE DX CIE - 10 
+1 Apendicitis aguda P D R K35.9 D R  
+2 Anemia por insuficiencia de hierro P D R D50.9 D R  
+
+=== PAGINA 35 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 35 de 50 
+  
+3 Pancreatitis aguda P D R K86 D R  
+4  P D R  D R  
+5  P D R  D R  
+ 
+c) Diagnóstico de Egreso: 
+• Tipo Dx: Marcar con un aspa (X) sobre la letra D para el diagnóstico de egreso 
+definitivo (D) o (R) para diagnóstico repetitivo. Es obligatorio registrar los 
+diagnósticos definitivos en los casos de pacientes hospitalizados. 
+• CIE-10: Registrar aquí el código correspondiente a cada diagnostico según la 
+Clasificación Internacional de Enfermedades en su décima versión (CIE-10) o 
+lo que disponga el Ministerio de Salud. 
+ 
+1.8. Nombre del responsable de la atención: 
+a) El profesional o personal de salud que realiza la atención registrará de manera 
+obligatoria sus datos personales: Nombres y apellidos completos (de ser manual 
+con letra de imprenta legible), número de Documento Nacional de Identidad (DNI) 
+o carné de extranjería (CE) y número de colegiatura profesional, según 
+corresponda. 
+ 
+b) En el recuadro “Responsable de la atención” se registrará el número que 
+corresponda, según la leyenda que se encuentra por debajo del mismo. En el caso 
+de contar con alguna especialidad, se detalla en el recuadro “Especialidad”. 
+ 
+Ejemplo: 
+Se realiza una atención de consulta externa por la médico cirujana Reyna Navarro, 
+Clady Ruth con DNI 76071256 y colegiatura profesional número 91030. 
+ 
+N° DNI 
+NOMBRE DEL RESPONSABLE DE LA 
+ATENCIÓN 
+N° DE 
+COLEGIATURA 
+76071256 REYNA NAVARRO CLADY RUTH 91030 
+ 
+c) En caso de los profesionales médicos que cuenten con especialidad se consigna 
+la misma, el número de Registro Nacional de Especialista (RNE) o en su defecto 
+se marca la opción “Egresado”. 
+
+=== PAGINA 36 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 36 de 50 
+  
+Ejemplo: 
+Responsable de la atención de un parto por cesárea es la médica Gineco Obstetra 
+Loayza Segura, María con RNE 1232. 
+ 
+RESPONSABLE DE 
+LA ATENCIÓN 1 ESPECIALIDAD Gineco Obstetricia N° RNE 1232 EGRESADO  
+ 
+1.9. Firmas, sellos y Huella Digital: 
+a) Firma y sello del responsable de la atención: se registrará la firma (firma/rúbrica 
+según DNI) y el sello personal con logotipo o nombre de la IPRESS. En el caso 
+del FUA digital se consignará la firma digital en el FUA. 
+ 
+b) Firma y huella digital del asegurado o responsable del asegurado: 
+• El responsable de la atención solicitará que el asegurado, o el representante 
+del asegurado SIS, firme según se consigna en su Documento Nacional de 
+Identidad o Carné de Extranjería y coloque su huella digital en el anverso del 
+formato. 
+• En caso el asegurado no pueda colocar su huella digital, debe firmar el 
+responsable del asegurado. En estos casos, se deben consignar sus nombres 
+y apellidos completos y el número de su Documento Nacional de Identidad o 
+Carné de Extranjería. 
+ 
+2. Reverso del Formato Único de Atención – FUA 
+2.1. Terapéutica, productos farmacéuticos, dispositivos médicos, procedimientos y 
+apoyo al diagnóstico: 
+a) Se consignan los productos farmacéuticos, dispositivos médicos, procedimientos, 
+exámenes de diagnóstico por imágenes y laboratorio empleados en la atención de 
+los asegurados. 
+b) Las DIRESA / GERESA / DIRIS, UGIPRESS, Unidades Ejecutoras o las que 
+hagan sus veces, están en la potestad de readecuar el listado pre -impreso de 
+productos farmacéuticos, dispositivos médicos, procedimientos, diagnósticos por 
+imágenes y laboratorio de acuerdo a la demanda de los mismos, pero por ningún 
+motivo podrán prescindir de los campos incluidos en el mismo. 
+c) Las IPRESS del segundo y tercer nivel de atención, en lugar de registrar todo el 
+consumo en el reverso del FUA, podrán adjuntar a este un reporte de consumo 
+
+=== PAGINA 37 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 37 de 50 
+  
+que contenga los mismos datos del Formato Único de Atención (FUA), firmado y 
+sellado por el personal responsable correspondiente, a fin de sustentar el gasto 
+reportado. 
+d) Las IPRESS del primer nivel de atención, deben incluir de manera obligatoria en 
+el reverso del FUA, tanto en el formato físico como en el formato digital los 
+siguientes campos. 
+ 
+2.2. Productos farmacéuticos: 
+a) Consignará en el reverso del FUA los medicamentos de mayor uso, según lo 
+establecido en el Catálogo Sectorial aprobado por la Autoridad Nacional de 
+Medicamentos, considerando como mínimo la siguiente información: 
+• CÓDIGO DE MEDICAMENTO SISMED. 
+• NOMBRE: Denominación Común Internacional (D.C.I.) 
+• FF: Formas farmacéuticas en ampollas, tabletas, frasco, pote, etc. 
+• CONCENTR: Concentración por mL, mg, % y el volumen o peso del 
+medicamento. 
+• PRES: La cantidad prescrita por el responsable de la atención. 
+• ENTR: La cantidad que el responsable de farmacia entrega al asegurado o 
+representante del asegurado. 
+• DX: El número de orden del diagnóstico para el cual se prescribió y entregó el 
+medicamento. 
+ 
+En el FUA se encontrará de manera preestablecida (formatos físico o digital) el 
+siguiente detalle de los medicamentos prescritos y entregados a los pacientes 
+asegurados atendidos. 
+PRODUCTOS FARMACEUTICOS / MEDICAMENTOS 
+CÓDIGO 
+SISMED 
+ 
+NOMBRE 
+ 
+FF 
+ 
+CONCENTR 
+ 
+PRES 
+ 
+ENTR 
+ 
+DX 
+ 
+00794 
+ 
+AMOXICILINA 
+ 
+SUS. 250mg/5mlLX 60 
+mL 
+   
+ 
+05986 
+ 
+SULFAMETOXAZOL + TRIMETOPRIMA 
+ 
+SUS. 
+200mg+40 mg/5mL 
+x 60 mL 
+   
+ 
+04582 
+ 
+MEBENDAZOL SUS. 100mg/5mLx 30 mL    
+05253 OXITOCINA INY 10 UI    
+ 
+05309 
+ 
+PARACETAMOL 
+ 
+JBE 
+120 mg/5 mL x 60 
+mL 
+   
+ 
+03513 
+ 
+ACIDO FOLICO/SULFATO FERROSO 
+ 
+TAB 400ug+60mg Fe    
+
+=== PAGINA 38 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 38 de 50 
+  
+S0001 MULTIMICRONUTRIENTES SB1 12.5 mg Fe    
+ 
+03519 
+ 
+SULFATO FERROSO 
+ 
+JBE 
+15mg Fe/5mL x 
+180 mL 
+   
+ 
+2.3. Dispositivos médicos y productos sanitarios 
+a) Los dispositivos médicos o productos sanitarios prescritos y entregados son 
+registrados con su respectiva codificación, Nombre, Presentación (Pr), 
+Característica (CARACT – descripción complementaria del insumo), lo prescrito 
+(PRES), lo entregado (ENTR) y Diagnóstico (Dx). 
+ 
+b) En el FUA se encontrará de manera pre establecida (formatos físico o digital) el 
+siguiente detalle: 
+ 
+DISPOSITIVOS MÉDICOS / PRODUCTOS SANITARIOS 
+ 
+CÓDIGO 
+ 
+NOMBRE 
+ 
+PR 
+ 
+CARACT 
+ 
+PRES 
+ 
+ENTR 
+ 
+DX 
+15779 CEPILLO DENTAL PARA NIÑOS      
+26943 PASTAS DENTRIFICAS PARA 
+LIMPIEZA DE DIENTES PARA 
+NIÑOS 
+Tbo 90g    
+ 
+2.4. Procedimientos, diagnóstico por imágenes y laboratorio 
+• En el FUA se registrará la cantidad de procedimientos o intervenciones quirúrgicas 
+indicadas (IND) y ejecutados (EJE) y el diagnóstico (Dx) para el que se solicitaron. 
+El examen son contener el nombre del mismo y el código CPMs. En la columna 
+RES se podrán incluir los resultados de este. 
+• Se registrará la cantidad de exámenes de laboratorio indicados (IND) y ejecutados 
+(EJE) y el diagnóstico (Dx) para el que se solicitaron. En la columna RES, se 
+podrán incluir los resultados de este. 
+• Se registrará la cantidad de exámenes por imágenes indicados (IND) y ejecutados 
+(EJE) y el diagnóstico (Dx) para el que se solicitaron. 
+• De acuerdo con la prestación realizada, se debe completar el registro de todos los 
+campos correspondientes a productos farmaceúticos, exámenes de diagnóstico 
+por imágenes y laboratorio; al no registrarse los datos en los respectivos campos 
+del FUA, se considerarán como no brindados. 
+• Debido a la alta frecuencia del uso de ciertos procedimientos en el primer nivel de 
+atención, se recomienda incluir como mínimo en el FUA físico, el siguiente listado 
+de procedimientos: 
+
+=== PAGINA 39 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 39 de 50 
+  
+PROCEDIMIENTOS/ DIAGNÓSTICO POR IMÁGENES/ LABORATORIO 
+CÓDIGO NOMBRE IND EJE DX RES 
+85018 DOSAJE DE HEMOGLOBINA     
+92015 REFRACCIÓN Y EDICIÓN DE LA VISIÓN     
+99411 ESTIMULACIÓN TEMPRANA     
+99403 CONSEJERÍA NUTRICIONAL     
+87172 TEST DE GRAHAM     
+87177 EXAMEN DE PARÁSITOS Y HUEVOS POR FROTIS 
+DIRECTO (3 MUESTRAS) 
+    
+ 
+2.5. Observaciones 
+Si fuera necesario, en las líneas en blanco (parte inferior del reverso del FUA) el 
+prestador registrará en forma resumida alguna nota explicativa sobre la atención 
+prestada. 
+ 
+2.6. Firma, sello y/o huella digital 
+• Para efectos de pago y como señal de conformidad de los medicamentos recibidos 
+y/o de los exámenes o procedimientos realizados, para aquellas IPRESS que 
+registren la atención en el FUA físico y FUA digital, se requiere la firma 
+(firma/rúbrica según su DNI preo CE) y sello del Responsable de Farmacia / 
+Laboratorio / Apoyo al Diagnóstico, así como la firma (firma/rúbrica según su DNI 
+o CE) y huella digital del asegurado o el representante del asegurado. 
+• En caso de que el paciente no pueda colocar su huella digital, debe firmar el 
+representante del asegurado. En estos casos, se debe consignar adicionalmente 
+sus nombres y apellidos completos y el número de su Documento Nacional de 
+Identidad o Carné de Extranjería. 
+ 
+
+=== PAGINA 40 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 40 de 50 
+  
+ANEXO N° 04 
+CRITERIOS PARA EL REGISTRO DE 
+PRESTACIONES ADMINISTRATIVAS EN EL FUA 
+ 
+ 
+1. DE LA NUMERACIÓN DEL FORMATO ÚNICO DE ATENCIÓN 
+Es el número que identificará la prestación administrativa brindada al asegurado SIS y 
+debe estar pre impreso en el FUA antes de su distribución (FUA físico), debiendo figurar 
+el mismo número de FUA tanto en el anverso como en el reverso de este en los casilleros 
+correspondientes. 
+ 
+El número de FUA consta de tres campos: 
+• El primer campo, consta de OCHO dígitos que identifican al código RENIPRESS 
+(código numérico) correspondiente a la IPRESS que indica la prestación 
+administrativa. 
+• El segundo campo, consta de DOS dígitos numéricos correspondientes al lote del año 
+a los cuales se adiciona la letra A. 
+• El tercer campo, consta de OCHO dígitos que corresponden al número correlativo de 
+la atención administrativa. Para ello, la DIRESA / GERESA / DIRIS / UGIPRESS, 
+Unidad Ejecutora o la que haga sus veces, en coordinación con la UDR de la 
+respectiva GMR asignará un tope de numeración que debe iniciar en 00000001. 
+ 
+Ejemplo 
+FUA que corresponde a un traslado de emergencia originado en la IPRESS Hospital Santa 
+María del Socorro (código RENIPRESS 00003359) impreso por la IPRESS en el año 2024. 
+ 
+NUMERO DE FORMATO 
+00003359 24A 00000027 
+ 
+Debe tenerse en cuenta que: 
+• En el caso de los FUA de prestación administrativa se deberá colocar, en el campo 
+“N° FUA PRESTACIÓN DE SALUD A VINCULAR”, el número del FUA de prestación 
+de salud que da inicio a la prestación administrativa. 
+
+=== PAGINA 41 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 41 de 50 
+  
+• El FUA de prestación administrativa es suscrita por el Jefe de la Oficina de Seguros o 
+el que haga sus veces, no debiendo ser suscrita por el personal que brinda la 
+prestación de salud que origina la prestación administrativa. 
+• En ningún caso deben existir formatos con numeración duplicada. 
+• En el caso de los FUA digitales, su numeración debe generarse automáticamente al 
+momento de la atención. 
+Ejemplo: 
+Paciente asegurado que fue referido por emergencia la IPRESS con código 
+RENIPRESS 0000007639 - HOSPITAL GENERAL DE HUACHO con Hoja de 
+Referencia 29069. 
+Donde se registra en el campo de N° de FUA prestacional de Salud a vincular, se 
+refiere al FUA de la atención del asegurado. 
+FORMATO ÚNICO DE ATENCIÓN - FUA 
+NÚMERO DE FORMATO  N° FUA PRESTACIÓN DE SALUD A VINCULAR 
+0000007639 24A 0000015 0000007639 24 0000385 
+ 
+2. DE LAS PRESTACIONES ADMINISTRATIVAS 
+Para el registro de las prestaciones por traslado de emergencia (referencia / 
+contrarreferencia) y prestaciones por asignación de alimentación en casas maternas, se 
+deben completar los siguientes campos: 
+ 
+a. FECHA, HORA 
+Inicio 
+1. Se registra la fecha y hora de inicio de la referencia. 
+2. Se registra la fecha y hora de inicio de la contra referencia. 
+3. Se registra la fecha y hora de ingreso a la casa materna. 
+ 
+ 
+Fin 
+1. Se registra fecha y hora de finalización de la referencia. 
+2. Se registra fecha y hora de finalización de la contra referencia. 
+3. Se registra fecha y hora de salida de la casa materna. 
+
+=== PAGINA 42 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 42 de 50 
+  
+Ejemplo: 
+Se realiza el traslado de emergencia prioridad 1 de un asegurado SIS a una 
+IPRESS de mayor capacidad resolutiva, el traslado de emergencia inicia el día 
+01/06/2023 a las 20:00 horas y llega a la IPRESS destino el día 02/06/2023 a las 
+6:30 horas. 
+FECHA  
+HORA 
+O DÍA MES AÑO 
+INICI 
+0 1 0 6 2 0 2 3 20 : 00 
+FIN 
+0 2 0 6 2 0 2 3 6 : 30 
+ 
+ 
+b. DEL TRASLADO DE EMERGENCIA 
+En caso de registrar en el campo destino del asegurado el traslado de emergencia, se 
+debe indicar en caso de: 
+ 
+REFERIDO 
+Marcar la opción correspondiente según se trate de una referencia para 
+atención de emergencia o para apoyo al diagnóstico, en el contexto de una 
+atención de emergencia. Asimismo, se deben consignar los datos de la IPRESS 
+a la cual se realiza la referencia (código RENIPRESS, Nombre de la IPRESS y 
+Número de Hoja de Referencia). 
+1. Emergencia 
+Cuando el usuario según criterios de clasificación de emergencia presenta 
+signos y síntoma que indican gravedad, riesgo de perder la vida o 
+posibilidad de quedar con secuelas invalidantes (Prioridad I y II). 
+2. Apoyo al Diagnóstico 
+Es cuando el usuario requiere para su confirmación diagnóstica, 
+seguimiento o control de una prueba o examen que no se practica en el 
+establecimiento de salud origen y requiere ser enviado a una Unidad 
+Productora de Servicio de apoyo al diagnóstico en un e stablecimiento de 
+igual o mayor complejidad. 
+
+=== PAGINA 43 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 43 de 50 
+  
+ 
+CONTRA-REFERIDO 
+En caso de contra referido se debe marcar la opción correspondiente para 
+contrarreferencia sea curado, mejorado o fallecido. Asimismo, se deben 
+consignar los datos de la IPRESS a la cual se realiza la contra referencia 
+(código RENIPRESS, Nombre de la IPRESS y Número de Hoja de contra 
+referencia) 
+1. Curado 
+Cuando se ha solucionado el problema de salud motivo de la referencia del 
+paciente o se determina la situación de Alta definitiva el paciente. 
+2. Mejorado 
+Cuando se ha resuelto el problema de salud motivo de la referencia en 
+forma parcial, siendo pertinente que el continue con tratamiento bajo control 
+y supervisión en el establecimiento que realizo la referencia, con baja 
+frecuencia de las atenciones. 
+3. Fallecido 
+Cuando el usuario fallece durante su tratamiento en el establecimiento de 
+referencia. 
+ 
+Ejemplo 1: 
+Paciente asegurado que fue referido por emergencia la IPRESS con código 
+RENIPRESS 0000007639 - HOSPITAL GENERAL DE HUACHO con Hoja de 
+Referencia 29069. 
+ 
+DEL TRASLADO DE EMERGENCIA 
+DEL DESTINO DEL ASEGURADO  CÓDIGO 
+RENIPRESS 
+NOMBRE DE LA IPRESS DE 
+DESTINO 
+NRO HOJA DE 
+REFERENCIA 
+/CONTRAREFERENCIA 
+ 
+REFERIDO 
+EMERGENCIA X CONTRA 
+REFERIDO 
+CURADO   
+0000007639 HOSPITAL GENERAL DE 
+HUACHO 
+ 
+29069 APOYO AL DIAGNÓSTICO  MEJORADO  
+FALLECIDO  
+Ejemplo 2: 
+Paciente asegurado que fue contrarreferido  en estado CURADO la IPRESS con 
+código RENIPRESS 0000003137 – SANTA LUCIA con Hoja de Referencia N° 485. 
+DEL TRASLADO DE EMERGENCIA 
+DEL DESTINO DEL ASEGURADO  CÓDIGO 
+RENIPRESS 
+NOMBRE DE LA IPRESS DE 
+DESTINO 
+NRO HOJA DE 
+REFERENCIA 
+/CONTRAREFERENCIA 
+ 
+REFERIDO 
+EMERGENCIA  
+CONTRA 
+REFERIDO 
+CURADO X  
+0000003137 
+ 
+SANTA LUCIA 
+ 
+485 APOYO AL DIAGNÓSTICO  MEJORADO  
+FALLECIDO  
+
+=== PAGINA 44 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 44 de 50 
+  
+c. ALIMENTACIÓN EN CASA MATERNA 
+En caso de que una gestante/puérpera reciba alimentación en una casa materna se 
+debe registrar: 
+ 
+MOTIVO DE INGRESO A LA CASA MATERNA: Motivo por el cuál la gestante/ 
+puérpera ingresó a la casa materna pudiendo ser porque reside en una 
+localidad distante, carece de asistencia domiciliaria, presenta complicaciones u 
+otros. 
+ 
+CODIGO DE LA CASA MATERNA: Código de la casa materna donde recibe 
+la alimentación la gestante/puérpera. 
+ 
+NOMBRE DE LA CASA MATERNA: Nombre de la casa materna donde recibe 
+la alimentación la gestante/puérpera. 
+ 
+Ejemplo 
+Una gestante de 42 semanas de gestación ha recibido alimentación en la casa 
+materna de código 0353 – Dulce Espera, debido a que reside en una localidad 
+distante. 
+DE LA ALIMENTACIÓN EN CASA MATERNA 
+ 
+MOTIVO DE 
+INGRESO A LA 
+CASA MATERNA 
+RESIDE EN UNA LOCALIDAD DISTANTE x  CÓDIGO CASA 
+MATERNA NOMBRE CASA MATERNA CARECE DE ASISTENCIA DOMICILIARIA  
+PRESENTA COMPLICACIONES   
+0353 
+ 
+DULCE ESPERA OTRO  
+  
+ 
+ 
+3. DE LA RENDICIÓN DE GASTOS 
+a. TRANSPORTE 
+Para los traslados de emergencia se debe registrar el transporte empleado durante el 
+proceso de referencia o contrarreferencia. 
+1. COD. TIPO TRANSPORTE. 
+Registre el CÓDIGO TIPO TRANSPORTE correspondiente según el 
+transporte empleado pudiendo ser: 
+ 
+1) AEREO 
+
+=== PAGINA 45 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 45 de 50 
+  
+2) TERRESTRE 
+3) FLUVIAL 
+4) MARÍTIMO 
+5) LACUSTRE 
+ 
+ 
+2. CÓDIGO TRANSPORTE 
+Registre el CÓDIGO TRANSPORTE empleado en la referencia / contra 
+referencia según codificación. 
+ 
+3. DETALLE DE TRANSPORTE 
+Denominación de la modalidad de transporte utilizado según el “CÓDIGO 
+DE TRANSPORTE”. 
+ 
+4. N° PASAJEROS 
+Número de pasajeros que se trasladan durante la referencia, se 
+contabiliza paciente, personal de salud, acompañantes del paciente y 
+chofer que cuente con vínculo laboral con la Unidad Ejecutora / IPRESS. 
+ 
+5. CANTIDAD 
+Cantidad de ítems utilizados del CÓDIGO TRANSPORTE. 
+ 
+ 
+6. PRECIO UNITARIO 
+Registrar el precio unitario de la movilidad registrada. 
+ 
+ 
+7. TOTAL 
+Registrar el monto total de la movilidad utilizada para el proceso de 
+referencia/contrarreferencia. 
+ 
+Ejemplo 1. Traslado en ambulancia terrestre de la IPRESS 
+Se realiza el traslado de emergencia de un paciente en una ambulancia de la IPRESS, 
+el traslado de emergencia es acompañado por un chofer de la IPRES, un licenciado 
+en enfermería y 1 acompañante del paciente. 
+
+=== PAGINA 46 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 46 de 50 
+  
+TRANSPORTE 
+COD. TIPO 
+TRANSPORTE 
+COD. DETALLE 
+TRANSPORTE 
+ 
+DETALLE DE TRANSPORTE 
+ 
+NRO PASAJEROS 
+ 
+CANTIDAD PRECIO 
+UNITARIO 
+ 
+TOTAL 
+2 1211 AMBULANCIA TERRESTRE QUE PERTNECE A LA 
+IPRESS 
+4 1 - - 
+       
+ 
+ 
+Ejemplo 2. Traslado en vehículo de uso general terrestre que no pertenece a la 
+IPRESS 
+Se realiza el traslado de emergencia de un paciente haciendo uso del alquiler de una 
+camioneta que no pertenece a la IPRESS, en el traslado de emergencia se encuentran 
+el chofer de la camioneta y 1 licenciado en enfermería. 
+TRANSPORTE 
+COD. TIPO 
+TRANSPORTE 
+COD. DETALLE 
+TRANSPORTE 
+ 
+DETALLE DE TRANSPORTE 
+ 
+NRO PASAJEROS 
+ 
+CANTIDAD PRECIO 
+UNITARIO 
+ 
+TOTAL 
+2 1222 VEHÍCULO DE USO GENERAL NO PERTENECE A 
+LA IPRESS 
+2 1 200 200 
+       
+ 
+ 
+Ejemplo 3. Traslado con alquiler en vuelo Charter. 
+Se realiza el traslado de emergencia de un paciente haciendo uso de un charter, en el 
+traslado de emergencia se encuentra 1 médico y 1 acompañante del paciente. 
+TRANSPORTE 
+ 
+COD. TIPO 
+TRANSPORTE 
+ 
+COD. 
+TRANSPORTE 
+ 
+DETALLE DE TRANSPORTE 
+ 
+NRO 
+PASAJEROS 
+ 
+ 
+CANTIDAD 
+ 
+PRECIO 
+UNITARIO 
+ 
+TOTAL 
+1 1122 VUELO CHARTER 3 1 15 000 15 000 
+       
+ 
+Ejemplo 4. Traslado con compra de pasajes aéreos y alquiler de movilidad terrestre. 
+Se realiza el traslado de emergencia de un paciente haciendo uso de la compra de 
+pasajes aéreos y alquiler de movilidad terrestre (antes de tomar el vuelo y posterior a 
+tomar el vuelo), en el traslado de emergencia se encuentra 1 médico y 1 acompañante 
+del paciente. 
+TRANSPORTE 
+ 
+COD. TIPO 
+TRANSPORTE 
+ 
+COD. 
+TRANSPORTE 
+ 
+DETALLE DE TRANSPORTE 
+ 
+NRO 
+PASAJEROS 
+ 
+ 
+CANTIDAD 
+ 
+PRECIO 
+UNITARIO 
+ 
+TOTAL 
+2 1222 TRANSPORTE TERRESTRE 
+DE PASAJEROS 3 1 120 120 
+2 1222 TRANSPORTE TERRESTRE 
+DE PASAJEROS 3 1 250 250 
+
+=== PAGINA 47 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 47 de 50 
+  
+1 1123 VUELO COMERCIAL 3 3 500 1500 
+ 
+b. VIÁTICOS 
+Se registra los gastos realizados en el desempeño de la comisión, de lo cual 
+comprende alimentación (desayuno, almuerzo y cena), hospedaje (gastos de 
+alojamiento) y movilidad local (hacia y desde el lugar de embarque; así como la 
+utilizada para el desplazamiento en el lugar donde se realice la comisión de servicio). 
+ 
+1. CODIGO TIPO GASTO. 
+Registre el CÓDIGO TIPO GASTO según detalle: 
+1. HOSPEDAJE 
+2. ALIMENTACIÓN 
+3. MOVILIDAD LOCAL 
+ 
+ 
+2. CÓDIGO DE GASTO 
+Se registra el CÓDIGO DE GASTO empleado en la referencia / 
+contrarreferencia según la codificación de rendición de gastos para dicha 
+finalidad. 
+ 
+3. DETALLE DE GASTO 
+Denominación del detalle de gasto para pago de viáticos utilizado según 
+el “CÓDIGO DE GASTO”. 
+ 
+4. N° DÍAS 
+Número de días que se reporta el uso del gasto. 
+ 
+ 
+5. N° DE COMISIONADOS 
+Cantidad de comisionados que hacen uso del gasto. 
+ 
+ 
+6. TOTAL 
+Costo total en soles que representa el uso del viático. 
+
+=== PAGINA 48 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 48 de 50 
+  
+Ejemplo 
+En un traslado de emergencia de un (01) día, la licenciada de enfermería hace uso del 
+gasto de viáticos hospedaje por 100 soles. 
+ 
+VIÁTICOS 
+COD. 
+TIPO 
+GASTO 
+VIATICO 
+CODIGO DE 
+GASTO 
+ 
+DETALLE DE GASTO NRO 
+DÍAS 
+NRO 
+COMISIONADOS 
+ 
+TOTAL 
+ 
+     
+1 2111 HOSPEDAJE PERSONAL 
+DE SALUD 1 1 100 
+ 
+ 
+c. OTROS GASTOS 
+Se registran todos los gastos que no forman parte de viáticos, tanto de traslados en 
+situación de emergencia como de alimentación en casas maternas para gestantes y/o 
+puérperas. Los gastos que se pueden descargar son los siguientes: COMBUSTIBLE 
+PARA TRANSPORTE DE PASAJEROS DE TRASLADOS DE EMERGENCIA, PEAJE, 
+TUUA, ALIMENTACIÓN TRASLADOS, ALIMENTACIÓN CASAS MATERNAS. 
+ 
+1. CODIGO TIPO OTROS GASTO. 
+Registre el TIPO OTROS GASTOS según corresponda: 
+1) COMBUSTIBLE PARA TRANSPORTE DE PASAJEROS 
+2) PEAJE 
+3) TUUA 
+4) ALIMENTACIÓN TRASLADOS 
+5) ALIMENTACIÓN CASAS MATERNAS 
+ 
+2. CÓDIGO OTROS GASTOS 
+Registre el CÓDIGO DE OTROS GASTO empleado según la codificación 
+de rendición de gastos. 
+3. DETALLE DE OTROS GASTOS 
+Denominación del detalle de otros gastos según el “CÓDIGO DE OTROS 
+GASTO”. 
+4. CANTIDAD 
+Número de ítems utilizados del código de otros gastos. 
+ 
+5. NÚMERO DE DÍAS (ALIMENTACIÓN) 
+
+=== PAGINA 49 ===
+ 
+ DIRECTIVA PARA EL  REGISTRO DE LA INFORMACIÓN DE LAS Resp: GREP 
+ 
+PRESTACIONES OTORGADAS A LOS ASEGURADOS DEL SEGURO Versión: 02 
+INTEGRAL DE SALUD (SIS) EN EL FORMATO ÚNICO DE ATENCIÓN (FUA).  
+ Página 49 de 50 
+  
+Número de días que se brinda alimentación al acompañante del 
+asegurado en un traslado de emergencia o número de días que se brinda 
+alimentación en casas maternas para gestantes y/o puérperas al 
+asegurado/acompañantes. 
+6. PRECIO UNITARIO 
+Precio unitario en soles del ítem utilizado. 
+ 
+7. TOTAL 
+Costo total en soles del ítem utilizado. 
+ 
+ 
+Ejemplo 
+Se ha realizado una referencia por emergencia con una ambulancia de la IPRESS, por 
+lo cual para realizar este traslado se ha utilizado 10 galones de gasolina, este mismo 
+tiene un precio unitario de S/.18.50 soles. 
+ 
+OTROS GASTOS 
+COD. TIPO 
+OTROS 
+GASTOS 
+COD. 
+OTROS 
+GASTOS 
+DETALLE DE 
+OTROS GASTOS 
+ 
+CANTIDAD 
+NRO 
+DÍAS 
+(ALI) 
+PRECIO 
+UNITARIO 
+ 
+TOTAL 
+1 3111 
+COMBUSTIBLE 
+LÌQUIDO POR 
+GALÓN 
+10 
+ 
+18.50 185 
+       
+ 
+Ejemplo 2. 
+Una gestante de 40 semanas de gestación ha ingresado a la casa materna Dulce 
+Espera junto a un acompañante, la gestante y su acompañante tuvieron una estancia 
+de 8 días en la casa materna. 
+OTROS GASTOS 
+COD. TIPO 
+OTROS 
+GASTOS 
+ 
+COD. OTROS 
+GASTOS 
+ 
+DETALLE DE 
+OTROS GASTOS 
+ 
+CANTIDAD 
+NRO 
+DÍAS 
+(ALI) 
+ 
+PRECIO 
+UNITARIO 
+ 
+TOTAL 
+ 
+5 
+ 
+3511 
+ALIMENTACIÓN DE 
+LA GESTANTE O 
+PUÉRPERA 
+ 
+1 
+ 
+8 
+ 
+25 
+ 
+200 
+5 3521 ALIMENTACIÓN DEL 
+ACOMPAÑANTE 1 8 25 200 
+       
+
+=== PAGINA 50 ===
+ 
+ 
+ 
+Anexo N°05 
+DIAGRAMA DE FLUJO DE REGISTRO DE INFORMACIÓN EN EL FUA 
+ 

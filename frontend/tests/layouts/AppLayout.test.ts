@@ -88,7 +88,10 @@ test('el menú se arma con permisos, no con roles escritos', async () => {
   const { wrapper } = await mountLayout(['PACIENTE_LEER', 'ATENCION_LEER', 'ATENCION_CREAR'])
   const links = wrapper.findAll('.side__link').map((item) => item.text())
 
-  expect(links).toEqual(['Base de datos', 'Historial de atenciones', 'Nueva atención'])
+  expect(links).toEqual(['Base de datos'])
+  expect(wrapper.text()).not.toContain('Clínico')
+  expect(wrapper.text()).not.toContain('Historial de atenciones')
+  expect(wrapper.text()).not.toContain('Nueva atención')
   expect(wrapper.text()).not.toContain('Usuarios')
   expect(wrapper.text()).not.toContain('Auditoría')
   // Acciones principales: solo las permitidas.
@@ -111,7 +114,6 @@ test('los permisos administrativos revelan sus secciones y la corrección de dat
 
   expect(links).toEqual([
     'Base de datos',
-    'Nueva atención',
     'Personal y cuentas',
     'Auditoría',
     'Grupos etarios',

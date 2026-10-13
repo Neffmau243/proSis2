@@ -93,7 +93,7 @@ def test_non_sis_creation_rejects_affiliation(environment):
     assert repo.created_patient_count == 0
 
 
-def test_switching_sis_plan_updates_patient_type_from_etlsis_code(environment):
+def test_switching_sis_plan_preserves_the_accredited_contract_type(environment):
     service, repo, _session, _audit = environment
     patient = service.create(
         adult_command(
@@ -110,10 +110,12 @@ def test_switching_sis_plan_updates_patient_type_from_etlsis_code(environment):
 
     updated = service.update(patient.id, PatientUpdate(seguro_id=2), actor_id=41)
 
-    assert updated.sis_tipo == "05"
+    assert updated.sis_tipo == "2"
+    declared = service.update(patient.id, PatientUpdate(seguro_id=2, sis_tipo="E1"), actor_id=41)
+    assert declared.sis_tipo == "E1"
 
 
-def test_switching_establishment_updates_sis_diresa_from_its_catalog_code(environment):
+def test_switching_establishment_preserves_the_accredited_contract_disa(environment):
     service, repo, _session, _audit = environment
     patient = service.create(
         adult_command(
@@ -135,7 +137,7 @@ def test_switching_establishment_updates_sis_diresa_from_its_catalog_code(enviro
     )
 
     assert updated.establecimiento_registro_id == 99
-    assert updated.sis_diresa == "040"
+    assert updated.sis_diresa == "039"
 
 
 def test_legacy_stale_affiliation_never_leaks_to_new_fua():

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Seguro dinámico · datos sintéticos</title>
+  </head>
+  <body style="margin: 16px">
+    <p>Prueba con datos sintéticos. El guardado solo actualiza esta página.</p>
+    <div id="app"></div>
+    <script type="module">
+      import { createApp, h, ref } from 'vue'
+      import ElementPlus from 'element-plus'
+      import * as icons from '@element-plus/icons-vue'
+      import 'element-plus/dist/index.css'
+      import '../src/assets/main.css'
+      import Admission from '../src/components/admission/AdmissionPatientSummary.vue'
+      import Laboratory from '../src/components/laboratory/LaboratoryPatientPanel.vue'
+      import Brand from '../src/components/patients/PatientInsuranceBrand.vue'
+      import { aPatient } from './fixtures/patient.ts'
+      import { catalogos } from '../src/services/catalogos.ts'
+      import { pacientes } from '../src/services/pacientes.ts'
+
+      const insurances = [
+        {
+          id: 2,
+          codigo: 'SIS_GRATUITO',
+          nombre: 'S.I.S. Gratuito',
+          regimen: 'SIS',
+          codigo_sis: '002',
+          activo: true,
+        },
+        {
+          id: 3,
+          codigo: 'ESSALUD',
+          nombre: 'EsSalud',
+          regimen: 'ESSALUD',
+          codigo_sis: '007',
+          activo: true,
+        },
+        {
+          id: 4,
+          codigo: 'SANIDAD',
+          nombre: 'Sanidad (FFAA / Policía)',
+          regimen: 'SANIDAD',
+          codigo_sis: '008',
+          activo: true,
+        },
+        {
+          id: 5,
+          codigo: 'PARTICULAR',
+          nombre: 'Particular',
+          regimen: 'PARTICULAR',
+          codigo_sis: '009',
+          activo: true,
+        },
+        {
+          id: 6,
+          codigo: 'OTRO',
+          nombre: 'Otro seguro',
+          regimen: 'OTRO',
+          codigo_sis: null,
+          activo: true,
+        },
+        {
+          id: 1,
+          codigo: 'SIN_SEGURO',
+          nombre: 'Sin seguro',
+          regimen: 'NINGUNO',
+          codigo_sis: '001',
+          activo: true,
+        },
+      ]
+      const documents = [{ codigo: 'DNI', nombre: 'DNI', activo: true }]
+      const page = { items: [], total: 0, limit: 25, offset: 0 }
+      catalogos.seguros = async () => insurances
+      catalogos.sexos = async () => []
+      catalogos.etnias = async () => []
+      catalogos.establecimientos = async () => page
+      catalogos.ubigeos = async () => page
+      catalogos.localidades = async () => page
+      catalogos.historiasFamiliares = async () => page
+      const patient = ref(aPatient({ sis_diresa: '040', sis_tipo: '2', sis_numero: '00112233' }))
+      pacientes.update = async (_id, patch) => ({ ...patient.value, ...patch })
+
+      createApp({
+        setup: () => () =>
+          h(
+            'main',
+            {
+              style:
+                'display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;max-width:1100px;margin:auto',
+            },
+            [
+              h(Admission, {
+                patient: patient.value,
+                canEdit: true,
+                tiposDocumento: documents,
+                onSaved: (saved) => {
+                  patient.value = saved
+                },
+              }),
+              h(Laboratory, {
+                patient: patient.value,
+                options: [],
+                documentType: 'DNI',
+                documents,
+                sexes: [],
+                insurances,
+                establishments: [],
+                date: '2026-10-12',
+                loading: false,
+                disabled: false,
+                error: '',
+                searchHint: '',
+              }),
+              h('section', {
+                class: 'brand-gallery',
+                style: 'grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;padding:16px;background:#e8eff7',
+              }, [
+                ...insurances.map((insurance) => h(Brand, { insurance })),
+                h(Brand),
+                h(Brand, { insuranceId: 99 }),
+              ]),
+            ],
+          ),
+      })
+        .use(ElementPlus)
+        .component('Close', icons.Close)
+        .mount('#app')
+    </script>
+  </body>
+</html>

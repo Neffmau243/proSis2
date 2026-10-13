@@ -485,9 +485,13 @@
                     <strong class="nutrition-age__value">{{ nutritionalAge }}</strong>
                   </div>
                 </div>
-                <NutritionIndicatorsTable
-                  :rows="nutritionTableItems"
-                  :label="`Valoración nutricional ${nutritionReferenceGroup.toLowerCase()}`"
+                <NutritionAssessmentResults
+                  :care-group="selectedCareGroup"
+                  :reference-group="nutritionReferenceGroup"
+                  :age-months="nutritionAgeMonths"
+                  :result="nutritionIndicators"
+                  :loading="nutritionLoading"
+                  :error="nutritionError"
                 />
               </section>
             </el-form>
@@ -545,7 +549,7 @@ import AdmissionHistory from '@/components/admission/AdmissionHistory.vue'
 import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterHeader.vue'
 import AdmissionFinalActions from '@/components/admission/AdmissionFinalActions.vue'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
-import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
+import NutritionAssessmentResults from '@/components/admission/NutritionAssessmentResults.vue'
 import { useSavedAdmission } from '@/composables/useSavedAdmission'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
 import {
@@ -569,7 +573,6 @@ import {
 } from '@/services/atenciones'
 import { formatCalendarAge, calculateCalendarAge } from '@/utils/calendarAge'
 import { useNutritionalIndicatorsPreview } from '@/composables/useNutritionalIndicatorsPreview'
-import { nutritionalTableRows } from '@/utils/nutritionalDisplay'
 import { PREGNANCY_TYPES } from '@/utils/pregnancy'
 
 const props = withDefaults(
@@ -687,6 +690,7 @@ const nutritionalAge = computed(() => {
 const {
   indicators: nutritionIndicators,
   loading: nutritionLoading,
+  error: nutritionError,
 } = useNutritionalIndicatorsPreview({
   patientId: () => nutritionalPatient.value?.id ?? null,
   attendedAt: () => form.fecha_atencion,
@@ -698,31 +702,26 @@ const {
   pregestationalWeightKg: () => form.peso_antes_embarazo_kg,
 })
 
-const nutritionReferenceGroup = computed(() => {
-  const result = nutritionIndicators.value
+const nutritionAgeMonths = computed(() => {
   const birth = nutritionalPatient.value?.fecha_nacimiento
-  const age = birth ? calculateCalendarAge(birth, form.fecha_atencion) : null
-  return (
-    result?.grupo_referencia ??
-    (result && [result.pe, result.te, result.pt].some((value) => value != null)
-      ? 'INFANTIL'
-      : isPregnant.value
-        ? 'GESTANTE'
-        : isPuerperal.value
-          ? 'PUERPERA'
-          : age && age.years >= 18
-            ? 'ADULTO'
-            : 'INFANTIL')
-  )
+  if (!birth || !form.fecha_atencion) return null
+  const days = (Date.parse(form.fecha_atencion.slice(0, 10)) - Date.parse(birth)) / 86_400_000
+  return Number.isFinite(days) && days >= 0 ? days / 30.4375 : null
 })
 
-const nutritionTableItems = computed(() => {
-  const pendingValue = nutritionLoading.value ? 'Calculando…' : 'No disponible'
-  return nutritionalTableRows(
-    nutritionIndicators.value,
-    nutritionReferenceGroup.value,
-    pendingValue,
-  )
+const nutritionReferenceGroup = computed(() => {
+  if (isPregnant.value) return 'GESTANTE'
+  if (isPuerperal.value) return 'PUERPERA'
+  const result = nutritionIndicators.value
+  if (result?.grupo_referencia && !['GESTANTE', 'PUERPERA'].includes(result.grupo_referencia))
+    return result.grupo_referencia
+  const birth = nutritionalPatient.value?.fecha_nacimiento
+  const age = birth ? calculateCalendarAge(birth, form.fecha_atencion) : null
+  if (age && age.years >= 60) return 'ADULTO_MAYOR'
+  if (nutritionAgeMonths.value != null && nutritionAgeMonths.value > 228) return 'ADULTO'
+  if (nutritionAgeMonths.value != null && nutritionAgeMonths.value * 30.4375 > 1826)
+    return 'ESCOLAR'
+  return 'INFANTIL'
 })
 
 function patientIdFromQuery(value: unknown): number | null {

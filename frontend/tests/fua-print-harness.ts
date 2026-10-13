@@ -20,6 +20,9 @@ const sample: FuaPrintSnapshot = {
   grupo_atencion_codigo: 'NINOS_ADOLESCENTES_ADULTOS_MAYORES', fecha_probable_parto: null, fecha_parto: null,
 }
 const documentCase = new URLSearchParams(location.search).get('document')
+if (new URLSearchParams(location.search).get('history') === 'long') {
+  sample.historia_clinica = 'DEMO-ETNIA-00000001'
+}
 if (documentCase && ['CE', 'PAS', 'DE', 'OTRO'].includes(documentCase)) {
   sample.tipo_documento = documentCase
   sample.tdi = documentCase === 'CE' ? '3' : null

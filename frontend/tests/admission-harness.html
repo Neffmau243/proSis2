@@ -151,6 +151,19 @@
         estado: 'ATENDIDO',
       }))
       atenciones.listByPatient = async () => [...history]
+      // Synthetic preview results keep this fixture independent of the API.
+      atenciones.previewNutritionalIndicators = async (payload) => {
+        const group = payload.grupo_atencion_codigo
+        return {
+          grupo_referencia: group === 'GESTANTES' ? 'GESTANTE' : group === 'PUERPERAS' ? 'PUERPERA' : 'ADULTO',
+          imc: '23.438',
+          imc_pregestacional: group === 'GESTANTES' || group === 'PUERPERAS' ? '21.484' : null,
+          ganancia_peso_kg: group === 'GESTANTES' ? '5' : null,
+          diagnostico_imc: 'Normal',
+          pe: null, te: null, pt: null,
+          estado: 'CALCULADO', referencia: 'Referencia sintética para prueba visual', mensaje: '',
+        }
+      }
       atenciones.create = async (payload) => {
         const result = { ...payload, id: 99, estado: 'ATENDIDO', fua_impresion: null }
         history.unshift(result)

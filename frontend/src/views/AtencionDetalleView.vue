@@ -96,9 +96,6 @@
             attention?.contexto_clinico?.numero_documento ?? 'Sin copia histórica'
           }}</el-descriptions-item
         >
-        <el-descriptions-item label="Sufijo documental">{{
-          attention?.contexto_clinico?.sufijo_documento ?? 'Sin dato'
-        }}</el-descriptions-item>
         <el-descriptions-item label="Peso">{{ attention?.peso_kg ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="Talla">{{ attention?.talla_cm ?? '—' }}</el-descriptions-item>
         <el-descriptions-item label="Perímetro abdominal">{{

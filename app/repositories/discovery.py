@@ -15,7 +15,6 @@ from app.models.patient import Patient, PatientRisk
 from app.models.security import Professional, User
 from app.schemas.discovery import AttentionSearchCriteria, PatientSearchCriteria
 
-
 EntityT = TypeVar("EntityT")
 
 
@@ -198,10 +197,16 @@ class AttentionDiscoveryRepository:
             conditions.append(Attention.establecimiento_id == criteria.establecimiento_id)
         if criteria.profesional_id is not None:
             conditions.append(Attention.profesional_id == criteria.profesional_id)
+        if criteria.consultorio_id is not None:
+            conditions.append(Attention.consultorio_id == criteria.consultorio_id)
         if criteria.desde is not None:
             conditions.append(Attention.fecha_atencion >= self._day_start(criteria.desde))
         if criteria.hasta is not None:
             conditions.append(Attention.fecha_atencion < self._day_start(criteria.hasta + timedelta(days=1)))
+        if criteria.fecha_hora_desde is not None:
+            conditions.append(Attention.fecha_atencion >= criteria.fecha_hora_desde)
+        if criteria.fecha_hora_hasta is not None:
+            conditions.append(Attention.fecha_atencion < criteria.fecha_hora_hasta)
         if criteria.estado is not None:
             conditions.append(Attention.estado == criteria.estado.value)
         if professional_id is not None:

@@ -21,7 +21,7 @@ from sqlalchemy import (
 from sqlalchemy.dialects import mysql
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, MYSQL_TABLE_OPTIONS
+from .base import MYSQL_TABLE_OPTIONS, Base
 
 if TYPE_CHECKING:
     from .catalog import AgeGroup, AttentionMode, Cie10, ServiceOffering, Specialty
@@ -34,6 +34,10 @@ if TYPE_CHECKING:
 
 class Attention(Base):
     __tablename__ = "atenciones"
+
+    # Identificadores de documentos recibidos; no numeran referencias de salida.
+    numero_referencia_ingreso: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    numero_contrarreferencia_ingreso: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
     id: Mapped[int] = mapped_column(
         mysql.BIGINT(unsigned=True), primary_key=True, autoincrement=True
