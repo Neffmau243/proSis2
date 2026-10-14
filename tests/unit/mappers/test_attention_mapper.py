@@ -59,3 +59,18 @@ def test_attention_mapper_exposes_history_display_data_from_real_relations() -> 
     assert result.tipo_embarazo_codigo == "MULTIPLE"
     assert result.fecha_probable_parto == date(2027, 3, 15)
     assert result.fecha_parto is None
+
+    # Renaming or moving today's catalog cannot rewrite the stored encounter.
+    entity.contexto_clinico = {
+        "consultorio_nombre": "Sala original",
+        "consultorio_ruta": "Medicina / Sala original",
+        "especialidad_nombre": "Pediatría",
+        "establecimiento_nombre": "Sede original",
+        "edad_detallada": result.edad_detallada,
+    }
+    entity.consultorio.nombre = "Nombre actual distinto"
+    historical = attention_to_response(entity)
+    assert historical.consultorio_nombre == "Sala original"
+    assert historical.consultorio_ruta == "Medicina / Sala original"
+    assert historical.especialidad_nombre == "Pediatría"
+    assert historical.establecimiento_nombre == "Sede original"

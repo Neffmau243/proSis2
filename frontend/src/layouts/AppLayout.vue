@@ -125,8 +125,9 @@
 
     <el-container class="app-layout__content">
       <!-- La identidad del usuario vive solo en el pie de la barra lateral. -->
-      <el-header class="topbar" height="52px">
+      <el-header class="topbar" height="auto">
         <div class="topbar__title">{{ currentTitle }}</div>
+        <div ref="topbarActions" class="topbar__actions" />
       </el-header>
 
       <el-main class="app-layout__main">
@@ -137,13 +138,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, provide, ref, useTemplateRef, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 import { usePacienteSeleccionado } from '@/composables/usePacienteSeleccionado'
 import { pacientes } from '@/services/pacientes'
 import { useAuthStore } from '@/stores/auth'
+import { topbarActionsKey } from '@/layouts/topbar'
+
+const topbarActions = useTemplateRef<HTMLElement>('topbarActions')
+provide(topbarActionsKey, topbarActions)
 
 interface NavItem {
   to: string
@@ -659,15 +664,37 @@ function cambiarContrasena(): void {
 /* ---------- Barra superior ---------- */
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 52px;
+  padding-block: 8px;
   background-color: #fff;
   border-bottom: 1px solid var(--el-border-color-lighter);
 }
 
 .topbar__title {
+  flex-shrink: 0;
   font-size: 15px;
   font-weight: 600;
+}
+
+.topbar__actions {
+  min-width: 0;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.topbar__actions:empty {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .topbar__actions:not(:empty) {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
 }
 
 .app-layout__main {

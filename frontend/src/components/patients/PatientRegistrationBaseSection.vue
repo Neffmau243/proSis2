@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import PatientSisFields from './PatientSisFields.vue'
+import PatientInsuranceBrand from './PatientInsuranceBrand.vue'
 import PatientConditionSelect from './PatientConditionSelect.vue'
 import FamilyHistorySelector from './FamilyHistorySelector.vue'
 import { isSisInsurance } from '@/utils/patientInsurance'
+import { localityOptions, localitySelection } from '@/utils/localitySelection'
 import type {
   CodeCatalogItem,
   EstablishmentCatalogItem,
@@ -24,10 +27,13 @@ const props = defineProps<{
   seguros: IdCatalogItem[]
   establecimientos: EstablishmentCatalogItem[]
   establecimientosLoading: boolean
+  establecimientosError?: string | null
   ubigeos: UbigeoCatalogItem[]
   ubigeosLoading: boolean
+  ubigeosError?: string | null
   localidades: LocalidadCatalogItem[]
   localidadesLoading: boolean
+  localidadesError?: string | null
   historiasFamiliares: FamilyHistoryCatalogItem[]
   historiasFamiliaresLoading: boolean
 }>()
@@ -38,15 +44,24 @@ const emit = defineEmits<{
   searchUbigeos: [query: string]
 }>()
 
+const localitySuggestions = computed(() =>
+  localityOptions(
+    props.localidades,
+    props.ubigeos.find((item) => item.codigo === props.form.ubigeo_residencia_codigo)?.distrito,
+  ),
+)
+const selectedInsurance = computed(() =>
+  props.seguros.find((item) => item.id === props.form.seguro_id),
+)
+
 function update(changes: PatientRegistrationPatch): void {
   emit('update', changes)
 }
 
-// La localidad se elige del catálogo SIS del distrito; se guarda su código y,
-// para conservar el nombre legible, también el texto de la localidad.
-function updateLocality(localidadId: number | null): void {
-  const chosen = props.localidades.find((item) => item.id === localidadId)
-  emit('update', { localidad_id: localidadId, localidad: chosen ? chosen.nombre : '' })
+// Las listas Z_* sugieren nombres: el legado también guarda localidades escritas.
+function updateLocality(value: number | string | null): void {
+  const selection = localitySelection(value, props.localidades)
+  emit('update', { ...selection, localidad: selection.localidad ?? '' })
 }
 </script>
 
@@ -158,7 +173,7 @@ function updateLocality(localidadId: number | null): void {
         </el-select>
       </el-form-item>
 
-      <el-form-item class="base-field" label="Distrito">
+      <el-form-item class="base-field" label="Distrito" :error="ubigeosError || undefined">
         <el-select
           clearable
           filterable
@@ -166,33 +181,39 @@ function updateLocality(localidadId: number | null): void {
           :model-value="form.ubigeo_residencia_codigo"
           :remote-method="(query: string) => emit('searchUbigeos', query)"
           :loading="ubigeosLoading"
-          placeholder="Busque por distrito"
+          placeholder="Distrito donde reside el paciente"
           @update:model-value="update({ ubigeo_residencia_codigo: $event })"
         >
           <el-option
             v-for="ubigeo in ubigeos"
             :key="ubigeo.codigo"
-            :label="`${ubigeo.departamento} / ${ubigeo.provincia} / ${ubigeo.distrito}`"
+            :label="`${ubigeo.distrito} · ${ubigeo.provincia}`"
             :value="ubigeo.codigo"
           />
         </el-select>
       </el-form-item>
 
-      <el-form-item class="base-field" label="Localidad">
+      <el-form-item class="base-field" label="Localidad" :error="localidadesError || undefined">
         <el-select
           clearable
           filterable
-          :model-value="form.localidad_id"
+          allow-create
+          default-first-option
+          :model-value="form.localidad_id ?? (form.localidad || null)"
           :disabled="!form.ubigeo_residencia_codigo"
           :loading="localidadesLoading"
-          :placeholder="form.ubigeo_residencia_codigo ? 'Seleccione' : 'Elija el distrito primero'"
+          :placeholder="
+            form.ubigeo_residencia_codigo
+              ? 'Seleccione o escriba la localidad'
+              : 'Elija el distrito primero'
+          "
           @update:model-value="updateLocality"
         >
           <el-option
-            v-for="localidad in localidades"
-            :key="localidad.id"
-            :label="localidad.nombre"
-            :value="localidad.id"
+            v-for="localidad in localitySuggestions"
+            :key="localidad.value"
+            :label="localidad.label"
+            :value="localidad.value"
           />
         </el-select>
       </el-form-item>
@@ -205,7 +226,11 @@ function updateLocality(localidadId: number | null): void {
         />
       </el-form-item>
 
-      <el-form-item class="base-field" label="Establecimiento">
+      <el-form-item
+        class="base-field"
+        label="Establecimiento"
+        :error="establecimientosError || undefined"
+      >
         <el-select
           clearable
           filterable
@@ -213,7 +238,7 @@ function updateLocality(localidadId: number | null): void {
           :model-value="form.establecimiento_registro_id"
           :remote-method="(query: string) => emit('searchEstablecimientos', query)"
           :loading="establecimientosLoading"
-          placeholder="Busque por nombre"
+          placeholder="Sede donde se registra al paciente"
           @update:model-value="update({ establecimiento_registro_id: $event })"
         >
           <el-option
@@ -244,9 +269,16 @@ function updateLocality(localidadId: number | null): void {
     </div>
     <PatientSisFields
       :value="form"
-      :affiliation-disabled="!isSisInsurance(seguros.find((item) => item.id === form.seguro_id))"
+      :affiliation-disabled="!isSisInsurance(selectedInsurance)"
       @update="update"
     >
+      <template #insurance-brand>
+        <PatientInsuranceBrand
+          class="base-section__insurance-brand"
+          :insurance="selectedInsurance"
+          :insurance-id="form.seguro_id"
+        />
+      </template>
       <div class="base-section__fields">
         <el-form-item class="base-field" label="Condición">
           <PatientConditionSelect

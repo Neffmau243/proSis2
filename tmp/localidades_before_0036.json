@@ -1,0 +1,3802 @@
+[
+  {
+    "id": 1,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0001",
+    "nombre": "14 DE AGOSTO",
+    "nombre_norm": "14 de agosto",
+    "activo": 1
+  },
+  {
+    "id": 2,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0002",
+    "nombre": "ALTO SELVA ALEGRE \"A\"",
+    "nombre_norm": "alto selva alegre \"a\"",
+    "activo": 1
+  },
+  {
+    "id": 3,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0003",
+    "nombre": "ALTO SELVA ALEGRE \"B\"",
+    "nombre_norm": "alto selva alegre \"b\"",
+    "activo": 1
+  },
+  {
+    "id": 4,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0004",
+    "nombre": "ALTO SELVA ALEGRE \"C\"",
+    "nombre_norm": "alto selva alegre \"c\"",
+    "activo": 1
+  },
+  {
+    "id": 5,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0005",
+    "nombre": "AMPLIACION APURIMAC",
+    "nombre_norm": "ampliacion apurimac",
+    "activo": 1
+  },
+  {
+    "id": 6,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0006",
+    "nombre": "AMPLIACION VILLA ASUNCION",
+    "nombre_norm": "ampliacion villa asuncion",
+    "activo": 1
+  },
+  {
+    "id": 7,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0007",
+    "nombre": "AMPLIACION VILLA UNION",
+    "nombre_norm": "ampliacion villa union",
+    "activo": 1
+  },
+  {
+    "id": 8,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0008",
+    "nombre": "ANDENES DE CHILINA",
+    "nombre_norm": "andenes de chilina",
+    "activo": 1
+  },
+  {
+    "id": 9,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0009",
+    "nombre": "ANDRES AVELINO CACERES",
+    "nombre_norm": "andres avelino caceres",
+    "activo": 1
+  },
+  {
+    "id": 10,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0010",
+    "nombre": "ANGELES DEL MISTI",
+    "nombre_norm": "angeles del misti",
+    "activo": 1
+  },
+  {
+    "id": 11,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0011",
+    "nombre": "ANTONIO JOSE DE SUCRE",
+    "nombre_norm": "antonio jose de sucre",
+    "activo": 1
+  },
+  {
+    "id": 12,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0012",
+    "nombre": "APURIMAC",
+    "nombre_norm": "apurimac",
+    "activo": 1
+  },
+  {
+    "id": 13,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0013",
+    "nombre": "ARTESANAL APROMA",
+    "nombre_norm": "artesanal aproma",
+    "activo": 1
+  },
+  {
+    "id": 14,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0014",
+    "nombre": "ARTESANOS EL MISTI",
+    "nombre_norm": "artesanos el misti",
+    "activo": 1
+  },
+  {
+    "id": 15,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0015",
+    "nombre": "AUGUSTO SALAZAR BONDY",
+    "nombre_norm": "augusto salazar bondy",
+    "activo": 1
+  },
+  {
+    "id": 16,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0016",
+    "nombre": "AUIS RAFAEL HOYOS RUBIO",
+    "nombre_norm": "auis rafael hoyos rubio",
+    "activo": 1
+  },
+  {
+    "id": 17,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0017",
+    "nombre": "BALCONES DE CHILINA",
+    "nombre_norm": "balcones de chilina",
+    "activo": 1
+  },
+  {
+    "id": 18,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0018",
+    "nombre": "BELLA ESPERANZA",
+    "nombre_norm": "bella esperanza",
+    "activo": 1
+  },
+  {
+    "id": 19,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0019",
+    "nombre": "BELLO HORIZONTE",
+    "nombre_norm": "bello horizonte",
+    "activo": 1
+  },
+  {
+    "id": 20,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0020",
+    "nombre": "COMPLEJO ARTESANAL ALTO SELVA ALEGRE",
+    "nombre_norm": "complejo artesanal alto selva alegre",
+    "activo": 1
+  },
+  {
+    "id": 21,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0021",
+    "nombre": "CRUCE DE CHILINA - AUIS",
+    "nombre_norm": "cruce de chilina - auis",
+    "activo": 1
+  },
+  {
+    "id": 22,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0022",
+    "nombre": "CRUCE DE CHILINA - COOP.",
+    "nombre_norm": "cruce de chilina - coop.",
+    "activo": 1
+  },
+  {
+    "id": 23,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0023",
+    "nombre": "EL GRAN CHAPARRAL",
+    "nombre_norm": "el gran chaparral",
+    "activo": 1
+  },
+  {
+    "id": 24,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0024",
+    "nombre": "EL HUARANGAL",
+    "nombre_norm": "el huarangal",
+    "activo": 1
+  },
+  {
+    "id": 25,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0025",
+    "nombre": "EL MIRADOR I ETAPA",
+    "nombre_norm": "el mirador i etapa",
+    "activo": 1
+  },
+  {
+    "id": 26,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0026",
+    "nombre": "EL MIRADOR II ETAPA",
+    "nombre_norm": "el mirador ii etapa",
+    "activo": 1
+  },
+  {
+    "id": 27,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0027",
+    "nombre": "ENACE",
+    "nombre_norm": "enace",
+    "activo": 1
+  },
+  {
+    "id": 28,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0028",
+    "nombre": "ENACE AMPLIACION",
+    "nombre_norm": "enace ampliacion",
+    "activo": 1
+  },
+  {
+    "id": 29,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0029",
+    "nombre": "ENATRU AREQUIPA",
+    "nombre_norm": "enatru arequipa",
+    "activo": 1
+  },
+  {
+    "id": 30,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0030",
+    "nombre": "EUCALIPTOS",
+    "nombre_norm": "eucaliptos",
+    "activo": 1
+  },
+  {
+    "id": 31,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0031",
+    "nombre": "GARCILAZO DE LA VEGA",
+    "nombre_norm": "garcilazo de la vega",
+    "activo": 1
+  },
+  {
+    "id": 32,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0032",
+    "nombre": "GRAFICOS",
+    "nombre_norm": "graficos",
+    "activo": 1
+  },
+  {
+    "id": 33,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0033",
+    "nombre": "HEROES CHAVIN DE HUANTAR",
+    "nombre_norm": "heroes chavin de huantar",
+    "activo": 1
+  },
+  {
+    "id": 34,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0034",
+    "nombre": "HUARANGAL AMPLIACION",
+    "nombre_norm": "huarangal ampliacion",
+    "activo": 1
+  },
+  {
+    "id": 35,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0035",
+    "nombre": "INDEPENDENCIA \"A\"",
+    "nombre_norm": "independencia \"a\"",
+    "activo": 1
+  },
+  {
+    "id": 36,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0036",
+    "nombre": "INDEPENDENCIA \"B\"",
+    "nombre_norm": "independencia \"b\"",
+    "activo": 1
+  },
+  {
+    "id": 37,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0037",
+    "nombre": "JAVIER HERAUD - AAHH",
+    "nombre_norm": "javier heraud - aahh",
+    "activo": 1
+  },
+  {
+    "id": 38,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0038",
+    "nombre": "JAVIER HERAUD - ASOC.",
+    "nombre_norm": "javier heraud - asoc.",
+    "activo": 1
+  },
+  {
+    "id": 39,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0039",
+    "nombre": "JUAN VELASCO ALVARADO \"A\"",
+    "nombre_norm": "juan velasco alvarado \"a\"",
+    "activo": 1
+  },
+  {
+    "id": 40,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0040",
+    "nombre": "JUAN VELASCO ALVARADO \"B\"",
+    "nombre_norm": "juan velasco alvarado \"b\"",
+    "activo": 1
+  },
+  {
+    "id": 41,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0041",
+    "nombre": "LA ESTRELLA",
+    "nombre_norm": "la estrella",
+    "activo": 1
+  },
+  {
+    "id": 42,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0042",
+    "nombre": "LAS CANTERAS",
+    "nombre_norm": "las canteras",
+    "activo": 1
+  },
+  {
+    "id": 43,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0043",
+    "nombre": "LEALTAD DEMOCRATICA",
+    "nombre_norm": "lealtad democratica",
+    "activo": 1
+  },
+  {
+    "id": 44,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0044",
+    "nombre": "LEONES DEL MISTI",
+    "nombre_norm": "leones del misti",
+    "activo": 1
+  },
+  {
+    "id": 45,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0045",
+    "nombre": "LUIS GORVENIA SAMAN",
+    "nombre_norm": "luis gorvenia saman",
+    "activo": 1
+  },
+  {
+    "id": 46,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0046",
+    "nombre": "MORRO DE ARICA",
+    "nombre_norm": "morro de arica",
+    "activo": 1
+  },
+  {
+    "id": 47,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0047",
+    "nombre": "NESTOR CACERES VELÁSQUEZ I",
+    "nombre_norm": "nestor caceres velásquez i",
+    "activo": 1
+  },
+  {
+    "id": 48,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0048",
+    "nombre": "NESTOR CACERES VELÁSQUEZ II",
+    "nombre_norm": "nestor caceres velásquez ii",
+    "activo": 1
+  },
+  {
+    "id": 49,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0049",
+    "nombre": "NUEVA VILLA ECOLOGICA",
+    "nombre_norm": "nueva villa ecologica",
+    "activo": 1
+  },
+  {
+    "id": 50,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0050",
+    "nombre": "PAMPA CHICA",
+    "nombre_norm": "pampa chica",
+    "activo": 1
+  },
+  {
+    "id": 51,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0052",
+    "nombre": "PORTALES DEL MIRADOR",
+    "nombre_norm": "portales del mirador",
+    "activo": 1
+  },
+  {
+    "id": 52,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0053",
+    "nombre": "PRIMERO DE ENERO",
+    "nombre_norm": "primero de enero",
+    "activo": 1
+  },
+  {
+    "id": 53,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0054",
+    "nombre": "RAMIRO PRIALET",
+    "nombre_norm": "ramiro prialet",
+    "activo": 1
+  },
+  {
+    "id": 54,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0055",
+    "nombre": "ROCAS DEL MIRADOR A.S.A.",
+    "nombre_norm": "rocas del mirador a.s.a.",
+    "activo": 1
+  },
+  {
+    "id": 55,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0056",
+    "nombre": "SAN HILARION",
+    "nombre_norm": "san hilarion",
+    "activo": 1
+  },
+  {
+    "id": 56,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0057",
+    "nombre": "SAN ISIDRO EL LABRADOR",
+    "nombre_norm": "san isidro el labrador",
+    "activo": 1
+  },
+  {
+    "id": 57,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0058",
+    "nombre": "SAN JOSE",
+    "nombre_norm": "san jose",
+    "activo": 1
+  },
+  {
+    "id": 58,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0059",
+    "nombre": "SAN LAZARO",
+    "nombre_norm": "san lazaro",
+    "activo": 1
+  },
+  {
+    "id": 59,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0060",
+    "nombre": "SAN LUIS",
+    "nombre_norm": "san luis",
+    "activo": 1
+  },
+  {
+    "id": 60,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0061",
+    "nombre": "SAN LUIS GONZAGA",
+    "nombre_norm": "san luis gonzaga",
+    "activo": 1
+  },
+  {
+    "id": 61,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0062",
+    "nombre": "SEÑOR DE LAS PIEDADES",
+    "nombre_norm": "señor de las piedades",
+    "activo": 1
+  },
+  {
+    "id": 62,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0063",
+    "nombre": "SOLIDARIDAD",
+    "nombre_norm": "solidaridad",
+    "activo": 1
+  },
+  {
+    "id": 63,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0064",
+    "nombre": "TRES BALCONES DEL MISTI",
+    "nombre_norm": "tres balcones del misti",
+    "activo": 1
+  },
+  {
+    "id": 64,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0065",
+    "nombre": "VILLA AREQUIPA",
+    "nombre_norm": "villa arequipa",
+    "activo": 1
+  },
+  {
+    "id": 65,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0066",
+    "nombre": "VILLA ASUNCION",
+    "nombre_norm": "villa asuncion",
+    "activo": 1
+  },
+  {
+    "id": 66,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0067",
+    "nombre": "VILLA CHACHAS",
+    "nombre_norm": "villa chachas",
+    "activo": 1
+  },
+  {
+    "id": 67,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0068",
+    "nombre": "VILLA CONFRATERNIDAD A",
+    "nombre_norm": "villa confraternidad a",
+    "activo": 1
+  },
+  {
+    "id": 68,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0069",
+    "nombre": "VILLA CONFRATERNIDAD B",
+    "nombre_norm": "villa confraternidad b",
+    "activo": 1
+  },
+  {
+    "id": 69,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0070",
+    "nombre": "VILLA CONFRATERNIDAD C",
+    "nombre_norm": "villa confraternidad c",
+    "activo": 1
+  },
+  {
+    "id": 70,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0071",
+    "nombre": "VILLA ECOLOGICA A",
+    "nombre_norm": "villa ecologica a",
+    "activo": 1
+  },
+  {
+    "id": 71,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0072",
+    "nombre": "VILLA ECOLOGICA B",
+    "nombre_norm": "villa ecologica b",
+    "activo": 1
+  },
+  {
+    "id": 72,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0073",
+    "nombre": "VILLA ECOLOGICA C",
+    "nombre_norm": "villa ecologica c",
+    "activo": 1
+  },
+  {
+    "id": 73,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0074",
+    "nombre": "VILLA ECOLOGICA D",
+    "nombre_norm": "villa ecologica d",
+    "activo": 1
+  },
+  {
+    "id": 74,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0075",
+    "nombre": "VILLA ECOLOGICA E",
+    "nombre_norm": "villa ecologica e",
+    "activo": 1
+  },
+  {
+    "id": 75,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0076",
+    "nombre": "VILLA EL CONQUISTADOR 1",
+    "nombre_norm": "villa el conquistador 1",
+    "activo": 1
+  },
+  {
+    "id": 76,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0077",
+    "nombre": "VILLA EL CONQUISTADOR 2",
+    "nombre_norm": "villa el conquistador 2",
+    "activo": 1
+  },
+  {
+    "id": 77,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0078",
+    "nombre": "VILLA EL MIRADOR",
+    "nombre_norm": "villa el mirador",
+    "activo": 1
+  },
+  {
+    "id": 78,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0079",
+    "nombre": "VILLA EL SALVADOR",
+    "nombre_norm": "villa el salvador",
+    "activo": 1
+  },
+  {
+    "id": 79,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0080",
+    "nombre": "VILLA EL SOL",
+    "nombre_norm": "villa el sol",
+    "activo": 1
+  },
+  {
+    "id": 80,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0081",
+    "nombre": "VILLA FLORIDA",
+    "nombre_norm": "villa florida",
+    "activo": 1
+  },
+  {
+    "id": 81,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0082",
+    "nombre": "VILLA INDEPENDIENTE",
+    "nombre_norm": "villa independiente",
+    "activo": 1
+  },
+  {
+    "id": 82,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0083",
+    "nombre": "VILLA MAGISTERIAL",
+    "nombre_norm": "villa magisterial",
+    "activo": 1
+  },
+  {
+    "id": 83,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0084",
+    "nombre": "VILLA PARAISITO",
+    "nombre_norm": "villa paraisito",
+    "activo": 1
+  },
+  {
+    "id": 84,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0085",
+    "nombre": "VILLA SAN PABLO",
+    "nombre_norm": "villa san pablo",
+    "activo": 1
+  },
+  {
+    "id": 85,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0086",
+    "nombre": "VILLA UNION",
+    "nombre_norm": "villa union",
+    "activo": 1
+  },
+  {
+    "id": 86,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0087",
+    "nombre": "VILLA VITARTE",
+    "nombre_norm": "villa vitarte",
+    "activo": 1
+  },
+  {
+    "id": 87,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0088",
+    "nombre": "VIRGEN DE CHAPI",
+    "nombre_norm": "virgen de chapi",
+    "activo": 1
+  },
+  {
+    "id": 88,
+    "ubigeo_codigo": "040102",
+    "codigo_sis": "0089",
+    "nombre": "VISTA ALEGRE",
+    "nombre_norm": "vista alegre",
+    "activo": 1
+  },
+  {
+    "id": 89,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0001",
+    "nombre": "11 DE MAYO",
+    "nombre_norm": "11 de mayo",
+    "activo": 1
+  },
+  {
+    "id": 90,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0002",
+    "nombre": "30 DE MARZO",
+    "nombre_norm": "30 de marzo",
+    "activo": 1
+  },
+  {
+    "id": 91,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0003",
+    "nombre": "ACEQUIA ALTA",
+    "nombre_norm": "acequia alta",
+    "activo": 1
+  },
+  {
+    "id": 92,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0004",
+    "nombre": "AMPLIACION LA TOMILLA",
+    "nombre_norm": "ampliacion la tomilla",
+    "activo": 1
+  },
+  {
+    "id": 93,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0005",
+    "nombre": "BUEN AMANECER",
+    "nombre_norm": "buen amanecer",
+    "activo": 1
+  },
+  {
+    "id": 94,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0006",
+    "nombre": "BUENOS AIRES",
+    "nombre_norm": "buenos aires",
+    "activo": 1
+  },
+  {
+    "id": 95,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0007",
+    "nombre": "CARMEN ALTO",
+    "nombre_norm": "carmen alto",
+    "activo": 1
+  },
+  {
+    "id": 96,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0008",
+    "nombre": "CERRITO SAN JACINTO",
+    "nombre_norm": "cerrito san jacinto",
+    "activo": 1
+  },
+  {
+    "id": 97,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0009",
+    "nombre": "COOPERATIVA TRABAJADORES DEL COLCA",
+    "nombre_norm": "cooperativa trabajadores del colca",
+    "activo": 1
+  },
+  {
+    "id": 98,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0010",
+    "nombre": "EMBAJADA DE JAPON",
+    "nombre_norm": "embajada de japon",
+    "activo": 1
+  },
+  {
+    "id": 99,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0011",
+    "nombre": "ENACE",
+    "nombre_norm": "enace",
+    "activo": 1
+  },
+  {
+    "id": 100,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0012",
+    "nombre": "FRANCISCO BOLOGNESI",
+    "nombre_norm": "francisco bolognesi",
+    "activo": 1
+  },
+  {
+    "id": 101,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0013",
+    "nombre": "FUNDO CABRERIAS",
+    "nombre_norm": "fundo cabrerias",
+    "activo": 1
+  },
+  {
+    "id": 102,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0014",
+    "nombre": "JOSE ABELARDO QUIÑONES",
+    "nombre_norm": "jose abelardo quiñones",
+    "activo": 1
+  },
+  {
+    "id": 103,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0015",
+    "nombre": "JOSE OLAYA ZONA A",
+    "nombre_norm": "jose olaya zona a",
+    "activo": 1
+  },
+  {
+    "id": 104,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0016",
+    "nombre": "JOSE OLAYA ZONA B",
+    "nombre_norm": "jose olaya zona b",
+    "activo": 1
+  },
+  {
+    "id": 105,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0017",
+    "nombre": "JUAN VELASCO ALVARADO",
+    "nombre_norm": "juan velasco alvarado",
+    "activo": 1
+  },
+  {
+    "id": 106,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0018",
+    "nombre": "LA TOMILLA",
+    "nombre_norm": "la tomilla",
+    "activo": 1
+  },
+  {
+    "id": 107,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0019",
+    "nombre": "LOS JAZMINES",
+    "nombre_norm": "los jazmines",
+    "activo": 1
+  },
+  {
+    "id": 108,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0020",
+    "nombre": "MICAELA BASTIDAS",
+    "nombre_norm": "micaela bastidas",
+    "activo": 1
+  },
+  {
+    "id": 109,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0021",
+    "nombre": "MUJERES CON ESPERANZA",
+    "nombre_norm": "mujeres con esperanza",
+    "activo": 1
+  },
+  {
+    "id": 110,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0022",
+    "nombre": "PIONEROS",
+    "nombre_norm": "pioneros",
+    "activo": 1
+  },
+  {
+    "id": 111,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0023",
+    "nombre": "PRIMERO DE JUNIO",
+    "nombre_norm": "primero de junio",
+    "activo": 1
+  },
+  {
+    "id": 112,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0024",
+    "nombre": "PUEBLO JOVEN CHARCANI",
+    "nombre_norm": "pueblo joven charcani",
+    "activo": 1
+  },
+  {
+    "id": 113,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0025",
+    "nombre": "PUEBLO TRADICIONAL CAYMA",
+    "nombre_norm": "pueblo tradicional cayma",
+    "activo": 1
+  },
+  {
+    "id": 114,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0026",
+    "nombre": "RAFEL BELAUNDE ZONA A",
+    "nombre_norm": "rafel belaunde zona a",
+    "activo": 1
+  },
+  {
+    "id": 115,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0027",
+    "nombre": "RAFEL BELAUNDE ZONA B",
+    "nombre_norm": "rafel belaunde zona b",
+    "activo": 1
+  },
+  {
+    "id": 116,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0028",
+    "nombre": "RAFEL BELAUNDE ZONA C",
+    "nombre_norm": "rafel belaunde zona c",
+    "activo": 1
+  },
+  {
+    "id": 117,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0029",
+    "nombre": "RESIDENCIA DE CAYMA",
+    "nombre_norm": "residencia de cayma",
+    "activo": 1
+  },
+  {
+    "id": 118,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0030",
+    "nombre": "SAN MARTIN DE PORRES",
+    "nombre_norm": "san martin de porres",
+    "activo": 1
+  },
+  {
+    "id": 119,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0031",
+    "nombre": "SANTA ROSA DE LIMA",
+    "nombre_norm": "santa rosa de lima",
+    "activo": 1
+  },
+  {
+    "id": 120,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0032",
+    "nombre": "SANTUARIO CHARCANI CHAPI CHICO",
+    "nombre_norm": "santuario charcani chapi chico",
+    "activo": 1
+  },
+  {
+    "id": 121,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0033",
+    "nombre": "SEÑOR DE LA CAÑA",
+    "nombre_norm": "señor de la caña",
+    "activo": 1
+  },
+  {
+    "id": 122,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0034",
+    "nombre": "SEÑOR DE LOS MILAGROS",
+    "nombre_norm": "señor de los milagros",
+    "activo": 1
+  },
+  {
+    "id": 123,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0035",
+    "nombre": "TRONCHADERO",
+    "nombre_norm": "tronchadero",
+    "activo": 1
+  },
+  {
+    "id": 124,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0036",
+    "nombre": "URBANIZACION LEON XIII",
+    "nombre_norm": "urbanizacion leon xiii",
+    "activo": 1
+  },
+  {
+    "id": 125,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0037",
+    "nombre": "VICTOR RAUL HAYA DE LA TORRE",
+    "nombre_norm": "victor raul haya de la torre",
+    "activo": 1
+  },
+  {
+    "id": 126,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0038",
+    "nombre": "VILLA EL MIRADOR",
+    "nombre_norm": "villa el mirador",
+    "activo": 1
+  },
+  {
+    "id": 127,
+    "ubigeo_codigo": "040103",
+    "codigo_sis": "0039",
+    "nombre": "VIRGEN DE CHAPI",
+    "nombre_norm": "virgen de chapi",
+    "activo": 1
+  },
+  {
+    "id": 128,
+    "ubigeo_codigo": "040101",
+    "codigo_sis": "0001",
+    "nombre": "CERCADO",
+    "nombre_norm": "cercado",
+    "activo": 1
+  },
+  {
+    "id": 129,
+    "ubigeo_codigo": "040101",
+    "codigo_sis": "0002",
+    "nombre": "COOP. UNIVERSITARIA",
+    "nombre_norm": "coop. universitaria",
+    "activo": 1
+  },
+  {
+    "id": 130,
+    "ubigeo_codigo": "040101",
+    "codigo_sis": "0003",
+    "nombre": "LA NEGRITA",
+    "nombre_norm": "la negrita",
+    "activo": 1
+  },
+  {
+    "id": 131,
+    "ubigeo_codigo": "040104",
+    "codigo_sis": "0001",
+    "nombre": "CERRO COLORADO",
+    "nombre_norm": "cerro colorado",
+    "activo": 1
+  },
+  {
+    "id": 132,
+    "ubigeo_codigo": "040104",
+    "codigo_sis": "0002",
+    "nombre": "CERRO VIEJO",
+    "nombre_norm": "cerro viejo",
+    "activo": 1
+  },
+  {
+    "id": 133,
+    "ubigeo_codigo": "040104",
+    "codigo_sis": "0003",
+    "nombre": "PACHACUTEC",
+    "nombre_norm": "pachacutec",
+    "activo": 1
+  },
+  {
+    "id": 134,
+    "ubigeo_codigo": "040105",
+    "codigo_sis": "0001",
+    "nombre": "CHARACATO",
+    "nombre_norm": "characato",
+    "activo": 1
+  },
+  {
+    "id": 135,
+    "ubigeo_codigo": "040106",
+    "codigo_sis": "0001",
+    "nombre": "CHIGUATA",
+    "nombre_norm": "chiguata",
+    "activo": 1
+  },
+  {
+    "id": 136,
+    "ubigeo_codigo": "040107",
+    "codigo_sis": "0001",
+    "nombre": "HUNTER",
+    "nombre_norm": "hunter",
+    "activo": 1
+  },
+  {
+    "id": 137,
+    "ubigeo_codigo": "040107",
+    "codigo_sis": "0002",
+    "nombre": "PAMPAS DEL CUZCO",
+    "nombre_norm": "pampas del cuzco",
+    "activo": 1
+  },
+  {
+    "id": 138,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0001",
+    "nombre": "13 DE ENERO",
+    "nombre_norm": "13 de enero",
+    "activo": 1
+  },
+  {
+    "id": 139,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0002",
+    "nombre": "3 DE OCTUBRE",
+    "nombre_norm": "3 de octubre",
+    "activo": 1
+  },
+  {
+    "id": 140,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0003",
+    "nombre": "AGRICULTURA",
+    "nombre_norm": "agricultura",
+    "activo": 1
+  },
+  {
+    "id": 141,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0004",
+    "nombre": "ALAMEDA DEL SOL",
+    "nombre_norm": "alameda del sol",
+    "activo": 1
+  },
+  {
+    "id": 142,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0005",
+    "nombre": "ALAMEDA DOLORES",
+    "nombre_norm": "alameda dolores",
+    "activo": 1
+  },
+  {
+    "id": 143,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0006",
+    "nombre": "ALAS DEL SUR",
+    "nombre_norm": "alas del sur",
+    "activo": 1
+  },
+  {
+    "id": 144,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0007",
+    "nombre": "ALBORADA",
+    "nombre_norm": "alborada",
+    "activo": 1
+  },
+  {
+    "id": 145,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0008",
+    "nombre": "ALTO DE LA LUNA",
+    "nombre_norm": "alto de la luna",
+    "activo": 1
+  },
+  {
+    "id": 146,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0009",
+    "nombre": "AMAUTA",
+    "nombre_norm": "amauta",
+    "activo": 1
+  },
+  {
+    "id": 147,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0010",
+    "nombre": "ASOCIACION HUERTAS",
+    "nombre_norm": "asociacion huertas",
+    "activo": 1
+  },
+  {
+    "id": 148,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0011",
+    "nombre": "BANCARIOS",
+    "nombre_norm": "bancarios",
+    "activo": 1
+  },
+  {
+    "id": 149,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0012",
+    "nombre": "CALLEJON",
+    "nombre_norm": "callejon",
+    "activo": 1
+  },
+  {
+    "id": 150,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0013",
+    "nombre": "CALLEJON TASAHUAYO",
+    "nombre_norm": "callejon tasahuayo",
+    "activo": 1
+  },
+  {
+    "id": 151,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0014",
+    "nombre": "CAMINO REAL",
+    "nombre_norm": "camino real",
+    "activo": 1
+  },
+  {
+    "id": 152,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0015",
+    "nombre": "CASA BELLA",
+    "nombre_norm": "casa bella",
+    "activo": 1
+  },
+  {
+    "id": 153,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0016",
+    "nombre": "CASA BLANCA",
+    "nombre_norm": "casa blanca",
+    "activo": 1
+  },
+  {
+    "id": 154,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0017",
+    "nombre": "CASAPIA",
+    "nombre_norm": "casapia",
+    "activo": 1
+  },
+  {
+    "id": 155,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0018",
+    "nombre": "COLON",
+    "nombre_norm": "colon",
+    "activo": 1
+  },
+  {
+    "id": 156,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0019",
+    "nombre": "COOP. ALCIDES CARRION",
+    "nombre_norm": "coop. alcides carrion",
+    "activo": 1
+  },
+  {
+    "id": 157,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0020",
+    "nombre": "COOP. CORAZON DE MARIA",
+    "nombre_norm": "coop. corazon de maria",
+    "activo": 1
+  },
+  {
+    "id": 158,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0021",
+    "nombre": "COOP. MAGISTRAL SAN MANUEL",
+    "nombre_norm": "coop. magistral san manuel",
+    "activo": 1
+  },
+  {
+    "id": 159,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0022",
+    "nombre": "COOP. MANUEL PRADO",
+    "nombre_norm": "coop. manuel prado",
+    "activo": 1
+  },
+  {
+    "id": 160,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0023",
+    "nombre": "DUEÑOS DEL SUR",
+    "nombre_norm": "dueños del sur",
+    "activo": 1
+  },
+  {
+    "id": 161,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0024",
+    "nombre": "EL MORAL",
+    "nombre_norm": "el moral",
+    "activo": 1
+  },
+  {
+    "id": 162,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0025",
+    "nombre": "FUNDO LOS HUERTOS",
+    "nombre_norm": "fundo los huertos",
+    "activo": 1
+  },
+  {
+    "id": 163,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0026",
+    "nombre": "JACINTOS",
+    "nombre_norm": "jacintos",
+    "activo": 1
+  },
+  {
+    "id": 164,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0027",
+    "nombre": "JARDINES DE LA FLORIDA",
+    "nombre_norm": "jardines de la florida",
+    "activo": 1
+  },
+  {
+    "id": 165,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0028",
+    "nombre": "JUAN PABLO VIZCARDO Y GUZMAN",
+    "nombre_norm": "juan pablo vizcardo y guzman",
+    "activo": 1
+  },
+  {
+    "id": 166,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0029",
+    "nombre": "KENNEDY",
+    "nombre_norm": "kennedy",
+    "activo": 1
+  },
+  {
+    "id": 167,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0030",
+    "nombre": "LA BREÑA",
+    "nombre_norm": "la breña",
+    "activo": 1
+  },
+  {
+    "id": 168,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0031",
+    "nombre": "LA CAMPIÑA",
+    "nombre_norm": "la campiña",
+    "activo": 1
+  },
+  {
+    "id": 169,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0032",
+    "nombre": "LA CANTUTA",
+    "nombre_norm": "la cantuta",
+    "activo": 1
+  },
+  {
+    "id": 170,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0033",
+    "nombre": "LA CASTRO",
+    "nombre_norm": "la castro",
+    "activo": 1
+  },
+  {
+    "id": 171,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0034",
+    "nombre": "LA ESPERANZA (ADEPA)",
+    "nombre_norm": "la esperanza (adepa)",
+    "activo": 1
+  },
+  {
+    "id": 172,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0035",
+    "nombre": "LA ESTRELLA",
+    "nombre_norm": "la estrella",
+    "activo": 1
+  },
+  {
+    "id": 173,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0036",
+    "nombre": "LA FLORIDA",
+    "nombre_norm": "la florida",
+    "activo": 1
+  },
+  {
+    "id": 174,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0037",
+    "nombre": "LA MELGAR",
+    "nombre_norm": "la melgar",
+    "activo": 1
+  },
+  {
+    "id": 175,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0038",
+    "nombre": "LA MELGARIANA",
+    "nombre_norm": "la melgariana",
+    "activo": 1
+  },
+  {
+    "id": 176,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0039",
+    "nombre": "LA UNION",
+    "nombre_norm": "la union",
+    "activo": 1
+  },
+  {
+    "id": 177,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0040",
+    "nombre": "LAMBRAMANI",
+    "nombre_norm": "lambramani",
+    "activo": 1
+  },
+  {
+    "id": 178,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0041",
+    "nombre": "LAS BEGONIAS",
+    "nombre_norm": "las begonias",
+    "activo": 1
+  },
+  {
+    "id": 179,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0042",
+    "nombre": "LAS ESMERALDAS",
+    "nombre_norm": "las esmeraldas",
+    "activo": 1
+  },
+  {
+    "id": 180,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0043",
+    "nombre": "LAS MORAS",
+    "nombre_norm": "las moras",
+    "activo": 1
+  },
+  {
+    "id": 181,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0044",
+    "nombre": "LOS CARDENALES",
+    "nombre_norm": "los cardenales",
+    "activo": 1
+  },
+  {
+    "id": 182,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0045",
+    "nombre": "LOS CISNES",
+    "nombre_norm": "los cisnes",
+    "activo": 1
+  },
+  {
+    "id": 183,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0046",
+    "nombre": "LOS CONQUISTADORES",
+    "nombre_norm": "los conquistadores",
+    "activo": 1
+  },
+  {
+    "id": 184,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0047",
+    "nombre": "LOS HERALDOS",
+    "nombre_norm": "los heraldos",
+    "activo": 1
+  },
+  {
+    "id": 185,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0048",
+    "nombre": "LOS LAURELES",
+    "nombre_norm": "los laureles",
+    "activo": 1
+  },
+  {
+    "id": 186,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0049",
+    "nombre": "LOS NARANJOS",
+    "nombre_norm": "los naranjos",
+    "activo": 1
+  },
+  {
+    "id": 187,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0050",
+    "nombre": "LOS OLMOS - CEDRO DE VILLA",
+    "nombre_norm": "los olmos - cedro de villa",
+    "activo": 1
+  },
+  {
+    "id": 188,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0051",
+    "nombre": "LOS SAUCES",
+    "nombre_norm": "los sauces",
+    "activo": 1
+  },
+  {
+    "id": 189,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0052",
+    "nombre": "MALECON PAUCARPATA",
+    "nombre_norm": "malecon paucarpata",
+    "activo": 1
+  },
+  {
+    "id": 190,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0053",
+    "nombre": "MI PERU",
+    "nombre_norm": "mi peru",
+    "activo": 1
+  },
+  {
+    "id": 191,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0054",
+    "nombre": "MOLLARI",
+    "nombre_norm": "mollari",
+    "activo": 1
+  },
+  {
+    "id": 192,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0055",
+    "nombre": "MONTERREY",
+    "nombre_norm": "monterrey",
+    "activo": 1
+  },
+  {
+    "id": 193,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0056",
+    "nombre": "MONTERRICO",
+    "nombre_norm": "monterrico",
+    "activo": 1
+  },
+  {
+    "id": 194,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0057",
+    "nombre": "PARAISO",
+    "nombre_norm": "paraiso",
+    "activo": 1
+  },
+  {
+    "id": 195,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0058",
+    "nombre": "PASAJE TASAHUAYO",
+    "nombre_norm": "pasaje tasahuayo",
+    "activo": 1
+  },
+  {
+    "id": 196,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0059",
+    "nombre": "PEDRO DIEZ CANSECO",
+    "nombre_norm": "pedro diez canseco",
+    "activo": 1
+  },
+  {
+    "id": 197,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0060",
+    "nombre": "PEDRO P. DIAZ",
+    "nombre_norm": "pedro p. diaz",
+    "activo": 1
+  },
+  {
+    "id": 198,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0061",
+    "nombre": "PLAZA REAL - LA ENCALADA",
+    "nombre_norm": "plaza real - la encalada",
+    "activo": 1
+  },
+  {
+    "id": 199,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0062",
+    "nombre": "PRIMAVERA",
+    "nombre_norm": "primavera",
+    "activo": 1
+  },
+  {
+    "id": 200,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0063",
+    "nombre": "QUINTA LOS NARANJOS",
+    "nombre_norm": "quinta los naranjos",
+    "activo": 1
+  },
+  {
+    "id": 201,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0064",
+    "nombre": "QUINTA LOURDES",
+    "nombre_norm": "quinta lourdes",
+    "activo": 1
+  },
+  {
+    "id": 202,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0065",
+    "nombre": "QUINTA SAN JOSE",
+    "nombre_norm": "quinta san jose",
+    "activo": 1
+  },
+  {
+    "id": 203,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0066",
+    "nombre": "QUINTA SANTA MARIA",
+    "nombre_norm": "quinta santa maria",
+    "activo": 1
+  },
+  {
+    "id": 204,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0067",
+    "nombre": "QUINTA TRISTAN",
+    "nombre_norm": "quinta tristan",
+    "activo": 1
+  },
+  {
+    "id": 205,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0068",
+    "nombre": "RESIDENCIAL LOS QUINTALES",
+    "nombre_norm": "residencial los quintales",
+    "activo": 1
+  },
+  {
+    "id": 206,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0069",
+    "nombre": "RESIDENCIAL MONTERRICO",
+    "nombre_norm": "residencial monterrico",
+    "activo": 1
+  },
+  {
+    "id": 207,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0070",
+    "nombre": "ROSARIO",
+    "nombre_norm": "rosario",
+    "activo": 1
+  },
+  {
+    "id": 208,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0071",
+    "nombre": "SAN EULALIO",
+    "nombre_norm": "san eulalio",
+    "activo": 1
+  },
+  {
+    "id": 209,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0072",
+    "nombre": "SANTA CATALINA",
+    "nombre_norm": "santa catalina",
+    "activo": 1
+  },
+  {
+    "id": 210,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0073",
+    "nombre": "SANTA ELSA",
+    "nombre_norm": "santa elsa",
+    "activo": 1
+  },
+  {
+    "id": 211,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0074",
+    "nombre": "SANTA LUCIA",
+    "nombre_norm": "santa lucia",
+    "activo": 1
+  },
+  {
+    "id": 212,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0075",
+    "nombre": "SANTA LUISA",
+    "nombre_norm": "santa luisa",
+    "activo": 1
+  },
+  {
+    "id": 213,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0076",
+    "nombre": "SANTA MARIA LAMBRAMANI",
+    "nombre_norm": "santa maria lambramani",
+    "activo": 1
+  },
+  {
+    "id": 214,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0077",
+    "nombre": "SANTA MONICA",
+    "nombre_norm": "santa monica",
+    "activo": 1
+  },
+  {
+    "id": 215,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0078",
+    "nombre": "SANTO DOMINGO",
+    "nombre_norm": "santo domingo",
+    "activo": 1
+  },
+  {
+    "id": 216,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0079",
+    "nombre": "SIMON BOLIVAR",
+    "nombre_norm": "simon bolivar",
+    "activo": 1
+  },
+  {
+    "id": 217,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0080",
+    "nombre": "SOLAR DEL BOSQUE",
+    "nombre_norm": "solar del bosque",
+    "activo": 1
+  },
+  {
+    "id": 218,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0081",
+    "nombre": "TASAHUAYO",
+    "nombre_norm": "tasahuayo",
+    "activo": 1
+  },
+  {
+    "id": 219,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0082",
+    "nombre": "URISH NEISSER",
+    "nombre_norm": "urish neisser",
+    "activo": 1
+  },
+  {
+    "id": 220,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0083",
+    "nombre": "VILLA AMERICA",
+    "nombre_norm": "villa america",
+    "activo": 1
+  },
+  {
+    "id": 221,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0084",
+    "nombre": "VILLA DOLORES",
+    "nombre_norm": "villa dolores",
+    "activo": 1
+  },
+  {
+    "id": 222,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0085",
+    "nombre": "VILLA FAP",
+    "nombre_norm": "villa fap",
+    "activo": 1
+  },
+  {
+    "id": 223,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0086",
+    "nombre": "VILLA JABIRU",
+    "nombre_norm": "villa jabiru",
+    "activo": 1
+  },
+  {
+    "id": 224,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0087",
+    "nombre": "VILLA LOS FRANCOS",
+    "nombre_norm": "villa los francos",
+    "activo": 1
+  },
+  {
+    "id": 225,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0088",
+    "nombre": "VILLA RESIDENCIAL AURORA",
+    "nombre_norm": "villa residencial aurora",
+    "activo": 1
+  },
+  {
+    "id": 226,
+    "ubigeo_codigo": "040129",
+    "codigo_sis": "0089",
+    "nombre": "VINATEA REYNOSO",
+    "nombre_norm": "vinatea reynoso",
+    "activo": 1
+  },
+  {
+    "id": 227,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0001",
+    "nombre": "BARRIOS ALTOS",
+    "nombre_norm": "barrios altos",
+    "activo": 1
+  },
+  {
+    "id": 228,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0002",
+    "nombre": "BASE AEREA",
+    "nombre_norm": "base aerea",
+    "activo": 1
+  },
+  {
+    "id": 229,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0003",
+    "nombre": "BENITO LAZO",
+    "nombre_norm": "benito lazo",
+    "activo": 1
+  },
+  {
+    "id": 230,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0004",
+    "nombre": "CRISTO REY",
+    "nombre_norm": "cristo rey",
+    "activo": 1
+  },
+  {
+    "id": 231,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0005",
+    "nombre": "CUESTA DE GALLINAZOS",
+    "nombre_norm": "cuesta de gallinazos",
+    "activo": 1
+  },
+  {
+    "id": 232,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0006",
+    "nombre": "EL PARAISO",
+    "nombre_norm": "el paraiso",
+    "activo": 1
+  },
+  {
+    "id": 233,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0007",
+    "nombre": "EL TRIUNFO CRUCE LA JOYA",
+    "nombre_norm": "el triunfo cruce la joya",
+    "activo": 1
+  },
+  {
+    "id": 234,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0008",
+    "nombre": "EL TRIUNFO II",
+    "nombre_norm": "el triunfo ii",
+    "activo": 1
+  },
+  {
+    "id": 235,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0009",
+    "nombre": "FILTRACIONES",
+    "nombre_norm": "filtraciones",
+    "activo": 1
+  },
+  {
+    "id": 236,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0010",
+    "nombre": "HEROES ANONIMOS",
+    "nombre_norm": "heroes anonimos",
+    "activo": 1
+  },
+  {
+    "id": 237,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0011",
+    "nombre": "KILOMETRO 48",
+    "nombre_norm": "kilometro 48",
+    "activo": 1
+  },
+  {
+    "id": 238,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0012",
+    "nombre": "LA CANO",
+    "nombre_norm": "la cano",
+    "activo": 1
+  },
+  {
+    "id": 239,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0013",
+    "nombre": "LA CURVA",
+    "nombre_norm": "la curva",
+    "activo": 1
+  },
+  {
+    "id": 240,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0014",
+    "nombre": "LA ESTRELLA",
+    "nombre_norm": "la estrella",
+    "activo": 1
+  },
+  {
+    "id": 241,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0015",
+    "nombre": "LA FLORIDA",
+    "nombre_norm": "la florida",
+    "activo": 1
+  },
+  {
+    "id": 242,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0016",
+    "nombre": "LA GRANJA",
+    "nombre_norm": "la granja",
+    "activo": 1
+  },
+  {
+    "id": 243,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0017",
+    "nombre": "LA VICTORIA",
+    "nombre_norm": "la victoria",
+    "activo": 1
+  },
+  {
+    "id": 244,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0018",
+    "nombre": "LA VICTORIA II",
+    "nombre_norm": "la victoria ii",
+    "activo": 1
+  },
+  {
+    "id": 245,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0019",
+    "nombre": "LAS DUNAS",
+    "nombre_norm": "las dunas",
+    "activo": 1
+  },
+  {
+    "id": 246,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0020",
+    "nombre": "LAS PALMERAS",
+    "nombre_norm": "las palmeras",
+    "activo": 1
+  },
+  {
+    "id": 247,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0021",
+    "nombre": "LATERAL 1",
+    "nombre_norm": "lateral 1",
+    "activo": 1
+  },
+  {
+    "id": 248,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0022",
+    "nombre": "LATERAL 2",
+    "nombre_norm": "lateral 2",
+    "activo": 1
+  },
+  {
+    "id": 249,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0023",
+    "nombre": "LATERAL 3",
+    "nombre_norm": "lateral 3",
+    "activo": 1
+  },
+  {
+    "id": 250,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0024",
+    "nombre": "LATERAL 4",
+    "nombre_norm": "lateral 4",
+    "activo": 1
+  },
+  {
+    "id": 251,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0025",
+    "nombre": "LATERAL 5",
+    "nombre_norm": "lateral 5",
+    "activo": 1
+  },
+  {
+    "id": 252,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0026",
+    "nombre": "LATERAL 6",
+    "nombre_norm": "lateral 6",
+    "activo": 1
+  },
+  {
+    "id": 253,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0027",
+    "nombre": "LATERAL 7",
+    "nombre_norm": "lateral 7",
+    "activo": 1
+  },
+  {
+    "id": 254,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0028",
+    "nombre": "LATERAL 8",
+    "nombre_norm": "lateral 8",
+    "activo": 1
+  },
+  {
+    "id": 255,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0029",
+    "nombre": "LECHE GLORIA",
+    "nombre_norm": "leche gloria",
+    "activo": 1
+  },
+  {
+    "id": 256,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0030",
+    "nombre": "LOS GIRASOLES",
+    "nombre_norm": "los girasoles",
+    "activo": 1
+  },
+  {
+    "id": 257,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0031",
+    "nombre": "LOS LAURELES",
+    "nombre_norm": "los laureles",
+    "activo": 1
+  },
+  {
+    "id": 258,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0032",
+    "nombre": "LOS MEDANOS",
+    "nombre_norm": "los medanos",
+    "activo": 1
+  },
+  {
+    "id": 259,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0033",
+    "nombre": "LOS MILAGROS",
+    "nombre_norm": "los milagros",
+    "activo": 1
+  },
+  {
+    "id": 260,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0034",
+    "nombre": "LOS PATRIOTAS",
+    "nombre_norm": "los patriotas",
+    "activo": 1
+  },
+  {
+    "id": 261,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0035",
+    "nombre": "LOS ROSALES",
+    "nombre_norm": "los rosales",
+    "activo": 1
+  },
+  {
+    "id": 262,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0036",
+    "nombre": "MARKO JARA",
+    "nombre_norm": "marko jara",
+    "activo": 1
+  },
+  {
+    "id": 263,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0037",
+    "nombre": "MI BUEN JESUS",
+    "nombre_norm": "mi buen jesus",
+    "activo": 1
+  },
+  {
+    "id": 264,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0038",
+    "nombre": "MIRADOR EL TRIUNFO",
+    "nombre_norm": "mirador el triunfo",
+    "activo": 1
+  },
+  {
+    "id": 265,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0039",
+    "nombre": "MIRADOR LA VICTORIA",
+    "nombre_norm": "mirador la victoria",
+    "activo": 1
+  },
+  {
+    "id": 266,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0040",
+    "nombre": "PALCA",
+    "nombre_norm": "palca",
+    "activo": 1
+  },
+  {
+    "id": 267,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0041",
+    "nombre": "PRIMAVERA",
+    "nombre_norm": "primavera",
+    "activo": 1
+  },
+  {
+    "id": 268,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0042",
+    "nombre": "PUEBLO LIBRE",
+    "nombre_norm": "pueblo libre",
+    "activo": 1
+  },
+  {
+    "id": 269,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0043",
+    "nombre": "PUEBLO TRADICIONAL LA JOYA",
+    "nombre_norm": "pueblo tradicional la joya",
+    "activo": 1
+  },
+  {
+    "id": 270,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0044",
+    "nombre": "SAN CAMILO",
+    "nombre_norm": "san camilo",
+    "activo": 1
+  },
+  {
+    "id": 271,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0045",
+    "nombre": "SAN ISIDRO",
+    "nombre_norm": "san isidro",
+    "activo": 1
+  },
+  {
+    "id": 272,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0046",
+    "nombre": "SAN JOSE",
+    "nombre_norm": "san jose",
+    "activo": 1
+  },
+  {
+    "id": 273,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0047",
+    "nombre": "SAN PEDRO",
+    "nombre_norm": "san pedro",
+    "activo": 1
+  },
+  {
+    "id": 274,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0048",
+    "nombre": "SAN PEDRO Y SAN PABLO",
+    "nombre_norm": "san pedro y san pablo",
+    "activo": 1
+  },
+  {
+    "id": 275,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0049",
+    "nombre": "VILLA EL SALVADOR",
+    "nombre_norm": "villa el salvador",
+    "activo": 1
+  },
+  {
+    "id": 276,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0050",
+    "nombre": "VILLA LA JOYA",
+    "nombre_norm": "villa la joya",
+    "activo": 1
+  },
+  {
+    "id": 277,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0051",
+    "nombre": "VILLA SAN JUAN",
+    "nombre_norm": "villa san juan",
+    "activo": 1
+  },
+  {
+    "id": 278,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0052",
+    "nombre": "VITOR",
+    "nombre_norm": "vitor",
+    "activo": 1
+  },
+  {
+    "id": 279,
+    "ubigeo_codigo": "040108",
+    "codigo_sis": "0053",
+    "nombre": "YURAMAYO",
+    "nombre_norm": "yuramayo",
+    "activo": 1
+  },
+  {
+    "id": 280,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0001",
+    "nombre": "9 DE OCTUBRE",
+    "nombre_norm": "9 de octubre",
+    "activo": 1
+  },
+  {
+    "id": 281,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0002",
+    "nombre": "ALTO PERU",
+    "nombre_norm": "alto peru",
+    "activo": 1
+  },
+  {
+    "id": 282,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0003",
+    "nombre": "ALTO SAN MARTIN",
+    "nombre_norm": "alto san martin",
+    "activo": 1
+  },
+  {
+    "id": 283,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0004",
+    "nombre": "ARTURO VILLEGAS",
+    "nombre_norm": "arturo villegas",
+    "activo": 1
+  },
+  {
+    "id": 284,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0005",
+    "nombre": "ATALAYA",
+    "nombre_norm": "atalaya",
+    "activo": 1
+  },
+  {
+    "id": 285,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0006",
+    "nombre": "BERLIN",
+    "nombre_norm": "berlin",
+    "activo": 1
+  },
+  {
+    "id": 286,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0007",
+    "nombre": "BUEN PASTOR",
+    "nombre_norm": "buen pastor",
+    "activo": 1
+  },
+  {
+    "id": 287,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0008",
+    "nombre": "BUENA VISTA",
+    "nombre_norm": "buena vista",
+    "activo": 1
+  },
+  {
+    "id": 288,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0009",
+    "nombre": "CASUARINAS",
+    "nombre_norm": "casuarinas",
+    "activo": 1
+  },
+  {
+    "id": 289,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0010",
+    "nombre": "CERRITO BELEN",
+    "nombre_norm": "cerrito belen",
+    "activo": 1
+  },
+  {
+    "id": 290,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0011",
+    "nombre": "CHACHANI",
+    "nombre_norm": "chachani",
+    "activo": 1
+  },
+  {
+    "id": 291,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0012",
+    "nombre": "CHAPARRAL",
+    "nombre_norm": "chaparral",
+    "activo": 1
+  },
+  {
+    "id": 292,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0013",
+    "nombre": "COMANDANTE CANGA",
+    "nombre_norm": "comandante canga",
+    "activo": 1
+  },
+  {
+    "id": 293,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0014",
+    "nombre": "CRISTOBAL COLON",
+    "nombre_norm": "cristobal colon",
+    "activo": 1
+  },
+  {
+    "id": 294,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0015",
+    "nombre": "FRANCISCO MOSTAJO",
+    "nombre_norm": "francisco mostajo",
+    "activo": 1
+  },
+  {
+    "id": 295,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0016",
+    "nombre": "GARCILAZO DE LA VEGA",
+    "nombre_norm": "garcilazo de la vega",
+    "activo": 1
+  },
+  {
+    "id": 296,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0017",
+    "nombre": "GOLGOTA",
+    "nombre_norm": "golgota",
+    "activo": 1
+  },
+  {
+    "id": 297,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0018",
+    "nombre": "HEROES DEL CENEPA",
+    "nombre_norm": "heroes del cenepa",
+    "activo": 1
+  },
+  {
+    "id": 298,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0019",
+    "nombre": "HUASCAR",
+    "nombre_norm": "huascar",
+    "activo": 1
+  },
+  {
+    "id": 299,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0020",
+    "nombre": "ISLA MELGAR",
+    "nombre_norm": "isla melgar",
+    "activo": 1
+  },
+  {
+    "id": 300,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0021",
+    "nombre": "JERUSALEN",
+    "nombre_norm": "jerusalen",
+    "activo": 1
+  },
+  {
+    "id": 301,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0022",
+    "nombre": "JOSE CARLOS MARIATEGUI",
+    "nombre_norm": "jose carlos mariategui",
+    "activo": 1
+  },
+  {
+    "id": 302,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0023",
+    "nombre": "JOSE MARIA ARGUEDAS",
+    "nombre_norm": "jose maria arguedas",
+    "activo": 1
+  },
+  {
+    "id": 303,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0024",
+    "nombre": "LA RINCONADA",
+    "nombre_norm": "la rinconada",
+    "activo": 1
+  },
+  {
+    "id": 304,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0025",
+    "nombre": "LAS AMERICAS",
+    "nombre_norm": "las americas",
+    "activo": 1
+  },
+  {
+    "id": 305,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0026",
+    "nombre": "LAS DALIAS",
+    "nombre_norm": "las dalias",
+    "activo": 1
+  },
+  {
+    "id": 306,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0027",
+    "nombre": "LAS ROCAS",
+    "nombre_norm": "las rocas",
+    "activo": 1
+  },
+  {
+    "id": 307,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0028",
+    "nombre": "LOS ANGELES",
+    "nombre_norm": "los angeles",
+    "activo": 1
+  },
+  {
+    "id": 308,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0029",
+    "nombre": "LOS CEDROS",
+    "nombre_norm": "los cedros",
+    "activo": 1
+  },
+  {
+    "id": 309,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0030",
+    "nombre": "LOS CLAVELES",
+    "nombre_norm": "los claveles",
+    "activo": 1
+  },
+  {
+    "id": 310,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0031",
+    "nombre": "LOS GERANIOS",
+    "nombre_norm": "los geranios",
+    "activo": 1
+  },
+  {
+    "id": 311,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0032",
+    "nombre": "LOS OLIVOS",
+    "nombre_norm": "los olivos",
+    "activo": 1
+  },
+  {
+    "id": 312,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0033",
+    "nombre": "LOS PINOS",
+    "nombre_norm": "los pinos",
+    "activo": 1
+  },
+  {
+    "id": 313,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0034",
+    "nombre": "LOS ROSALES",
+    "nombre_norm": "los rosales",
+    "activo": 1
+  },
+  {
+    "id": 314,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0035",
+    "nombre": "MARIA NIEVES Y BUSTAMANTE",
+    "nombre_norm": "maria nieves y bustamante",
+    "activo": 1
+  },
+  {
+    "id": 315,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0036",
+    "nombre": "MARIANO BUSTAMANTE",
+    "nombre_norm": "mariano bustamante",
+    "activo": 1
+  },
+  {
+    "id": 316,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0037",
+    "nombre": "MIRADOR",
+    "nombre_norm": "mirador",
+    "activo": 1
+  },
+  {
+    "id": 317,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0038",
+    "nombre": "MONTESORI",
+    "nombre_norm": "montesori",
+    "activo": 1
+  },
+  {
+    "id": 318,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0039",
+    "nombre": "NICOLAS DE PIEROLA",
+    "nombre_norm": "nicolas de pierola",
+    "activo": 1
+  },
+  {
+    "id": 319,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0040",
+    "nombre": "NUEVO AMANECER",
+    "nombre_norm": "nuevo amanecer",
+    "activo": 1
+  },
+  {
+    "id": 320,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0041",
+    "nombre": "NUEVO ISRAEL",
+    "nombre_norm": "nuevo israel",
+    "activo": 1
+  },
+  {
+    "id": 321,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0042",
+    "nombre": "NUEVO MILENIO",
+    "nombre_norm": "nuevo milenio",
+    "activo": 1
+  },
+  {
+    "id": 322,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0043",
+    "nombre": "OLIMPICA",
+    "nombre_norm": "olimpica",
+    "activo": 1
+  },
+  {
+    "id": 323,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0044",
+    "nombre": "PASAJE ATAHUALPA",
+    "nombre_norm": "pasaje atahualpa",
+    "activo": 1
+  },
+  {
+    "id": 324,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0045",
+    "nombre": "PASAJE BELEN",
+    "nombre_norm": "pasaje belen",
+    "activo": 1
+  },
+  {
+    "id": 325,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0046",
+    "nombre": "PASEO AREQUIPA",
+    "nombre_norm": "paseo arequipa",
+    "activo": 1
+  },
+  {
+    "id": 326,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0047",
+    "nombre": "PUEBLO LIBRE",
+    "nombre_norm": "pueblo libre",
+    "activo": 1
+  },
+  {
+    "id": 327,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0048",
+    "nombre": "REPUBLICA DE CHILE",
+    "nombre_norm": "republica de chile",
+    "activo": 1
+  },
+  {
+    "id": 328,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0049",
+    "nombre": "REVOLUCION PERUANA",
+    "nombre_norm": "revolucion peruana",
+    "activo": 1
+  },
+  {
+    "id": 329,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0050",
+    "nombre": "ROSASPATA",
+    "nombre_norm": "rosaspata",
+    "activo": 1
+  },
+  {
+    "id": 330,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0051",
+    "nombre": "SAN ANDRES",
+    "nombre_norm": "san andres",
+    "activo": 1
+  },
+  {
+    "id": 331,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0052",
+    "nombre": "SAN CRISTOBAL",
+    "nombre_norm": "san cristobal",
+    "activo": 1
+  },
+  {
+    "id": 332,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0053",
+    "nombre": "SAN FRANCISCO",
+    "nombre_norm": "san francisco",
+    "activo": 1
+  },
+  {
+    "id": 333,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0054",
+    "nombre": "SAN JERONIMO",
+    "nombre_norm": "san jeronimo",
+    "activo": 1
+  },
+  {
+    "id": 334,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0055",
+    "nombre": "SAN MIGUEL",
+    "nombre_norm": "san miguel",
+    "activo": 1
+  },
+  {
+    "id": 335,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0056",
+    "nombre": "SAN VALENTIN",
+    "nombre_norm": "san valentin",
+    "activo": 1
+  },
+  {
+    "id": 336,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0057",
+    "nombre": "SANTO DOMINGO",
+    "nombre_norm": "santo domingo",
+    "activo": 1
+  },
+  {
+    "id": 337,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0058",
+    "nombre": "SEÑOR DE HUANCA",
+    "nombre_norm": "señor de huanca",
+    "activo": 1
+  },
+  {
+    "id": 338,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0059",
+    "nombre": "SEÑOR DE LOS MILAGROS",
+    "nombre_norm": "señor de los milagros",
+    "activo": 1
+  },
+  {
+    "id": 339,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0060",
+    "nombre": "SUDAMERICA",
+    "nombre_norm": "sudamerica",
+    "activo": 1
+  },
+  {
+    "id": 340,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0061",
+    "nombre": "VILLA MARIA DEL TRIUNFO",
+    "nombre_norm": "villa maria del triunfo",
+    "activo": 1
+  },
+  {
+    "id": 341,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0062",
+    "nombre": "VILLA SAN FELIPE",
+    "nombre_norm": "villa san felipe",
+    "activo": 1
+  },
+  {
+    "id": 342,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0063",
+    "nombre": "VILLAMAR",
+    "nombre_norm": "villamar",
+    "activo": 1
+  },
+  {
+    "id": 343,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0064",
+    "nombre": "VIRGEN DE CHAPI",
+    "nombre_norm": "virgen de chapi",
+    "activo": 1
+  },
+  {
+    "id": 344,
+    "ubigeo_codigo": "040109",
+    "codigo_sis": "0065",
+    "nombre": "VIRGEN DEL ROSARIO",
+    "nombre_norm": "virgen del rosario",
+    "activo": 1
+  },
+  {
+    "id": 345,
+    "ubigeo_codigo": "040110",
+    "codigo_sis": "0001",
+    "nombre": "ALTO MISTI",
+    "nombre_norm": "alto misti",
+    "activo": 1
+  },
+  {
+    "id": 346,
+    "ubigeo_codigo": "040110",
+    "codigo_sis": "0002",
+    "nombre": "LAS PALMERAS",
+    "nombre_norm": "las palmeras",
+    "activo": 1
+  },
+  {
+    "id": 347,
+    "ubigeo_codigo": "040110",
+    "codigo_sis": "0003",
+    "nombre": "MIRAFLORES",
+    "nombre_norm": "miraflores",
+    "activo": 1
+  },
+  {
+    "id": 348,
+    "ubigeo_codigo": "040111",
+    "codigo_sis": "0001",
+    "nombre": "MOLLEBAYA",
+    "nombre_norm": "mollebaya",
+    "activo": 1
+  },
+  {
+    "id": 349,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0001",
+    "nombre": "15 DE AGOSTO",
+    "nombre_norm": "15 de agosto",
+    "activo": 1
+  },
+  {
+    "id": 350,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0002",
+    "nombre": "ALAMEDA CHORRILLOS",
+    "nombre_norm": "alameda chorrillos",
+    "activo": 1
+  },
+  {
+    "id": 351,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0003",
+    "nombre": "ALEJANDRO VON HUMBOLT",
+    "nombre_norm": "alejandro von humbolt",
+    "activo": 1
+  },
+  {
+    "id": 352,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0004",
+    "nombre": "ALTO JESUS",
+    "nombre_norm": "alto jesus",
+    "activo": 1
+  },
+  {
+    "id": 353,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0005",
+    "nombre": "ALTO PAUCARPATA",
+    "nombre_norm": "alto paucarpata",
+    "activo": 1
+  },
+  {
+    "id": 354,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0006",
+    "nombre": "AMPLIACION ALTO JESUS",
+    "nombre_norm": "ampliacion alto jesus",
+    "activo": 1
+  },
+  {
+    "id": 355,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0007",
+    "nombre": "AMPLIACION PAUCARPATA",
+    "nombre_norm": "ampliacion paucarpata",
+    "activo": 1
+  },
+  {
+    "id": 356,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0008",
+    "nombre": "APIMA",
+    "nombre_norm": "apima",
+    "activo": 1
+  },
+  {
+    "id": 357,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0009",
+    "nombre": "BALNEARIO DE JESUS",
+    "nombre_norm": "balneario de jesus",
+    "activo": 1
+  },
+  {
+    "id": 358,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0010",
+    "nombre": "CALIFORNIA",
+    "nombre_norm": "california",
+    "activo": 1
+  },
+  {
+    "id": 359,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0011",
+    "nombre": "CAMPO DE MARTE",
+    "nombre_norm": "campo de marte",
+    "activo": 1
+  },
+  {
+    "id": 360,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0012",
+    "nombre": "CAYRO",
+    "nombre_norm": "cayro",
+    "activo": 1
+  },
+  {
+    "id": 361,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0013",
+    "nombre": "CIUDAD BLANCA",
+    "nombre_norm": "ciudad blanca",
+    "activo": 1
+  },
+  {
+    "id": 362,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0014",
+    "nombre": "CRISTO REY",
+    "nombre_norm": "cristo rey",
+    "activo": 1
+  },
+  {
+    "id": 363,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0015",
+    "nombre": "EL PEDREGAL",
+    "nombre_norm": "el pedregal",
+    "activo": 1
+  },
+  {
+    "id": 364,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0016",
+    "nombre": "GUARDIA CIVIL",
+    "nombre_norm": "guardia civil",
+    "activo": 1
+  },
+  {
+    "id": 365,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0017",
+    "nombre": "HÉROES DE ANGAMOS",
+    "nombre_norm": "héroes de angamos",
+    "activo": 1
+  },
+  {
+    "id": 366,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0018",
+    "nombre": "HIJOS DE GRAU",
+    "nombre_norm": "hijos de grau",
+    "activo": 1
+  },
+  {
+    "id": 367,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0019",
+    "nombre": "ISRAEL",
+    "nombre_norm": "israel",
+    "activo": 1
+  },
+  {
+    "id": 368,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0020",
+    "nombre": "JESÚS MARIA",
+    "nombre_norm": "jesús maria",
+    "activo": 1
+  },
+  {
+    "id": 369,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0021",
+    "nombre": "JESUS NAZARENO",
+    "nombre_norm": "jesus nazareno",
+    "activo": 1
+  },
+  {
+    "id": 370,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0022",
+    "nombre": "JORGE CHÁVEZ",
+    "nombre_norm": "jorge chávez",
+    "activo": 1
+  },
+  {
+    "id": 371,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0023",
+    "nombre": "JOSÉ CARLOS MARIÁTEGUI",
+    "nombre_norm": "josé carlos mariátegui",
+    "activo": 1
+  },
+  {
+    "id": 372,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0024",
+    "nombre": "JUVENTUD FRANCISCO MOSTAJO",
+    "nombre_norm": "juventud francisco mostajo",
+    "activo": 1
+  },
+  {
+    "id": 373,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0025",
+    "nombre": "LA COLONIAL",
+    "nombre_norm": "la colonial",
+    "activo": 1
+  },
+  {
+    "id": 374,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0026",
+    "nombre": "LEONCIO PRADO",
+    "nombre_norm": "leoncio prado",
+    "activo": 1
+  },
+  {
+    "id": 375,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0027",
+    "nombre": "LUZ Y ALEGRIA",
+    "nombre_norm": "luz y alegria",
+    "activo": 1
+  },
+  {
+    "id": 376,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0028",
+    "nombre": "MANCO CAPAC",
+    "nombre_norm": "manco capac",
+    "activo": 1
+  },
+  {
+    "id": 377,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0029",
+    "nombre": "MANUEL PRADO",
+    "nombre_norm": "manuel prado",
+    "activo": 1
+  },
+  {
+    "id": 378,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0030",
+    "nombre": "MIGUEL GRAU",
+    "nombre_norm": "miguel grau",
+    "activo": 1
+  },
+  {
+    "id": 379,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0031",
+    "nombre": "MORRO DE ARICA",
+    "nombre_norm": "morro de arica",
+    "activo": 1
+  },
+  {
+    "id": 380,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0032",
+    "nombre": "NUEVA ALBORADA",
+    "nombre_norm": "nueva alborada",
+    "activo": 1
+  },
+  {
+    "id": 381,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0033",
+    "nombre": "NUEVO PERU",
+    "nombre_norm": "nuevo peru",
+    "activo": 1
+  },
+  {
+    "id": 382,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0034",
+    "nombre": "PAUCARPATA",
+    "nombre_norm": "paucarpata",
+    "activo": 1
+  },
+  {
+    "id": 383,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0035",
+    "nombre": "PEDRO P. DIAZ",
+    "nombre_norm": "pedro p. diaz",
+    "activo": 1
+  },
+  {
+    "id": 384,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0036",
+    "nombre": "PEDRO VILCAPAZA",
+    "nombre_norm": "pedro vilcapaza",
+    "activo": 1
+  },
+  {
+    "id": 385,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0037",
+    "nombre": "PORONGOCHE VILLA HERMOZA",
+    "nombre_norm": "porongoche villa hermoza",
+    "activo": 1
+  },
+  {
+    "id": 386,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0038",
+    "nombre": "PROGRESISTA",
+    "nombre_norm": "progresista",
+    "activo": 1
+  },
+  {
+    "id": 387,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0039",
+    "nombre": "PUEBLO TRADICIONAL DE PAUCARPATA",
+    "nombre_norm": "pueblo tradicional de paucarpata",
+    "activo": 1
+  },
+  {
+    "id": 388,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0040",
+    "nombre": "QUINCE DE ENERO",
+    "nombre_norm": "quince de enero",
+    "activo": 1
+  },
+  {
+    "id": 389,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0041",
+    "nombre": "SAN JUAN FRANCISCO MOSTAJO",
+    "nombre_norm": "san juan francisco mostajo",
+    "activo": 1
+  },
+  {
+    "id": 390,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0042",
+    "nombre": "SAN MIGUEL GRAU",
+    "nombre_norm": "san miguel grau",
+    "activo": 1
+  },
+  {
+    "id": 391,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0043",
+    "nombre": "SAN SALVADOR",
+    "nombre_norm": "san salvador",
+    "activo": 1
+  },
+  {
+    "id": 392,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0044",
+    "nombre": "SANTA MARIA",
+    "nombre_norm": "santa maria",
+    "activo": 1
+  },
+  {
+    "id": 393,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0045",
+    "nombre": "SEÑOR DE LOS MILAGROS",
+    "nombre_norm": "señor de los milagros",
+    "activo": 1
+  },
+  {
+    "id": 394,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0046",
+    "nombre": "SOR ANA DE LOS ANGELES",
+    "nombre_norm": "sor ana de los angeles",
+    "activo": 1
+  },
+  {
+    "id": 395,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0047",
+    "nombre": "ULRICH NEISSER",
+    "nombre_norm": "ulrich neisser",
+    "activo": 1
+  },
+  {
+    "id": 396,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0048",
+    "nombre": "VILLA ARTESANAL AREQUIPA",
+    "nombre_norm": "villa artesanal arequipa",
+    "activo": 1
+  },
+  {
+    "id": 397,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0049",
+    "nombre": "VILLA EL SOL",
+    "nombre_norm": "villa el sol",
+    "activo": 1
+  },
+  {
+    "id": 398,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0050",
+    "nombre": "VILLA GRAU",
+    "nombre_norm": "villa grau",
+    "activo": 1
+  },
+  {
+    "id": 399,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0051",
+    "nombre": "VILLA LOS PINOS",
+    "nombre_norm": "villa los pinos",
+    "activo": 1
+  },
+  {
+    "id": 400,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0052",
+    "nombre": "VILLA MARÍA DEL TRIUNFO",
+    "nombre_norm": "villa maría del triunfo",
+    "activo": 1
+  },
+  {
+    "id": 401,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0053",
+    "nombre": "VILLA MIGUEL GRAU",
+    "nombre_norm": "villa miguel grau",
+    "activo": 1
+  },
+  {
+    "id": 402,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0054",
+    "nombre": "VILLA PORONGOCHE",
+    "nombre_norm": "villa porongoche",
+    "activo": 1
+  },
+  {
+    "id": 403,
+    "ubigeo_codigo": "040112",
+    "codigo_sis": "0055",
+    "nombre": "VIÑA DEL MAR",
+    "nombre_norm": "viña del mar",
+    "activo": 1
+  },
+  {
+    "id": 404,
+    "ubigeo_codigo": "040113",
+    "codigo_sis": "0001",
+    "nombre": "POCSI",
+    "nombre_norm": "pocsi",
+    "activo": 1
+  },
+  {
+    "id": 405,
+    "ubigeo_codigo": "040114",
+    "codigo_sis": "0001",
+    "nombre": "POLOBAYA",
+    "nombre_norm": "polobaya",
+    "activo": 1
+  },
+  {
+    "id": 406,
+    "ubigeo_codigo": "040115",
+    "codigo_sis": "0001",
+    "nombre": "QUEQUEÑA",
+    "nombre_norm": "quequeña",
+    "activo": 1
+  },
+  {
+    "id": 407,
+    "ubigeo_codigo": "040116",
+    "codigo_sis": "0001",
+    "nombre": "SABANDÍA",
+    "nombre_norm": "sabandía",
+    "activo": 1
+  },
+  {
+    "id": 408,
+    "ubigeo_codigo": "040117",
+    "codigo_sis": "0001",
+    "nombre": "SACHACA",
+    "nombre_norm": "sachaca",
+    "activo": 1
+  },
+  {
+    "id": 409,
+    "ubigeo_codigo": "040118",
+    "codigo_sis": "0001",
+    "nombre": "SAN JUAN DE SIGUAS",
+    "nombre_norm": "san juan de siguas",
+    "activo": 1
+  },
+  {
+    "id": 410,
+    "ubigeo_codigo": "040119",
+    "codigo_sis": "0001",
+    "nombre": "SAN JUAN DE TARUCANI",
+    "nombre_norm": "san juan de tarucani",
+    "activo": 1
+  },
+  {
+    "id": 411,
+    "ubigeo_codigo": "040120",
+    "codigo_sis": "0001",
+    "nombre": "SANTA ISABEL DE SIGUAS",
+    "nombre_norm": "santa isabel de siguas",
+    "activo": 1
+  },
+  {
+    "id": 412,
+    "ubigeo_codigo": "040121",
+    "codigo_sis": "0001",
+    "nombre": "SANTA RITA DE SIGUAS",
+    "nombre_norm": "santa rita de siguas",
+    "activo": 1
+  },
+  {
+    "id": 413,
+    "ubigeo_codigo": "040122",
+    "codigo_sis": "0001",
+    "nombre": "SOCABAYA",
+    "nombre_norm": "socabaya",
+    "activo": 1
+  },
+  {
+    "id": 414,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0001",
+    "nombre": "8 DE DICIEMBRE",
+    "nombre_norm": "8 de diciembre",
+    "activo": 1
+  },
+  {
+    "id": 415,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0002",
+    "nombre": "ALTO PATASAGUA",
+    "nombre_norm": "alto patasagua",
+    "activo": 1
+  },
+  {
+    "id": 416,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0003",
+    "nombre": "ALTO SAN JOSÉ",
+    "nombre_norm": "alto san josé",
+    "activo": 1
+  },
+  {
+    "id": 417,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0004",
+    "nombre": "JUAN PABLO II",
+    "nombre_norm": "juan pablo ii",
+    "activo": 1
+  },
+  {
+    "id": 418,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0005",
+    "nombre": "MICAELA BASTIDAS",
+    "nombre_norm": "micaela bastidas",
+    "activo": 1
+  },
+  {
+    "id": 419,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0006",
+    "nombre": "PAMPAS NUEVAS",
+    "nombre_norm": "pampas nuevas",
+    "activo": 1
+  },
+  {
+    "id": 420,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0007",
+    "nombre": "SAN JOSÉ",
+    "nombre_norm": "san josé",
+    "activo": 1
+  },
+  {
+    "id": 421,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0008",
+    "nombre": "SAN PEDRO",
+    "nombre_norm": "san pedro",
+    "activo": 1
+  },
+  {
+    "id": 422,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0009",
+    "nombre": "SANTA RITA",
+    "nombre_norm": "santa rita",
+    "activo": 1
+  },
+  {
+    "id": 423,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0010",
+    "nombre": "SANTA TERESA",
+    "nombre_norm": "santa teresa",
+    "activo": 1
+  },
+  {
+    "id": 424,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0011",
+    "nombre": "TIABAYA",
+    "nombre_norm": "tiabaya",
+    "activo": 1
+  },
+  {
+    "id": 425,
+    "ubigeo_codigo": "040123",
+    "codigo_sis": "0012",
+    "nombre": "VIRGEN DE LAS PEÑAS",
+    "nombre_norm": "virgen de las peñas",
+    "activo": 1
+  },
+  {
+    "id": 426,
+    "ubigeo_codigo": "040124",
+    "codigo_sis": "0001",
+    "nombre": "UCHUMAYO",
+    "nombre_norm": "uchumayo",
+    "activo": 1
+  },
+  {
+    "id": 427,
+    "ubigeo_codigo": "040125",
+    "codigo_sis": "0001",
+    "nombre": "VITOR",
+    "nombre_norm": "vitor",
+    "activo": 1
+  },
+  {
+    "id": 428,
+    "ubigeo_codigo": "040126",
+    "codigo_sis": "0001",
+    "nombre": "YANAHUARA",
+    "nombre_norm": "yanahuara",
+    "activo": 1
+  },
+  {
+    "id": 429,
+    "ubigeo_codigo": "040127",
+    "codigo_sis": "0001",
+    "nombre": "YARABAMBA",
+    "nombre_norm": "yarabamba",
+    "activo": 1
+  },
+  {
+    "id": 430,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0001",
+    "nombre": "ALTIPLANO",
+    "nombre_norm": "altiplano",
+    "activo": 1
+  },
+  {
+    "id": 431,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0002",
+    "nombre": "APIAAR",
+    "nombre_norm": "apiaar",
+    "activo": 1
+  },
+  {
+    "id": 432,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0003",
+    "nombre": "APIPA",
+    "nombre_norm": "apipa",
+    "activo": 1
+  },
+  {
+    "id": 433,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0004",
+    "nombre": "CALERA",
+    "nombre_norm": "calera",
+    "activo": 1
+  },
+  {
+    "id": 434,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0005",
+    "nombre": "CAMINEROS EMPLEADOS",
+    "nombre_norm": "camineros empleados",
+    "activo": 1
+  },
+  {
+    "id": 435,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0006",
+    "nombre": "CAMINEROS OBREROS",
+    "nombre_norm": "camineros obreros",
+    "activo": 1
+  },
+  {
+    "id": 436,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0007",
+    "nombre": "CASAO",
+    "nombre_norm": "casao",
+    "activo": 1
+  },
+  {
+    "id": 437,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0008",
+    "nombre": "CHASQUIPAMPA",
+    "nombre_norm": "chasquipampa",
+    "activo": 1
+  },
+  {
+    "id": 438,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0009",
+    "nombre": "CHUCA",
+    "nombre_norm": "chuca",
+    "activo": 1
+  },
+  {
+    "id": 439,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0010",
+    "nombre": "CIUDAD DE DIOS",
+    "nombre_norm": "ciudad de dios",
+    "activo": 1
+  },
+  {
+    "id": 440,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0011",
+    "nombre": "COLCA",
+    "nombre_norm": "colca",
+    "activo": 1
+  },
+  {
+    "id": 441,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0012",
+    "nombre": "EL TRIUNFO",
+    "nombre_norm": "el triunfo",
+    "activo": 1
+  },
+  {
+    "id": 442,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0013",
+    "nombre": "ESTACION",
+    "nombre_norm": "estacion",
+    "activo": 1
+  },
+  {
+    "id": 443,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0014",
+    "nombre": "HATUMPATA",
+    "nombre_norm": "hatumpata",
+    "activo": 1
+  },
+  {
+    "id": 444,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0015",
+    "nombre": "HIJOS CIUDAD DE DIOS",
+    "nombre_norm": "hijos ciudad de dios",
+    "activo": 1
+  },
+  {
+    "id": 445,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0016",
+    "nombre": "HUANCA",
+    "nombre_norm": "huanca",
+    "activo": 1
+  },
+  {
+    "id": 446,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0017",
+    "nombre": "IMATA",
+    "nombre_norm": "imata",
+    "activo": 1
+  },
+  {
+    "id": 447,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0018",
+    "nombre": "JOSE ABELARDO QUIÑONES",
+    "nombre_norm": "jose abelardo quiñones",
+    "activo": 1
+  },
+  {
+    "id": 448,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0019",
+    "nombre": "LLUTA",
+    "nombre_norm": "lluta",
+    "activo": 1
+  },
+  {
+    "id": 449,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0020",
+    "nombre": "MALATA",
+    "nombre_norm": "malata",
+    "activo": 1
+  },
+  {
+    "id": 450,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0021",
+    "nombre": "MILAGROS",
+    "nombre_norm": "milagros",
+    "activo": 1
+  },
+  {
+    "id": 451,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0022",
+    "nombre": "MISANAYO",
+    "nombre_norm": "misanayo",
+    "activo": 1
+  },
+  {
+    "id": 452,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0023",
+    "nombre": "MOKKA",
+    "nombre_norm": "mokka",
+    "activo": 1
+  },
+  {
+    "id": 453,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0024",
+    "nombre": "MURCO",
+    "nombre_norm": "murco",
+    "activo": 1
+  },
+  {
+    "id": 454,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0025",
+    "nombre": "NUEVA JUVENTUD",
+    "nombre_norm": "nueva juventud",
+    "activo": 1
+  },
+  {
+    "id": 455,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0026",
+    "nombre": "PAMPA BLANCA",
+    "nombre_norm": "pampa blanca",
+    "activo": 1
+  },
+  {
+    "id": 456,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0027",
+    "nombre": "PAMPA CAÑAHUAS",
+    "nombre_norm": "pampa cañahuas",
+    "activo": 1
+  },
+  {
+    "id": 457,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0028",
+    "nombre": "PASCANA",
+    "nombre_norm": "pascana",
+    "activo": 1
+  },
+  {
+    "id": 458,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0029",
+    "nombre": "PASMA",
+    "nombre_norm": "pasma",
+    "activo": 1
+  },
+  {
+    "id": 459,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0030",
+    "nombre": "PICHINCA",
+    "nombre_norm": "pichinca",
+    "activo": 1
+  },
+  {
+    "id": 460,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0031",
+    "nombre": "PILLONE",
+    "nombre_norm": "pillone",
+    "activo": 1
+  },
+  {
+    "id": 461,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0032",
+    "nombre": "PILLONES",
+    "nombre_norm": "pillones",
+    "activo": 1
+  },
+  {
+    "id": 462,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0033",
+    "nombre": "PORVENIR",
+    "nombre_norm": "porvenir",
+    "activo": 1
+  },
+  {
+    "id": 463,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0034",
+    "nombre": "PROFAM",
+    "nombre_norm": "profam",
+    "activo": 1
+  },
+  {
+    "id": 464,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0035",
+    "nombre": "PUCCRO",
+    "nombre_norm": "puccro",
+    "activo": 1
+  },
+  {
+    "id": 465,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0036",
+    "nombre": "QUISCOS",
+    "nombre_norm": "quiscos",
+    "activo": 1
+  },
+  {
+    "id": 466,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0037",
+    "nombre": "SAN BASILIO",
+    "nombre_norm": "san basilio",
+    "activo": 1
+  },
+  {
+    "id": 467,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0038",
+    "nombre": "SUMBAY",
+    "nombre_norm": "sumbay",
+    "activo": 1
+  },
+  {
+    "id": 468,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0039",
+    "nombre": "TANCAYA",
+    "nombre_norm": "tancaya",
+    "activo": 1
+  },
+  {
+    "id": 469,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0040",
+    "nombre": "TAYA",
+    "nombre_norm": "taya",
+    "activo": 1
+  },
+  {
+    "id": 470,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0041",
+    "nombre": "TOCROYO",
+    "nombre_norm": "tocroyo",
+    "activo": 1
+  },
+  {
+    "id": 471,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0042",
+    "nombre": "TOROY",
+    "nombre_norm": "toroy",
+    "activo": 1
+  },
+  {
+    "id": 472,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0043",
+    "nombre": "UYUPAMPA",
+    "nombre_norm": "uyupampa",
+    "activo": 1
+  },
+  {
+    "id": 473,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0044",
+    "nombre": "VILLA CRISTO",
+    "nombre_norm": "villa cristo",
+    "activo": 1
+  },
+  {
+    "id": 474,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0045",
+    "nombre": "VINCOCAYA",
+    "nombre_norm": "vincocaya",
+    "activo": 1
+  },
+  {
+    "id": 475,
+    "ubigeo_codigo": "040128",
+    "codigo_sis": "0046",
+    "nombre": "YURA VIEJO",
+    "nombre_norm": "yura viejo",
+    "activo": 1
+  }
+]

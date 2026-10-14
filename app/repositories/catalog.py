@@ -145,6 +145,7 @@ class CatalogRepository:
             )
         statement = (
             select(Establishment)
+            .options(selectinload(Establishment.ubigeo))
             .where(*conditions)
             .order_by(Establishment.nombre, Establishment.id)
         )
@@ -283,6 +284,7 @@ class CatalogRepository:
             conditions.append(
                 or_(
                     Localidad.nombre.ilike(pattern, escape="\\"),
+                    Localidad.codigo_catalogo.ilike(pattern, escape="\\"),
                     Localidad.codigo_sis.ilike(pattern, escape="\\"),
                 )
             )

@@ -1,0 +1,6 @@
+src/utils/localitySelection.ts 84ms
+src/components/patients/PatientRegistrationBaseSection.vue 245ms
+src/components/admission/AdmissionPatientSummary.vue 197ms
+tests/localitySelection.test.ts 8ms
+tests/views/PacienteNuevoView.test.ts 64ms (unchanged)
+tests/components/AdmissionPatientSummary.test.ts 117ms

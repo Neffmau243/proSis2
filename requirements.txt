@@ -8,6 +8,7 @@ PyJWT>=2.9,<3.0
 bcrypt>=4.1,<5.0
 python-multipart>=0.0.9,<1.0
 anthro==1.1.1
+tzdata>=2024.1; sys_platform == "win32"
 
 # Test dependencies
 pytest>=8.0,<9.0

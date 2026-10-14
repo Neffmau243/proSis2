@@ -133,6 +133,10 @@ def establishment_to_catalog_item(entity: Establishment) -> EstablishmentCatalog
         disa_codigo=entity.disa_codigo,
         nombre=entity.nombre,
         abreviatura=entity.abreviatura,
+        ubigeo_codigo=getattr(entity, "ubigeo_codigo", None),
+        distrito=getattr(getattr(entity, "ubigeo", None), "distrito", None),
+        provincia=getattr(getattr(entity, "ubigeo", None), "provincia", None),
+        departamento=getattr(getattr(entity, "ubigeo", None), "departamento", None),
         activo=entity.activo,
     )
 
@@ -170,6 +174,7 @@ def localidad_to_catalog_item(entity: Localidad) -> LocalidadCatalogItem:
     return LocalidadCatalogItem(
         id=entity.id,
         ubigeo_codigo=entity.ubigeo_codigo,
+        codigo_catalogo=entity.codigo_catalogo,
         codigo_sis=entity.codigo_sis,
         nombre=entity.nombre,
         activo=entity.activo,

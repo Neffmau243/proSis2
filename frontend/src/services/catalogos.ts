@@ -65,6 +65,10 @@ export interface EstablishmentCatalogItem {
   disa_codigo: string | null
   nombre: string
   abreviatura: string | null
+  ubigeo_codigo?: string | null
+  distrito?: string | null
+  provincia?: string | null
+  departamento?: string | null
   activo: boolean
 }
 
@@ -101,7 +105,8 @@ export interface UbigeoCatalogItem {
 export interface LocalidadCatalogItem {
   id: number
   ubigeo_codigo: string
-  codigo_sis: string
+  codigo_catalogo?: string
+  codigo_sis: string | null
   nombre: string
   activo: boolean
 }

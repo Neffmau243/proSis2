@@ -69,17 +69,17 @@
         <el-descriptions-item label="Modalidad">{{
           attention?.modalidad_atencion_codigo
         }}</el-descriptions-item>
-        <el-descriptions-item label="Establecimiento ID">{{
-          attention?.establecimiento_id
+        <el-descriptions-item label="Establecimiento">{{
+          attention?.establecimiento_nombre || attention?.fua_impresion?.ipress_nombre || attention?.establecimiento_id
         }}</el-descriptions-item>
-        <el-descriptions-item label="Consultorio ID">{{
-          attention?.consultorio_id
+        <el-descriptions-item label="Consultorio">{{
+          attention?.consultorio_ruta || attention?.consultorio_nombre || attention?.consultorio_id
         }}</el-descriptions-item>
-        <el-descriptions-item label="Profesional ID">{{
-          attention?.profesional_id
+        <el-descriptions-item label="Profesional">{{
+          attention?.profesional_nombre || attention?.fua_impresion?.profesional_nombre || attention?.profesional_id
         }}</el-descriptions-item>
-        <el-descriptions-item label="Especialidad">{{
-          attention?.especialidad_codigo || '—'
+        <el-descriptions-item label="Servicio / especialidad">{{
+          attention?.especialidad_nombre || attention?.especialidad_codigo || '—'
         }}</el-descriptions-item>
         <el-descriptions-item label="Edad registrada">{{
           attention ? `${attention.edad_anios ?? '—'} años` : '—'
@@ -89,6 +89,15 @@
         }}</el-descriptions-item>
         <el-descriptions-item label="Historia familiar a la atención">{{
           attention?.contexto_clinico?.historia_familiar ?? 'Sin copia histórica'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Distrito de residencia a la atención">{{
+          attention?.contexto_clinico?.distrito ?? 'Sin copia histórica'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Localidad a la atención">{{
+          attention?.contexto_clinico?.localidad ?? 'Sin copia histórica'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="Establecimiento de registro a la atención">{{
+          attention?.contexto_clinico?.establecimiento_registro_nombre ?? 'Sin copia histórica'
         }}</el-descriptions-item>
         <el-descriptions-item label="Documento a la atención"
           >{{ attention?.contexto_clinico?.tipo_documento_codigo }}

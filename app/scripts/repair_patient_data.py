@@ -184,7 +184,7 @@ def complete_patients(session: Session, apply: bool, today: date) -> list[Change
 
     localities_by_district: dict[str, list[Localidad]] = {}
     for locality in session.scalars(
-        select(Localidad).order_by(Localidad.ubigeo_codigo, Localidad.codigo_sis)
+        select(Localidad).order_by(Localidad.ubigeo_codigo, Localidad.codigo_catalogo)
     ):
         localities_by_district.setdefault(locality.ubigeo_codigo, []).append(locality)
     districts = {

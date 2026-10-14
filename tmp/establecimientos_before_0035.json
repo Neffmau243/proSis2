@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "C.S. ALTO SELVA ALEGRE",
+    "codigo_renaes": "1291",
+    "ubigeo_codigo": null
+  },
+  {
+    "id": 2,
+    "nombre": "P.S. APURIMAC",
+    "codigo_renaes": "1300",
+    "ubigeo_codigo": null
+  },
+  {
+    "id": 3,
+    "nombre": "CS. INDEPENDENCIA",
+    "codigo_renaes": "1302",
+    "ubigeo_codigo": null
+  },
+  {
+    "id": 4,
+    "nombre": "P.S. LEONES DEL MISTI",
+    "codigo_renaes": "1301",
+    "ubigeo_codigo": null
+  },
+  {
+    "id": 5,
+    "nombre": "P.S. SAN JUAN BAUTISTA",
+    "codigo_renaes": "1303",
+    "ubigeo_codigo": null
+  },
+  {
+    "id": 6,
+    "nombre": "P.S. HEROES DEL CENEPA",
+    "codigo_renaes": "1304",
+    "ubigeo_codigo": null
+  }
+]

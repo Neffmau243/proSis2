@@ -1,27 +1,34 @@
 <script setup lang="ts">
+import { inject, shallowRef } from 'vue'
+import { topbarActionsKey } from '@/layouts/topbar'
+
+const topbarTarget = inject(topbarActionsKey, shallowRef<HTMLElement | null>(null))
+
 defineProps<{ modelValue: string }>()
 const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 </script>
 
 <template>
-  <header class="encounter-header">
-    <el-form-item label="Fecha y hora de atención" prop="fecha_atencion">
-      <el-date-picker
-        :model-value="modelValue"
-        type="datetime"
-        format="DD/MM/YYYY HH:mm"
-        value-format="YYYY-MM-DDTHH:mm:ss"
-        :clearable="false"
-        aria-label="Fecha y hora de atención"
-        @update:model-value="emit('update:modelValue', $event ?? '')"
-      />
-    </el-form-item>
-  </header>
+  <Teleport :to="topbarTarget ?? 'body'" :disabled="!topbarTarget">
+    <div class="encounter-header">
+      <el-form-item label="Fecha y hora de atención" prop="fecha_atencion">
+        <el-date-picker
+          :model-value="modelValue"
+          type="datetime"
+          format="DD/MM/YYYY HH:mm"
+          value-format="YYYY-MM-DDTHH:mm:ss"
+          :clearable="false"
+          aria-label="Fecha y hora de atención"
+          @update:model-value="emit('update:modelValue', $event ?? '')"
+        />
+      </el-form-item>
+    </div>
+  </Teleport>
 </template>
 
 <style scoped>
 .encounter-header {
-  grid-area: header;
+  grid-column: 1 / -1;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -40,6 +47,7 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
   height: auto;
   line-height: 1.4;
   padding: 0;
+  margin: 0;
 }
 .encounter-header :deep(.el-form-item__content) {
   flex: 0 1 216px;
@@ -47,6 +55,9 @@ const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 }
 .encounter-header :deep(.el-date-editor) {
   width: 100%;
+}
+.encounter-header :deep(.el-form-item__error) {
+  position: static;
 }
 @media (max-width: 600px) {
   .encounter-header {

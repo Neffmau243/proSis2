@@ -298,6 +298,26 @@ def test_registers_unique_adult_and_audits_in_one_commit(
     assert audit.events[0]["actor_id"] == 41
 
 
+def test_locality_name_is_owned_by_the_district_catalog(environment, monkeypatch):
+    service, repository, _, audit = environment
+    monkeypatch.setattr(repository, "get_active_localidad", lambda id, code:
+        SimpleNamespace(nombre="Localidad oficial") if (id, code) == (12, "040102") else None,
+        raising=False)
+    created = service.create(adult_command(
+        ubigeo_residencia_codigo="040102", localidad_id=12, localidad="Nombre manipulado"
+    ), actor_id=41)
+    assert created.localidad == "Localidad oficial"
+    changed = service.update(created.id, PatientUpdate(localidad="Otro nombre"), actor_id=41)
+    assert changed.localidad == "Localidad oficial"
+    assert audit.events[-1]["after"]["localidad"] == "Localidad oficial"
+    with pytest.raises(ValidationDomainError):
+        service.update(created.id, PatientUpdate(ubigeo_residencia_codigo="040103"), actor_id=41)
+    assert repository.patients[created.id].ubigeo_residencia_codigo == "040102"
+    cleared = service.update(created.id, PatientUpdate(localidad_id=None), actor_id=41)
+    assert cleared.localidad_id is None
+    assert cleared.localidad is None
+
+
 def test_sis_patch_validates_merged_affiliation_and_audits_master_data(environment):
     service, repository, session, audit = environment
     created = service.create(adult_command(seguro_id=2, sis_diresa="001", sis_tipo="2", sis_numero="00000001", etnia_codigo="58"), actor_id=41)

@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
-import fuaReferenceUrl from '@/assets/fua-referencia.webp'
+import fuaOfficialReferenceUrl from '@/assets/fua-v02-referencia.png'
 import type { FuaPrintSnapshot } from '@/types/fua'
+import FuaSheetPreview from '@/components/admission/FuaSheetPreview.vue'
+import { useFuaCalibration } from '@/composables/useFuaCalibration'
 import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
 import { nutritionalTableRows, type NutritionalReferenceGroup } from '@/utils/nutritionalDisplay'
 import {
-  defaultFuaLayout,
-  FUA_LAYOUT_KEY,
   fuaDeliveryBox,
-  fuaFieldFont,
   fuaValues,
   fuaWarnings,
   fuaIdentityProblem,
   fuaUsesAbdominalPerimeter,
   layoutProblems,
-  parseFuaLayout,
   printFua,
 } from '@/utils/fuaPrint'
 
@@ -24,7 +22,15 @@ const props = defineProps<{
   snapshot: FuaPrintSnapshot
   additionalCopy?: boolean
 }>()
-const layout = ref(defaultFuaLayout())
+const {
+  layout,
+  storageError,
+  saved,
+  save,
+  changed: changeGeometry,
+  exportLayout,
+  importLayout,
+} = useFuaCalibration(() => visible.value)
 const availableFields = computed(() =>
   layout.value.fields.filter(
     (field) => field.id !== 'codigo_renipress' || props.snapshot.renipress_preimpreso === false,
@@ -35,9 +41,6 @@ const selected = computed(() => layout.value.fields.find((field) => field.id ===
 const acknowledged = ref(false)
 const printing = ref(false)
 const localError = ref('')
-// La plantilla incluida es solo una guía; el escaneo alternativo no se persiste.
-const customBackground = ref('')
-const background = computed(() => customBackground.value || fuaReferenceUrl)
 const tab = ref('datos')
 const snapshot = computed(() => props.snapshot)
 const values = computed(() => fuaValues(snapshot.value))
@@ -85,6 +88,16 @@ const canPrint = computed(
     !geometryErrors.value.length &&
     (!warnings.value.length || acknowledged.value),
 )
+const referenceValues = computed(() => ({
+  ...values.value,
+  codigo_renipress: snapshot.value.codigo_renipress || '',
+}))
+const canReview = computed(
+  () =>
+    !identityProblem.value &&
+    !layoutProblems(layout.value, referenceValues.value).length &&
+    (!warnings.value.length || acknowledged.value),
+)
 const printBlockReason = computed(() => {
   if (identityProblem.value) return identityProblem.value
   if (geometryErrors.value.length) return geometryErrors.value.join(' · ')
@@ -120,60 +133,33 @@ watch(
   },
   { immediate: true },
 )
-try {
-  const saved = localStorage.getItem(FUA_LAYOUT_KEY)
-  if (saved) layout.value = parseFuaLayout(saved)
-} catch {
-  localError.value = 'No se pudo leer la calibración. Se usan posiciones de ejemplo.'
-}
-
 function saveLayout(): void {
-  try {
-    localStorage.setItem(
-      FUA_LAYOUT_KEY,
-      JSON.stringify(parseFuaLayout(JSON.stringify(layout.value))),
-    )
-    ElMessage.success('Calibración guardada en este navegador, sin datos del paciente.')
-  } catch {
-    localError.value =
-      'No se pudo guardar la calibración. Revise sus valores o el almacenamiento del navegador.'
-  }
+  if (save())
+    ElMessage.success('Calibración guardada en este navegador, para todas las cuentas y pacientes.')
 }
-function changeGeometry(): void {
-  layout.value.calibrated = false
+async function loadCalibration(event: Event): Promise<void> {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (file) await importLayout(file)
+  input.value = ''
 }
 function useA4(): void {
   layout.value.width = 210
   layout.value.height = 297
   changeGeometry()
 }
-function loadBackground(event: Event): void {
-  const file = (event.target as HTMLInputElement).files?.[0]
-  if (!file) return
-  if (
-    !['image/png', 'image/jpeg', 'image/webp'].includes(file.type) ||
-    file.size > 10 * 1024 * 1024
-  ) {
-    localError.value = 'Use un escaneo PNG, JPG o WebP de hasta 10 MB.'
-    return
-  }
-  if (customBackground.value) URL.revokeObjectURL(customBackground.value)
-  customBackground.value = URL.createObjectURL(file)
-}
-function clearCustomBackground(): void {
-  if (customBackground.value) URL.revokeObjectURL(customBackground.value)
-  customBackground.value = ''
-}
-watch(visible, (open) => {
-  if (!open) clearCustomBackground()
-})
-onBeforeUnmount(clearCustomBackground)
-async function print(test: boolean): Promise<void> {
-  if (printing.value || (!test && !canPrint.value)) return
+async function print(test: boolean, withReference = false): Promise<void> {
+  if (printing.value || (!test && !(withReference ? canReview.value : canPrint.value))) return
   localError.value = ''
   printing.value = true
   try {
-    await printFua(layout.value, values.value, test)
+    await printFua(
+      layout.value,
+      withReference ? referenceValues.value : values.value,
+      test,
+      withReference ? fuaOfficialReferenceUrl : undefined,
+      10,
+    )
   } catch (error) {
     localError.value = error instanceof Error ? error.message : 'No se pudo imprimir.'
   } finally {
@@ -194,11 +180,13 @@ async function print(test: boolean): Promise<void> {
     destroy-on-close
   >
     <p class="fua-intro">
-      Copia conservada al guardar la atención. Reimprimir no crea otra consulta. Solo se imprimen
-      datos y marcas; el número del formulario preimpreso no se reemplaza. Este sistema no envía
-      datos al SIS.
+      Use «Ver FUA / guardar PDF» para ver los datos sobre el formulario en la vista de impresión.
+      «Imprimir sobre FUA preimpresa» envía solo datos y marcas al papel que ya tiene el formulario.
+      Se usa la copia conservada al guardar la atención; reimprimir no crea otra consulta ni
+      reemplaza el número del papel preimpreso. Este sistema no envía datos al SIS.
     </p>
     <el-alert v-if="localError" :title="localError" type="error" :closable="false" />
+    <el-alert v-if="storageError" :title="storageError" type="error" :closable="false" />
     <el-alert v-if="identityProblem" :title="identityProblem" type="error" :closable="false" />
     <el-alert
       v-if="values.identity_note"
@@ -228,6 +216,21 @@ async function print(test: boolean): Promise<void> {
           <div>
             <dt>IPRESS de la atención</dt>
             <dd>{{ snapshot.ipress_nombre || 'Sin registrar' }}</dd>
+          </div>
+          <div v-if="snapshot.contexto_territorial">
+            <dt>Consultorio a la atención</dt>
+            <dd>{{ snapshot.contexto_territorial.consultorio_ruta || 'Sin registrar' }}</dd>
+          </div>
+          <div v-if="snapshot.contexto_territorial">
+            <dt>Servicio / especialidad a la atención</dt>
+            <dd>{{ snapshot.contexto_territorial.especialidad_nombre || 'Sin registrar' }}</dd>
+          </div>
+          <div v-if="snapshot.contexto_territorial">
+            <dt>Distrito / localidad de residencia a la atención</dt>
+            <dd>
+              {{ snapshot.contexto_territorial.distrito || 'Sin registrar' }} /
+              {{ snapshot.contexto_territorial.localidad || 'Sin registrar' }}
+            </dd>
           </div>
           <div>
             <dt>RENIPRESS</dt>
@@ -317,6 +320,15 @@ async function print(test: boolean): Promise<void> {
         </p>
       </el-tab-pane>
       <el-tab-pane label="Vista previa y calibración" name="calibracion">
+        <p class="fua-storage-status" role="status">
+          {{
+            saved
+              ? 'Calibración guardada automáticamente en este navegador.'
+              : 'Todavía no hay una calibración guardada en este navegador.'
+          }}
+          Se reutiliza para todas las cuentas y pacientes de esta dirección de la aplicación. Al
+          cambiar de navegador, dirección o equipo, importe una copia de la calibración.
+        </p>
         <el-alert
           title="La plantilla es referencial; pruebe en papel en blanco antes de usar una FUA vigente."
           type="warning"
@@ -327,7 +339,10 @@ async function print(test: boolean): Promise<void> {
           <li>
             Imprima una prueba sin datos en papel en blanco y compárela con su FUA preimpresa.
           </li>
-          <li>Ajuste las posiciones, confirme la prueba física y guarde la calibración.</li>
+          <li>
+            Ajuste las posiciones y confirme la prueba física. Los cambios se guardan
+            automáticamente.
+          </li>
         </ol>
         <p>
           El texto continuo se ajusta automáticamente dentro de cada casilla, hasta un mínimo de 5
@@ -336,7 +351,7 @@ async function print(test: boolean): Promise<void> {
         </p>
         <div class="fua-calibration">
           <div class="fua-controls">
-            <el-form label-position="top" @change="changeGeometry">
+            <el-form label-position="top">
               <el-button class="fua-paper-preset" @click="useA4">Usar A4 (210 × 297 mm)</el-button>
               <el-form-item label="Ancho de la hoja (mm)"
                 ><el-input-number
@@ -400,59 +415,20 @@ async function print(test: boolean): Promise<void> {
               </el-form-item>
             </el-form>
             <p class="fua-reference-note">
-              Se muestra una FUA histórica solo para comparar posiciones. No se envía, no se guarda
-              y nunca se imprime.
+              Referencia única: anexo 1 de la Directiva SIS V.02. La vista previa y «Ver FUA /
+              guardar PDF» usan la misma imagen. «Imprimir sobre FUA preimpresa» envía solo datos y
+              marcas al papel que ya tiene el formulario.
             </p>
-            <label for="fua-scan">Usar un escaneo propio como guía temporal</label>
-            <input
-              id="fua-scan"
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              @change="loadBackground"
-            />
-            <el-button v-if="customBackground" @click="clearCustomBackground"
-              >Volver a la plantilla referencial</el-button
-            >
           </div>
-          <div class="fua-preview-scroll" aria-label="Vista previa de posiciones sobre la hoja">
-            <div
-              class="fua-preview"
-              :style="{ width: `${layout.width}mm`, height: `${layout.height}mm` }"
-            >
-              <img
-                :src="background"
-                alt="Plantilla FUA de referencia; no se imprime"
-                class="fua-background"
-              />
-              <button
-                v-for="field in availableFields.filter((f) => f.enabled)"
-                :key="field.id"
-                type="button"
-                class="fua-position"
-                :class="{ 'fua-position--selected': selectedId === field.id }"
-                :aria-label="`Ajustar ${field.label}`"
-                :title="field.label"
-                :style="{
-                  left: `${field.x + layout.offsetX}mm`,
-                  top: `${field.y + layout.offsetY}mm`,
-                  width: `${field.width}mm`,
-                  height: `${field.height}mm`,
-                  fontSize: `${fuaFieldFont(field, (values[field.id] || '').slice(field.skip))}pt`,
-                }"
-                @click="selectedId = field.id"
-              >
-                <template v-if="field.step && values[field.id]">
-                  <span
-                    v-for="(char, index) in [...(values[field.id] || '').slice(field.skip)]"
-                    :key="index"
-                    :style="{ position: 'absolute', left: `${index * field.step}mm` }"
-                    >{{ char }}</span
-                  >
-                </template>
-                <template v-else>{{ (values[field.id] || '').slice(field.skip) || '·' }}</template>
-              </button>
-            </div>
-          </div>
+          <FuaSheetPreview
+            :layout="layout"
+            :values="values"
+            :background="fuaOfficialReferenceUrl"
+            :inset="10"
+            :selected-id="selectedId"
+            :preprinted-renipress="snapshot.renipress_preimpreso !== false"
+            @select="selectedId = $event"
+          />
         </div>
         <p>
           Imprima a tamaño real / 100 %, sin márgenes ni encabezados. Seleccione en el controlador
@@ -474,6 +450,14 @@ async function print(test: boolean): Promise<void> {
             >Comprobé tamaño y alineación en una prueba física.</el-checkbox
           >
           <el-button @click="saveLayout">Guardar calibración</el-button>
+          <el-button @click="exportLayout">Exportar calibración</el-button>
+          <label for="fua-layout-import">Importar calibración</label>
+          <input
+            id="fua-layout-import"
+            type="file"
+            accept="application/json,.json"
+            @change="loadCalibration"
+          />
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -484,9 +468,17 @@ async function print(test: boolean): Promise<void> {
           setupTab === 'calibracion' ? 'Ir a calibración' : 'Revisar datos'
         }}</el-button>
         <el-button @click="visible = false">Cerrar</el-button>
-        <el-button type="primary" :loading="printing" :disabled="!canPrint" @click="print(false)"
-          >Imprimir solo datos</el-button
+        <el-button :loading="printing" :disabled="!canPrint" @click="print(false)"
+          >Imprimir sobre FUA preimpresa</el-button
         >
+        <el-button
+          type="primary"
+          :loading="printing"
+          :disabled="!canReview"
+          @click="print(false, true)"
+        >
+          Ver FUA / guardar PDF
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -550,48 +542,12 @@ async function print(test: boolean): Promise<void> {
   font-size: 13px;
   color: var(--el-text-color-secondary);
 }
-.fua-preview-scroll {
-  max-height: 65vh;
-  overflow: auto;
-  background: var(--el-fill-color);
-  padding: 12px;
-  border: 1px solid var(--el-border-color);
+.fua-storage-status {
+  color: var(--el-text-color-regular);
+  line-height: 1.5;
 }
-.fua-preview {
-  position: relative;
-  background: white;
-  zoom: 0.7;
-}
-.fua-background {
-  position: absolute;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  pointer-events: none;
-}
-.fua-position {
-  position: absolute;
-  z-index: 1;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0.2mm dashed #677386;
-  text-align: left;
-  background: transparent;
-  color: #111;
-  font-family: 'Courier New', monospace;
-  line-height: 1.2;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.fua-position--selected,
-.fua-position:focus-visible {
-  outline: 0.6mm solid #1252a1;
-  background: #e5f0ff;
-}
-.fua-position:hover {
-  background: #e5f0ff;
+.fua-calibration-actions input[type='file'] {
+  max-width: 100%;
 }
 .fua-footer,
 .fua-calibration-actions {

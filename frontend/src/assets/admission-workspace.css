@@ -27,7 +27,7 @@
 
 .admission-page--workspace .encounter-card :deep(.el-card__body) {
   display: grid;
-  grid-template-areas: 'header header' 'context nutrition' 'measurements actions';
+  grid-template-areas: 'context nutrition' 'measurements actions';
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   align-items: start;
   gap: 8px;
@@ -97,9 +97,6 @@
   color: var(--admission-ink);
   font-size: 12px;
   font-weight: 400;
-}
-.admission-page--workspace :deep(.encounter-header .el-form-item) {
-  margin-bottom: 0;
 }
 .admission-page--workspace :deep(.encounter-form .el-form-item__error) {
   position: static;
@@ -180,7 +177,7 @@
 /* Tablet: patient and encounter remain distinct, the clinical blocks stack. */
 @container (max-width: 900px) {
   .admission-page--workspace .encounter-card :deep(.el-card__body) {
-    grid-template-areas: 'header' 'context' 'measurements' 'nutrition' 'actions';
+    grid-template-areas: 'context' 'measurements' 'nutrition' 'actions';
     grid-template-columns: minmax(0, 1fr);
   }
 }

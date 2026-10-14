@@ -119,10 +119,10 @@ class Ubigeo(Base):
 
 
 class Localidad(Base):
-    """A district sector with its SIS locality code (source ``Z_*`` catalogs).
+    """A suggested locality of a district from the source Z_* catalogs.
 
-    The district stays identified by its six-digit UBIGEO; the SIS code is only
-    unique within that district, so the pair is the natural key.
+    Codigo is its internal lookup key. Clave is a separate legacy export value
+    and can be missing or shared by multiple localities; it is not a unique key.
     """
 
     __tablename__ = "localidades"
@@ -140,7 +140,8 @@ class Localidad(Base):
         ),
         nullable=False,
     )
-    codigo_sis: Mapped[str] = mapped_column(String(10), nullable=False)
+    codigo_catalogo: Mapped[str] = mapped_column(String(10), nullable=False)
+    codigo_sis: Mapped[str | None] = mapped_column(String(10), nullable=True)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
     nombre_norm: Mapped[str] = mapped_column(String(150), nullable=False)
     activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
@@ -149,7 +150,7 @@ class Localidad(Base):
     pacientes: Mapped[list[Patient]] = relationship(back_populates="localidad_catalogo")
 
     __table_args__ = (
-        UniqueConstraint("ubigeo_codigo", "codigo_sis", name="uq_localidades_ubigeo_codigo"),
+        UniqueConstraint("ubigeo_codigo", "codigo_catalogo", name="uq_localidades_ubigeo_codigo"),
         UniqueConstraint("ubigeo_codigo", "nombre_norm", name="uq_localidades_ubigeo_nombre"),
         Index("ix_localidades_nombre_norm", "nombre_norm"),
         MYSQL_TABLE_OPTIONS,

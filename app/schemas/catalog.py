@@ -42,11 +42,12 @@ class FamilyHistoryCatalogItem(BaseModel):
 
 
 class LocalidadCatalogItem(BaseModel):
-    """A district sector with its SIS locality code."""
+    """A district locality; internal lookup code and source export key differ."""
 
     id: int = Field(gt=0)
     ubigeo_codigo: str
-    codigo_sis: str
+    codigo_catalogo: str
+    codigo_sis: str | None = None
     nombre: str
     activo: bool
 
@@ -81,6 +82,10 @@ class EstablishmentCatalogItem(BaseModel):
     disa_codigo: str | None = None
     nombre: str
     abreviatura: str | None = None
+    ubigeo_codigo: str | None = None
+    distrito: str | None = None
+    provincia: str | None = None
+    departamento: str | None = None
     activo: bool
 
 

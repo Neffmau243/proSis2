@@ -10,6 +10,8 @@ from typing import Annotated, Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from app.schemas.encounter_context import EncounterLocationSnapshot
+
 
 class FuaPrintInput(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
@@ -51,6 +53,7 @@ class FuaPrintInput(BaseModel):
 
 
 class FuaPrintSnapshot(FuaPrintInput):
+    contexto_territorial: EncounterLocationSnapshot | None = None
     version: Literal[1, 2] = 1
     # Version 1 keeps its original loose affiliation contract for historical reads.
     # Version 2 comes exclusively from validated patient/site master data.

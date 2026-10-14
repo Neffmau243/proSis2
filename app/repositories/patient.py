@@ -317,10 +317,17 @@ class PatientRepository:
 
         for field, value in values.items():
             setattr(entity, field, value)
-        if isinstance(entity, Patient) and "ubigeo_residencia_codigo" in values:
-            # The response and audit snapshot must use the new district, not
-            # the relationship that was loaded before changing the foreign key.
-            self._session.expire(entity, ["ubigeo_residencia"])
+        if isinstance(entity, Patient):
+            relations = {
+                "ubigeo_residencia_codigo": "ubigeo_residencia",
+                "localidad_id": "localidad_catalogo",
+                "establecimiento_registro_id": "establecimiento_registro",
+                "seguro_id": "insurance",
+            }
+            changed = [relation for key, relation in relations.items() if key in values]
+            if changed:
+                # Responses and snapshots must resolve the new foreign keys.
+                self._session.expire(entity, changed)
 
     @staticmethod
     def deactivate(patient: Patient) -> None:

@@ -62,8 +62,11 @@ este ajuste visual no requiere otra migración ni inventa datos para pacientes.
    atención sale de la modalidad guardada. No hay un
    segundo formulario para definir SIS, etnia, personal o lugar al imprimir.
 4. Revise los pendientes y calibre la hoja en la vista previa conservada.
-   **Imprimir solo datos** abre el diálogo del navegador; también puede elegir
-   «Guardar como PDF». El RENIPRESS preimpreso no se sobreimprime.
+   **Imprimir sobre FUA preimpresa** abre el diálogo del navegador; también puede elegir
+   «Guardar como PDF». Para revisar los datos sobre el formulario use
+   **Ver FUA / guardar PDF** y elija «Guardar como PDF»: incluye la imagen
+   y una leyenda de revisión/prellenado parcial. El RENIPRESS preimpreso no se
+   sobreimprime en el modo solo datos; se muestra en la copia de revisión.
 5. Si falta la afiliación, las casillas quedan vacías. El ETL o la captura
 administrativa deben traer valores reales; no se asignan códigos por defecto
 ni se copia automáticamente el DNI. No se consultó ni modificó la afiliación
@@ -178,8 +181,8 @@ tamaño de la página del PDF que contiene el anexo.
 ## Calibración y privacidad
 
 El perfil inicial es **216 × 356 mm** y las coordenadas parten de una cuadrícula
-visual de referencia. No es una afirmación de que la imagen de ayuda ni la hoja
-disponible en la IPRESS sean el FUA vigente. Ajuste ancho, alto, desplazamientos y
+del anexo 1 oficial V.02, usado en 2025. La medida inicial no certifica el tamaño
+de la hoja física disponible en la IPRESS. Ajuste ancho, alto, desplazamientos y
 cada campo (X/Y/ancho/alto/fuente/paso por carácter). El omitir caracteres
 iniciales permite no repetir un prefijo de año ya impreso. Los campos pueden
 desactivarse, excepto la identificación y su leyenda cuando contienen datos;
@@ -199,14 +202,44 @@ En el diálogo de impresión: escala 100 %, sin encabezados/pies, márgenes cero
 tamaño idéntico en el controlador. El navegador no puede validar alimentación,
 área no imprimible, orientación física ni escala impuesta por la impresora.
 
-El diálogo muestra inicialmente `frontend/src/assets/fua-referencia.webp`, una
-versión visual de la imagen entregada en `docs/fua.png`. Es una referencia histórica
-para apreciar la superposición; **no** se considera el FUA vigente, no se sube, no
-se guarda y no forma parte de la salida impresa. Se puede reemplazar temporalmente
-por un PNG, JPG o WebP escaneado de una FUA física: ese archivo permanece solo en
-memoria y se libera al cerrar. Solo la geometría pasa a `localStorage`, con un
-esquema permitido; nunca nombres, documentos, afiliaciones ni mediciones. La salida
-impresa usa texto escapado, sin formulario de fondo ni etiquetas de UI.
+Desde el 14/10/2026, **todos** los perfiles usan exclusivamente
+`frontend/src/assets/fua-v02-referencia.png`, extraído del formulario de la página
+11 de la directiva oficial. Es la misma imagen en Vista previa y calibración y en
+Ver FUA / guardar PDF. No hay selector de plantilla ni escaneo alternativo.
+La antigua imagen se archivó en `docs/referencias/fua/fua-historica.webp` y ya no
+se importa ni se incluye en el build. Las posiciones iniciales corresponden al
+anexo oficial; las calibraciones guardadas mantienen todas sus coordenadas.
+
+Un perfil antiguo (`historica` o sin identificador de plantilla) se normaliza a
+`sis-v02` automáticamente y queda pendiente de comprobar la alineación una vez,
+pues su confirmación anterior correspondía a otra imagen. La versión normalizada
+se guarda en el mismo navegador. Confirmar la prueba física persiste el estado y
+las siguientes aperturas ya no repiten esa migración ni esa comprobación.
+
+La calibración se guarda automáticamente en `localStorage`, clave
+`ipress.fua-layout.v1`: es **por navegador y origen de la aplicación**, compartida
+por todas las cuentas y pacientes. No está en MySQL ni en la cuenta. Cambiar de
+paciente, cerrar sesión o elegir otro campo para ajustar no invalida la confirmación.
+Cambiar geometría sí la invalida y conserva los nuevos valores como pendientes.
+`localhost`, `127.0.0.1`, otro puerto y otro equipo tienen almacenamientos distintos;
+limpiar datos del navegador también elimina el perfil. El diálogo lo explica y
+permite exportar/importar JSON sin información clínica. Importar conserva posiciones
+y exige confirmar la impresora de destino una vez. Los errores de lectura/escritura
+son visibles y no se sobrescribe automáticamente un perfil ilegible al abrir.
+
+La referencia oficial queda fuera de **Imprimir sobre FUA preimpresa**
+y de **Imprimir prueba sin datos**. La copia con referencia se puede revisar sin
+haber confirmado la prueba física, pero conserva los controles de identidad,
+desbordamiento y reconocimiento de faltantes. El navegador espera que la imagen
+cargue antes de abrir la impresión. Solo la geometría pasa al almacenamiento o a
+su exportación; nunca nombres, documentos, afiliaciones ni mediciones.
+
+**Ver FUA / guardar PDF** es el botón principal del diálogo y abre la vista del
+navegador con formulario y datos. Allí se elige Guardar como PDF. La imagen del
+formulario se imprime como elemento de la página, por lo que aparece incluso con
+Gráficos de fondo desactivado. **Imprimir sobre FUA preimpresa** es la opción
+secundaria para una hoja física que ya contiene el formato; su vista sin imagen
+es intencional.
 
 ## Comprobación
 

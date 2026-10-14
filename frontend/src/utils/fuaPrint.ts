@@ -28,7 +28,7 @@ export function validateFuaInput(value: FuaPrintInput): string[] {
   const errors: string[] = []
   const patterns: [keyof FuaPrintInput, RegExp, string][] = [
     ['codigo_renipress', /^\d{8}$/, 'RENIPRESS debe tener 8 dígitos.'],
-    ['sis_diresa', /^\d{3}$/, 'DIRESA debe tener 3 dígitos.'],
+    ['sis_diresa', /^[A-Z0-9]{3}$/, 'DIRESA debe tener 3 caracteres alfanuméricos.'],
     ['sis_tipo', /^[A-Z0-9]{1,2}$/, 'El tipo de afiliación debe tener uno o dos caracteres.'],
     ['sis_numero', /^[A-Z0-9-]{1,30}$/, 'Revise el número de afiliación SIS.'],
     ['sis_componente', /^[A-Z0-9-]{1,20}$/, 'Revise el componente de afiliación del RN.'],
@@ -39,17 +39,24 @@ export function validateFuaInput(value: FuaPrintInput): string[] {
     if (value[key] && !pattern.test(value[key]!)) errors.push(message)
   }
   const affiliate = [value.sis_diresa, value.sis_tipo, value.sis_numero]
-  if ((affiliate.some(Boolean) || value.sis_componente) && !affiliate.every(Boolean)) {
-    errors.push('Complete DIRESA, tipo y número de afiliación SIS juntos.')
+  if ((affiliate.some(Boolean) || value.sis_componente) && !affiliate.slice(1).every(Boolean)) {
+    errors.push('Complete tipo y número de afiliación SIS juntos.')
   }
   if (value.personal_atiende === 'AISPED' && !value.codigo_aisped)
     errors.push('Indique el código AISPED.')
+  if (value.personal_atiende !== 'AISPED' && value.codigo_aisped)
+    errors.push('El código AISPED solo corresponde a personal AISPED.')
   if (
     value.tipo_atencion === 'REFERENCIA' &&
     ![value.referencia_renipress, value.referencia_nombre, value.referencia_hoja].every(Boolean)
   ) {
     errors.push('Complete RENIPRESS, nombre de origen y hoja de referencia.')
   }
+  if (
+    value.tipo_atencion !== 'REFERENCIA' &&
+    [value.referencia_renipress, value.referencia_nombre, value.referencia_hoja].some(Boolean)
+  )
+    errors.push('Los datos de referencia requieren atención REFERENCIA.')
   return errors
 }
 
@@ -100,6 +107,8 @@ export function fuaWarnings(s: FuaPrintSnapshot): string[] {
     [s.renipress_preimpreso !== false || s.codigo_renipress, 'RENIPRESS'],
     [s.sis_diresa && s.sis_tipo && s.sis_numero, 'Afiliación SIS completa'],
     [s.historia_clinica, 'Historia clínica'],
+    [s.profesional_documento, 'Documento del profesional responsable'],
+    [s.profesional_colegiatura, 'Colegiatura del profesional (cuando corresponda)'],
     [s.peso_kg, 'Peso'],
     [s.talla_cm, 'Talla'],
     [s.presion_sistolica && s.presion_diastolica, 'Presión arterial completa'],
@@ -129,6 +138,7 @@ export interface FuaField {
 }
 export interface FuaLayout {
   version: 1
+  template?: 'sis-v02'
   width: number
   height: number
   offsetX: number
@@ -139,87 +149,143 @@ export interface FuaLayout {
 
 /** Baseline paper profile used by the FUA preview and the printed page. */
 export const FUA_DEFAULT_PAPER_MM = Object.freeze({ width: 216, height: 356 })
-const FUA_REFERENCE_GRID_PX = Object.freeze({ width: 607, height: 1006 })
+const FUA_REFERENCE_GRID_PX = Object.freeze({ width: 598, height: 989 })
 const FUA_REFERENCE_MARGIN_MM = 10
 
-// Approximate starting positions only. They use the grid of the visual reference
-// and are not an assertion that the reference is the currently valid SIS FUA.
-// A physical test with the IPRESS stock is still required before printing data.
-const seeds: [string, string, number, number, number, number?][] = [
-  ['codigo_renipress', 'RENIPRESS', 5, 105, 135],
-  ['ipress_nombre', 'Nombre IPRESS', 155, 105, 444],
-  ['personal_ipress', 'X · De la IPRESS', 59, 138, 10],
-  ['personal_itinerante', 'X · Itinerante', 59, 154, 10],
-  ['personal_aisped', 'X · AISPED', 59, 170, 10],
-  ['codigo_aisped', 'Código AISPED', 72, 155, 72],
-  ['lugar_intramural', 'X · Intramural', 199, 138, 10],
-  ['lugar_extramural', 'X · Extramural', 199, 154, 10],
-  ['atencion_ambulatoria', 'X · Ambulatoria', 272, 138, 10],
-  ['atencion_referencia', 'X · Referencia', 272, 154, 10],
-  ['atencion_emergencia', 'X · Emergencia', 272, 170, 10],
-  ['referencia_renipress', 'Referencia · RENIPRESS', 289, 156, 77],
-  ['referencia_nombre', 'Referencia · IPRESS origen', 374, 156, 121],
-  ['referencia_hoja', 'Referencia · Hoja', 501, 156, 97],
-  ['tdi', 'TDI', 13, 216, 27],
-  ['numero_documento', 'Documento', 49, 216, 72],
-  ['sis_diresa', 'SIS · DIRESA', 130, 216, 62],
-  ['sis_numero_completo', 'SIS · Tipo / número / RN', 200, 216, 67],
-  ['apellido_paterno', 'Apellido paterno', 5, 242, 261],
-  ['apellido_materno', 'Apellido materno', 279, 242, 320],
-  ['primer_nombre', 'Primer nombre', 5, 268, 261],
-  ['otros_nombres', 'Otros nombres', 279, 268, 320],
-  ['sexo_m', 'X · Masculino', 53, 295, 10],
-  ['sexo_f', 'X · Femenino', 53, 307, 10],
-  ['nacimiento_dia', 'Nacimiento · Día', 140, 319, 39, 7],
-  ['nacimiento_mes', 'Nacimiento · Mes', 185, 319, 36, 7],
-  ['nacimiento_anio', 'Nacimiento · Año', 230, 319, 87, 8],
-  ['historia_clinica', 'Historia clínica', 327, 297, 95],
-  ['etnia_codigo', 'Código etnia', 440, 297, 154],
-  ['gestante', 'X · Gestante', 53, 337, 10],
-  ['puerpera', 'X · Puérpera', 53, 356, 10],
-  ['parto_dia', 'Parto · Día', 140, 295, 39, 7],
-  ['parto_mes', 'Parto · Mes', 185, 295, 36, 7],
-  ['parto_anio', 'Parto · Año', 230, 295, 87, 8],
-  ['atencion_dia', 'Atención · Día', 5, 404, 27, 5],
-  ['atencion_mes', 'Atención · Mes', 36, 404, 26, 5],
-  ['atencion_anio', 'Atención · Año', 68, 404, 70, 6.5],
-  ['hora_hh', 'Hora', 151, 404, 17, 3],
-  ['hora_mm', 'Minutos', 178, 404, 16, 3],
-  ['peso_kg', 'Peso (kg)', 4, 589, 44],
-  ['talla_cm', 'Talla (cm)', 61, 589, 66],
-  ['pa', 'PA (mmHg)', 145, 589, 65],
-  ['imc', 'IMC (kg/m²)', 220, 589, 52],
-  ['perimetro_abdominal_cm', 'PAB (cm)', 285, 589, 45],
-  ['profesional_documento', 'Responsable · DNI', 5, 873, 98],
-  ['profesional_nombre', 'Responsable · Nombre', 120, 873, 308],
-  ['profesional_colegiatura', 'Responsable · Colegiatura', 445, 873, 151],
-  ['identity_note', 'Leyenda de documento · uso local', 5, 955, 590],
+// Field labels and character pitch; all initial geometry uses the official annex.
+const seeds: [string, string, number?][] = [
+  ['codigo_renipress', 'RENIPRESS'],
+  ['ipress_nombre', 'Nombre IPRESS'],
+  ['personal_ipress', 'X · De la IPRESS'],
+  ['personal_itinerante', 'X · Itinerante'],
+  ['personal_aisped', 'X · AISPED'],
+  ['codigo_aisped', 'Código AISPED'],
+  ['lugar_intramural', 'X · Intramural'],
+  ['lugar_extramural', 'X · Extramural'],
+  ['atencion_ambulatoria', 'X · Ambulatoria'],
+  ['atencion_referencia', 'X · Referencia'],
+  ['atencion_emergencia', 'X · Emergencia'],
+  ['referencia_renipress', 'Referencia · RENIPRESS'],
+  ['referencia_nombre', 'Referencia · IPRESS origen'],
+  ['referencia_hoja', 'Referencia · Hoja'],
+  ['tdi', 'TDI'],
+  ['numero_documento', 'Documento'],
+  ['sis_diresa', 'SIS · DIRESA'],
+  ['sis_numero_completo', 'SIS · Tipo / número / RN'],
+  ['apellido_paterno', 'Apellido paterno'],
+  ['apellido_materno', 'Apellido materno'],
+  ['primer_nombre', 'Primer nombre'],
+  ['otros_nombres', 'Otros nombres'],
+  ['sexo_m', 'X · Masculino'],
+  ['sexo_f', 'X · Femenino'],
+  ['nacimiento_dia', 'Nacimiento · Día', 7],
+  ['nacimiento_mes', 'Nacimiento · Mes', 7],
+  ['nacimiento_anio', 'Nacimiento · Año', 8],
+  ['historia_clinica', 'Historia clínica'],
+  ['etnia_codigo', 'Código etnia'],
+  ['gestante', 'X · Gestante'],
+  ['puerpera', 'X · Puérpera'],
+  ['parto_dia', 'Parto · Día', 7],
+  ['parto_mes', 'Parto · Mes', 7],
+  ['parto_anio', 'Parto · Año', 8],
+  ['atencion_dia', 'Atención · Día', 5],
+  ['atencion_mes', 'Atención · Mes', 5],
+  ['atencion_anio', 'Atención · Año', 5.5],
+  ['hora_hh', 'Hora', 3],
+  ['hora_mm', 'Minutos', 3],
+  ['peso_kg', 'Peso (kg)'],
+  ['talla_cm', 'Talla (cm)'],
+  ['pa', 'PA (mmHg)'],
+  ['imc', 'IMC (kg/m²)'],
+  ['perimetro_abdominal_cm', 'PAB (cm)'],
+  ['profesional_documento', 'Responsable · DNI'],
+  ['profesional_nombre', 'Responsable · Nombre'],
+  ['profesional_colegiatura', 'Responsable · Colegiatura'],
+  ['identity_note', 'Leyenda de documento · uso local'],
 ]
+
+// Coordinates in the extracted annex 1 (page 11, 598 × 989 px).
+// Kept separate so existing physical calibrations are never moved on upgrade.
+const officialPositions: Record<string, [number, number, number]> = {
+  codigo_renipress: [4, 104, 138],
+  ipress_nombre: [151, 104, 441],
+  personal_ipress: [58, 138, 10],
+  personal_itinerante: [58, 153, 10],
+  personal_aisped: [58, 168, 10],
+  codigo_aisped: [72, 140, 70],
+  lugar_intramural: [197, 138, 10],
+  lugar_extramural: [197, 153, 10],
+  atencion_ambulatoria: [269, 138, 10],
+  atencion_referencia: [269, 153, 10],
+  atencion_emergencia: [269, 168, 10],
+  referencia_renipress: [283, 154, 78],
+  referencia_nombre: [369, 154, 114],
+  referencia_hoja: [491, 154, 101],
+  tdi: [14, 210, 28],
+  numero_documento: [50, 210, 70],
+  sis_diresa: [128, 210, 29],
+  sis_numero_completo: [164, 210, 99],
+  apellido_paterno: [4, 235, 259],
+  apellido_materno: [274, 235, 318],
+  primer_nombre: [4, 260, 259],
+  otros_nombres: [274, 260, 318],
+  sexo_m: [53, 291, 10],
+  sexo_f: [53, 303, 10],
+  nacimiento_dia: [139, 316, 37],
+  nacimiento_mes: [184, 316, 35],
+  nacimiento_anio: [228, 316, 82],
+  historia_clinica: [321, 293, 97],
+  etnia_codigo: [433, 293, 158],
+  gestante: [53, 333, 10],
+  puerpera: [53, 350, 10],
+  parto_dia: [139, 292, 37],
+  parto_mes: [184, 292, 35],
+  parto_anio: [228, 292, 82],
+  atencion_dia: [7, 397, 25],
+  atencion_mes: [39, 397, 23],
+  atencion_anio: [73, 397, 62],
+  hora_hh: [149, 397, 17],
+  hora_mm: [175, 397, 17],
+  peso_kg: [36, 577, 21],
+  talla_cm: [104, 577, 25],
+  pa: [178, 577, 38],
+  imc: [256, 577, 21],
+  perimetro_abdominal_cm: [307, 577, 24],
+  profesional_documento: [4, 856, 103],
+  profesional_nombre: [117, 856, 307],
+  profesional_colegiatura: [435, 856, 157],
+  identity_note: [4, 987, 590],
+}
 
 export function defaultFuaLayout(): FuaLayout {
   const printableWidth = FUA_DEFAULT_PAPER_MM.width - FUA_REFERENCE_MARGIN_MM * 2
   const printableHeight = FUA_DEFAULT_PAPER_MM.height - FUA_REFERENCE_MARGIN_MM * 2
+  const grid = FUA_REFERENCE_GRID_PX
   return {
     version: 1,
+    template: 'sis-v02',
     width: FUA_DEFAULT_PAPER_MM.width,
     height: FUA_DEFAULT_PAPER_MM.height,
     offsetX: 0,
     offsetY: 0,
     calibrated: false,
-    fields: seeds.map(([id, label, x, y, width, step]) => ({
-      id,
-      label,
-      x: +(FUA_REFERENCE_MARGIN_MM + (x * printableWidth) / FUA_REFERENCE_GRID_PX.width).toFixed(2),
-      y: +(FUA_REFERENCE_MARGIN_MM + (y * printableHeight) / FUA_REFERENCE_GRID_PX.height).toFixed(
-        2,
-      ),
-      width: +((width * printableWidth) / FUA_REFERENCE_GRID_PX.width).toFixed(2),
-      height: 4,
-      font: 8,
-      step: step ?? 0,
-      skip: 0,
-      enabled: true,
-    })),
+    fields: seeds.map(([id, label, step]) => {
+      const [x, y, width] = officialPositions[id]!
+      return {
+        id,
+        label,
+        x: +(FUA_REFERENCE_MARGIN_MM + (x * printableWidth) / grid.width).toFixed(2),
+        y: +(FUA_REFERENCE_MARGIN_MM + (y * printableHeight) / grid.height).toFixed(2),
+        width: +((width * printableWidth) / grid.width).toFixed(2),
+        height: ['peso_kg', 'talla_cm', 'pa', 'imc', 'perimetro_abdominal_cm'].includes(id)
+          ? 2.8
+          : 4,
+        font: 8,
+        step: step ?? 0,
+        skip: 0,
+        enabled: true,
+      }
+    }),
   }
 }
 
@@ -229,7 +295,9 @@ const bounded = (v: unknown, min: number, max: number): v is number =>
 
 /** Allowlist geometry only: local storage must never contain clinical values. */
 export function parseFuaLayout(raw: string): FuaLayout {
-  const v = JSON.parse(raw) as FuaLayout
+  const v = JSON.parse(raw) as Omit<FuaLayout, 'template'> & { template?: 'historica' | 'sis-v02' }
+  if (!v || (v.template != null && !['historica', 'sis-v02'].includes(v.template)))
+    throw new Error('Plantilla de calibración inválida.')
   const template = defaultFuaLayout()
   if (
     v.version !== 1 ||
@@ -275,11 +343,12 @@ export function parseFuaLayout(raw: string): FuaLayout {
   })
   return {
     version: 1,
+    template: template.template,
     width: v.width,
     height: v.height,
     offsetX: v.offsetX,
     offsetY: v.offsetY,
-    calibrated: v.calibrated === true && !migrated,
+    calibrated: v.calibrated === true && !migrated && v.template === 'sis-v02',
     fields,
   }
 }
@@ -398,8 +467,11 @@ export function fuaPrintHtml(
   layout: FuaLayout,
   values: Record<string, string>,
   test = false,
+  backgroundUrl?: string,
+  backgroundInset = 0,
 ): string {
   const safe = parseFuaLayout(JSON.stringify(layout))
+  if (!bounded(backgroundInset, 0, 50)) throw new Error('Margen de referencia inválido.')
   const fields = safe.fields
     .filter((f) => f.enabled)
     .map((f) => {
@@ -417,19 +489,28 @@ export function fuaPrintHtml(
       return `<div style="position:absolute;left:${f.x + safe.offsetX}mm;top:${f.y + safe.offsetY}mm;width:${f.width}mm;height:${f.height}mm;font-size:${font}pt;${test ? 'outline:0.2mm solid #000;' : ''}">${content}</div>`
     })
     .join('')
+  const background =
+    backgroundUrl && !test
+      ? `<img src="${escapeHtml(backgroundUrl)}" alt="FUA de referencia" style="position:absolute;left:${backgroundInset}mm;top:${backgroundInset}mm;width:${safe.width - 2 * backgroundInset}mm;height:${safe.height - 2 * backgroundInset}mm">`
+      : ''
+  const notice = background
+    ? '<div style="position:absolute;left:10mm;top:2mm;font:8pt Arial,sans-serif">VISTA DE REVISIÓN · PRELLENADO PARCIAL · USO LOCAL</div>'
+    : ''
   return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Impresión FUA</title><style>
     @page{size:${safe.width}mm ${safe.height}mm;margin:0}
     html,body{margin:0;padding:0;width:${safe.width}mm;height:${safe.height}mm}
     body{position:relative;color:#000;background:#fff;font-family:Courier New,monospace;line-height:1.2;white-space:nowrap}
-    </style></head><body>${fields}</body></html>`
+    </style></head><body>${background}${notice}${fields}</body></html>`
 }
 
 export async function printFua(
   layout: FuaLayout,
   values: Record<string, string>,
   test = false,
+  backgroundUrl?: string,
+  backgroundInset = 0,
 ): Promise<void> {
-  if (!test && (!layout.calibrated || layoutProblems(layout, values).length))
+  if (!test && ((!backgroundUrl && !layout.calibrated) || layoutProblems(layout, values).length))
     throw new Error('Revise la calibración antes de imprimir.')
   const frame = document.createElement('iframe')
   frame.title = 'Salida de impresión FUA'
@@ -439,11 +520,18 @@ export async function printFua(
     frame.onload = () => resolve()
     frame.onerror = () => reject(new Error('No se pudo preparar la impresión.'))
   })
-  frame.srcdoc = fuaPrintHtml(layout, values, test)
+  frame.srcdoc = fuaPrintHtml(layout, values, test, backgroundUrl, backgroundInset)
   document.body.appendChild(frame)
   try {
     await ready
     await frame.contentDocument?.fonts.ready
+    if (backgroundUrl && !test) {
+      const img = frame.contentDocument?.querySelector('img')
+      if (!img || !img.complete || !img.naturalWidth)
+        throw new Error(
+          'No se pudo cargar la imagen de referencia. Vuelva a abrir la vista previa.',
+        )
+    }
     const target = frame.contentWindow
     if (!target) throw new Error('El navegador no permite abrir la impresión.')
     target.addEventListener('afterprint', () => frame.remove(), { once: true })

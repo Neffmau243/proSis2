@@ -197,18 +197,25 @@ class AttentionService:
                 observaciones=command.observaciones,
                 created_by_usuario_id=actor_id,
             )
+            entity.contexto_clinico = nutrition_context(
+                patient,
+                self._attentions.get_active_establishment(command.establecimiento_id),
+                age,
+                condition,
+                office=self._attentions.get_active_office(command.consultorio_id),
+                professional=self._attentions.get_active_professional(command.profesional_id),
+                specialty=(
+                    self._attentions.get_active_specialty(command.especialidad_codigo)
+                    if command.especialidad_codigo
+                    else None
+                ),
+            )
             entity.fua_impresion = build_fua_snapshot(
                 entity,
                 patient,
                 self._attentions.get_active_establishment(command.establecimiento_id),
                 self._attentions.get_active_professional(command.profesional_id),
                 command.fua_datos,
-            )
-            entity.contexto_clinico = nutrition_context(
-                patient,
-                self._attentions.get_active_establishment(command.establecimiento_id),
-                age,
-                condition,
             )
             self._attentions.add(entity)
             self._attentions.flush()

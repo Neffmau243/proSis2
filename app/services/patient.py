@@ -35,6 +35,7 @@ from app.mappers.patient import (
     risk_to_response,
     risk_update_to_entity_kwargs,
 )
+from app.models.patient import Patient
 from app.repositories.patient import PatientRepository
 from app.schemas.patient import (
     PatientCreate,
@@ -165,13 +166,11 @@ class PatientService:
             self._validate_document_number(command.tipo_documento_codigo, command.numero_documento)
             self._validate_insurance_affiliation(command.model_dump())
             self._validate_sis_and_ethnicity(command.model_dump())
+            values = patient_create_to_entity_kwargs(command)
+            self._normalize_patient_locality(values)
             self._validate_patient_residence(
                 ubigeo_code=command.ubigeo_residencia_codigo,
-                locality=command.localidad,
-            )
-            self._validate_patient_locality(
-                localidad_id=command.localidad_id,
-                ubigeo_code=command.ubigeo_residencia_codigo,
+                locality=values.get("localidad"),
             )
             self._ensure_document_is_available(
                 command.tipo_documento_codigo,
@@ -184,7 +183,6 @@ class PatientService:
             )
             self._validate_new_risks(command.riesgos)
 
-            values = patient_create_to_entity_kwargs(command)
             # El autor clínico del registro conserva el acceso al paciente
             # aunque la sede elegida no esté entre sus asignaciones vigentes.
             values["profesional_registro_id"] = professional_id
@@ -296,16 +294,15 @@ class PatientService:
             effective_ubigeo_code = values.get(
                 "ubigeo_residencia_codigo", patient.ubigeo_residencia_codigo
             )
+            if any(
+                key in values for key in ("localidad_id", "localidad", "ubigeo_residencia_codigo")
+            ):
+                self._normalize_patient_locality(values, patient)
             effective_locality = values.get("localidad", patient.localidad)
             self._validate_patient_residence(
                 ubigeo_code=effective_ubigeo_code,
                 locality=effective_locality,
             )
-            if "localidad_id" in values or "ubigeo_residencia_codigo" in values:
-                self._validate_patient_locality(
-                    localidad_id=values.get("localidad_id", patient.localidad_id),
-                    ubigeo_code=effective_ubigeo_code,
-                )
             if "establecimiento_registro_id" in values:
                 # Trasladar la inscripción no debe dejar al autor del traslado
                 # sin acceso al paciente que acaba de mover de sede.
@@ -744,23 +741,29 @@ class PatientService:
                 message="La localidad debe ser un nombre, no el código de ubigeo.",
             )
 
-    def _validate_patient_locality(
+    def _normalize_patient_locality(
         self,
-        *,
-        localidad_id: int | None,
-        ubigeo_code: str | None,
+        values: dict[str, Any],
+        patient: Patient | None = None,
     ) -> None:
-        """A SIS locality belongs to exactly one district, so scope it by UBIGEO."""
-
+        """The catalog owns both district membership and the saved locality name."""
+        localidad_id = values.get("localidad_id", getattr(patient, "localidad_id", None))
+        ubigeo_code = values.get(
+            "ubigeo_residencia_codigo", getattr(patient, "ubigeo_residencia_codigo", None)
+        )
         if localidad_id is None:
+            if "localidad_id" in values and "localidad" not in values:
+                values["localidad"] = None
             return
         if ubigeo_code is None:
             raise ValidationDomainError(
                 code="LOCALIDAD_SIN_DISTRITO",
                 message="Seleccione un distrito antes de registrar la localidad.",
             )
-        if self._repository.get_active_localidad(localidad_id, ubigeo_code) is None:
+        locality = self._repository.get_active_localidad(localidad_id, ubigeo_code)
+        if locality is None:
             self._raise_unavailable_catalog("localidad", localidad_id)
+        values["localidad"] = locality.nombre
 
     @staticmethod
     def _validate_document_number(document_type: str, number: str) -> None:

@@ -8,6 +8,7 @@ from app.models.clinical import Attention
 from app.models.organization import Establishment
 from app.models.patient import Patient
 from app.models.security import Professional
+from app.schemas.encounter_context import EncounterLocationSnapshot
 from app.schemas.fua_print import FuaPrintInput, FuaPrintSnapshot
 
 
@@ -52,6 +53,11 @@ def build_fua_snapshot(
     nutrition = getattr(attention, "valoracion_calculada", None) or {}
     snapshot = FuaPrintSnapshot(
         **values,
+        contexto_territorial=(
+            EncounterLocationSnapshot.model_validate(attention.contexto_clinico)
+            if getattr(attention, "contexto_clinico", None) is not None
+            else None
+        ),
         version=2,
         sis_secuencia=getattr(patient, "sis_secuencia", None) if has_sis else None,
         renipress_preimpreso=getattr(establishment, "fua_renipress_preimpreso", True),

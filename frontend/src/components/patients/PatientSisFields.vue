@@ -35,67 +35,64 @@ onMounted(load)
 
 <template>
   <div class="patient-sis-fields">
-    <fieldset class="patient-sis-fields__code" :disabled="disabled || affiliationDisabled">
-      <legend class="patient-sis-fields__legend">Código del asegurado SIS</legend>
-      <div class="patient-sis-fields__segments">
-        <el-form-item
-          v-for="field in patientSisContractFields"
-          :key="field.key"
-          :label="shortLabels[field.key]"
-          :error="errors?.[field.key]"
-        >
-          <el-input
-            :model-value="value[field.key]"
-            :maxlength="field.max"
-            :disabled="disabled || affiliationDisabled"
-            :aria-label="field.label"
-            :inputmode="['sis_numero', 'sis_secuencia'].includes(field.key) ? 'numeric' : 'text'"
-            @update:model-value="emit('update', { [field.key]: $event.toUpperCase() || null })"
-          />
-        </el-form-item>
+    <div class="patient-sis-fields__affiliation">
+      <div class="patient-sis-fields__brand">
+        <slot name="insurance-brand" />
       </div>
-    </fieldset>
+      <fieldset class="patient-sis-fields__code" :disabled="disabled || affiliationDisabled">
+        <legend class="patient-sis-fields__legend">Código del asegurado SIS</legend>
+        <div class="patient-sis-fields__segments">
+          <el-form-item
+            v-for="field in patientSisContractFields"
+            :key="field.key"
+            :label="shortLabels[field.key]"
+            :error="errors?.[field.key]"
+          >
+            <el-input
+              :model-value="value[field.key]"
+              :maxlength="field.max"
+              :disabled="disabled || affiliationDisabled"
+              :aria-label="field.label"
+              :inputmode="['sis_numero', 'sis_secuencia'].includes(field.key) ? 'numeric' : 'text'"
+              @update:model-value="emit('update', { [field.key]: $event.toUpperCase() || null })"
+            />
+          </el-form-item>
+        </div>
+      </fieldset>
+    </div>
 
     <slot />
 
-    <details class="patient-sis-fields__additional">
-      <summary>Datos adicionales</summary>
-      <div class="patient-sis-fields__additional-content">
-        <slot name="additional" />
-        <el-form-item label="Etnia declarada" :error="errors?.etnia_codigo">
-          <el-select
-            :model-value="value.etnia_codigo"
-            clearable
-            filterable
-            :disabled="disabled"
-            :loading="loading"
-            placeholder="Sin declarar"
-            aria-label="Etnia declarada"
-            @update:model-value="emit('update', { etnia_codigo: $event || null })"
-          >
-            <el-option
-              v-if="value.etnia_codigo && !etnias.some((e) => e.codigo === value.etnia_codigo)"
-              :value="value.etnia_codigo"
-              :label="`Código ${value.etnia_codigo}`"
-            />
-            <el-option
-              v-for="item in etnias"
-              :key="item.codigo"
-              :value="item.codigo"
-              :label="`${item.codigo} · ${item.nombre}`"
-            />
-          </el-select>
-        </el-form-item>
-        <p v-if="error" role="alert" class="patient-sis-fields__help">
-          No se cargó el catálogo de etnias.
-          <el-button link type="primary" @click="load">Reintentar</el-button>
-        </p>
-        <p class="patient-sis-fields__help">
-          Copie el código de la acreditación SIS: DIRESA de 3 caracteres, tipo de 1–2, número de 8–9
-          dígitos y secuencia/RN de hasta 2, si corresponde. La etnia es declarada.
-        </p>
-      </div>
-    </details>
+    <div class="patient-sis-fields__ethnicity">
+      <el-form-item label="Etnia declarada" :error="errors?.etnia_codigo">
+        <el-select
+          :model-value="value.etnia_codigo"
+          clearable
+          filterable
+          :disabled="disabled"
+          :loading="loading"
+          placeholder="Sin declarar"
+          aria-label="Etnia declarada"
+          @update:model-value="emit('update', { etnia_codigo: $event || null })"
+        >
+          <el-option
+            v-if="value.etnia_codigo && !etnias.some((e) => e.codigo === value.etnia_codigo)"
+            :value="value.etnia_codigo"
+            :label="`Código ${value.etnia_codigo}`"
+          />
+          <el-option
+            v-for="item in etnias"
+            :key="item.codigo"
+            :value="item.codigo"
+            :label="`${item.codigo} · ${item.nombre}`"
+          />
+        </el-select>
+      </el-form-item>
+      <p v-if="error" role="alert" class="patient-sis-fields__help">
+        No se cargó el catálogo de etnias.
+        <el-button link type="primary" @click="load">Reintentar</el-button>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -107,10 +104,22 @@ onMounted(load)
   min-width: 0;
 }
 
+.patient-sis-fields__affiliation {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  align-items: center;
+  min-width: 0;
+}
+
+.patient-sis-fields__brand {
+  justify-self: end;
+  margin-right: 8px;
+}
+
 .patient-sis-fields__code {
   min-width: 0;
   padding: 0;
-  margin: 0 0 0 136px;
+  margin: 0;
   border: 0;
 }
 
@@ -160,34 +169,30 @@ onMounted(load)
   position: static;
 }
 
-.patient-sis-fields__additional {
-  border-top: 1px solid var(--registration-border, #b9cbdf);
-  margin-top: 4px;
-  padding-top: 4px;
-}
-
-.patient-sis-fields__additional summary {
-  box-sizing: border-box;
-  min-height: 24px;
-  padding-block: 4px;
-  color: var(--registration-ink, #304f6d);
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.patient-sis-fields__additional summary:focus-visible {
-  outline: 2px solid var(--el-color-primary);
-  outline-offset: 2px;
-}
-
-.patient-sis-fields__additional-content {
+.patient-sis-fields__ethnicity :deep(.el-form-item) {
   display: grid;
-  gap: 8px;
-  padding-top: 4px;
+  grid-template-columns: 136px minmax(0, 1fr);
+  align-items: center;
 }
 
-.patient-sis-fields__additional-content :deep(.el-date-editor) {
+.patient-sis-fields__ethnicity :deep(.el-form-item__label) {
+  justify-content: flex-end;
+  margin: 0;
+  padding-right: 8px;
+  text-align: right;
+}
+
+.patient-sis-fields__ethnicity :deep(.el-form-item__content) {
+  min-width: 0;
+  margin-left: 0 !important;
+}
+
+.patient-sis-fields__ethnicity :deep(.el-select) {
   width: 100%;
+}
+
+.patient-sis-fields__ethnicity > .patient-sis-fields__help {
+  margin-left: 136px;
 }
 
 .patient-sis-fields__help {
@@ -198,8 +203,23 @@ onMounted(load)
 }
 
 @media (max-width: 640px) {
-  .patient-sis-fields__code {
+  .patient-sis-fields__ethnicity :deep(.el-form-item) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .patient-sis-fields__ethnicity :deep(.el-form-item__label) {
+    justify-content: flex-start;
+    padding-right: 0;
+    text-align: left;
+  }
+
+  .patient-sis-fields__ethnicity > .patient-sis-fields__help {
     margin-left: 0;
+  }
+
+  .patient-sis-fields__affiliation {
+    grid-template-columns: 98px minmax(0, 1fr);
   }
 
   .patient-sis-fields__segments {

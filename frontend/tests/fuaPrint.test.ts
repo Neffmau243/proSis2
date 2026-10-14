@@ -102,6 +102,40 @@ test('old calibration preserves coordinates and requires review of the new legen
   expect(migrated.calibrated).toBe(false)
 })
 
+test.each([undefined, 'historica'])(
+  'a %s profile moves to the single reference while retaining coordinates for review',
+  (template) => {
+    const legacy = { ...defaultFuaLayout(), template, calibrated: true }
+    legacy.fields[0]!.x = 25
+    const restored = parseFuaLayout(JSON.stringify(legacy))
+    expect(restored.template).toBe('sis-v02')
+    expect(restored.calibrated).toBe(false)
+    expect(restored.fields).toEqual(legacy.fields)
+    expect(defaultFuaLayout().template).toBe('sis-v02')
+  },
+)
+
+test('PDF review includes an escaped reference image and identical field geometry; paper and test outputs stay data-only', () => {
+  const layout = defaultFuaLayout()
+  const values = fuaValues(snapshot)
+  const review = fuaPrintHtml(layout, values, false, '/reference.png', 10)
+  const paper = fuaPrintHtml(layout, values)
+  const reviewDoc = new DOMParser().parseFromString(review, 'text/html')
+  const paperDoc = new DOMParser().parseFromString(paper, 'text/html')
+  expect(reviewDoc.querySelector('img')?.getAttribute('style')).toContain(
+    'left:10mm;top:10mm;width:196mm;height:336mm',
+  )
+  expect(review).toContain('PRELLENADO PARCIAL')
+  expect([...reviewDoc.body.children].slice(2).map((field) => field.outerHTML)).toEqual(
+    [...paperDoc.body.children].map((field) => field.outerHTML),
+  )
+  expect(paper).not.toContain('<img')
+  const testDoc = fuaPrintHtml(layout, values, true, '/reference.png')
+  expect(testDoc).not.toContain('<img')
+  expect(testDoc).not.toContain(snapshot.numero_documento)
+  expect(fuaPrintHtml(layout, {}, false, 'x" onerror="alert(1)')).toContain('&quot;')
+})
+
 test('typing a multi-word IPRESS name preserves space separators', () => {
   let text = ''
   for (const char of 'Hospital San Juan') {
@@ -297,6 +331,14 @@ test('partial SIS affiliation and incomplete reference are rejected; missing dat
   ).toEqual([])
   expect(validateFuaInput({ ...emptyFuaInput(), tipo_atencion: 'REFERENCIA' }).length).toBeTruthy()
   expect(fuaWarnings({ ...snapshot, tdi: null }).some((x) => x.includes('TDI'))).toBe(true)
+})
+
+test('supplement validation matches the backend optional DIRESA and conditional reference/AISPED contract', () => {
+  const affiliate = { ...emptyFuaInput(), sis_tipo: '2', sis_numero: '00000001' }
+  expect(validateFuaInput(affiliate)).toEqual([])
+  expect(validateFuaInput({ ...affiliate, sis_diresa: 'A01' })).toEqual([])
+  expect(validateFuaInput({ ...emptyFuaInput(), codigo_aisped: 'A001' })).not.toEqual([])
+  expect(validateFuaInput({ ...emptyFuaInput(), referencia_hoja: '001' })).not.toEqual([])
 })
 
 /**

@@ -1,0 +1,16 @@
+
+> ipress-frontend@0.1.0 test
+> vitest run --run
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+
+
+ Test Files  41 passed | 1 skipped (42)
+      Tests  307 passed | 1 skipped (308)
+   Start at  09:37:39
+   Duration  119.71s (tests 42%, import 24%, transform 19%, environment 14%)
+
+    Isolate  42 workers spawned · ~2.38s startup each (spawn + environment, per file)
+             at least ~11.91s faster with isolate: false — reuses workers across files instead of one per file
+

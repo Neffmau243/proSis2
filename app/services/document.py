@@ -90,7 +90,12 @@ class DocumentService:
             issued_at = datetime.now(ZoneInfo("America/Lima"))
             period = str(issued_at.year)
             lote = issued_at.strftime("%y")
-            renipress = self._renipress_for(establishment.codigo_renaes)
+            snapshot = getattr(attention, "fua_impresion", None)
+            renipress = self._renipress_for(
+                snapshot.get("codigo_renipress")
+                if snapshot is not None
+                else establishment.codigo_renaes
+            )
             sequence = self._documents.reserve_sequence_number(
                 kind="FUA_SIS", establishment_id=attention.establecimiento_id, period=period
             )

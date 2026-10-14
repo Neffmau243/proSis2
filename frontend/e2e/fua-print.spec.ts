@@ -44,7 +44,7 @@ test('la calibración en milímetros habilita la impresión real y produce el FU
   await stubPrinting(page)
   await openCalibration(page)
 
-  const print = page.getByRole('button', { name: 'Imprimir solo datos' })
+  const print = page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa' })
   // Sin calibrar, la impresión real queda bloqueada.
   await expect(print).toBeDisabled()
 
@@ -85,16 +85,113 @@ test('la calibración en milímetros habilita la impresión real y produce el FU
   await checkbox(page, 'Imprimir este campo').click()
   await expect(print).toBeDisabled()
 
-  // ...y al reabrir se recupera la calibración guardada en este navegador.
+  // El cambio se guarda automáticamente: al reabrir conserva la geometría
+  // pendiente de comprobar en lugar de recuperar una confirmación obsoleta.
   await page.reload()
   await expect(page.getByText('Imprimir FUA · uso local')).toBeVisible()
   await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
-  await expect(
-    checkbox(page, 'Comprobé tamaño y alineación').locator('input'),
-  ).toBeChecked()
+  await expect(checkbox(page, 'Comprobé tamaño y alineación').locator('input')).not.toBeChecked()
   // Los faltantes vuelven a confirmarse en cada apertura, como exige el diálogo.
   await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
   await checkbox(page, 'Revisé los faltantes').click()
   await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
-  await expect(page.getByRole('button', { name: 'Imprimir solo datos' })).toBeEnabled()
+  await checkbox(page, 'Comprobé tamaño y alineación').click()
+  await expect(page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa' })).toBeEnabled()
+})
+
+test('el PDF de revisión contiene la referencia oficial y datos, sin exigir prueba física', async ({
+  page,
+}) => {
+  await stubPrinting(page)
+  await openCalibration(page)
+  await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
+  await checkbox(page, 'Revisé los faltantes').click()
+  await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
+  await expect(page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa' })).toBeDisabled()
+  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
+  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
+  const [doc] = await prints(page)
+  expect(doc).toContain('fua-v02-referencia.png')
+  expect(doc).toContain('PRUEBA-001')
+  expect(doc).toContain('PRELLENADO PARCIAL')
+  expect(doc).toContain('00000001')
+  const previewSrc = await page.locator('.fua-background').getAttribute('src')
+  expect(doc).toContain(`src="${previewSrc}"`)
+  await expect(page.getByRole('button', { name: 'Ver FUA / guardar PDF' })).toHaveClass(
+    /el-button--primary/,
+  )
+  // Image loading is part of the print path, and desktop/mobile use the same sheet.
+  await expect(page.locator('.fua-background')).toBeVisible()
+  await page.screenshot({ path: '../docs/audits/fua-v02-desktop-20261014.png', fullPage: true })
+  await page.setViewportSize({ width: 390, height: 844 })
+  await expect(page.getByRole('button', { name: 'Ver FUA / guardar PDF' })).toBeVisible()
+  await page.screenshot({ path: '../docs/audits/fua-v02-mobile-20261014.png', fullPage: true })
+  // The form is an image element: it must print even with background graphics off.
+  await page.setViewportSize({ width: 1000, height: 1400 })
+  await page.setContent(doc!)
+  await expect
+    .poll(() =>
+      page.locator('img').evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0),
+    )
+    .toBe(true)
+  await page.pdf({
+    path: '../docs/audits/fua-v02-revision-sintetica-20261014.pdf',
+    preferCSSPageSize: true,
+    printBackground: false,
+  })
+  await page.screenshot({ path: '../docs/audits/fua-v02-hoja-20261014.png', fullPage: true })
+})
+
+test('un perfil histórico usa la misma referencia en vista previa y PDF conservando sus posiciones', async ({
+  page,
+}) => {
+  await stubPrinting(page)
+  await openCalibration(page)
+  await checkbox(page, 'Comprobé tamaño y alineación').click()
+  const legacy = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), LAYOUT_KEY)
+  legacy.template = 'historica'
+  const history = legacy.fields.find((field: { id: string }) => field.id === 'historia_clinica')
+  history.x = 120
+  await page.evaluate(({ key, raw }) => localStorage.setItem(key, raw), {
+    key: LAYOUT_KEY,
+    raw: JSON.stringify(legacy),
+  })
+  await page.reload()
+  await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
+  await expect(page.locator('.fua-background')).toHaveAttribute('src', /fua-v02-referencia\.png$/)
+  await expect(page.locator('#fua-scan')).toHaveCount(0)
+  const normalized = await page.evaluate(
+    (key) => JSON.parse(localStorage.getItem(key)!),
+    LAYOUT_KEY,
+  )
+  expect(normalized.template).toBe('sis-v02')
+  expect(normalized.calibrated).toBe(false)
+  expect(normalized.fields).toEqual(legacy.fields)
+  await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
+  await checkbox(page, 'Revisé los faltantes').click()
+  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
+  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
+  const [doc] = await prints(page)
+  expect(doc).toContain('fua-v02-referencia.png')
+  expect(doc).not.toContain('fua-referencia.webp')
+  expect(doc).toContain('left:120mm')
+})
+
+test('importar posiciones conserva la geometría y exige comprobar la impresora de destino', async ({
+  page,
+}) => {
+  await openCalibration(page)
+  await checkbox(page, 'Comprobé tamaño y alineación').click()
+  const raw = await page.evaluate((key) => localStorage.getItem(key)!, LAYOUT_KEY)
+  const imported = JSON.parse(raw)
+  imported.offsetX = 1.5
+  await page.locator('#fua-layout-import').setInputFiles({
+    name: 'calibracion.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(imported)),
+  })
+  await expect
+    .poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).offsetX, LAYOUT_KEY))
+    .toBe(1.5)
+  await expect(checkbox(page, 'Comprobé tamaño y alineación').locator('input')).not.toBeChecked()
 })

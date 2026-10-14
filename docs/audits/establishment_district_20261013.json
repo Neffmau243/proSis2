@@ -1,0 +1,53 @@
+{
+  "checked_on": "2026-10-13",
+  "revision": "20261013_0035_site_district",
+  "sources": [
+    "https://pagina.saludarequipa.gob.pe/wp-content/uploads/2024/10/Horario_Atencion_GERESA.pdf",
+    "https://repositorio.pcris.gob.pe/Archivos/DocumentoExpedienteMPV82401082023170156.pdf"
+  ],
+  "sites": [
+    {
+      "codigo_renaes": "1291",
+      "nombre": "C.S. ALTO SELVA ALEGRE",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    },
+    {
+      "codigo_renaes": "1300",
+      "nombre": "P.S. APURIMAC",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    },
+    {
+      "codigo_renaes": "1302",
+      "nombre": "CS. INDEPENDENCIA",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    },
+    {
+      "codigo_renaes": "1301",
+      "nombre": "P.S. LEONES DEL MISTI",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    },
+    {
+      "codigo_renaes": "1303",
+      "nombre": "P.S. SAN JUAN BAUTISTA",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    },
+    {
+      "codigo_renaes": "1304",
+      "nombre": "P.S. HEROES DEL CENEPA",
+      "ubigeo_codigo": "040102",
+      "distrito": "ALTO SELVA ALEGRE",
+      "provincia": "Arequipa"
+    }
+  ],
+  "patient_and_history_unchanged": true
+}

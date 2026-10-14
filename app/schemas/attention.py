@@ -99,7 +99,9 @@ class AttentionCreate(BaseModel):
     fecha_parto: date | None = None
     peso_kg: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
     talla_cm: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
-    perimetro_abdominal_cm: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
+    perimetro_abdominal_cm: (
+        Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None
+    ) = None
     presion_sistolica: Annotated[int, Field(gt=0, le=999)] | None = None
     presion_diastolica: Annotated[int, Field(gt=0, le=999)] | None = None
     temperatura_c: Annotated[Decimal, Field(max_digits=4, decimal_places=1)] | None = None
@@ -118,25 +120,30 @@ class AttentionCreate(BaseModel):
         return value.strip().upper() if isinstance(value, str) else value
 
     @field_validator(
-        "admision", "observaciones", "numero_referencia_ingreso",
-        "numero_contrarreferencia_ingreso", mode="before",
+        "admision",
+        "observaciones",
+        "numero_referencia_ingreso",
+        "numero_contrarreferencia_ingreso",
+        mode="before",
     )
     @classmethod
     def trim_text(cls, value: Any) -> Any:
         return value.strip() if isinstance(value, str) else value
 
     @model_validator(mode="after")
-    def validate_times(self) -> "AttentionCreate":
+    def validate_times(self) -> AttentionCreate:
         # Shared obstetric data: the plurality and the weight before the pregnancy
         # are meaningful for both a pregnant person and a puerperal one.
         shared = (self.tipo_embarazo_codigo, self.peso_antes_embarazo_kg)
         pregnant_only = (
             self.fecha_probable_parto,
             self.valoracion_nutricional.edad_gestacional_semanas
-            if self.valoracion_nutricional else None,
+            if self.valoracion_nutricional
+            else None,
         )
         if self.grupo_atencion_codigo not in (
-            CareGroupCode.PREGNANT, CareGroupCode.PUERPERAL
+            CareGroupCode.PREGNANT,
+            CareGroupCode.PUERPERAL,
         ) and any(value is not None for value in (*shared, *pregnant_only, self.fecha_parto)):
             raise ValueError(
                 "Los datos obstetricos solo se admiten para los grupos GESTANTES y PUERPERAS"
@@ -150,7 +157,11 @@ class AttentionCreate(BaseModel):
                 "La fecha probable de parto y la edad gestacional solo se admiten "
                 "para el grupo GESTANTES"
             )
-        if self.hora_inicio is not None and self.hora_fin is not None and self.hora_fin < self.hora_inicio:
+        if (
+            self.hora_inicio is not None
+            and self.hora_fin is not None
+            and self.hora_fin < self.hora_inicio
+        ):
             raise ValueError("hora_fin no puede ser anterior a hora_inicio")
         if self.fecha_atendido is not None and self.fecha_atendido < self.fecha_atencion:
             raise ValueError("fecha_atendido no puede ser anterior a fecha_atencion")
@@ -173,16 +184,19 @@ class NutritionalIndicatorsPreviewInput(BaseModel):
 
     paciente_id: Annotated[int, Field(gt=0)]
     grupo_atencion_codigo: CareGroupCode = CareGroupCode.GENERAL
-    peso_antes_embarazo_kg: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
+    peso_antes_embarazo_kg: (
+        Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None
+    ) = None
     fecha_atencion: datetime
     peso_kg: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
     talla_cm: Annotated[Decimal, Field(gt=0, max_digits=6, decimal_places=2)] | None = None
 
     @model_validator(mode="after")
-    def validate_pregestational_weight(self) -> "NutritionalIndicatorsPreviewInput":
-        if self.grupo_atencion_codigo not in (
-            CareGroupCode.PREGNANT, CareGroupCode.PUERPERAL
-        ) and self.peso_antes_embarazo_kg is not None:
+    def validate_pregestational_weight(self) -> NutritionalIndicatorsPreviewInput:
+        if (
+            self.grupo_atencion_codigo not in (CareGroupCode.PREGNANT, CareGroupCode.PUERPERAL)
+            and self.peso_antes_embarazo_kg is not None
+        ):
             raise ValueError(
                 "El peso antes del embarazo solo se admite para los grupos GESTANTES y PUERPERAS"
             )
@@ -237,10 +251,14 @@ class AttentionResponse(BaseModel):
     id: int
     paciente_id: int
     establecimiento_id: int
+    establecimiento_nombre: str | None = None
     profesional_id: int
+    profesional_nombre: str | None = None
     especialidad_codigo: str | None
+    especialidad_nombre: str | None = None
     consultorio_id: int
     consultorio_nombre: str | None
+    consultorio_ruta: str | None = None
     modalidad_atencion_codigo: str
     grupo_etario_codigo: str
     grupo_atencion_codigo: str

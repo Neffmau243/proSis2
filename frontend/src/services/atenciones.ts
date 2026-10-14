@@ -32,10 +32,14 @@ export interface Attention {
   id: number
   paciente_id: number
   establecimiento_id: number
+  establecimiento_nombre?: string | null
   profesional_id: number
+  profesional_nombre?: string | null
   especialidad_codigo: string | null
+  especialidad_nombre?: string | null
   consultorio_id: number
   consultorio_nombre: string | null
+  consultorio_ruta?: string | null
   modalidad_atencion_codigo: string
   grupo_etario_codigo: string
   grupo_atencion_codigo: CareGroupCode

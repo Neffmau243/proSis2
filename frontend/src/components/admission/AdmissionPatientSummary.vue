@@ -10,6 +10,7 @@ import { useAdmissionPatientDetails } from '@/composables/useAdmissionPatientDet
 import { useAdmissionPatientEditor } from '@/composables/useAdmissionPatientEditor'
 import AdmissionPatientRelations from '@/components/admission/AdmissionPatientRelations.vue'
 import { patientFields, type PatientFieldKey } from '@/utils/patientDraft'
+import { localityOptions, localitySelection } from '@/utils/localitySelection'
 import { clearSisAffiliation, isSisInsurance } from '@/utils/patientInsurance'
 import type { PatientSisContractKey, PatientSisData } from '@/utils/patientSis'
 import { pacientes, type Patient } from '@/services/pacientes'
@@ -56,9 +57,7 @@ const {
   loadLocalities,
 } = useAdmissionPatientDetails(toRef(props, 'patient'))
 const removing = ref(false)
-const selectedInsurance = computed(() =>
-  seguros.value.find((item) => item.id === draft.seguro_id),
-)
+const selectedInsurance = computed(() => seguros.value.find((item) => item.id === draft.seguro_id))
 const hasSisInsurance = computed(() => isSisInsurance(selectedInsurance.value))
 function changeInsurance(): void {
   if (!hasSisInsurance.value) {
@@ -71,9 +70,7 @@ function changeInsurance(): void {
     return
   }
 }
-function updateSisAffiliation(
-  changes: Partial<Pick<PatientSisData, PatientSisContractKey>>,
-): void {
+function updateSisAffiliation(changes: Partial<Pick<PatientSisData, PatientSisContractKey>>): void {
   Object.assign(draft, changes)
 }
 const fullName = computed(
@@ -109,11 +106,26 @@ const options = computed<
     label: `${item.distrito} · ${item.provincia} · ${item.departamento}`,
     value: item.codigo,
   })),
-  localidad_id: localities.value.map((item) => ({ label: item.nombre, value: item.id })),
+  localidad_id: localityOptions(
+    localities.value,
+    districts.items.value.find((item) => item.codigo === draft.ubigeo_residencia_codigo)
+      ?.distrito ??
+      (draft.ubigeo_residencia_codigo === props.patient.ubigeo_residencia_codigo
+        ? props.patient.distrito_residencia
+        : null),
+  ),
 }))
 function fieldOptions(key: PatientFieldKey) {
   const list = options.value[key] ?? []
   const value = draft[key]
+  if (
+    key === 'localidad_id' &&
+    value == null &&
+    draft.localidad &&
+    !list.some((item) => item.value === draft.localidad)
+  ) {
+    return [{ value: draft.localidad, label: draft.localidad }, ...list]
+  }
   if (value && !list.some((item) => item.value === value)) {
     let label = String(value)
     if (key === 'ubigeo_residencia_codigo' && value === props.patient.ubigeo_residencia_codigo) {
@@ -133,8 +145,15 @@ watch(
   () => draft.ubigeo_residencia_codigo,
   (code) => {
     if (code !== currentDistrict) {
-      draft.localidad_id = null
-      draft.localidad = null
+      // Resetting or switching the patient restores its saved locality together
+      // with the district. Only a new district selection invalidates that pair.
+      const restored =
+        code === props.patient.ubigeo_residencia_codigo &&
+        draft.localidad_id === props.patient.localidad_id
+      if (!restored) {
+        draft.localidad_id = null
+        draft.localidad = null
+      }
       currentDistrict = code
     }
     void loadLocalities(code || null)
@@ -142,13 +161,14 @@ watch(
   { immediate: true },
 )
 
-function onLocalityChange(value: number | null): void {
-  if (value === null) {
-    draft.localidad = null
+function onLocalityChange(value: number | string | null): void {
+  if (
+    typeof value === 'number' &&
+    value === draft.localidad_id &&
+    !localities.value.some((item) => item.id === value)
+  )
     return
-  }
-  const chosen = localities.value.find((item) => item.id === value)
-  if (chosen) draft.localidad = chosen.nombre
+  Object.assign(draft, localitySelection(value, localities.value))
 }
 function searchDistricts(query: string) {
   districts.search(
@@ -292,16 +312,20 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
             />
             <el-select
               v-else-if="field.key === 'localidad_id'"
-              v-model="draft.localidad_id"
+              :model-value="draft.localidad_id ?? draft.localidad"
               filterable
               clearable
+              allow-create
+              default-first-option
               :disabled="disabled || !draft.ubigeo_residencia_codigo"
               :loading="localitiesLoading"
               :aria-label="field.label"
               :placeholder="
-                draft.ubigeo_residencia_codigo ? 'Seleccione' : 'Elija el distrito primero'
+                draft.ubigeo_residencia_codigo
+                  ? 'Seleccione o escriba la localidad'
+                  : 'Elija el distrito primero'
               "
-              @change="onLocalityChange"
+              @update:model-value="onLocalityChange"
             >
               <el-option
                 v-for="option in fieldOptions('localidad_id')"

@@ -11,6 +11,7 @@ from app.schemas.nutrition_record import NutritionRecordResponse
 
 
 def attention_to_response(entity: Attention) -> AttentionResponse:
+    context = getattr(entity, "contexto_clinico", None) or {}
     return AttentionResponse(
         numero_referencia_ingreso=getattr(entity, "numero_referencia_ingreso", None),
         numero_contrarreferencia_ingreso=getattr(entity, "numero_contrarreferencia_ingreso", None),
@@ -29,7 +30,17 @@ def attention_to_response(entity: Attention) -> AttentionResponse:
         profesional_id=entity.profesional_id,
         especialidad_codigo=entity.especialidad_codigo,
         consultorio_id=entity.consultorio_id,
-        consultorio_nombre=entity.consultorio.nombre if entity.consultorio is not None else None,
+        consultorio_nombre=(
+            context["consultorio_nombre"]
+            if "consultorio_nombre" in context
+            else entity.consultorio.nombre
+            if entity.consultorio
+            else None
+        ),
+        consultorio_ruta=context.get("consultorio_ruta"),
+        establecimiento_nombre=context.get("establecimiento_nombre"),
+        profesional_nombre=context.get("profesional_nombre"),
+        especialidad_nombre=context.get("especialidad_nombre"),
         modalidad_atencion_codigo=entity.modalidad_atencion_codigo,
         grupo_etario_codigo=entity.grupo_etario_codigo,
         grupo_atencion_codigo=entity.grupo_atencion_codigo,

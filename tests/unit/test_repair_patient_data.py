@@ -28,7 +28,7 @@ def a_district(code: str, name: str) -> Ubigeo:
 def a_locality(code: str, name: str, sis_code: str = "0001") -> Localidad:
     return Localidad(
         ubigeo_codigo=code,
-        codigo_sis=sis_code,
+        codigo_catalogo=sis_code,
         nombre=name,
         nombre_norm=name.casefold(),
     )

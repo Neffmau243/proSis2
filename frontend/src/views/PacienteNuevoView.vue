@@ -16,7 +16,6 @@ import {
   type EstablishmentCatalogItem,
   type FamilyHistoryCatalogItem,
   type IdCatalogItem,
-  type LocalidadCatalogItem,
   type RiskGroupCatalogItem,
   type UbigeoCatalogItem,
 } from '@/services/catalogos'
@@ -25,6 +24,9 @@ import { emptyPatientSis, patientSisErrors } from '@/utils/patientSis'
 import { documentProblem } from '@/utils/patientDocument'
 import { clearSisAffiliation, isSisInsurance } from '@/utils/patientInsurance'
 import { familyHistoryProblem } from '@/utils/familyHistory'
+import { useDistrictLocalities } from '@/composables/useDistrictLocalities'
+import { useRemoteCatalog } from '@/composables/useRemoteCatalog'
+import { allCatalogPages } from '@/services/catalogPages'
 
 const route = useRoute()
 const router = useRouter()
@@ -50,12 +52,30 @@ const tiposDocumento = ref<CodeCatalogItem[]>([])
 const sexos = ref<CodeCatalogItem[]>([])
 const seguros = ref<IdCatalogItem[]>([])
 const gruposRiesgo = ref<RiskGroupCatalogItem[]>([])
-const establecimientos = ref<EstablishmentCatalogItem[]>([])
-const establecimientosLoading = ref(false)
-const ubigeos = ref<UbigeoCatalogItem[]>([])
-const ubigeosLoading = ref(false)
-const localidades = ref<LocalidadCatalogItem[]>([])
-const localidadesLoading = ref(false)
+const siteCatalog = useRemoteCatalog<EstablishmentCatalogItem>({
+  fetch: async (query) => ({
+    items: await allCatalogPages((offset) => catalogos.establecimientos(query, 100, offset)),
+  }),
+  key: (item) => item.id,
+})
+const {
+  items: establecimientos,
+  loading: establecimientosLoading,
+  error: establecimientosError,
+} = siteCatalog
+const districtCatalog = useRemoteCatalog<UbigeoCatalogItem>({
+  fetch: async (query) => ({
+    items: await allCatalogPages((offset) => catalogos.ubigeos(query, 100, offset)),
+  }),
+  key: (item) => item.codigo,
+})
+const { items: ubigeos, loading: ubigeosLoading, error: ubigeosError } = districtCatalog
+const {
+  items: localidades,
+  loading: localidadesLoading,
+  error: localidadesError,
+  load: loadDistrictLocalities,
+} = useDistrictLocalities()
 const historiasFamiliares = ref<FamilyHistoryCatalogItem[]>([])
 const historiasFamiliaresLoading = ref(false)
 
@@ -143,39 +163,25 @@ function updatePatientForm(changes: PatientRegistrationPatch): void {
 }
 
 async function searchEstablecimientos(query: string): Promise<void> {
-  establecimientosLoading.value = true
-  try {
-    const page = await catalogos.establecimientos(query || undefined, 25, 0)
-    establecimientos.value = page.items
-  } finally {
-    establecimientosLoading.value = false
-  }
+  await siteCatalog.load(
+    query || undefined,
+    establecimientos.value.filter((item) => item.id === form.establecimiento_registro_id),
+  )
 }
 
 async function searchUbigeos(query: string): Promise<void> {
-  ubigeosLoading.value = true
-  try {
-    const page = await catalogos.ubigeos(query || undefined, 25, 0)
-    ubigeos.value = page.items
-  } finally {
-    ubigeosLoading.value = false
-  }
+  await districtCatalog.load(
+    query || undefined,
+    ubigeos.value.filter((item) => item.codigo === form.ubigeo_residencia_codigo),
+  )
 }
 
 // La localidad pertenece al distrito: al cambiarlo se limpia la selección y se
 // recarga el catálogo SIS.
 async function loadLocalidades(ubigeoCodigo: string | null): Promise<void> {
-  localidades.value = []
   form.localidad_id = null
   form.localidad = ''
-  if (!ubigeoCodigo) return
-  localidadesLoading.value = true
-  try {
-    const page = await catalogos.localidades(ubigeoCodigo, undefined, 100, 0)
-    localidades.value = page.items
-  } finally {
-    localidadesLoading.value = false
-  }
+  await loadDistrictLocalities(ubigeoCodigo)
 }
 
 watch(
@@ -249,6 +255,8 @@ async function submit(): Promise<void> {
 }
 
 onMounted(async () => {
+  void searchUbigeos('')
+  void searchEstablecimientos('')
   historiasFamiliaresLoading.value = true
   try {
     const [tipos, sexosResult, segurosResult, riesgosResult, historiasResult] = await Promise.all([
@@ -297,10 +305,13 @@ onMounted(async () => {
             :seguros="seguros"
             :establecimientos="establecimientos"
             :establecimientos-loading="establecimientosLoading"
+            :establecimientos-error="establecimientosError"
             :ubigeos="ubigeos"
             :ubigeos-loading="ubigeosLoading"
+            :ubigeos-error="ubigeosError"
             :localidades="localidades"
             :localidades-loading="localidadesLoading"
+            :localidades-error="localidadesError"
             :historias-familiares="historiasFamiliares"
             :historias-familiares-loading="historiasFamiliaresLoading"
             @update="updatePatientForm"

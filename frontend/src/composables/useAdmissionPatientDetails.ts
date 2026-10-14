@@ -4,10 +4,10 @@ import {
   type CodeCatalogItem,
   type FamilyHistoryCatalogItem,
   type InsuranceCatalogItem,
-  type LocalidadCatalogItem,
 } from '@/services/catalogos'
 import type { Patient } from '@/services/pacientes'
 import { useRemoteCatalog } from '@/composables/useRemoteCatalog'
+import { useDistrictLocalities } from '@/composables/useDistrictLocalities'
 
 /** Read-only catalog labels for the admission patient panel. */
 export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
@@ -16,9 +16,8 @@ export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
   const seguros = shallowRef<InsuranceCatalogItem[]>([])
   const etnias = shallowRef<CodeCatalogItem[]>([])
   const catalogError = shallowRef<string | null>(null)
-  const localities = shallowRef<LocalidadCatalogItem[]>([])
-  const localitiesLoading = shallowRef(false)
-  const localitiesError = shallowRef<string | null>(null)
+  const { items: localities, loading: localitiesLoading, error: localitiesError,
+    load: loadLocalities } = useDistrictLocalities()
   let version = 0
   const establishments = useRemoteCatalog({
     fetch: (query) => catalogos.establecimientos(query, 50, 0),
@@ -50,23 +49,6 @@ export function useAdmissionPatientDetails(patient: MaybeRefOrGetter<Patient>) {
     if (request === version && results.some((result) => result.status === 'rejected')) {
       catalogError.value =
         'No se cargaron todos los catálogos. Puede reintentar y conservar sus cambios.'
-    }
-  }
-  async function loadLocalities(ubigeo: string | null): Promise<void> {
-    if (!ubigeo) {
-      localities.value = []
-      localitiesError.value = null
-      return
-    }
-    localitiesLoading.value = true
-    localitiesError.value = null
-    try {
-      localities.value = (await catalogos.localidades(ubigeo, undefined, 100, 0)).items
-    } catch {
-      localities.value = []
-      localitiesError.value = 'No se cargaron las localidades del distrito.'
-    } finally {
-      localitiesLoading.value = false
     }
   }
 

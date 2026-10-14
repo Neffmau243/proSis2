@@ -1,3 +1,5 @@
+import type { EncounterLocationSnapshot } from './encounterLocation'
+
 export type NutritionScope = 'NINO' | 'ADULTO' | 'GESTANTE' | 'PUERPERA' | 'DESCONOCIDO'
 
 export interface NutritionCapture {
@@ -51,7 +53,7 @@ export interface NutritionRecord extends Omit<NutritionCapture, DecimalField> {
   constancia_envio: string | null
 }
 
-export interface ClinicalContext {
+export interface ClinicalContext extends EncounterLocationSnapshot {
   version: number
   historia_clinica: string | null
   historia_familiar: string | null

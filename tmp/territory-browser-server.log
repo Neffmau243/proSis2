@@ -1,0 +1,37 @@
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 20260909_0001, Initial IPRESS schema derived from the SQLAlchemy ORM models.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0001 -> 20260909_0002, Add locked document-number sequences required by RB-06.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0002 -> 20260909_0003, Seed baseline clinical age ranges when the initial catalog is unconfigured.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0003 -> 20260909_0004, Consolidate the application into ADMIN and PROFESIONAL roles.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0004 -> 20260910_0005_security_auth, Harden persisted authentication state and login throttling.
+INFO  [alembic.runtime.migration] Running upgrade 20260910_0005_security_auth -> 20260910_0006_clinical_integrity, Enforce clinical-document states and certificate signer integrity.
+INFO  [alembic.runtime.migration] Running upgrade 20260910_0006_clinical_integrity -> 20260912_0007_nutrition, Persist server-calculated nutritional indicators for every attention.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0007_nutrition -> 20260912_0008_nutrition_tipo, Allow diagnostic-only nutritional snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0008_nutrition_tipo -> 20260912_0009_patient_prof, Keep the professional who registered or transferred a patient inside its scope.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0009_patient_prof -> 20260916_0010_locality, Clear legacy locality values that repeat the selected UBIGEO code.
+INFO  [alembic.runtime.migration] Running upgrade 20260916_0010_locality -> 20260918_0011_care_group, Persist the clinical care group an attention was registered for.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0011_care_group -> 20260918_0012_pregnancy, Persist the obstetric measurements recorded for a pregnant person.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0012_pregnancy -> 20260918_0013_due_date, Persist the estimated delivery date for a pregnant person.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0013_due_date -> 20260919_0014_fua_print, Freeze FUA print data with the attention; old records remain explicitly null.
+INFO  [alembic.runtime.migration] Running upgrade 20260919_0014_fua_print -> 20260919_0015_patient_sis, Patient SIS master data and documented ethnicity catalog; site paper defaults.
+INFO  [alembic.runtime.migration] Running upgrade 20260919_0015_patient_sis -> 20260921_0016_legacy_archive, Preserve every source record and incomplete historical encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20260921_0016_legacy_archive -> 20260923_0017_insurance_plans, Insurance catalog completeness: SIS plans and Sanidad as explicit codes.
+INFO  [alembic.runtime.migration] Running upgrade 20260923_0017_insurance_plans -> 20260924_0018_sis_localities, SIS territory and affiliation codes as managed catalog data.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0018_sis_localities -> 20260924_0019_eess_catalog, Official Arequipa establishments, replacing the demo-only catalog.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0019_eess_catalog -> 20260926_0020_real_catalogs, Cat�logos operativos reales de Arequipa, en lugar de las filas demo.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0020_real_catalogs -> 20260926_0021_real_professionals, Profesionales reales de Arequipa, en lugar de las filas demo.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0021_real_professionals -> 20260926_0022_specialty_codes, Normaliza a may�sculas los c�digos de especialidad del cat�logo real.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0022_specialty_codes -> 20260929_0023_nutrition_risks, Seed the nutritional risk labels found in the ETLSIS historical data.
+INFO  [alembic.runtime.migration] Running upgrade 20260929_0023_nutrition_risks -> 20261002_0024_nutrition_snapshot, Preserve the age-appropriate nutritional calculation per encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261002_0024_nutrition_snapshot -> 20261005_0025_legacy_operators, Give the legacy SIS operators access as PROFESIONAL users.
+INFO  [alembic.runtime.migration] Running upgrade 20261005_0025_legacy_operators -> 20261005_0026_fua_components, Persist current FUA number components separately from legacy configuration.
+INFO  [alembic.runtime.migration] Running upgrade 20261005_0026_fua_components -> 20261006_0027_establishment_disa, Persist the SIS DIRESA code owned by each official establishment.
+INFO  [alembic.runtime.migration] Running upgrade 20261006_0027_establishment_disa -> 20261007_0028_delivery_date, Persist the delivery date declared for a puerperal encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261007_0028_delivery_date -> 20261008_0029_nutrition_fields, Add group-specific capture and immutable encounter context.
+INFO  [alembic.runtime.migration] Running upgrade 20261008_0029_nutrition_fields -> 20261009_0030_young_age_group, Add the young life stage and split the former adult range.
+INFO  [alembic.runtime.migration] Running upgrade 20261009_0030_young_age_group -> 20261010_0031_family_history, Create and seed the family-history prefix catalog.
+INFO  [alembic.runtime.migration] Running upgrade 20261010_0031_family_history -> 20261012_0032_lab_references, Preserve referral identifiers recorded when receiving a laboratory encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261012_0032_lab_references -> 20261013_0033_office_hierarchy, Separate care areas and available services from physical office hierarchy.
+Isolated UI ready on http://127.0.0.1:8001; cleanup runs when tmp/office-ui-qa.stop is created.
+Isolated server and database cleaned up.

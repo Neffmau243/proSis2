@@ -90,7 +90,12 @@ function formatDate(value: string | null): string {
           <template #default="{ row }">{{ nutritionalHistoryValue(row, 'pt') }}</template>
         </el-table-column>
         <el-table-column label="Consultorio" min-width="124">
-          <template #default="{ row }">{{ row.consultorio_nombre || '—' }}</template>
+          <template #default="{ row }">
+            <span>{{ row.consultorio_ruta || row.consultorio_nombre || '—' }}</span>
+            <div v-if="row.establecimiento_nombre || row.especialidad_nombre">
+              {{ [row.establecimiento_nombre, row.especialidad_nombre].filter(Boolean).join(' · ') }}
+            </div>
+          </template>
         </el-table-column>
         <el-table-column label="Estado" width="82" align="center">
           <template #default="{ row }">

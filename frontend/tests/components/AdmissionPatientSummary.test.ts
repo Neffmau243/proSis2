@@ -150,6 +150,62 @@ test('no expone el código técnico ETLSIS en el formulario', async () => {
   expect(wrapper.find('.patient-context__insurance-code').exists()).toBe(false)
 })
 
+test('la localidad de texto del legado se muestra, se puede editar y se puede limpiar', async () => {
+  const wrapper = await mountPanel(false, {
+    ubigeo_residencia_codigo: '040102',
+    localidad_id: null,
+    localidad: 'ALTO SELVA ALEGRE',
+  })
+  const field = wrapper
+    .findAllComponents(ElSelect)
+    .find((item) => item.find('input[role="combobox"]').attributes('aria-label') === 'Localidad')!
+  expect(field.props('modelValue')).toBe('ALTO SELVA ALEGRE')
+  field.vm.$emit('update:modelValue', 'Barrio declarado')
+  await flushPromises()
+  expect(field.props('modelValue')).toBe('Barrio declarado')
+  field.vm.$emit('update:modelValue', null)
+  await flushPromises()
+  expect(field.props('modelValue')).toBeNull()
+  update.mockResolvedValue(
+    aPatient({ ubigeo_residencia_codigo: '040102', localidad_id: null, localidad: null }),
+  )
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(100, { localidad: null })
+})
+
+test('cambiar distrito limpia localidad, pero descartar o cambiar paciente restaura la pareja', async () => {
+  const wrapper = await mountPanel(false, {
+    ubigeo_residencia_codigo: '040102',
+    localidad_id: 12,
+    localidad: 'Sector guardado',
+  })
+  const field = (label: string) =>
+    wrapper
+      .findAllComponents(ElSelect)
+      .find((select) => select.find('input[role="combobox"]').attributes('aria-label') === label)!
+  field('Distrito').vm.$emit('update:modelValue', '040103')
+  await flushPromises()
+  expect(field('Localidad').props('modelValue')).toBeNull()
+  await wrapper
+    .findAll('button')
+    .find((button) => button.text() === 'Descartar cambios')!
+    .trigger('click')
+  await flushPromises()
+  expect(field('Localidad').props('modelValue')).toBe(12)
+  expect(wrapper.text()).not.toContain('Guardar cambios pendientes')
+  await wrapper.setProps({
+    patient: aPatient({
+      id: 101,
+      ubigeo_residencia_codigo: '040104',
+      localidad_id: 14,
+      localidad: 'Otro sector',
+    }),
+  })
+  await flushPromises()
+  expect(field('Localidad').props('modelValue')).toBe(14)
+})
+
 test('la marca sigue el borrador, el descarte y el seguro guardado por PATCH', async () => {
   const wrapper = await mountPanel(false, { seguro_id: 2 })
   const select = wrapper.get('.patient-context__insurance-selector').getComponent(ElSelect)
@@ -242,12 +298,10 @@ test('Historia familiar permite elegir un código reutilizable y lo guarda por P
     has_more: false,
   })
   const wrapper = await mountPanel(false)
-  const familyField = wrapper
-    .findAll('.el-form-item')
-    .find((field) => {
-      const label = field.find('.el-form-item__label')
-      return label.exists() && label.text() === 'Historia familiar'
-    })
+  const familyField = wrapper.findAll('.el-form-item').find((field) => {
+    const label = field.find('.el-form-item__label')
+    return label.exists() && label.text() === 'Historia familiar'
+  })
 
   expect(familyField).toBeDefined()
   const selector = familyField!.getComponent(FamilyHistorySelector)
@@ -356,12 +410,8 @@ test(
     const documentRow = wrapper.get('.patient-context__form > .document-types').element
     expect(
       documentRow.previousElementSibling?.querySelector('.el-form-item__label')?.textContent,
-    ).toBe(
-      'Historia familiar',
-    )
-    expect(
-      documentRow.nextElementSibling?.querySelector('.el-form-item__label')?.textContent,
-    ).toBe(
+    ).toBe('Historia familiar')
+    expect(documentRow.nextElementSibling?.querySelector('.el-form-item__label')?.textContent).toBe(
       'N.° documento',
     )
     expect(wrapper.findAll('input[role="combobox"][aria-label="Tipo de documento"]')).toHaveLength(

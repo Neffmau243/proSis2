@@ -101,26 +101,6 @@ const modes = [
   { value: 'AMBULATORIA', label: 'Ambulatoria' },
   { value: 'EMERGENCIA', label: 'Emergencia' },
 ]
-const documentChoices = computed(() =>
-  [...documents.value]
-    .sort((a, b) => {
-      const order = ['DNI', 'PAS', 'CE', 'DE']
-      const priority = (code: string) => (order.includes(code) ? order.indexOf(code) : order.length)
-      return priority(a.codigo) - priority(b.codigo)
-    })
-    .map((item) => ({
-      value: item.codigo,
-      label:
-        (
-          {
-            DNI: 'DNI',
-            CE: 'Carné de extranjería',
-            PAS: 'Pasaporte',
-            DE: 'Documento de extranjero',
-          } as Record<string, string>
-        )[item.codigo] || item.nombre,
-    })),
-)
 function updateMode(value: string | null): void {
   if (value === 'AMBULATORIA' || value === 'EMERGENCIA') form.mode = value
 }
@@ -164,32 +144,7 @@ onMounted(() => void initialize(initialPatientId))
       type="error"
       :closable="false"
     />
-    <div class="lab-topbar">
-      <div class="lab-topbar__choices">
-        <SingleChoiceCheckboxes
-          class="lab-documents"
-          :model-value="documentType"
-          :options="documentChoices"
-          label="Tipo de documento"
-          :disabled="encounterLocked || patientDirty"
-          @update:model-value="changeDocumentType"
-        />
-        <SingleChoiceCheckboxes
-          class="lab-modes"
-          :model-value="form.mode"
-          :options="modes"
-          label="Modalidad de atención"
-          :disabled="encounterLocked"
-          @update:model-value="updateMode"
-        />
-      </div>
-      <div class="lab-topbar__encounter">
-        <LaboratoryEncounterHeader v-model="form.date" :disabled="encounterLocked" />
-        <p v-if="attentionCreated" class="lab-topbar__saved" role="status">
-          Atención #{{ savedAttention?.id }} guardada correctamente.
-        </p>
-      </div>
-    </div>
+    <LaboratoryEncounterHeader v-model="form.date" :disabled="encounterLocked || loading" />
     <div class="lab-grid">
       <LaboratoryPatientPanel
         class="lab-grid__patient"
@@ -210,6 +165,7 @@ onMounted(() => void initialize(initialPatientId))
         :counter-reference="form.counterReference"
         @search="searchPatients"
         @select="selectPatient"
+        @document-type-change="changeDocumentType"
         @saved="updatePatient"
         @dirty-change="patientDirty = $event"
         @busy-change="patientBusy = $event"
@@ -225,8 +181,16 @@ onMounted(() => void initialize(initialPatientId))
           @submit.prevent="submit"
         >
           <section class="lab-panel lab-office" aria-labelledby="lab-office-title">
-            <header class="lab-panel__header">
+            <header class="lab-panel__header lab-office__header">
               <h2 id="lab-office-title" class="lab-panel__title">Consultorio</h2>
+              <SingleChoiceCheckboxes
+                class="lab-modes"
+                :model-value="form.mode"
+                :options="modes"
+                label="Modalidad de atención"
+                :disabled="encounterLocked"
+                @update:model-value="updateMode"
+              />
             </header>
             <div class="lab-panel__body">
               <el-form-item label="Consultorio:">
@@ -310,6 +274,9 @@ onMounted(() => void initialize(initialPatientId))
             </div>
           </section>
         </el-form>
+        <p v-if="attentionCreated" class="lab-saved" role="status">
+          Atención #{{ savedAttention?.id }} guardada correctamente.
+        </p>
         <LaboratoryActions
           :saving="saving || printing || patientBusy"
           :saved="attentionCreated"
@@ -363,49 +330,34 @@ onMounted(() => void initialize(initialPatientId))
   gap: 8px;
   min-width: 0;
 }
-.lab-topbar,
 .lab-grid {
   display: grid;
   grid-template-columns: minmax(340px, 0.85fr) minmax(0, 1.3fr);
   gap: 8px;
   min-width: 0;
 }
-.lab-topbar__choices {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 108px;
-  align-items: center;
-  gap: 8px;
-}
-.lab-topbar__encounter {
+.lab-office__header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
 }
-.lab-topbar__saved {
+.lab-saved {
   margin: 0;
   text-align: right;
   font-size: 12px;
   color: var(--el-color-success-dark-2);
 }
-.lab-topbar :deep(.single-choice) {
+.lab-modes {
   gap: 0 8px;
 }
-.lab-topbar :deep(.lab-documents) {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.lab-topbar :deep(.lab-modes) {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-}
-.lab-topbar :deep(.el-checkbox) {
+.lab-modes :deep(.el-checkbox) {
   margin: 0;
   height: auto;
   min-height: 22px;
 }
-.lab-topbar :deep(.el-checkbox__label) {
+.lab-modes :deep(.el-checkbox__label) {
   font-size: 12px;
   padding-left: 5px;
   line-height: 1.3;
@@ -511,13 +463,11 @@ onMounted(() => void initialize(initialPatientId))
   font-size: 12px;
 }
 @media (max-width: 1050px) {
-  .lab-topbar,
   .lab-grid {
     grid-template-columns: minmax(320px, 1fr) minmax(0, 1.2fr);
   }
 }
 @media (max-width: 820px) {
-  .lab-topbar,
   .lab-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -529,7 +479,7 @@ onMounted(() => void initialize(initialPatientId))
   .laboratory-workspace :deep(.el-form-item__label) {
     line-height: 36px;
   }
-  .lab-topbar :deep(.el-checkbox) {
+  .lab-modes :deep(.el-checkbox) {
     min-height: 36px;
   }
 }

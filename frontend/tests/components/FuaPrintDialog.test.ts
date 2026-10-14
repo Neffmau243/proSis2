@@ -5,7 +5,7 @@ import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
 import { defaultFuaLayout, emptyFuaInput, FUA_LAYOUT_KEY } from '@/utils/fuaPrint'
 import type { FuaPrintSnapshot } from '@/types/fua'
 
-vi.mock('@/assets/fua-referencia.webp', () => ({ default: 'referencia.webp' }))
+vi.mock('@/assets/fua-v02-referencia.png', () => ({ default: '/fua-v02-referencia.png' }))
 
 const base: FuaPrintSnapshot = {
   ...emptyFuaInput(),
@@ -21,7 +21,7 @@ const base: FuaPrintSnapshot = {
   etnia_codigo: '58',
   ipress_nombre: 'CS PRUEBA',
   profesional_nombre: 'DRA. PRUEBA',
-  profesional_documento: null,
+  profesional_documento: '00000002',
   profesional_colegiatura: 'CMP-1',
   tipo_documento: 'DNI',
   tdi: '2',
@@ -116,7 +116,9 @@ test('el bloqueo por calibración explica el paso pendiente y abre la pestaña c
 test('una historia clínica larga no bloquea la impresión con posiciones ya calibradas', async () => {
   localStorage.setItem(FUA_LAYOUT_KEY, JSON.stringify({ ...defaultFuaLayout(), calibrated: true }))
   const body = openCalibration({ ...base, historia_clinica: 'DEMO-ETNIA-98032888' })
-  await vi.waitFor(() => expect(findButton(body, 'Imprimir solo datos')?.disabled).toBe(false))
+  await vi.waitFor(() =>
+    expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(false),
+  )
   expect(body.textContent).not.toContain('Historia clínica: texto no cabe')
   const preview = body.querySelector<HTMLElement>('[aria-label="Ajustar Historia clínica"]')!
   expect(Number.parseFloat(preview.style.fontSize)).toBeLessThan(8)
@@ -248,13 +250,13 @@ test('la puérpera sin fecha de parto exige confirmar el faltante antes de impri
   const warning = body.querySelector('.el-alert--warning')?.textContent ?? ''
   expect(warning).toContain('Fecha del parto')
   expect(warning).not.toContain('Perímetro abdominal')
-  const printButton = findButton(body, 'Imprimir solo datos')
+  const printButton = findButton(body, 'Imprimir sobre FUA preimpresa')
   expect(printButton?.disabled).toBe(true)
 })
 
 test('el flujo de calibración habilita la impresión, guarda solo geometría y se recupera', async () => {
   let body = openCalibration(base)
-  const printButton = () => findButton(body, 'Imprimir solo datos')
+  const printButton = () => findButton(body, 'Imprimir sobre FUA preimpresa')
 
   // Sin calibrar, la impresión real queda bloqueada aunque los datos estén completos.
   await vi.waitFor(() => expect(findCheckbox(body, 'Comprobé')).toBeTruthy())
@@ -297,4 +299,88 @@ test('la impresión de prueba para calibrar no lleva datos del paciente', async 
   expect(srcdoc).toContain('outline')
   expect(srcdoc).not.toContain(base.numero_documento!)
   expect(srcdoc).not.toContain(base.historia_clinica!)
+})
+
+test('confirmar calibración se guarda automáticamente y cambiar paciente o campo no la invalida', async () => {
+  let body = openCalibration(base)
+  await vi.waitFor(() => expect(findCheckbox(body, 'Comprobé')).toBeTruthy())
+  findCheckbox(body, 'Comprobé')!.click()
+  await vi.waitFor(() =>
+    expect(JSON.parse(localStorage.getItem(FUA_LAYOUT_KEY)!).calibrated).toBe(true),
+  )
+  body.querySelector<HTMLButtonElement>('[aria-label="Ajustar Historia clínica"]')!.click()
+  await vi.waitFor(() =>
+    expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(false),
+  )
+  while (mounted.length) mounted.pop()?.unmount()
+  document.body.innerHTML = ''
+  body = openCalibration({ ...base, numero_documento: '00000003', historia_clinica: 'HC-OTRO' })
+  await vi.waitFor(() =>
+    expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(false),
+  )
+  expect(localStorage.getItem(FUA_LAYOUT_KEY)).not.toContain('HC-OTRO')
+  expect(localStorage.getItem(FUA_LAYOUT_KEY)).not.toContain('00000003')
+  findButton(body, 'Usar A4 (210 × 297 mm)')!.click()
+  await vi.waitFor(() =>
+    expect(JSON.parse(localStorage.getItem(FUA_LAYOUT_KEY)!)).toMatchObject({
+      width: 210,
+      height: 297,
+      calibrated: false,
+    }),
+  )
+})
+
+test('la revisión con referencia permite comprobar el PDF antes de confirmar la prueba física', async () => {
+  const body = openCalibration(base)
+  await vi.waitFor(() => expect(findButton(body, 'Ver FUA / guardar PDF')?.disabled).toBe(false))
+  expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(true)
+  expect(findButton(body, 'Ver FUA / guardar PDF')?.classList.contains('el-button--primary')).toBe(
+    true,
+  )
+  expect(
+    findButton(body, 'Imprimir sobre FUA preimpresa')?.classList.contains('el-button--primary'),
+  ).toBe(false)
+  findButton(body, 'Ver FUA / guardar PDF')!.click()
+  await vi.waitFor(() =>
+    expect(document.querySelector('iframe')?.getAttribute('srcdoc')).toContain('<img'),
+  )
+  const srcdoc = document.querySelector('iframe')?.getAttribute('srcdoc') ?? ''
+  expect(srcdoc).toContain('PRELLENADO PARCIAL')
+  expect(srcdoc).toContain(base.numero_documento)
+})
+
+test('un fallo al leer la calibración sigue visible al abrir el diálogo', async () => {
+  localStorage.setItem(FUA_LAYOUT_KEY, '{')
+  const body = openSummary(base)
+  await vi.waitFor(() =>
+    expect(body.textContent).toContain('No se pudo leer la calibración guardada'),
+  )
+  expect(localStorage.getItem(FUA_LAYOUT_KEY)).toBe('{')
+})
+
+test('una calibración antigua muestra la referencia única sin perder posiciones y migra una sola vez', async () => {
+  const legacy = { ...defaultFuaLayout(), template: 'historica', calibrated: true }
+  legacy.fields.find((field) => field.id === 'historia_clinica')!.x = 120
+  localStorage.setItem(FUA_LAYOUT_KEY, JSON.stringify(legacy))
+  let body = openCalibration(base)
+  await vi.waitFor(() =>
+    expect(body.querySelector<HTMLImageElement>('.fua-background')?.getAttribute('src')).toBe(
+      '/fua-v02-referencia.png',
+    ),
+  )
+  expect(body.querySelector('#fua-scan')).toBeNull()
+  const restored = JSON.parse(localStorage.getItem(FUA_LAYOUT_KEY)!)
+  expect(restored.template).toBe('sis-v02')
+  expect(restored.calibrated).toBe(false)
+  expect(restored.fields).toEqual(legacy.fields)
+  findCheckbox(body, 'Comprobé')!.click()
+  await vi.waitFor(() =>
+    expect(JSON.parse(localStorage.getItem(FUA_LAYOUT_KEY)!).calibrated).toBe(true),
+  )
+  while (mounted.length) mounted.pop()?.unmount()
+  document.body.innerHTML = ''
+  body = openCalibration(base)
+  await vi.waitFor(() =>
+    expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(false),
+  )
 })

@@ -33,6 +33,7 @@ const props = defineProps<{
 const emit = defineEmits<{
   search: [query: string]
   select: [patient: Patient | null]
+  documentTypeChange: [value: string]
   reference: [value: string]
   counterReference: [value: string]
   saved: [patient: Patient]
@@ -105,6 +106,10 @@ function search(value: string): void {
   query.value = value
   emit('search', value)
 }
+function changeDocumentType(value: string): void {
+  if (props.patient) draft.tipo_documento_codigo = value
+  else emit('documentTypeChange', value)
+}
 </script>
 
 <template>
@@ -150,9 +155,10 @@ function search(value: string): void {
         <div class="lab-patient__field">
           <span>Tipo documento</span>
           <el-select
-            v-model="draft.tipo_documento_codigo"
-            :disabled="readonly"
+            :model-value="patient ? draft.tipo_documento_codigo : documentType"
+            :disabled="patient ? readonly : selectionLocked"
             aria-label="Tipo de documento del paciente"
+            @update:model-value="changeDocumentType"
           >
             <el-option
               v-for="item in documents"

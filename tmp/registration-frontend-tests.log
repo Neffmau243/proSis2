@@ -1,0 +1,13 @@
+
+> ipress-frontend@0.1.0 test
+> vitest run --run tests/views/PacienteNuevoView.test.ts tests/components/AdmissionPatientSummary.test.ts tests/districtLocalities.test.ts tests/localitySelection.test.ts
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+
+
+ Test Files  4 passed (4)
+      Tests  33 passed (33)
+   Start at  09:14:07
+   Duration  58.80s (tests 69%, transform 20%, environment 6%, import 5%)
+

@@ -1,3 +1,5 @@
+import type { EncounterLocationSnapshot } from './encounterLocation'
+
 export interface FuaPrintInput {
   personal_atiende: 'IPRESS' | 'ITINERANTE' | 'AISPED' | null
   lugar_atencion: 'INTRAMURAL' | 'EXTRAMURAL' | null
@@ -15,6 +17,7 @@ export interface FuaPrintInput {
 }
 
 export interface FuaPrintSnapshot extends FuaPrintInput {
+  contexto_territorial?: EncounterLocationSnapshot | null
   version: 1 | 2
   sis_secuencia?: string | null
   renipress_preimpreso?: boolean

@@ -37,6 +37,18 @@ queries = {
         COALESCE(JSON_UNQUOTE(JSON_EXTRACT(fua_impresion,'$.version')),'none') AS snapshot_version,
         COUNT(*) AS total
         FROM atenciones GROUP BY snapshot_version""",
+    "saved_clinical_fields_match_snapshot": """SELECT COUNT(*) AS total,
+        COALESCE(SUM(NOT (a.peso_kg <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.peso_kg')),'null') AS DECIMAL(10,3)))),0) AS weight_mismatch,
+        COALESCE(SUM(NOT (a.talla_cm <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.talla_cm')),'null') AS DECIMAL(10,3)))),0) AS height_mismatch,
+        COALESCE(SUM(NOT (a.presion_sistolica <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.presion_sistolica')),'null') AS UNSIGNED))),0) AS systolic_mismatch,
+        COALESCE(SUM(NOT (a.presion_diastolica <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.presion_diastolica')),'null') AS UNSIGNED))),0) AS diastolic_mismatch,
+        COALESCE(SUM(NOT (a.imc <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.imc')),'null') AS DECIMAL(10,3)))),0) AS bmi_mismatch,
+        COALESCE(SUM(NOT (a.perimetro_abdominal_cm <=> CAST(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.perimetro_abdominal_cm')),'null') AS DECIMAL(10,3)))),0) AS waist_mismatch,
+        COALESCE(SUM(NOT (a.historia_clinica_snapshot <=> NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.historia_clinica')),'null'))),0) AS history_mismatch,
+        COALESCE(SUM(NOT (a.modalidad_atencion_codigo <=> NULLIF(JSON_UNQUOTE(JSON_EXTRACT(a.fua_impresion,'$.tipo_atencion')),'null'))),0) AS mode_mismatch,
+        COALESCE(SUM(a.temperatura_c IS NOT NULL),0) AS saved_temperature,
+        COALESCE(SUM(JSON_EXTRACT(a.fua_impresion,'$.temperatura_c') IS NOT NULL),0) AS temperature_in_fua
+        FROM atenciones a WHERE a.fua_impresion IS NOT NULL""",
     "fua_documents": """SELECT COUNT(*) AS total,
         COALESCE(SUM(numero_fua IS NOT NULL AND numero_fua NOT REGEXP '^[0-9]{8}-[0-9]{2}-[0-9]{8}$'),0) AS non_current_number_structure,
         COALESCE(SUM(codigo_renipress IS NULL OR lote_fua IS NULL OR correlativo_fua IS NULL),0) AS missing_current_components
