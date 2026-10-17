@@ -201,7 +201,7 @@ function riskSaved(item: PatientRisk) {
   min-height: var(--el-component-size, 28px);
   padding: 4px 8px;
   color: var(--el-text-color-regular);
-  background: #fff0dd;
+  background: var(--el-fill-color-blank);
   border: 1px solid var(--el-border-color);
   border-radius: var(--el-border-radius-base);
   font: inherit;
@@ -221,9 +221,6 @@ function riskSaved(item: PatientRisk) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.patient-relations__mother :deep(.el-input__wrapper) {
-  background: #fff0dd;
 }
 .patient-relations__mother :deep(.el-input__suffix .el-button) {
   min-width: 24px;

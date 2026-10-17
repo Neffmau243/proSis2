@@ -109,7 +109,9 @@ function emitParts(prefix: string, number: string): void {
             :style="{ backgroundColor: selectedOption.color_hex }"
             aria-hidden="true"
           />
-          {{ selectedOption.nombre }}
+          <span class="family-history-selector__selected-name" :title="selectedOption.nombre">
+            {{ selectedOption.nombre }}
+          </span>
         </span>
       </template>
     </el-select>
@@ -140,8 +142,8 @@ function emitParts(prefix: string, number: string): void {
 <style scoped>
 .family-history-selector {
   display: grid;
-  grid-template-columns: minmax(132px, 1.5fr) minmax(104px, 1fr) auto;
-  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) minmax(36px, 0.3fr) auto;
+  gap: 4px;
   align-items: center;
   width: 100%;
   min-width: 0;
@@ -152,11 +154,21 @@ function emitParts(prefix: string, number: string): void {
   min-width: 0;
 }
 
+.family-history-selector__prefix :deep(.el-select__wrapper),
+.family-history-selector__number :deep(.el-input__wrapper) {
+  padding-inline: 6px;
+}
+
+.family-history-selector__prefix :deep(.el-select__wrapper) {
+  gap: 4px;
+}
+
 .family-history-selector__swatch {
   display: inline-block;
+  flex-shrink: 0;
   width: 12px;
   height: 12px;
-  margin-right: 7px;
+  margin-right: 4px;
   border: 1px solid rgb(31 41 55 / 35%);
   border-radius: 3px;
   vertical-align: -1px;
@@ -186,30 +198,33 @@ function emitParts(prefix: string, number: string): void {
   display: inline-flex;
   align-items: center;
   min-width: 0;
+  max-width: 100%;
+}
+
+.family-history-selector__selected-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .family-history-selector__code {
+  min-width: 0;
+  max-width: 7ch;
+  overflow: hidden;
   color: var(--registration-ink, #304f6d);
   font-size: 11px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .family-history-selector__legacy {
   grid-column: 1 / -1;
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--el-color-warning-dark-2);
   font-size: 11px;
   line-height: 1.35;
-}
-
-@media (max-width: 640px) {
-  .family-history-selector {
-    grid-template-columns: minmax(0, 1.35fr) minmax(104px, 1fr);
-  }
-
-  .family-history-selector__code {
-    grid-column: 1 / -1;
-  }
 }
 </style>

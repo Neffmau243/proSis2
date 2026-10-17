@@ -27,6 +27,7 @@ import { familyHistoryProblem } from '@/utils/familyHistory'
 import { useDistrictLocalities } from '@/composables/useDistrictLocalities'
 import { useRemoteCatalog } from '@/composables/useRemoteCatalog'
 import { allCatalogPages } from '@/services/catalogPages'
+import { useSisAffiliationDefaults } from '@/composables/useSisAffiliationDefaults'
 
 const route = useRoute()
 const router = useRouter()
@@ -149,7 +150,16 @@ const rules: FormRules = {
   ],
 }
 
+const sisDefaults = useSisAffiliationDefaults({
+  draft: form,
+  insurance: () => seguros.value.find((item) => item.id === form.seguro_id),
+  establishment: () =>
+    establecimientos.value.find((item) => item.id === form.establecimiento_registro_id),
+  initialize: true,
+})
+
 function updatePatientForm(changes: PatientRegistrationPatch): void {
+  sisDefaults.markManual(changes)
   Object.assign(form, changes)
   if (
     'seguro_id' in changes &&

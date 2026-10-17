@@ -60,6 +60,7 @@
       })
       let patient = aPatient({
         id: 13,
+        historia_familiar: 'AM-24',
         condicion: 'NO GESTANTE',
         apellido_paterno: 'PACIENTE',
         apellido_materno: 'DE PRUEBA',
@@ -79,6 +80,11 @@
         { id: 2, codigo: 'SIS', nombre: 'S.I.S. PARA TODOS', activo: true },
       ]
       catalogos.etnias = async () => []
+      catalogos.historiasFamiliares = async () =>
+        page([
+          { codigo: 'AM', nombre: 'AMARILLO', tipo: 'COLOR', color_hex: '#F2C94C', activo: true },
+          { codigo: 'AP', nombre: 'APURÍMAC', tipo: 'SECTOR', color_hex: null, activo: true },
+        ])
       catalogos.establecimientos = async () =>
         page([{ id: 1, nombre: 'C. S. ALTO SELVA ALEGRE · DEMOSTRACIÓN', activo: true }])
       catalogos.ubigeos = async () =>

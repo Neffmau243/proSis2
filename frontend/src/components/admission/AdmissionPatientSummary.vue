@@ -8,6 +8,7 @@ import AdmissionDocumentTypes from '@/components/admission/AdmissionDocumentType
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useAdmissionPatientDetails } from '@/composables/useAdmissionPatientDetails'
 import { useAdmissionPatientEditor } from '@/composables/useAdmissionPatientEditor'
+import { useSisAffiliationDefaults } from '@/composables/useSisAffiliationDefaults'
 import AdmissionPatientRelations from '@/components/admission/AdmissionPatientRelations.vue'
 import { patientFields, type PatientFieldKey } from '@/utils/patientDraft'
 import { localityOptions, localitySelection } from '@/utils/localitySelection'
@@ -71,6 +72,7 @@ function changeInsurance(): void {
   }
 }
 function updateSisAffiliation(changes: Partial<Pick<PatientSisData, PatientSisContractKey>>): void {
+  sisDefaults.markManual(changes)
   Object.assign(draft, changes)
 }
 const fullName = computed(
@@ -82,6 +84,24 @@ const fullName = computed(
 const disabled = computed(
   () => !props.canEdit || !props.patient.estado || saving.value || props.blocked,
 )
+const defaultsReset = ref(0)
+watch(
+  () => props.patient,
+  () => defaultsReset.value++,
+)
+const sisDefaults = useSisAffiliationDefaults({
+  draft,
+  insurance: selectedInsurance,
+  establishment: () =>
+    establishments.items.value.find((item) => item.id === draft.establecimiento_registro_id),
+  enabled: () => !disabled.value,
+  initialize: false,
+  resetKey: defaultsReset,
+})
+function resetPatient(): void {
+  defaultsReset.value++
+  reset()
+}
 const canRemove = computed(
   () => Boolean(props.canDelete) && props.patient.estado && !props.blocked && !saving.value,
 )
@@ -283,7 +303,6 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
           </div>
           <el-form-item
             v-else
-            :class="{ 'patient-context__contact': field.key === 'telefono_principal' }"
             :label="field.label"
             :error="fieldErrors[field.key]"
             :required="'required' in field && field.required"
@@ -433,7 +452,9 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
             :disabled="!dirty || disabled"
             >Guardar cambios</el-button
           >
-          <el-button v-if="dirty" :disabled="disabled" @click="reset">Descartar cambios</el-button>
+          <el-button v-if="dirty" :disabled="disabled" @click="resetPatient"
+            >Descartar cambios</el-button
+          >
           <details v-if="canRemove" class="patient-context__more-actions">
             <summary>Más acciones del paciente</summary>
             <el-button
@@ -552,9 +573,6 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
   display: grid;
   gap: 2px;
   min-width: 0;
-}
-.patient-context__contact :deep(.el-input__wrapper) {
-  background: #fff0dd;
 }
 .patient-context__relations {
   grid-column: 1 / -1;

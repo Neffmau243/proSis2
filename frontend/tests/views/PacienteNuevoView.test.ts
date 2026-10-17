@@ -195,6 +195,66 @@ test('la marca del seguro del alta sigue SIS, EsSalud y otro según el catálogo
   expect(wrapper.get('.base-section__insurance-brand').text()).toBe('Otro seguro')
 })
 
+test('el alta sugiere 040 y E para temporal, admite corrección y guarda solo al registrar', async () => {
+  catalogos.seguros.mockResolvedValue([
+    { id: 73, codigo: 'SIS_AFILIACION_TEMPORAL', regimen: 'SIS', nombre: 'Temporal', activo: true },
+    { id: 74, codigo: 'SIS_NRUS', regimen: 'SIS', nombre: 'NRUS', activo: true },
+  ])
+  catalogos.establecimientos.mockResolvedValue({
+    items: [
+      { id: 41, disa_codigo: '040', nombre: 'Arequipa', activo: true },
+      { id: 42, disa_codigo: '210', nombre: 'Puno', activo: true },
+    ],
+    total: 2,
+    has_more: false,
+  })
+  const { wrapper } = await mountView()
+  await fillIdentity(wrapper, { ...validIdentity, seguro_id: 73, establecimiento_registro_id: 41 })
+  const sis = wrapper.getComponent(PatientSisFields)
+  expect(sis.props('value')).toMatchObject({ sis_diresa: '040', sis_tipo: 'E', sis_numero: null })
+  expect(create).not.toHaveBeenCalled()
+  await fillIdentity(wrapper, { seguro_id: 74 })
+  expect(sis.props('value').sis_tipo).toBe('R')
+  await sis.get('input[aria-label="SIS · DIRESA / DISA"]').setValue('080')
+  await fillIdentity(wrapper, {
+    establecimiento_registro_id: 42,
+    ubigeo_residencia_codigo: '040103',
+  })
+  expect(sis.props('value').sis_diresa).toBe('080')
+  await sis.get('input[aria-label="SIS · N.° afiliación"]').setValue('00112233')
+  await submit(wrapper)
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      sis_diresa: '080',
+      sis_tipo: 'R',
+      sis_numero: '00112233',
+      seguro_id: 74,
+      establecimiento_registro_id: 42,
+    }),
+  )
+})
+
+test('el número SIS del alta sigue al DNI para Gratuito y se envía con los ceros iniciales', async () => {
+  catalogos.seguros.mockResolvedValue([
+    { id: 72, codigo: 'SIS_GRATUITO', regimen: 'SIS', nombre: 'Gratuito', activo: true },
+  ])
+  const { wrapper } = await mountView()
+  await fillIdentity(wrapper, { ...validIdentity, seguro_id: 72 })
+  const sis = wrapper.getComponent(PatientSisFields)
+  expect(sis.props('value')).toMatchObject({ sis_tipo: '2', sis_numero: '12345678' })
+  await fillIdentity(wrapper, { numero_documento: '00112233' })
+  expect(sis.props('value').sis_numero).toBe('00112233')
+  expect(create).not.toHaveBeenCalled()
+  await submit(wrapper)
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      numero_documento: '00112233',
+      sis_tipo: '2',
+      sis_numero: '00112233',
+    }),
+  )
+})
+
 test('se recorren todas las páginas de distritos y una localidad escrita se guarda sin cambiar la sede', async () => {
   const districts = Array.from({ length: 29 }, (_, index) => ({
     codigo: `0401${String(index + 1).padStart(2, '0')}`,

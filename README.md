@@ -19,6 +19,7 @@ python -m app.scripts.bootstrap_database              # crea la BD y aplica migr
 python -m app.scripts.create_admin --username admin   # primer ADMIN (pide la contraseña)
 uvicorn app.main:app --reload
 python -m uvicorn app.main:app --reload
+python -m uvicorn app.main:app --reload
 
 # terminal 2 — frontend
 cd frontend && npm install && npm run dev

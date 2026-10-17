@@ -76,10 +76,24 @@ página 9, define los datos del contrato:
 La estructura de las casillas de la aplicación coincide con esos tamaños.
 Los valores deben provenir de la acreditación individual: no se deduce
 `sis_tipo` recortando el código ETLSIS del plan ni se reemplaza `sis_diresa`
-con la DISA de la sede de registro. Se eliminó ese autocompletado en interfaz
-y backend. Cambiar entre planes SIS o cambiar de sede conserva el contrato
-ingresado; cambiar a un seguro no SIS limpia la afiliación actual. No se
-modificaron retrospectivamente pacientes ni FUAs históricos.
+con la DISA de la sede de registro como si fuera una acreditación verificada.
+El backend no infiere el contrato desde esas selecciones. Desde la revisión
+del 14/10/2026, alta y admisión ofrecen sugerencias **editables en el borrador**:
+DIRESA de la sede y formato según la Directiva FUA V.02 (p. 19): `E` temporal,
+`R` NRUS, `2` subsidiado/DNI y `3` subsidiado/CE en Gratuito/Para Todos.
+No se deduce un formato de «SIS» genérico o «Semi subsidiado», que no identifica
+por sí solo Independiente (`9`) frente a Microempresas (`8`).
+Un cambio explícito de plan recalcula el formato, salvo corrección manual en
+el borrador. Una DIRESA guardada distinta de la sugerencia anterior se conserva,
+pues la persona puede estar afiliada en otra región. Distrito y localidad son
+residencia y no recodifican el contrato. Abrir una ficha no modifica sus códigos;
+«Descartar cambios» restaura los confirmados. Para Gratuito/Para Todos, el número
+sigue el DNI/CE numérico válido en el borrador, conservando ceros y correcciones
+manuales (Directiva FUA V.02, p. 20). Temporal y NRUS mantienen su número de
+afiliación específico. La secuencia nunca se inventa.
+Solo Registrar/Guardar persiste las selecciones y correcciones. Cambiar a un
+seguro no SIS limpia la afiliación actual. No se modificaron retrospectivamente
+pacientes ni FUAs históricos.
 
 Esta revisión abarca las casillas de afiliación y las marcas, no una certificación
 completa de la trama FUA. La acreditación real y su vigencia requieren datos del SIS.

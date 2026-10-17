@@ -235,7 +235,7 @@ test('la marca sigue el borrador, el descarte y el seguro guardado por PATCH', a
   expect(wrapper.find('.patient-context__sis-brand img').exists()).toBe(false)
 })
 
-test('no deduce el contrato SIS desde el establecimiento o el plan ETLSIS', async () => {
+test('abrir la ficha no rellena ni modifica los códigos de afiliación confirmados', async () => {
   const wrapper = await mountPanel(false, {
     establecimiento_registro_id: 2,
     seguro_id: 10,
@@ -247,6 +247,48 @@ test('no deduce el contrato SIS desde el establecimiento o el plan ETLSIS', asyn
   const fields = wrapper.findAll('.sis-code input')
   expect(fields.map((field) => (field.element as HTMLInputElement).value)).toEqual(['', '', ''])
   expect(wrapper.text()).not.toContain('Tiene cambios sin guardar.')
+})
+
+test('cambiar de plan sugiere formato en el borrador, descartar lo restaura y guardar lo fija', async () => {
+  const wrapper = await mountPanel(false, {
+    establecimiento_registro_id: 2,
+    seguro_id: 2,
+    sis_diresa: '040',
+    sis_tipo: '2',
+    sis_numero: '00112233',
+  })
+  const insurance = wrapper.get('.patient-context__insurance-selector').getComponent(ElSelect)
+  insurance.vm.$emit('update:modelValue', 10)
+  insurance.vm.$emit('change', 10)
+  await flushPromises()
+  expect(wrapper.getComponent(PatientSisCodeFields).props('value')).toMatchObject({
+    sis_diresa: '040',
+    sis_tipo: 'R',
+    sis_numero: '00112233',
+  })
+  expect(update).not.toHaveBeenCalled()
+  await wrapper
+    .findAll('button')
+    .find((b) => b.text() === 'Descartar cambios')!
+    .trigger('click')
+  await flushPromises()
+  expect(wrapper.getComponent(PatientSisCodeFields).props('value').sis_tipo).toBe('2')
+  expect(insurance.props('modelValue')).toBe(2)
+  insurance.vm.$emit('update:modelValue', 10)
+  insurance.vm.$emit('change', 10)
+  await flushPromises()
+  update.mockResolvedValue(
+    aPatient({
+      establecimiento_registro_id: 2,
+      seguro_id: 10,
+      sis_diresa: '040',
+      sis_tipo: 'R',
+      sis_numero: '00112233',
+    }),
+  )
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(100, { seguro_id: 10, sis_tipo: 'R' })
 })
 
 test('guarda los códigos de la acreditación ingresados junto al número SIS', async () => {
@@ -429,11 +471,47 @@ test(
     await flushPromises()
     await wrapper.find('form').trigger('submit')
     await flushPromises()
-    expect(update).toHaveBeenCalledWith(100, { tipo_documento_codigo: 'CE' })
+    expect(update).toHaveBeenCalledWith(100, {
+      tipo_documento_codigo: 'CE',
+      sis_tipo: '3',
+      sis_numero: '12345678',
+    })
     await wrapper.setProps({ blocked: true })
     expect(documentSelect.props('disabled')).toBe(true)
   },
 )
+
+test('editar DNI recalcula número SIS sin guardar y descartar restaura ambos', async () => {
+  const wrapper = await mountPanel(false, {
+    sis_diresa: '040',
+    sis_tipo: '2',
+    sis_numero: '12345678',
+  })
+  const document = wrapper.get('input[aria-label="N.° documento"]')
+  await document.setValue('00112233')
+  await flushPromises()
+  expect(wrapper.getComponent(PatientSisCodeFields).props('value').sis_numero).toBe('00112233')
+  expect(update).not.toHaveBeenCalled()
+  await wrapper
+    .findAll('button')
+    .find((b) => b.text() === 'Descartar cambios')!
+    .trigger('click')
+  await flushPromises()
+  expect(wrapper.getComponent(PatientSisCodeFields).props('value').sis_numero).toBe('12345678')
+  await document.setValue('00112233')
+  await flushPromises()
+  update.mockResolvedValue(
+    aPatient({
+      numero_documento: '00112233',
+      sis_diresa: '040',
+      sis_tipo: '2',
+      sis_numero: '00112233',
+    }),
+  )
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(100, { numero_documento: '00112233', sis_numero: '00112233' })
+})
 
 // El panel reúne grupo de riesgo, nombre de madre y grupo etario, en ese orden.
 test(
