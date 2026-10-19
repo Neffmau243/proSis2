@@ -1,0 +1,136 @@
+[
+  {
+    "id": "S1",
+    "file": "cred-238.pdf",
+    "source": "https://cdn.www.gob.pe/uploads/document/file/9598727/7857089-norma-cred-12-03-26.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "415f543cf91709d4139c15bac81f285054cabeb18e2ea37897a3d6fc6d995c71",
+    "bytes": 5481581,
+    "pdf_pages_reviewed": [
+      26,
+      28,
+      29,
+      30,
+      31,
+      38,
+      39,
+      188
+    ]
+  },
+  {
+    "id": "S2",
+    "file": "minsa-nino-034-2024.pdf",
+    "source": "https://cdn.www.gob.pe/uploads/document/file/5698810/5059776-resolucion-ministerial-n-034-2024-minsa.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "4afe34ce68f5092e44f7baeb42de5071e95df78bb4884648e21b11cd3603feb5",
+    "bytes": 3023010,
+    "pdf_pages_reviewed": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18
+    ]
+  },
+  {
+    "id": "S3",
+    "file": "sihce-cred-manual.pdf",
+    "source": "https://www.minsa.gob.pe/sihce/manualess/MU_CRED.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "11aea297af66010cad68cbe0689d7f7a4e44c6ba4afeb8415c9e759bbfced55f",
+    "bytes": 3576556,
+    "pdf_pages_reviewed": [
+      32
+    ]
+  },
+  {
+    "id": "S4",
+    "file": "minsa-adolescente.pdf",
+    "source": "https://cdn.www.gob.pe/uploads/document/file/390257/guia-tecnica-para-la-valoracion-nutricional-antropometrica-de-la-persona-adolescente.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "06720de4a61f2023a01bc0402e6c3b0650068b428e8eca00f980412ba2e80037",
+    "bytes": 6263036,
+    "pdf_pages_reviewed": [
+      20,
+      43
+    ]
+  },
+  {
+    "id": "S5",
+    "file": "minsa-adulto.pdf",
+    "source": "https://spij.minjus.gob.pe/Graficos/Peru/2012/Marzo/17/RM-184-2012-MINSA.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "811950b8f315b4a9b3c4bada37e28d3b2c72c1dae625e4089ad081cc62107da7",
+    "bytes": 1931196,
+    "pdf_pages_reviewed": [
+      1,
+      4,
+      9,
+      10,
+      11,
+      12,
+      17
+    ]
+  },
+  {
+    "id": "S6",
+    "file": "minsa-mayor.pdf",
+    "source": "https://bvs.minsa.gob.pe/local/MINSA/2858.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "591f6c8aec3ab1f3e357587626901f0c86ed26ae7a417953101e0f90b73ffb51",
+    "bytes": 3836528,
+    "pdf_pages_reviewed": [
+      15,
+      26,
+      27,
+      28,
+      29,
+      30
+    ]
+  },
+  {
+    "id": "S7",
+    "file": "essalud-desnutricion.pdf",
+    "source": "https://ietsi.essalud.gob.pe/wp-content/uploads/2021/12/GPC-Malnutricion_Version-corta.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "ecd75b6ce9580e9b8f7f76509529e25d08538ea6251f8e6a03f795601cea4073",
+    "bytes": 2272651,
+    "pdf_pages_reviewed": [
+      9,
+      10,
+      21
+    ]
+  },
+  {
+    "id": "S8",
+    "file": "fua-v02.pdf",
+    "source": "https://cdn.www.gob.pe/uploads/document/file/7310926/6245149-directiva-n-02-2024-sis-grep-v-02-actualizado.pdf",
+    "retrieved": "2026-10-17",
+    "sha256": "cf6a3a1d356b03fab827acbbb6d132e5aaac30fd21276c79096bb959046150ed",
+    "bytes": 1308032,
+    "pdf_pages_reviewed": [
+      11,
+      29,
+      34,
+      35,
+      36,
+      37
+    ]
+  },
+  {
+    "id": "S9",
+    "file": "sis-registro-modular-2026.pdf",
+    "source": "https://cdn.www.gob.pe/uploads/document/file/9494985/7772769-criterios-tecnicos-para-el-registro-modular-por-curso-de-vida-rm-cv-en-el-formato-unico-de-atencion-fua.pdf?v=1771946876",
+    "retrieved": "2026-10-17",
+    "sha256": "bd90b64f1dcf5f339a0fb92b48d00be53357b6babf19ce1ac7df4e609cf50a62",
+    "bytes": 728884,
+    "pdf_pages_reviewed": [
+      5,
+      7,
+      17,
+      24
+    ]
+  }
+]

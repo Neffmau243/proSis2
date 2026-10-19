@@ -55,6 +55,7 @@ export interface AgeGroupCatalogItem extends CodeCatalogItem {
 }
 
 export interface RiskGroupCatalogItem extends IdCatalogItem {
+  tipo?: 'RIESGO' | 'SEGUIMIENTO' | 'LEGADO'
   descripcion: string | null
 }
 
@@ -140,7 +141,12 @@ async function searchPage<T>(
 }
 
 export const catalogos = {
-  etnias: () => getList<CodeCatalogItem>('/catalogos/etnias'),
+  // El selector muestra primero el código: ordenar numéricamente evita saltos
+  // como 1, 56, 2 y conserva los códigos oficiales al seleccionar y guardar.
+  etnias: async () => {
+    const items = await getList<CodeCatalogItem>('/catalogos/etnias')
+    return [...items].sort((a, b) => Number(a.codigo) - Number(b.codigo))
+  },
   tiposDocumento: () => getList<CodeCatalogItem>('/catalogos/tipos-documento'),
   sexos: () => getList<CodeCatalogItem>('/catalogos/sexos'),
   seguros: () => getList<InsuranceCatalogItem>('/catalogos/seguros'),

@@ -1,0 +1,100 @@
+Fresh disposable database: ipress_test_nutrition_8c2a9cff745d
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 20260909_0001, Initial IPRESS schema derived from the SQLAlchemy ORM models.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0001 -> 20260909_0002, Add locked document-number sequences required by RB-06.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0002 -> 20260909_0003, Seed baseline clinical age ranges when the initial catalog is unconfigured.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0003 -> 20260909_0004, Consolidate the application into ADMIN and PROFESIONAL roles.
+INFO  [alembic.runtime.migration] Running upgrade 20260909_0004 -> 20260910_0005_security_auth, Harden persisted authentication state and login throttling.
+INFO  [alembic.runtime.migration] Running upgrade 20260910_0005_security_auth -> 20260910_0006_clinical_integrity, Enforce clinical-document states and certificate signer integrity.
+INFO  [alembic.runtime.migration] Running upgrade 20260910_0006_clinical_integrity -> 20260912_0007_nutrition, Persist server-calculated nutritional indicators for every attention.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0007_nutrition -> 20260912_0008_nutrition_tipo, Allow diagnostic-only nutritional snapshots.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0008_nutrition_tipo -> 20260912_0009_patient_prof, Keep the professional who registered or transferred a patient inside its scope.
+INFO  [alembic.runtime.migration] Running upgrade 20260912_0009_patient_prof -> 20260916_0010_locality, Clear legacy locality values that repeat the selected UBIGEO code.
+INFO  [alembic.runtime.migration] Running upgrade 20260916_0010_locality -> 20260918_0011_care_group, Persist the clinical care group an attention was registered for.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0011_care_group -> 20260918_0012_pregnancy, Persist the obstetric measurements recorded for a pregnant person.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0012_pregnancy -> 20260918_0013_due_date, Persist the estimated delivery date for a pregnant person.
+INFO  [alembic.runtime.migration] Running upgrade 20260918_0013_due_date -> 20260919_0014_fua_print, Freeze FUA print data with the attention; old records remain explicitly null.
+INFO  [alembic.runtime.migration] Running upgrade 20260919_0014_fua_print -> 20260919_0015_patient_sis, Patient SIS master data and documented ethnicity catalog; site paper defaults.
+INFO  [alembic.runtime.migration] Running upgrade 20260919_0015_patient_sis -> 20260921_0016_legacy_archive, Preserve every source record and incomplete historical encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20260921_0016_legacy_archive -> 20260923_0017_insurance_plans, Insurance catalog completeness: SIS plans and Sanidad as explicit codes.
+INFO  [alembic.runtime.migration] Running upgrade 20260923_0017_insurance_plans -> 20260924_0018_sis_localities, SIS territory and affiliation codes as managed catalog data.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0018_sis_localities -> 20260924_0019_eess_catalog, Official Arequipa establishments, replacing the demo-only catalog.
+INFO  [alembic.runtime.migration] Running upgrade 20260924_0019_eess_catalog -> 20260926_0020_real_catalogs, Cat�logos operativos reales de Arequipa, en lugar de las filas demo.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0020_real_catalogs -> 20260926_0021_real_professionals, Profesionales reales de Arequipa, en lugar de las filas demo.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0021_real_professionals -> 20260926_0022_specialty_codes, Normaliza a may�sculas los c�digos de especialidad del cat�logo real.
+INFO  [alembic.runtime.migration] Running upgrade 20260926_0022_specialty_codes -> 20260929_0023_nutrition_risks, Seed the nutritional risk labels found in the ETLSIS historical data.
+INFO  [alembic.runtime.migration] Running upgrade 20260929_0023_nutrition_risks -> 20261002_0024_nutrition_snapshot, Preserve the age-appropriate nutritional calculation per encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261002_0024_nutrition_snapshot -> 20261005_0025_legacy_operators, Give the legacy SIS operators access as PROFESIONAL users.
+INFO  [alembic.runtime.migration] Running upgrade 20261005_0025_legacy_operators -> 20261005_0026_fua_components, Persist current FUA number components separately from legacy configuration.
+INFO  [alembic.runtime.migration] Running upgrade 20261005_0026_fua_components -> 20261006_0027_establishment_disa, Persist the SIS DIRESA code owned by each official establishment.
+INFO  [alembic.runtime.migration] Running upgrade 20261006_0027_establishment_disa -> 20261007_0028_delivery_date, Persist the delivery date declared for a puerperal encounter.
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20261007_0028_delivery_date -> 20261008_0029_nutrition_fields, Add group-specific capture and immutable encounter context.
+INFO  [alembic.runtime.migration] Running upgrade 20261008_0029_nutrition_fields -> 20261009_0030_young_age_group, Add the young life stage and split the former adult range.
+INFO  [alembic.runtime.migration] Running upgrade 20261009_0030_young_age_group -> 20261010_0031_family_history, Create and seed the family-history prefix catalog.
+INFO  [alembic.runtime.migration] Running upgrade 20261010_0031_family_history -> 20261012_0032_lab_references, Preserve referral identifiers recorded when receiving a laboratory encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261012_0032_lab_references -> 20261013_0033_office_hierarchy, Separate care areas and available services from physical office hierarchy.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0033_office_hierarchy -> 20261013_0034_locality_codes, Restore the gap in Z_01 SIS codes, preserving locality IDs and patient links.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0034_locality_codes -> 20261013_0035_site_district, Link the six verified IPRESS to their own district, preserving patient residence.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0035_site_district -> 20261014_0036_locality_keys, Separate the internal Z_* Codigo from its legacy export Clave.
+INFO  [alembic.runtime.migration] Running upgrade 20261014_0036_locality_keys -> 20261017_0037_nutrition_followup, Add confirmed nutrition follow-up, preserving ETLSIS and saved assessments.
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 20261017_0037_nutrition_followup -> 20261014_0036_locality_keys, Add confirmed nutrition follow-up, preserving ETLSIS and saved assessments.
+INFO  [alembic.runtime.migration] Running downgrade 20261014_0036_locality_keys -> 20261013_0035_site_district, Separate the internal Z_* Codigo from its legacy export Clave.
+INFO  [alembic.runtime.migration] Running downgrade 20261013_0035_site_district -> 20261013_0034_locality_codes, Link the six verified IPRESS to their own district, preserving patient residence.
+INFO  [alembic.runtime.migration] Running downgrade 20261013_0034_locality_codes -> 20261013_0033_office_hierarchy, Restore the gap in Z_01 SIS codes, preserving locality IDs and patient links.
+INFO  [alembic.runtime.migration] Running downgrade 20261013_0033_office_hierarchy -> 20261012_0032_lab_references, Separate care areas and available services from physical office hierarchy.
+INFO  [alembic.runtime.migration] Running downgrade 20261012_0032_lab_references -> 20261010_0031_family_history, Preserve referral identifiers recorded when receiving a laboratory encounter.
+INFO  [alembic.runtime.migration] Running downgrade 20261010_0031_family_history -> 20261009_0030_young_age_group, Create and seed the family-history prefix catalog.
+INFO  [alembic.runtime.migration] Running downgrade 20261009_0030_young_age_group -> 20261008_0029_nutrition_fields, Add the young life stage and split the former adult range.
+INFO  [alembic.runtime.migration] Running downgrade 20261008_0029_nutrition_fields -> 20261007_0028_delivery_date, Add group-specific capture and immutable encounter context.
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 20261007_0028_delivery_date -> 20261008_0029_nutrition_fields, Add group-specific capture and immutable encounter context.
+INFO  [alembic.runtime.migration] Running upgrade 20261008_0029_nutrition_fields -> 20261009_0030_young_age_group, Add the young life stage and split the former adult range.
+INFO  [alembic.runtime.migration] Running upgrade 20261009_0030_young_age_group -> 20261010_0031_family_history, Create and seed the family-history prefix catalog.
+INFO  [alembic.runtime.migration] Running upgrade 20261010_0031_family_history -> 20261012_0032_lab_references, Preserve referral identifiers recorded when receiving a laboratory encounter.
+INFO  [alembic.runtime.migration] Running upgrade 20261012_0032_lab_references -> 20261013_0033_office_hierarchy, Separate care areas and available services from physical office hierarchy.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0033_office_hierarchy -> 20261013_0034_locality_codes, Restore the gap in Z_01 SIS codes, preserving locality IDs and patient links.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0034_locality_codes -> 20261013_0035_site_district, Link the six verified IPRESS to their own district, preserving patient residence.
+INFO  [alembic.runtime.migration] Running upgrade 20261013_0035_site_district -> 20261014_0036_locality_keys, Separate the internal Z_* Codigo from its legacy export Clave.
+INFO  [alembic.runtime.migration] Running upgrade 20261014_0036_locality_keys -> 20261017_0037_nutrition_followup, Add confirmed nutrition follow-up, preserving ETLSIS and saved assessments.
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+No new upgrade operations detected.
+No new upgrade operations detected.
+Migration preservation, downgrade/upgrade and ORM consistency: PASS
+............................                                             [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+.venv\Lib\site-packages\starlette\testclient.py:53
+  C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\starlette\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+.venv\Lib\site-packages\_pytest\config\__init__.py:1474
+  C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\_pytest\config\__init__.py:1474: PytestConfigWarning: Unknown config option: asyncio_default_fixture_loop_scope
+  
+    self._warn_or_fail_if_strict(f"Unknown config option: {key}\n")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+28 passed, 3 warnings in 45.16s

@@ -101,12 +101,16 @@ class PatientResponsibleUpdate(BaseModel):
 class PatientRiskCreate(BaseModel):
     """A period in a configured risk group for a patient."""
 
+    model_config = ConfigDict(extra="forbid")
+    atencion_origen_id: Annotated[int, Field(gt=0)] | None = None
+    fecha_proximo_control: date | None = None
+    motivo_cierre: Annotated[str, Field(max_length=500)] | None = None
     grupo_riesgo_id: Annotated[int, Field(gt=0)]
     fecha_inicio: date
     fecha_fin: date | None = None
     observacion: Annotated[str, Field(max_length=500)] | None = None
 
-    @field_validator("observacion", mode="before")
+    @field_validator("observacion", "motivo_cierre", mode="before")
     @classmethod
     def strip_external_whitespace(cls, value: Any) -> Any:
         if isinstance(value, str):
@@ -121,10 +125,13 @@ class PatientRiskUpdate(BaseModel):
     changing them would be a new period, not an in-place mutation.
     """
 
+    model_config = ConfigDict(extra="forbid")
+    fecha_proximo_control: date | None = None
+    motivo_cierre: Annotated[str, Field(max_length=500)] | None = None
     fecha_fin: date | None = None
     observacion: Annotated[str, Field(max_length=500)] | None = None
 
-    @field_validator("observacion", mode="before")
+    @field_validator("observacion", "motivo_cierre", mode="before")
     @classmethod
     def strip_external_whitespace(cls, value: Any) -> Any:
         if isinstance(value, str):
@@ -282,6 +289,12 @@ class PatientResponsibleResponse(BaseModel):
 
 class PatientRiskResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
+
+    atencion_origen_id: int | None = None
+    evaluacion_origen: dict[str, Any] | None = None
+    confirmado_por_usuario_id: int | None = None
+    fecha_proximo_control: date | None = None
+    motivo_cierre: str | None = None
 
     grupo_riesgo_id: int
     fecha_inicio: date

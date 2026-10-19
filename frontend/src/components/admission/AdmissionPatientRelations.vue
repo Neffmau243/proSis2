@@ -99,10 +99,10 @@ function riskSaved(item: PatientRisk) {
           class="patient-relations__risk-trigger"
           type="button"
           :disabled="disabled"
-          :title="riskSummary || 'Sin registrar'"
+          :title="riskSummary || 'Sin seguimiento vigente registrado'"
           aria-label="Grupo de riesgo"
         >
-          <span class="patient-relations__risk-value">{{ riskSummary || 'Sin registrar' }}</span>
+          <span class="patient-relations__risk-value">{{ riskSummary || 'Sin seguimiento vigente registrado' }}</span>
           <el-icon><ArrowDown /></el-icon>
         </button>
         <template #dropdown>
@@ -123,7 +123,7 @@ function riskSaved(item: PatientRisk) {
         v-else
         :id="`${id}-risk`"
         :model-value="riskSummary"
-        placeholder="Sin registrar"
+        placeholder="Sin seguimiento vigente registrado"
         readonly
         aria-label="Grupo de riesgo"
       />

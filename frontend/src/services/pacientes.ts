@@ -14,6 +14,11 @@ export interface PatientResponsible {
 }
 
 export interface PatientRisk {
+  atencion_origen_id?: number | null
+  confirmado_por_usuario_id?: number | null
+  evaluacion_origen?: Record<string, unknown> | null
+  fecha_proximo_control?: string | null
+  motivo_cierre?: string | null
   grupo_riesgo_id: number
   fecha_inicio: string
   fecha_fin: string | null
@@ -85,6 +90,9 @@ export interface ResponsibleUpdatePayload {
 }
 
 export interface RiskCreatePayload {
+  atencion_origen_id?: number | null
+  fecha_proximo_control?: string | null
+  motivo_cierre?: string | null
   grupo_riesgo_id: number
   fecha_inicio: string
   fecha_fin?: string | null
@@ -92,6 +100,8 @@ export interface RiskCreatePayload {
 }
 
 export interface RiskUpdatePayload {
+  fecha_proximo_control?: string | null
+  motivo_cierre?: string | null
   fecha_fin?: string | null
   observacion?: string | null
 }

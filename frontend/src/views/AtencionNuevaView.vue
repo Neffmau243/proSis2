@@ -519,6 +519,11 @@
                 />
               </section>
             </el-form>
+            <NutritionFollowupPanel v-if="nutritionalPatient"
+              :patient="nutritionalPatient" :groups="gruposRiesgo"
+              :result="savedAttention?.valoracion_calculada ?? nutritionIndicators"
+              :attention="savedAttention" :can-edit="auth.hasPermission('PACIENTE_EDITAR')"
+              @saved="applyUpdatedPatient" />
             <AdmissionFinalActions
               :saving="saving"
               :saved="attentionCreated"
@@ -557,6 +562,11 @@
             :error="historialError"
             @refresh="loadHistorial"
           />
+          <NutritionFollowupPanel v-if="nutritionalPatient && latestFollowupAttention && !savedAttention"
+            :patient="nutritionalPatient" :groups="gruposRiesgo"
+            :result="latestFollowupAttention.valoracion_calculada ?? null"
+            :attention="latestFollowupAttention" :can-edit="auth.hasPermission('PACIENTE_EDITAR')"
+            @saved="applyUpdatedPatient" />
         </div>
       </div>
     </template>
@@ -574,6 +584,7 @@ import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterH
 import AdmissionFinalActions from '@/components/admission/AdmissionFinalActions.vue'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
 import NutritionAssessmentResults from '@/components/admission/NutritionAssessmentResults.vue'
+import NutritionFollowupPanel from '@/components/admission/NutritionFollowupPanel.vue'
 import { useSavedAdmission } from '@/composables/useSavedAdmission'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
 import {
@@ -662,6 +673,7 @@ const especialidades = ref<SpecialtyCatalogItem[]>([])
 const tiposDocumento = ref<CodeCatalogItem[]>([])
 const gruposRiesgo = ref<RiskGroupCatalogItem[]>([])
 const historial = ref<Attention[]>([])
+const latestFollowupAttention = computed(() => historial.value.find(entry => entry.estado === 'ATENDIDO' && entry.valoracion_calculada?.seguimiento))
 const historialLoading = ref(false)
 const historialError = shallowRef<string | null>(null)
 let historyRequest = 0
@@ -690,7 +702,7 @@ const form = reactive({
   admision: '',
 })
 
-const { fuaDialog, fuaSnapshot, attentionCreated, remember } = useSavedAdmission(
+const { savedAttention, fuaDialog, fuaSnapshot, attentionCreated, remember } = useSavedAdmission(
   () => form.paciente_id,
 )
 /** Población clínica declarada; se persiste en la atención. */
@@ -767,9 +779,8 @@ const nutritionReferenceGroup = computed(() => {
   const birth = nutritionalPatient.value?.fecha_nacimiento
   const age = birth ? calculateCalendarAge(birth, form.fecha_atencion) : null
   if (age && age.years >= 60) return 'ADULTO_MAYOR'
-  if (nutritionAgeMonths.value != null && nutritionAgeMonths.value > 228) return 'ADULTO'
-  if (nutritionAgeMonths.value != null && nutritionAgeMonths.value * 30.4375 > 1826)
-    return 'ESCOLAR'
+  if (age && age.years >= 19) return 'ADULTO'
+  if (age && age.years >= 5) return 'ESCOLAR'
   return 'INFANTIL'
 })
 

@@ -1,0 +1,301 @@
+Browser tab: 1, Title: "Admisión de paciente · Sistema de Salud IPRESS", URL: "http://127.0.0.1:8000/admision?patientId=18".
+1 AXWebArea Admisión de paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/admision?patientId=18
+	2 container
+		3 button (collapsed) Abrir menú, Secondary Actions: Expand
+		4 container
+			5 text Admisión de paciente
+			6 container el-id-6093-59
+				298 text * Fecha y hora de atención
+			8 container
+				9 image
+				10 combo box (disabled, collapsed, settable) Description: Fecha y hora de atención, Value: 15/10/2026 18:00, ID: el-id-6093-127, Secondary Actions: Expand
+		11 container
+			12 container Base de datos
+				13 heading Base de datos, Value: 3, ID: patient-context-title
+					14 text Base de datos
+				15 container
+					16 text N.° H. clínica
+					17 text field (disabled) Description: N.° H. clínica, Value: PRUEBA-MADRE-171026, ID: el-id-6093-110
+					18 container Historia familiar
+						19 text Historia familiar
+						20 container
+							21 container
+								22 combo box (disabled, collapsed, settable) Description: Color o sector de historia familiar, ID: el-id-6093-111, Secondary Actions: Expand
+								23 text AZUL
+								24 image
+							25 text field (disabled) Description: Número de historia familiar, Value: 171026, ID: el-id-6093-112
+							26 text AZ-171026
+					27 text Tipo documento
+					28 container
+						29 combo box (disabled, collapsed, settable) Description: Tipo de documento, ID: v-0, Secondary Actions: Expand
+						30 text Documento Nacional de Identidad
+						31 image
+					32 container el-id-6093-12
+						33 text *
+						34 text N.° documento
+					35 text field (disabled) Description: N.° documento, Value: 99061701, ID: el-id-6093-113
+					36 container el-id-6093-13
+						37 text *
+						38 text Fecha nacimiento
+					39 date field (disabled, settable) Description: Fecha nacimiento, Value: 1998-05-20, ID: el-id-6093-114
+					45 text Apellido paterno
+					46 text field (disabled) Description: Apellido paterno, Value: Prueba, ID: el-id-6093-115
+					47 text Apellido materno
+					48 text field (disabled) Description: Apellido materno, Value: Materna, ID: el-id-6093-116
+					49 text Primer nombre
+					50 text field (disabled) Description: Primer nombre, Value: Elena, ID: el-id-6093-117
+					51 text Otros nombres
+					52 text field (disabled) Description: Otros nombres, Value: Simulada, ID: el-id-6093-118
+					53 text Sexo
+					54 container
+						55 combo box (disabled, collapsed, settable) Description: Sexo, ID: el-id-6093-119, Secondary Actions: Expand
+						56 text FEMENINO
+						57 image
+					58 text Distrito
+					59 container
+						60 combo box (disabled, collapsed, settable) Description: Distrito, ID: el-id-6093-120, Secondary Actions: Expand
+						61 text ALTO SELVA ALEGRE · Arequipa · Arequipa
+					62 text Localidad
+					63 container
+						64 combo box (disabled, collapsed, settable) Description: Localidad, ID: el-id-6093-121, Secondary Actions: Expand
+						65 text ALTO SELVA ALEGRE
+						66 image
+					67 text Dirección
+					68 text field (disabled) Description: Dirección, Value: DOMICILIO FICTICIO - RECORRIDO MADRE Y BEBE 17/10/2026, ID: el-id-6093-122
+					69 text Establecimiento
+					70 container
+						71 combo box (disabled, collapsed, settable) Description: Establecimiento, ID: el-id-6093-123, Secondary Actions: Expand
+						72 text C.S. ALTO SELVA ALEGRE
+					73 image SIS · Seguro Integral de Salud
+					74 container
+						75 combo box (disabled, collapsed, settable) Description: Seguro de salud, ID: el-id-6093-124, Secondary Actions: Expand
+						76 text S.I.S. Gratuito
+						77 image
+					78 container Código del asegurado SIS
+						79 text Código del asegurado SIS
+						80 container
+							81 text DIRESA
+							82 text field (disabled) Description: SIS · DIRESA / DISA, Value: 040, ID: v-3-sis_diresa
+							83 text 3 caracteres
+						84 container
+							85 text Tipo
+							86 text field (disabled) Description: SIS · Tipo / formato, Value: 2, ID: v-3-sis_tipo
+							87 text 1–2 caracteres
+						88 container
+							89 text Número
+							90 text field (disabled) Description: SIS · Número de afiliación, Value: 99061701, ID: v-3-sis_numero
+							91 text 8–9 dígitos
+					92 text Teléfono
+					93 text field (disabled) Teléfono
+					94 container Responsables y riesgos del paciente
+						95 text Grupo de riesgo
+						96 pop up button (disabled, collapsed) Description: Grupo de riesgo, ID: el-id-6093-40, Secondary Actions: Expand
+							97 text Sin registrar
+						98 text Nombre de madre
+						99 container
+							100 text field Description: Nombre de madre, ID: v-1-mother
+							101 button (disabled) Agregar madre
+						102 text Grupo etáreo
+						103 container
+							104 combo box (disabled, collapsed, settable) Description: Grupo etáreo, ID: el-id-6093-126, Secondary Actions: Expand
+							105 text GESTANTE
+							106 image
+					107 text Datos del paciente guardados.
+			110 container Consultorio
+				111 container el-id-6093-61
+					299 text * Modalidad de atención
+				113 Description: Modalidad de atención, ID: el-id-6093-130
+					114 container
+						115 radio button (disabled, settable, integer) Description: Ambulatoria, Value: 0
+						116 text Ambulatoria
+					117 container
+						118 radio button (disabled, settable, integer) Description: Emergencia, Value: 1
+						119 text Emergencia
+				120 heading Consultorio, Value: 3, ID: encounter-context-title
+					121 text Consultorio
+				122 container
+					123 container el-id-6093-63
+						300 text * Consultorio
+					125 container
+						126 combo box (disabled, collapsed, settable) *Consultorio, ID: el-id-6093-131, Secondary Actions: Expand
+						291 text MED · MEDICINA
+						128 image
+					129 text Servicio / especialidad
+					130 container
+						131 combo box (disabled, collapsed, settable) Servicio / especialidad, ID: el-id-6093-132, Secondary Actions: Expand
+						292 text MEDICINA GENERAL
+						133 image
+					134 container el-id-6093-102
+						301 text * Profesional
+					136 container
+						137 combo box (disabled, collapsed, settable) *Profesional, ID: el-id-6093-133, Secondary Actions: Expand
+						294 text ELSA GUILLEN TOCCAS
+			139 container Mediciones clínicas
+				140 text Grupo de atención
+				141 Description: Grupo de atención, ID: el-id-6093-134
+					142 container
+						143 radio button (disabled, settable, integer) Description: Niños, adolescentes, adultos y adultos mayores, Value: 0
+						144 text Niños, adolescentes, adultos y adultos mayores
+					145 container
+						146 radio button (disabled, settable, integer) Description: Gestantes, Value: 1
+						147 text Gestantes
+					148 container
+						149 radio button (disabled, settable, integer) Description: Puérperas, Value: 0
+						150 text Puérperas
+				151 heading Mediciones clínicas, Value: 4, ID: measurements-title
+					152 text Mediciones clínicas
+				153 container
+					263 text Tipo de embarazo
+					264 container
+						265 combo box (disabled, collapsed, settable) Tipo de embarazo, ID: el-id-6093-287, Secondary Actions: Expand
+						302 text Embarazo único
+						303 image
+					268 text Peso antes del embarazo (kg)
+					269 stepper (disabled, settable, integer) Peso antes del embarazo (kg), Value: 58, Details: 58.00, ID: el-id-6093-288
+					154 text Peso actual (kg)
+					155 stepper (disabled, settable, integer) Peso actual (kg), Value: 70, Details: 70.00, ID: el-id-6093-135
+					156 text Talla (cm)
+					157 stepper (disabled, settable, integer) Talla (cm), Value: 160, Details: 160.00, ID: el-id-6093-136
+					270 text Fecha probable de parto
+					271 container
+						272 image
+						273 combo box (disabled, collapsed, settable) Fecha probable de parto, Value: 2026-10-20, ID: el-id-6093-289, Secondary Actions: Expand
+				160 heading Presión arterial y temperatura, Value: 4
+					161 text Presión arterial y temperatura
+				162 container Presión arterial y temperatura
+					163 text Diast.
+					164 stepper (disabled, settable, integer) Description: Presión diastólica, Value: 75, ID: el-id-6093-138
+					165 text Sist.
+					166 stepper (disabled, settable, integer) Description: Presión sistólica, Value: 115, ID: el-id-6093-139
+					167 text Temp.
+					168 stepper (disabled, settable, float) Description: Temperatura en grados Celsius, Value: 36.79999923706055, Details: 36.8, ID: el-id-6093-140
+					169 text °C
+			170 container Valoración nutricional
+				171 heading Valoración nutricional, Value: 3, ID: nutrition-title
+					172 text Valoración nutricional
+				173 container
+					174 text Edad a la atención 28 años, 4 meses y 25 días
+				274 table Valoración nutricional de gestantes
+					275 row
+						276 cell
+							277 text IMC
+						278 cell
+							295 text 22.656
+					280 row
+						281 cell
+							282 text Dx IMC
+						283 cell
+							296 text Normal
+					285 row
+						286 cell
+							287 text Ganancia de peso
+						288 cell
+							297 text 12 kg
+			185 container Acciones de admisión
+				304 text Atención guardada correctamente. Ya puede imprimir S.I.S.
+				187 container Acciones de admisión
+					188 button (disabled) Atención guardada
+						305 text Atención guardada
+					190 button Imprimir S.I.S.
+						191 text Imprimir S.I.S.
+					192 button (disabled) Otra consulta, Help: Otra consulta: aún no disponible
+						193 text Otra consulta
+					194 button (disabled) FUA adicional, Help: FUA adicional: aún no disponible
+						195 text FUA adicional
+					196 button Salir
+						197 text Salir
+			198 heading Historial de atenciones del paciente, Value: 3
+				199 text Historial de atenciones del paciente
+			200 button Refrescar
+			201 container
+				202 table
+					203 row
+						204 cell
+							205 text N.° historia
+						206 cell
+							207 text Fecha atención
+						208 cell
+							209 text Edad del paciente
+						210 cell
+							211 text Peso
+						212 cell
+							213 text Talla
+						214 cell
+							215 text Diast.
+						216 cell
+							217 text Sist.
+						218 cell
+							219 text IMC
+						220 cell
+							221 text P/E
+						222 cell
+							223 text T/E
+						224 cell
+							225 text P/T
+						226 cell
+							227 text Consultorio
+						228 cell
+							229 text Estado
+				230 table
+					306 container
+						307 row
+							308 cell
+								309 text PRUEBA-MADRE-171026
+							310 cell
+								311 text 15/10/2026
+							312 cell
+								313 text 28 años, 4 meses y 25 días
+							314 cell
+								315 text 70.00
+							316 cell
+								317 text 160.00
+							318 cell
+								319 text 75
+							320 cell
+								321 text 115
+							322 cell
+								323 container Resultado disponible: IMC: 27.344 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 12 kg. P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes. IMC pregestacional y cambio de peso. Interpretar según semana gestacional; adolescentes requieren valoración específica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+									324 text 27.344
+							325 cell
+								326 text No aplica
+							327 cell
+								328 text No aplica
+							329 cell
+								330 text No aplica
+							331 cell
+								332 text MEDICINA
+								333 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+							334 cell
+								335 text ATENDIDO
+						336 row
+							337 cell
+								338 text PRUEBA-MADRE-171026
+							339 cell
+								340 text 1/10/2026
+							341 cell
+								342 text 28 años, 4 meses y 11 días
+							343 cell
+								344 text 68.00
+							345 cell
+								346 text 160.00
+							347 cell
+								348 text 70
+							349 cell
+								350 text 110
+							351 cell
+								352 container Resultado disponible: IMC: 26.563 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 10 kg. P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes. IMC pregestacional y cambio de peso. Interpretar según semana gestacional; adolescentes requieren valoración específica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+									353 text 26.563
+							354 cell
+								355 text No aplica
+							356 cell
+								357 text No aplica
+							358 cell
+								359 text No aplica
+							360 cell
+								361 text MEDICINA
+								362 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+							363 cell
+								364 text ATENDIDO
+			260 text P/E: peso/edad · T/E: talla/edad · P/T: peso/talla. «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo. «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración.
+
+The focused UI element is 1 AXWebArea Admisión de paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/admision?patientId=18

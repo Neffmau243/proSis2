@@ -1,0 +1,43 @@
+{
+  "revision": "2026-10-17",
+  "checks": [
+    {
+      "birth": "2021-10-17",
+      "measured": "2026-10-17",
+      "group": "INFANTIL",
+      "state": "CALCULADO",
+      "reference": "OMS 2006 (0 a 60 meses)",
+      "bmi": "14.876",
+      "bmi_age": "None",
+      "bmi_label": null,
+      "message": "Indicadores calculados con la referencia OMS 2006; valide la interpretación clínica."
+    },
+    {
+      "birth": "2021-10-17",
+      "measured": "2026-10-27",
+      "group": "ESCOLAR",
+      "state": "SIN_REFERENCIA",
+      "reference": "OMS 2007 (61 a 228 meses)",
+      "bmi": "14.876",
+      "bmi_age": "None",
+      "bmi_label": null,
+      "message": "IMC disponible. Edad entre el final de OMS 2006 instalada y el inicio de OMS 2007 (61 meses); sin extrapolar puntajes."
+    },
+    {
+      "birth": "1991-10-17",
+      "measured": "2026-10-17",
+      "group": "ADULTO",
+      "state": "CALCULADO",
+      "reference": "OMS IMC adulto",
+      "bmi": "16.327",
+      "bmi_age": "None",
+      "bmi_label": "Bajo peso",
+      "message": "Valoración por IMC; interpretar junto con la evaluación clínica."
+    },
+    {
+      "input": "T/E Z = +2.5",
+      "current": "Normal",
+      "minsa_table_2025": "Alto / Talla alta (> +2 DE)"
+    }
+  ]
+}

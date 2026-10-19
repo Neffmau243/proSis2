@@ -1,0 +1,199 @@
+- button "Abrir menú":
+  - generic: Abrir menú
+- generic: Admisión de paciente
+- generic: "*Fecha y hora de atención"
+- combobox "Fecha y hora de atención" [disabled]: 17/10/2026 16:47
+- main:
+  - complementary:
+    - region "Base de datos":
+      - heading "Base de datos" [level=3]
+      - generic: N.° H. clínica
+      - textbox "N.° H. clínica" [disabled]: PRUEBA-RIESGO-NINO-171026
+      - group "Historia familiar":
+        - generic: Historia familiar
+        - combobox "Color o sector de historia familiar" [disabled]
+        - generic: Color o sector
+        - textbox "Número de historia familiar" [disabled]:
+          - /placeholder: N.° familiar
+      - generic: Tipo documento
+      - combobox "Tipo de documento" [disabled]
+      - generic: Documento Nacional de Identidad
+      - generic: "* N.° documento"
+      - textbox "N.° documento" [disabled]: "99061711"
+      - generic: "* Fecha nacimiento"
+      - textbox "Fecha nacimiento" [disabled]: 2023-10-17
+      - generic: Apellido paterno
+      - textbox "Apellido paterno" [disabled]: Prueba
+      - generic: Apellido materno
+      - textbox "Apellido materno" [disabled]: Nutricional
+      - generic: Primer nombre
+      - textbox "Primer nombre" [disabled]: Nino
+      - generic: Otros nombres
+      - textbox "Otros nombres" [disabled]: Ficticio
+      - generic: Sexo
+      - combobox "Sexo" [disabled]
+      - generic: MASCULINO
+      - generic: Distrito
+      - combobox "Distrito" [disabled]
+      - generic: Seleccione
+      - generic: Localidad
+      - combobox "Localidad" [disabled]
+      - generic: Elija el distrito primero
+      - generic: Dirección
+      - textbox "Dirección" [disabled]
+      - generic: Establecimiento
+      - combobox "Establecimiento" [disabled]
+      - generic: C.S. ALTO SELVA ALEGRE
+      - generic "Seguro sin registrar":
+        - generic "Sin registro":
+          - generic: Sin registro
+      - combobox "Seguro de salud" [disabled]
+      - generic: Sin seguro registrado
+      - generic: Teléfono
+      - textbox "Teléfono" [disabled]
+      - region "Responsables y riesgos del paciente":
+        - generic: Grupo de riesgo
+        - button "Grupo de riesgo" [disabled]:
+          - generic: Sin registrar
+        - generic: Nombre de madre
+        - textbox "Nombre de madre":
+          - /placeholder: Sin registrar
+          - text: MADRE FICTICIA PRUEBA NUTRICION
+        - button "Editar madre" [disabled]:
+        - generic: Grupo etáreo
+        - generic "Condición registrada del paciente; independiente de la edad calculada en la atención":
+          - combobox "Grupo etáreo" [disabled]
+          - generic: NIÑO
+      - status: Datos del paciente guardados.
+  - region "Consultorio":
+    - generic: "*Modalidad de atención"
+    - radiogroup "Modalidad de atención":
+      - radio "Ambulatoria" [checked] [disabled]
+      - generic: Ambulatoria
+      - radio "Emergencia" [disabled]
+      - generic: Emergencia
+    - heading "Consultorio" [level=3]
+    - generic: "*Consultorio"
+    - combobox "*Consultorio" [disabled]
+    - generic: MED · MEDICINA
+    - generic: Servicio / especialidad
+    - combobox "Servicio / especialidad" [disabled]
+    - generic: MEDICINA GENERAL
+    - generic: "*Profesional"
+    - combobox "*Profesional" [disabled]
+    - generic: ELSA GUILLEN TOCCAS
+  - region "Mediciones clínicas":
+    - generic: Grupo de atención
+    - radiogroup "Grupo de atención":
+      - radio "Niños, adolescentes, adultos y adultos mayores" [checked] [disabled]
+      - generic: Niños, adolescentes, adultos y adultos mayores
+      - radio "Gestantes" [disabled]
+      - generic: Gestantes
+      - radio "Puérperas" [disabled]
+      - generic: Puérperas
+    - heading "Mediciones clínicas" [level=4]
+    - generic: Peso actual (kg)
+    - spinbutton "Peso actual (kg)" [disabled]
+    - generic: Talla (cm)
+    - spinbutton "Talla (cm)" [disabled]
+    - generic: Perímetro abdominal (cm)
+    - spinbutton "Perímetro abdominal (cm)" [disabled]
+    - heading "Presión arterial y temperatura" [level=4]
+    - group "Presión arterial y temperatura":
+      - generic: Diast.
+      - spinbutton "Presión diastólica" [disabled]
+      - generic: /
+      - generic: Sist.
+      - spinbutton "Presión sistólica" [disabled]
+      - generic: Temp.
+      - spinbutton "Temperatura en grados Celsius" [disabled]
+      - generic: °C
+  - region "Valoración nutricional":
+    - heading "Valoración nutricional" [level=3]
+    - generic: Edad a la atención
+    - strong: 3 años, 0 meses y 0 días
+    - group "Diagnósticos de peso/edad, talla/edad y peso/talla":
+      - generic: DIAGNÓSTICO
+      - generic: P/E
+      - textbox "Diagnóstico P/E" [disabled]: "Bajo peso · Z: -2.603"
+      - generic: T/E
+      - textbox "Diagnóstico T/E" [disabled]: "Normal · Z: -0.833"
+      - generic: P/T
+      - textbox "Diagnóstico P/T" [disabled]: "Emaciación severa · Z: -3.336"
+    - paragraph: "IMC: 12.140"
+  - generic "Acciones de admisión":
+    - status: Atención guardada correctamente. Ya puede imprimir S.I.S.
+    - group "Acciones de admisión":
+      - button "Atención guardada" [disabled]:
+        - generic: Atención guardada
+      - button "Imprimir S.I.S.":
+        - generic: Imprimir S.I.S.
+      - button "Otra consulta" [disabled]:
+        - generic: Otra consulta
+      - button "FUA adicional" [disabled]:
+        - generic: FUA adicional
+      - button "Salir":
+        - generic: Salir
+  - heading "Historial de atenciones del paciente" [level=3]
+  - button "Refrescar":
+    - generic: Refrescar
+  - table:
+    - rowgroup:
+      - row "N.° historia Fecha atención Edad del paciente Peso Talla Diast. Sist. IMC P/E T/E P/T Consultorio Estado":
+        - columnheader "N.° historia":
+          - generic: N.° historia
+        - columnheader "Fecha atención":
+          - generic: Fecha atención
+        - columnheader "Edad del paciente":
+          - generic: Edad del paciente
+        - columnheader "Peso":
+          - generic: Peso
+        - columnheader "Talla":
+          - generic: Talla
+        - columnheader "Diast.":
+          - generic: Diast.
+        - columnheader "Sist.":
+          - generic: Sist.
+        - columnheader "IMC":
+          - generic: IMC
+        - columnheader "P/E":
+          - generic: P/E
+        - columnheader "T/E":
+          - generic: T/E
+        - columnheader "P/T":
+          - generic: P/T
+        - columnheader "Consultorio":
+          - generic: Consultorio
+        - columnheader "Estado":
+          - generic: Estado
+  - table:
+    - rowgroup:
+      - 'row "PRUEBA-RIESGO-NINO-171026 17/10/2026 3 años, 0 meses y 0 días 10.50 93.00 — — Resultado disponible: IMC: 12.140. Referencia infantil OMS 2006 (hasta aproximadamente 60 meses). P/T también depende del rango de talla de la tabla. Indicadores calculados con la referencia OMS 2006; valide la interpretación clínica.; Diagnóstico P/E: Bajo peso · Z: -2.603; Diagnóstico T/E: Normal · Z: -0.833; Diagnóstico P/T: Emaciación severa · Z: -3.336 -2.603 -0.833 -3.336 MEDICINA C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL ATENDIDO"':
+        - cell "PRUEBA-RIESGO-NINO-171026":
+          - generic: PRUEBA-RIESGO-NINO-171026
+        - cell "17/10/2026":
+          - generic: 17/10/2026
+        - cell "3 años, 0 meses y 0 días":
+          - generic: 3 años, 0 meses y 0 días
+        - cell "10.50":
+          - generic: "10.50"
+        - cell "93.00":
+          - generic: "93.00"
+        - cell "—":
+          - generic: —
+        - cell "—":
+          - generic: —
+        - 'cell "Resultado disponible: IMC: 12.140. Referencia infantil OMS 2006 (hasta aproximadamente 60 meses). P/T también depende del rango de talla de la tabla. Indicadores calculados con la referencia OMS 2006; valide la interpretación clínica.; Diagnóstico P/E: Bajo peso · Z: -2.603; Diagnóstico T/E: Normal · Z: -0.833; Diagnóstico P/T: Emaciación severa · Z: -3.336"':
+          - generic: "12.140"
+        - cell "-2.603":
+          - generic: "-2.603"
+        - cell "-0.833":
+          - generic: "-0.833"
+        - cell "-3.336":
+          - generic: "-3.336"
+        - cell "MEDICINA C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL":
+          - text: MEDICINA
+          - generic: C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+        - cell "ATENDIDO":
+          - generic: ATENDIDO
+  - paragraph: "P/E: peso/edad · T/E: talla/edad · P/T: peso/talla. «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo. «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración."

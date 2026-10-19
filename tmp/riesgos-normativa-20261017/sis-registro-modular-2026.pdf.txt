@@ -1,0 +1,2073 @@
+=== PDF PAGE 1 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 1 de 45 
+ 
+ 
+ 
+ 
+Seguro Integral de Salud 
+Gerencia de Riesgos y Evaluación de las Prestaciones 
+ 
+ 
+Criterios Técnicos para el Registro Modular 
+por Curso de Vida (RM-CV) en el Formato Único 
+de Atención (FUA). 
+ 
+ 
+Códigos de servicio: 
+301 Cuidado Integral por curso de vida del niño. 
+302 Cuidado Integral por curso de vida del adolescente. 
+303 Cuidado Integral por curso de vida del joven. 
+304 Cuidado Integral por curso de vida del adulto. 
+305 Cuidado Integral por curso de vida del adulto mayor 
+306 Cuidado Integral de la salud pre natal. 
+ 
+23 DE FEBRERO 2026 
+ 
+ 
+
+=== PDF PAGE 2 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 2 de 45 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Equipo técnico: 
+ 
+Colaboradores: 
+ 
+ 
+- Albarracín Celis, Roberto Carlos (MC.) 
+- Aliaga Sihuas, Lizet (CD.) 
+- Bocanegra Campos, Rosa María (MC.) 
+- Charca Quispe, Esteban Alberto (CD.) 
+- Quevedo Mar, Alex Francisco (MC.) 
+- Quispe Huamán, Patricia Gladys (MC.) 
+- Sifuentes Mendoza, Raúl Hugo (Ing.) 
+ 
+Zulma Anaya Chacón 
+Jefa del Seguro Integral de Salud. 
+Pedro Alejandro Cruzado Puente 
+Jefe adjunto 
+Wilder Vidauro Carpio Montenegro 
+Gerente de Riesgos y Evaluación de Prestaciones 
+Marith Ubilda Guevara Idrogo 
+Gerenta Adjunta  
+- Anco Pola, Dulio Manuel (MC.) 
+- Castro Dañobeytia, Verónica Eveling (Lic. Enf.) 
+- Cuéllar Durán, Karina (MC.) 
+- Fernández Salcedo, Creazy María (MC.) 
+- Figueroa Maturrano, Sherly Katherine (Lic. Enf.) 
+- Peralta Cárdenas, Miguel Ángel (CD.) 
+- Anccori Chalco, Jenny Jessica (Bach. Ing.) 
+- Cruz Bejarano, Segundo Rogelio (MC.) 
+- García Celestino, Jessica Rossana (QF .) 
+- Javier Bartolo, Cintia Nataly (MC.) 
+- Nazario Arancibia, Juan Carlos (MC.) 
+- Ortiz Castiglioni, Yesica Milagros (MC.) 
+- Palma Meneses, Juan Carlos (Lic. Enf.) 
+- Santos Angulo, Jefferson G. (Ing.) 
+Agradecimiento 
+Al Equipo Nacional de Auditores de Seguros del SIS, cuyo compromiso técnico, experiencia especializada 
+y aportes sustantivos resultaron fundamentales en la elaboración, revisión y validación del documento 
+“Criterios Técnicos para el Registro Modular por Cu rso de Vida en el Formato Único de Atención” .  
+participación activa y rigurosa contribuyó decisivamente a la consolidación de un instrumento 
+técnicamente sólido, coherente y alineado con los estándares institucionales de control 
+prestacional.Al equipo naci onal de auditores de seguros del SIS, cuyo compromiso técnico, 
+experiencia especializada y aportes sustantivos fueron determinantes para la consolid 
+
+=== PDF PAGE 3 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 3 de 45 
+ 
+ 
+ 
+1 INTRODUCCIÓN ....................................................................................................... 4 
+2 FINALIDAD .............................................................................................................. 5 
+3 OBJETIVOS .............................................................................................................. 5 
+3.1 Objetivo General ............................................................................................. 5 
+3.2 Objetivo Específico .......................................................................................... 5 
+4 ÁMBITO DE APLICACIÓN .......................................................................................... 5 
+5 BASE LEGAL ............................................................................................................. 5 
+6 CONTENIDO ............................................................................................................ 7 
+6.1 Registro de los códigos prestacionales en el primer nivel de atención .................. 7 
+6.1.1 Identificación del problema (con línea base 2019–2025) ................................. 7 
+6.1.2 Hallazgos Estratégicos ................................................................................ 10 
+6.2 Modelo de Cuidado Integral por Curso de Vida ................................................ 10 
+6.2.1 Definición ................................................................................................. 10 
+6.2.2 Periodos del curso de vida .......................................................................... 11 
+6.3 Implementación de los códigos modulares por curso de vida ............................ 11 
+6.3.1 Creación de los códigos modulares por curso de vida .................................... 11 
+6.3.2 Detalle por código prestacional por curso de vida ........................................ 12 
+6.3.3 Fortalecimiento del marco de control prestacional mediante la actualización e 
+incorporación de Reglas de Consistencia para los códigos por curso de vida. .............. 14 
+6.4 Disposiciones Técnicas para el Registro de los Códigos por Curso de Vida ........... 17 
+6.4.1 Invariabilidad de la Estructura del Formato Único de Atención (FUA) ............. 17 
+6.4.2 Lineamientos para el Registro del Código por Curso de Vida en el FUA ........... 17 
+6.4.3 Registro Complementario en el Reverso del FUA .......................................... 17 
+6.4.4 Responsabilidad Profesional: Firma y Sello en el Anverso del FUA ................. 18 
+6.4.5 Régimen de Coexistencia y Uso Concurrente de Códigos Prestacionales ......... 18 
+7 ANEXOS ................................................................................................................ 20 
+7.1 Definiciones operacionales de los códigos modulares por curso de vida ............. 20 
+7.2 Compendio de Códigos Prestacionales y definiciones operativas ....................... 22 
+ 
+
+=== PDF PAGE 4 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 4 de 45 
+ 
+ 
+1 INTRODUCCIÓN 
+El registro prestacional constituye un proceso crítico del aseguramiento público, en tanto 
+sustenta la trazabilidad de la atención, la calidad del dato y la auditoría. En el Seguro Integral 
+de Salud (SIS), el Formato Único de Atención (FUA) es el instrumen to oficial para la 
+validación y el control de las prestaciones, conforme a la Directiva vigente. 
+Sin embargo, al analizar las prestaciones preventivas del primer nivel de atención  se 
+identifica una oportunidad de mejora operativa vinculada al esquema actual de 
+codificación: la segmentación de actividades obliga, en una misma consulta, a generar FUAs 
+adicionales por cada actividad registrada. Estos no constituyen atenciones distintas , sino 
+registros adicionales que el profesional debe completar dentro de la misma atención, lo que 
+incrementa la carga administrativa, genera distracción respecto del pacien te y reduce la 
+eficiencia del tiempo clínico. 
+Para dimensionar el fenómeno, se analizaron las atenciones preventivas del primer nivel 
+con más de una actividad registrada durante el periodo 2019 –2025. En este universo se 
+identificó que: 
+• Se generaron 78,653,895 FUAs en atenciones con más de una actividad. 
+• De estos, 45,154,234 correspondieron a FUAs adicionales (registros derivados de la 
+segmentación de actividades). 
+• Operativamente, el 57.4% de los registros en este grupo corresponde a FUAs adicionales, 
+es decir, más de la mitad del esfuerzo de registro en este universo responde a 
+fragmentación administrativa potencialmente evitable. 
+Este comportamiento se ha mantenido estable entre 2019 y 2025, con proporciones anuales 
+de FUAs adicionales alrededor de 57% –58%, lo que evidencia un patrón estructural del 
+proceso de registro. Asimismo, el 99.4% de estos FUAs adicionales se concentra en c inco 
+perfiles profesionales  Enfermería, Obstetricia, Odontología, Técnico en Enfermería y 
+Medicina, lo que confirma que el fenómeno se encuentra principalmente asociado a 
+actividades preventivas ejecutadas en el primer nivel. 
+En este contexto, el presente Documento Técnico propone lineamientos para la utilización 
+de códigos modulares por curso de vida (301–306), orientados a consolidar en un solo FUA 
+el registro de atenciones integrales realizadas en una misma atención. Esta medida busca 
+reducir la fragmentación del registro, optimizar el tiempo clínico, disminuir la carga 
+administrativa y fortalecer la consistencia y calidad de la información prestacional, sin 
+afectar los mecanismos de control ni la trazabilidad del financiamiento. 
+ 
+ 
+ 
+
+=== PDF PAGE 5 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 5 de 45 
+ 
+ 
+2 FINALIDAD 
+Contribuir a la optimización del registro prestacional en el Formato Único de Atención (FUA) 
+del primer nivel de atención, promoviendo la consolidación de las atenciones Integrales por 
+curso de vida en un único registro por atención, mediante la incorporación de los códigos 
+301–306, en relación con el Modelo de Cuidado Integral de Salud por Curso de Vida, 
+fortaleciendo la eficiencia operativa, la calidad del dato y la trazabilidad del financiamiento. 
+3 OBJETIVOS 
+3.1 Objetivo General 
+Establecer las disposiciones técnicas y operativas para la incorporación y uso 
+estandarizado de los códigos modulares por curso de vida (301 –306) en el registro 
+prestacional del Formato Único de Atención (FUA) en el primer nivel de atención, 
+definiendo criterios de aplicación y control orientados a reducir la generación de FUAs 
+adicionales derivados de la segmentación de  actividades y a fortalecer la calidad, 
+consistencia y trazabilidad de la información prestacional. 
+3.2 Objetivo Específico 
+a) Precisar las definiciones técnicas y los criterios de aplicación para el uso de los códigos 
+301–306, estableciendo los supuestos de utilización, su articulación con otros códigos 
+prestacionales vigentes y los escenarios en los que corresponde su registro. 
+ 
+b) Formalizar e implementar las Reglas de Consistencia (RC) y los ajustes operativos en 
+los sistemas de información correspondientes, a fin de garantizar el adecuado control 
+prestacional de los códigos 301–306, asegurando la coherencia entre curso de vida, 
+diagnósticos, procedimientos y demás componentes del FUA. 
+4 ÁMBITO DE APLICACIÓN 
+El presente Documento Técnico es de aplicación en las Instituciones Prestadoras de 
+Servicios de Salud (IPRESS) del primer nivel de atención dependientes de las Direcciones 
+Regionales de Salud (DIRESA), Gerencias Regionales de Salud (GERESA), Direcciones de 
+Redes Integradas de Salud (DIRIS) o las instancias que hagan sus veces, siempre que 
+cuenten con convenio vigente suscrito con el Seguro Integral de Salud (SIS). 
+5 BASE LEGAL 
+• Ley N° 26842, Ley General de Salud, y sus modificatorias. 
+• Ley N° 29344, Ley Marco de Aseguramiento Universal en Salud. 
+• Decreto Supremo N° 023 -2021-SA, que aprueba el Plan Esencial de Aseguramiento en 
+Salud (PEAS) 
+
+=== PDF PAGE 6 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 6 de 45 
+ 
+ 
+• Decreto Supremo N° 011 -2011-SA que aprueba el Reglamento de Organización y 
+Funciones del SIS. 
+• Decreto Legislativo N° 1163, que aprueba las Disposiciones para el Fortalecimiento del 
+Seguro Integral de Salud. 
+• Decreto Supremo N° 030-2014-SA, que aprueba el Reglamento del Decreto Legislativo 
+N° 1163. 
+• Resolución Ministerial N° 827 -2013/MINSA, que aprueba la NTS N° 105 -MINSA/DGSP-
+V.01 "Norma Técnica de Salud para la Atención Integral de Salud Materna". 
+• Resolución Ministerial N° 456 -2016/MINSA, que aprueba el Documento Técnico, 
+orientaciones para la Atención Integral de Salud en la etapa de vida joven. 
+• Resolución Ministerial N° 1001 -2019/MINSA, que aprueba la Norma Técnica de Salud 
+para la Atención Integral de Salud del Adolescente. 
+• Resolución Ministerial N° 030 -2020-MINSA, que aprueba el Documento Técnico 
+"Modelo de Cuidado Integral de Salud por Curso de Vida para la Persona, Familia y 
+Comunidad (MCI)". 
+• Resolución Ministerial N° 220-2021-MINSA, que aprueba el Documento Técnico: Manual 
+de Implementación del Modelo de Cuidado Integral de Salud por Curso de Vida para la 
+persona, Familia y Comunidad (MCI). 
+• Resolución Ministerial N°789-2023-MINSA, que aprueba la NTS N° 207 -MINSA/DGIESP-
+2023, Norma Técnica de Salud para el Cuidado Integral de Salud de las Personas Adultas 
+Mayores. 
+• Resolución Ministerial N° 545-2024-MINSA, que aprueba la NTS N° 214-MINSA/DGIESP-
+2024, Norma Técnica de Salud para la Atención Integral de Salud Neonatal. 
+• Resolución Ministerial N°310-2025-MINSA, que aprueba la NTS N° 229 -MINSA/DGIESP-
+2025, Norma Técnica de Salud para el Cuidado Integral de Salud de la Persona Adulta. 
+• Resolución Ministerial N° 682-2025-MINSA, que aprueba la NTS N° 238-MINSA/DGIESP-
+2025, Norma Técnica de salud para el crecimiento y desarrollo del niño. 
+• Resolución Ministerial N.° 709-2025-MINSA, que modifica la NTS N° 196-MINSA/DGIESP-
+2022 "Norma Técnica de Salud que establece el Esquema Nacional de Vacunación", 
+aprobada por Resolución Ministerial N° 884-2022/MINSA. 
+• Resolución Jefatural N° 000178 -2024-SIS/J, que aprueba la Directiva N° 002 -2024-
+SIS/GREP-V.02, “Directiva para el registro de la información de las prestaciones 
+otorgadas a los asegurados del Seguro Integral de Salud (SIS) en el Formato Único de 
+Atención (FUA)” y sus anexos. 
+• Resolución Jefatural N° 000115-2025-SIS/J, aprueba la Directiva N° 001-2025-SIS/GREP-
+V.01, “Directiva que regula la auditoría de seguros de las prestaciones de salud brindadas 
+por las Instituciones Prestadoras de Servicios de Salud que cuentan con convenio  o 
+contrato con el Seguro Integral de Salud (SIS)”. 
+
+=== PDF PAGE 7 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 7 de 45 
+ 
+ 
+6 CONTENIDO 
+6.1 Registro de los códigos prestacionales en el primer nivel de atención 
+6.1.1 Identificación del problema (con línea base 2019–2025) 
+El análisis técnico del registro prestacional efectuado en los establecimientos de salud 
+del primer nivel de atención, utilizando la base de datos correspondiente al periodo 
+2019–2025, evidenció un patrón recurrente de fragmentación en el registro de las 
+atenciones. Se identificó que, para una misma atención brindada por un profesional de 
+la salud a un paciente dentro de un a única atención, se generaban múltiples Formatos 
+Únicos de Atención (FUA). 
+Esta situación se explicaba por el diseño estructural de los códigos prestacionales 
+vigentes, los cuales representaban actividades individuales o componentes específicos 
+de la atención, sin integrar de manera consolidada el conjunto de intervenciones que 
+conforman una atención integral. Como consecuencia, el registro tendía a disgregarse 
+en varios FUAs para un mismo evento asistencial, afectando la eficiencia operativa, la 
+consistencia del dato y la trazabilidad prestacional. 
+Listado de códigos prestacionales con diseño basado en actividades independientes, 
+utilizados en el registro del primer nivel de atención. 
+001: Control de crecimiento y desarrollo en menores entre 0–4 años. 
+002: Control del recién nacido con menos de 2,500 gr, prematuro y con secuelas al nacer. 
+005: Consejería Nutricional para Niñas o Niños en Riesgo Nutricional y Desnutrición. 
+007: Suplemento de micronutrientes. 
+008: Profilaxis antiparasitaria. 
+009: Atención prenatal. 
+010: Atención de puerperio normal. 
+011: Exámenes de laboratorio completos de la gestante. 
+013: Exámenes de ecografía obstétrica. 
+015: Diagnóstico del embarazo. 
+016: Atención temprana para menores de 36 meses. 
+017: Atención Integral del Adolescente. 
+018: Salud reproductiva (planificación familiar). 
+019: Detección de trastorno de agudeza visual y ceguera. 
+020: Salud Bucal. 
+021: Prevención de caries. 
+022: Detección de problemas de salud mental. 
+023: Detección precoz de cáncer de próstata (PSA). 
+024: Detección precoz de cáncer cérvico-uterino. 
+
+=== PDF PAGE 8 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 8 de 45 
+ 
+ 
+025: Detección precoz de cáncer de mama (Mamografía). 
+029: Tamizaje Neonatal. 
+056: Consulta externa. 
+057: Restauración dental simple (Obturación y curación dental simple). 
+058: Restauración dental compuesta (Obturación y curación dental compuesta). 
+059: Extracción dental (exodoncia). 
+060: Atención extramural en zona urbana y urbana marginal (visita domiciliaria: 
+recuperativo y/o preventivo). 
+061: Atención en tópico. 
+062: Atención por emergencia. 
+070: Atención odontológica especializada. 
+071: Apoyo al diagnóstico. 
+074: Tratamiento ITS en adolescentes, adultos y adultos mayores. 
+075: Atención extramural en zona rural (visita domiciliaria: recuperativo y/o preventivo). 
+118: Control de crecimiento y desarrollo en menores entre 5–9 años. 
+119: Control de crecimiento y desarrollo 10–11 años. 
+200: Atención de Rehabilitación. 
+900: Prótesis dental removible. 
+902: Atención Preconcepcional. 
+903: Atención Integral del Adulto Mayor. 
+904: Atención Integral del Joven y Adulto. 
+906: Consulta Externa por Profesional no médico ni odontólogo. 
+908: Atención Domiciliaria. 
+911: Instrucción de Higiene Oral y Asesoría nutricional para el control de enfermedades 
+dentales. 
+En dicho contexto, la configuración operativa del registro prestacional establecía que 
+cada actividad consignada durante la consulta debía documentarse mediante un 
+Formato Único de Atención (FUA) independiente, aun cuando todas las intervenciones 
+correspondieran a una misma atención y a una única atención. 
+Esta lógica de registro fragmentado generaba la emisión de dos o más FUAs por un 
+mismo evento asistencial, produciendo duplicidad documental innecesaria, incremento 
+de la carga administrativa para el personal asistencial y de admisión, mayor probabilidad 
+de inconsistencias en la codificación y una reducción efectiva del tiempo destinado a la 
+atención clínica directa. 
+Asimismo, cuando durante la consulta se identificaban intervenciones complementarias 
+no previstas inicialmente —como tamizajes, consejerías o procedimientos preventivos— 
+el usuario debía retornar al área de admisión para la emisión de nuevos FUAs, ampliando 
+el circuito administrativo, generando tiempos adicionales de espera, afectando la 
+
+=== PDF PAGE 9 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 9 de 45 
+ 
+ 
+continuidad operativa del servicio e incrementando el riesgo de interrupción del proceso 
+de atención. 
+Con el propósito de dimensionar objetivamente la magnitud del fenómeno, el análisis se 
+circunscribió al universo de atenciones multiactividad, entendidas como aquellas en las 
+que se registraron dos o más actividades dentro de un a misma atención, utilizando la 
+base de producción correspondiente al periodo 2019–2025. 
+En este universo específico se evidenció una proporción relevante de FUAs excedentes 
+atribuible al uso de códigos prestacionales segmentados por actividad, confirmándose 
+que la estructura de codificación vigente inducía a la generación de registros múltipl es 
+para una misma atención, incrementando artificialmente el volumen documental sin que 
+ello reflejara necesariamente un mayor número de eventos asistenciales reales. 
+Esta situación no solo impactaba en la eficiencia operativa de los establecimientos de 
+salud, sino también en la calidad y trazabilidad de la información prestacional utilizada 
+para fines de control, auditoría y toma de decisiones. La sobreproducción docum ental 
+generaba distorsiones en los indicadores de producción y complicaba la interpretación 
+real de la carga asistencial. En consecuencia, se hacía necesaria una revisión estructural 
+del esquema de codificación, orientada a promover un registro integral, c oherente y 
+alineado con el enfoque de cuidado por curso de vida. 
+Comportamiento anual (2019–2025): 
+Los porcentajes anuales de FUAs adicionales se mantuvieron consistentemente en un 
+rango aproximado de 57% a 58% a lo largo del periodo analizado, lo que evidencia un 
+comportamiento estructural y sostenido en el universo de atenciones multiactividad. 
+Este nivel de estabilidad porcentual confirma que  el fenómeno no responde a 
+variaciones coyunturales, sino a un patrón recurrente asociado al diseño del registro 
+prestacional vigente. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 10 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 10 de 45 
+ 
+ 
+6.1.2 Hallazgos Estratégicos  
+a) Alta concentración en grupos asistenciales clave 
+El 99.37% de los FUAs adicionales se generan en cinco profesiones asistenciales: 
+Enfermería, Obstetricia, Odontología, Técnico en Enfermería y Medicina. 
+Este comportamiento confirma que el fenómeno está directamente vinculado al 
+modelo operativo del primer nivel de atención y al diseño fragmentado de los 
+códigos prestacionales, impactando principalmente en las actividades clínicas de 
+mayor volumen. 
+b) Carga administrativa estructural 
+La emisión acumulada de más de 45 millones de FUAs adicionales en siete años 
+evidencia una presión operativa sostenida sobre el sistema, con efectos directos en: 
+• Incremento del tiempo destinado al registro por el personal asistencial. 
+• Sobrecarga en los módulos de admisión. 
+• Ampliación del circuito administrativo interno. 
+• Mayor exposición a inconsistencias y observaciones en auditoría. 
+• Afectación del flujo y oportunidad de la atención. 
+El impacto no es coyuntural, sino estructural y recurrente. 
+c) Afectación a la eficiencia clínica 
+La fragmentación del registro reduce el tiempo efectivo destinado a la atención 
+directa, afecta la continuidad del cuidado y limita la capacidad del profesional para 
+brindar una atención integral centrada en el paciente. 
+En términos sistémicos, el modelo actual prioriza el cumplimiento documental por 
+encima de la eficiencia asistencial. 
+6.2 Modelo de Cuidado Integral por Curso de Vida 
+El Modelo de Cuidado Integral de Salud por Curso de Vida (MCI) constituye el marco 
+conceptual y operativo que orienta la provisión de cuidados en salud con enfoque de 
+atención primaria y perspectiva de curso de vida, y fue aprobado por el MINSA mediante 
+Resolución Ministerial N.° 030 -2020/MINSA. Asimismo, su despliegue operativo se 
+fortalece con instrumentos de implementación, entre ellos el Manual de Implementación 
+aprobado por RM N.° 220-2021/MINSA, referido en normativa institucional y documentos 
+de gestión sanitaria. 
+6.2.1 Definición 
+El MCI se define como el conjunto articulado de estrategias, normas, procedimientos, 
+herramientas y recursos que, de manera complementaria, responden a las necesidades 
+de salud de las personas, las familias y la comunidad. Integra los atributos de la Atención 
+Primaria de Salud (APS) y enfatiza la construcción de un vínculo sostenido entre la 
+población y los equipos multidisciplinarios de salud (EMS), para mejorar la salud durante 
+
+=== PDF PAGE 11 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 11 de 45 
+ 
+ 
+todo el curso de vida con base en información de necesidades por grupos etarios y la 
+diversidad territorial del país.  
+6.2.2 Periodos del curso de vida 
+En coherencia con el MCI, el curso de vida se organiza en los siguientes periodos: 
+prenatal, niña/niño (0 a 11 años, 11 meses y 29 días), adolescente (12 a 17 años, 11 
+meses y 29 días), adulto joven (18 a 29 años, 11 meses y 29 días), adulto (30 a 59 años, 
+11 meses y 29 días) y adulto mayor (60 a más). 
+6.3 Implementación de los códigos modulares por curso de vida 
+6.3.1 Creación de los códigos modulares por curso de vida 
+En el marco del análisis del registro prestacional correspondiente al periodo 2019–2025, 
+se identificó que la estructura segmentada de los códigos vigentes generaba la emisión 
+de múltiples FUAs para una misma atención multiactividad, configurando un volume n 
+significativo de FUAs adicionales. Esta situación evidenció la necesidad de implementar 
+un mecanismo técnico que permita consolidar, en un único código prestacional, el 
+conjunto de intervenciones realizadas dentro de un a misma atención, asegurando un 
+registro integral, consistente y operativo. 
+En atención a ello, la Gerencia de Riesgos y Evaluación de las Prestaciones (GREP), en 
+concordancia con el Modelo de Cuidado Integral de Salud por Curso de Vida para la 
+Persona, Familia y Comunidad aprobado por el Ministerio de Salud, y alineada con la 
+Política Nacional Multisectorial de Salud al 2030 – Perú País Saludable, particularmente 
+con el Objetivo Prioritario 2 orientado a asegurar el acceso a servicios integrales, 
+oportunos y de calidad, dispuso la incorporación de seis (6) códigos modulares 
+estructurados por curso de vida. 
+Estos códigos modulares comprenden, de manera articulada, intervenciones de 
+promoción, prevención, recuperación y rehabilitación, permitiendo registrar de forma 
+consolidada las actividades realizadas en una atención multiactividad sin necesidad de 
+generar múltiples FUAs por componentes individuales. 
+Asimismo, dichos códigos contemplan la trazabilidad del consumo de Productos 
+Farmacéuticos (PF), Dispositivos Médicos (DM) y Productos Sanitarios (PS), así como el 
+registro de Procedimientos Médicos y Sanitarios vinculados a diagnósticos CIE -10, 
+garantizando coherencia clínica, consistencia documental y alineamiento con los 
+instrumentos técnicos sectoriales vigentes. 
+La implementación de estos códigos contribuye directamente a: 
+− Reducir estructuralmente la generación de FUAs adicionales. 
+− Optimizar el tiempo destinado al registro de FUAs por parte del personal asistencial. 
+− Simplificar el circuito administrativo en los establecimientos del primer nivel. 
+
+=== PDF PAGE 12 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 12 de 45 
+ 
+ 
+− Disminuir el riesgo de inconsistencias y observaciones en auditoría. 
+− Fortalecer la calidad, oportunidad y continuidad de la atención integral centrada en 
+la persona. 
+De este modo, la creación de los códigos por curso de vida constituye una medida 
+correctiva estructural orientada a mejorar la eficiencia del sistema de registro 
+prestacional sin afectar la trazabilidad técnica ni el control financiero de las prestaciones 
+financiadas por el SIS. 
+Cuadro 1. Nuevos Códigos Prestacionales por curso de vida 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6.3.2 Detalle por código prestacional por curso de vida 
+ 
+Código Prestacional para el Cuidado Integral del Niño 
+• Código prestacional 
+301 
+• Curso de Vida Aplicable 
+Atiende a la población desde el recién nacido hasta los 11 años, 11 meses y 29 días. 
+• Actividades Incluidas en el Código Prestacional 
+El código 301 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación y paliativas que se realizan durante una atención de 
+salud del niño. 
+• Control prestacional 
+Para el registro y validación del código 301 se aplican las reglas de control de registro 
+y las reglas de consistencia, garantizando que todas las intervenciones 
+correspondan al curso de vida. 
+ 
+ 
+ 
+Código de 
+Prestación Descripción 
+301 Cuidado Integral por curso de vida del Niño 
+302 Cuidado Integral por curso de vida del Adolescente 
+303 Cuidado Integral de la salud por curso de vida del Joven 
+304 Cuidado Integral de la salud por curso de vida Adulto 
+305 Cuidado Integral de la salud por curso de vida Adulto Mayor 
+306 Cuidado Integral de la salud Prenatal 
+
+=== PDF PAGE 13 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 13 de 45 
+ 
+ 
+Código Prestacional para el Cuidado Integral del adolescente 
+• Código prestacional 
+302 
+• Curso de Vida Aplicable 
+Atiende a la población desde los 12 años hasta los 17 años, 11 meses y 29 días. 
+• Actividades Incluidas en el Código Prestacional 
+El código 302 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación  y paliativas  realizadas durante un a atención de 
+salud del adolescente. 
+• Control prestacional 
+Para el registro y validación del código 302 se aplican las reglas de control de registro 
+y las reglas de consistencia, garantizando que todas las intervenciones 
+correspondan al curso de vida del adolescente. 
+Código Prestacional para el Cuidado Integral del joven 
+• Código prestacional 
+303 
+• Curso de Vida Aplicable 
+Atiende a la población desde los 18 años hasta los 29 años, 11 meses y 29 días. 
+• Actividades Incluidas en el Código Prestacional 
+El código 303 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación  y paliativas  realizadas durante un a atención de 
+salud del joven. 
+• Control prestacional 
+Para el registro y validación del código 303 se aplican las reglas de control de registro 
+y de consistencia, garantizando su correspondencia con el curso de vida del joven. 
+ 
+Código Prestacional para el Cuidado Integral del adulto 
+• Código prestacional 
+304 
+• Curso de Vida Aplicable 
+Atiende a la población desde los 30 años hasta los 59 años, 11 meses y 29 días. 
+• Actividades Incluidas en el Código Prestacional 
+El código 304 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación  y paliativas  realizadas durante un a atención de 
+salud del adulto. 
+• Control prestacional 
+Para el registro y validación del código 304 se aplican las reglas de control de registro 
+y las reglas de consistencia, asegurando que las intervenciones correspondan al 
+curso de vida del adulto. 
+
+=== PDF PAGE 14 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 14 de 45 
+ 
+ 
+Código Prestacional para el Cuidado Integral del adulto mayor 
+• Código prestacional 
+305 
+• Curso de Vida Aplicable 
+Atiende a la población de 60 años a más. 
+• Actividades Incluidas en el Código Prestacional 
+El código 305 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación  y paliativas  realizadas durante un a atención de 
+salud del adulto mayor. 
+• Control prestacional 
+Para el registro y validación del código 305 se aplican las reglas de control de registro 
+y las reglas de consistencia, garantizando que todas las intervenciones 
+correspondan al curso de vida del adulto mayor. 
+ 
+Código Prestacional para el Cuidado Integral de la salud Prenatal 
+• Código prestacional 
+306 
+• Curso de Vida Aplicable 
+Orientado a la gestante. 
+• Actividades Incluidas en el Código Prestacional 
+El código 306 comprende las intervenciones preventivas, promocionales, 
+recuperativas, de rehabilitación  realizadas durante un a atención de salud de la 
+gestante (durante el embarazo, parto y puerperio). 
+• Control prestacional 
+Para el registro y validación del código 306 se aplican las reglas de control de registro 
+y las reglas de consistencia, garantizando que todas las intervenciones 
+correspondan a la mujer gestante.  
+6.3.3 Fortalecimiento del marco de control prestacional mediante la actualización e 
+incorporación de Reglas de Consistencia para los códigos por curso de vida. 
+La incorporación de los códigos modulares por curso de vida (301, 302, 303, 304, 305 y 
+306), diseñados como mecanismos integradores para el registro de atenciones 
+multiactividad, requirió la adecuación del sistema de control prestacional a través de la 
+actualización y creación de Reglas de Consistencia (RC). 
+Estas reglas constituyen parámetros técnicos automatizados orientados a garantizar la 
+calidad, coherencia clínica y validez administrativa del registro en el Formato Único de 
+Atención (FUA), asegurando que la consolidación de intervenciones en un solo códi go 
+no afecte la trazabilidad ni el control financiero de las prestaciones. 
+En tal sentido, las Reglas de Consistencia implementadas permiten: 
+
+=== PDF PAGE 15 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 15 de 45 
+ 
+ 
+• Verificar la correspondencia entre el código por curso de vida y el grupo etario del 
+asegurado. 
+• Validar la congruencia entre diagnósticos CIE -10 registrados y los procedimientos 
+médicos sanitarios asociados. 
+• Controlar el correcto registro  del consumo de Productos Farmacéuticos (PF), 
+Dispositivos Médicos (DM) y Productos Sanitarios (PS). 
+• Evitar incompatibilidades con otros códigos prestacionales que no resulten 
+procedentes en la misma atención. 
+• Detectar inconsistencias que puedan generar observaciones posteriores en auditoría. 
+La actualización de las  reglas no solo mantiene el estándar de control técnico 
+previamente existente, sino que lo fortalece, permitiendo que el nuevo esquema 
+integrador reduzca la generación de FUAs excedentes sin debilitar los mecanismos de 
+supervisión, control y sostenibilidad financiera del aseguramiento público. 
+De esta manera, la implementación de las Reglas de Consistencia asociadas a los códigos 
+por curso de vida constituye un componente esencial del rediseño del registro 
+prestacional, asegurando equilibrio entre simplificación operativa y rigor técnico. 
+6.3.3.1 Actualización de Reglas de Consistencia Existentes 
+• RC01 – Consistencia de registro de prestaciones por edad, sexo y condiciones del 
+asegurado 
+Se actualizó la regla incorporando los códigos 301, 302, 303, 304, 305 y 306, y se 
+actualizó la ficha técnica correspondiente. 
+• RC04 – Criterios de registro del destino del asegurado por prestación 
+Se agregaron los códigos 301, 302, 303, 304, 305 y 306 y se actualizó la ficha técnica. 
+• RC12 – Registro obligatorio de medicamentos, insumos y/o procedimientos 
+asociados a la prestación. 
+Se incluyeron los códigos 301 al 306, estableciendo que no podrá registrarse la 
+prestación si se omite el registro de medicamentos  o insumos o procedimientos 
+correspondientes. 
+• RC14 – Obligatoriedad de registro de actividades preventivas y clínicas por código 
+prestacional 
+Se añadió el Cuadro N.º 7, el cual aplica la regla según la relación entre código de 
+servicio y diagnóstico registrado. 
+• RC20 – Consistencia de registro de procedimientos según perfil profesional y nivel 
+de atención 
+Se incluyeron los códigos 301 y 306. 
+Se adicionaron CPMS según tipo de profesional. 
+
+=== PDF PAGE 16 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 16 de 45 
+ 
+ 
+• RC30 – Registro obligatorio de fecha probable de parto/fecha de parto en 
+prestaciones obstétricas 
+Se incorporó el código 306. 
+• RC31 – Registro obligatorio de resultados en procedimientos clínicos 
+Se añadieron los códigos 301, 302, 303, 304, 305 y 306. 
+• RC32 – Consistencia clínica en procedimientos mutuamente excluyentes. 
+Se incluyó el código 306 en las reglas de Parto Vaginal. 
+• RC33 – Registro obligatorio de datos del recién nacido 
+Se incorporaron CIE-10 asociados al parto. 
+• RC34 – Registro de diagnóstico obligatorio en tamizaje de salud mental patológico 
+Se añadieron los códigos 301, 302, 303, 304, 305 y 306. 
+• RC35 – Registro de medicamentos específicos por código prestacional o 
+diagnostico 
+Se incorporaron CIE -10 relacionados a SISMED, fortaleciendo la relación entre 
+diagnóstico y tratamiento. 
+• RC39 – Límites de registro por procedimiento, vinculados a códigos prestacionales 
+Se incluyeron los códigos 301 al 306. 
+• RC42 – Registro de atenciones posteriores a la fecha de fallecimiento 
+Se incorporaron los códigos 301 al 306 para evitar registros posteriores a la fecha 
+consignada de fallecimiento. 
+• RC47 – Consistencia multinivel y multivariables en procedimientos 
+Se incorporaron los códigos 301, 302, 303 y 304, considerando su aplicabilidad por 
+curso de vida. 
+• RC86 – Consistencia avanzada para la prevención de duplicidades III 
+Se añadieron los códigos 301 al 306 en el control de duplicidad intradía. 
+6.3.3.2 Creación e Implementación de Nuevas Reglas de Consistencia 
+• RC88 – Consistencia entre los diagnósticos y procedimientos según curso de vida 
+Se inactivó la Regla de Validación N.º 19 y se implementó como Regla de 
+Consistencia inmediata, aplicable a los códigos por curso de vida. 
+• RC89 – Registro condicionado de procedimientos a diagnósticos según curso de 
+vida 
+Se implementó la Regla de Consistencia N.º 89 como regla inmediata para los 
+códigos 301, 302, 303, 304, 305 y 306, definiendo los límites operativos de 
+procedimientos por atención. 
+ 
+
+=== PDF PAGE 17 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 17 de 45 
+ 
+ 
+• RC92 – Consistencia de registro de códigos prestacionales por nivel de atención 
+Se incorporó los códigos 301, 302, 303, 304, 305 y 306 para permitir el registro en 
+el primer nivel de atención. 
+6.4 Disposiciones Técnicas para el Registro de los Códigos por Curso de Vida 
+6.4.1 Invariabilidad de la Estructura del Formato Único de Atención (FUA) 
+La implementación de los Códigos modulares por Curso de Vida (301 al 306) no implica 
+modificación alguna en la estructura, campos ni diseño del Formato Único de Atención 
+(FUA). 
+El FUA mantiene su configuración oficial conforme al Anexo N.º 01 de la Directiva N.º 
+002-2024-SIS/GREP-V.02, “Directiva para el registro de la información de las 
+prestaciones otorgadas a los asegurados del Seguro Integral de Salud (SIS) en el Formato 
+Único de Atención (FUA)”, aprobada mediante Resolución Jefatural N.º 000178 -2024-
+SIS/J. 
+En consecuencia, la incorporación de los nuevos códigos se realiza dentro del marco 
+normativo vigente, sin generar cambios estructurales ni requerimientos adicionales en 
+el instrumento de registro. 
+6.4.2 Lineamientos para el Registro del Código por Curso de Vida en el FUA 
+Los Códigos por Curso de Vida (301 al 306) deberán registrarse en la sección “De la 
+Atención”, específicamente en el campo Código de Prestación (COD. PRESTA.) , 
+conforme a lo establecido en la el ítem 1.4 literal c) del Anexo N.º 03 – Criterios para el 
+Registro de Prestaciones de Salud en el FUA, de la Directiva N.° 002-2024-SIS/GREP-V.02. 
+Este registro identifica la atención integral realizada bajo el enfoque de curso de vida, 
+consolidando en un solo código las intervenciones efectuadas dentro de la misma 
+atención. 
+La consignación correcta del código constituye un elemento clave para la consistencia 
+del registro prestacional, la trazabilidad del financiamiento y el adecuado control 
+posterior. 
+6.4.3 Registro Complementario en el Reverso del FUA 
+En el reverso del FUA se continuará consignando, sin variación normativa, la información 
+correspondiente a: 
+− Productos farmacéuticos 
+− Dispositivos médicos 
+− Productos sanitarios 
+− Procedimientos 
+− Actividades de apoyo al diagnóstico 
+
+=== PDF PAGE 18 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 18 de 45 
+ 
+ 
+La codificación aplicable se mantiene conforme a los catálogos y manuales vigentes. 
+Para el diseño técnico de los Códigos por Curso de Vida se tomó como referencia la 
+codificación CPMS establecida en los Manuales de Registro y Codificación de Actividades 
+del Sistema de Información HIS del Ministerio de Salud, garantizando: 
+• Coherencia técnica entre sistemas de información 
+• Homologación de criterios de registro 
+• Interoperabilidad conceptual 
+• Integridad del dato asistencial 
+De esta manera, el nuevo esquema no altera la lógica del registro complementario, sino 
+que fortalece su integración bajo un enfoque integral. 
+6.4.4 Responsabilidad Profesional: Firma y Sello en el Anverso del FUA 
+El registro de los Códigos por Curso de Vida (301 al 306) se efectúa por cada atención de 
+salud individual, aplicando el mismo principio de unicidad de atención establecido para 
+los códigos prestacionales previamente vigentes. 
+En consecuencia: 
+• Cada FUA corresponde a una sola atención. 
+• Cada FUA debe ser firmado y sellado por el responsable de la atención. 
+• El personal de salud que firma asume responsabilidad técnica, legal y administrativa 
+sobre la veracidad y consistencia del registro. 
+Se precisa que la incorporación de estos códigos no habilita la elaboración de un FUA 
+compartido entre múltiples profesionales.  
+Cuando intervengan distintos profesionales en atenciones independientes, deberá 
+generarse el FUA correspondiente por cada atención efectivamente realizada. 
+Esta disposición garantiza claridad en la atribución de responsabilidades y seguridad 
+jurídica en el proceso de control prestacional. 
+6.4.5 Régimen de Coexistencia y Uso Concurrente de Códigos Prestacionales 
+La incorporación de los Códigos modulares por Curso de Vida no deroga, sustituye ni 
+limita la vigencia de los códigos prestacionales previamente existentes. 
+Todos los códigos mantienen plena validez normativa y pueden emplearse de manera 
+concurrente, siempre que: 
+• Sean coherentes con la naturaleza de la atención brindada. 
+• Se ajusten a los criterios técnicos establecidos en las reglas de consistencia vigentes. 
+• Respondan al tipo de intervención efectivamente realizada. 
+• Se encuentren dentro del marco operativo definido por la IPRESS y el 
+financiamiento correspondiente. 
+
+=== PDF PAGE 19 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 19 de 45 
+ 
+ 
+Todos los códigos prestacionales conservan plena vigencia normativa y pueden utilizarse 
+de manera concurrente conforme a la naturaleza de la intervención realizada; sin 
+embargo, ello no autoriza el registro duplicado de una misma atención.  
+Cuando una prestación de salud sea consignada mediante un Código Prestacional por 
+Curso de Vida (30 1–306), queda excluida la posibilidad de registrar simultáneamente 
+esas mismas actividades mediante códigos fragmentados en otros FUA.  
+No es procedente generar un FUA adicional por el mismo evento asistencial bajo distinta 
+codificación. Cada atención debe registrarse una única vez, utilizando el código que 
+refleje con mayor precisión su integralidad y pertinencia técnica, a fin de preserv ar la 
+consistencia del dato, evitar sobreestimaciones de producción y garantizar la 
+transparencia del financiamiento y del control prestacional. 
+ 
+Cuando una prestación de salud sea consignada mediante un Código Prestacional por 
+curso de vida, queda excluida la posibilidad de registrar simultáneamente esas mismas 
+atenciones mediante códigos fragmentados en otros FUA. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PDF PAGE 20 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 20 de 45 
+ 
+ 
+7 ANEXOS 
+7.1 Definiciones operacionales de los códigos modulares por curso de vida 
+Código 
+prestacional Denominación Definición operacional 
+301 
+Cuidado 
+Integral por 
+curso de vida 
+del Niño 
+ 
+Código: 301 
+Prestaciones de servicios de salud, para la atención integral en el niño y niña; 
+a través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, orientadas al  bienestar físico y mental, el desarrollo 
+cognitivo, psicomotor, emocional, afectivo y social, así como, reducir la 
+morbilidad y mortalidad infantil. 
+Este servicio puede ser registrado por los establecimientos del  I Nivel de 
+atención Aplica para el Curso de Vida: 0 a 11 años 11 meses y 29 días. 
+302 
+Cuidado 
+Integral por 
+curso de vida 
+del 
+Adolescente 
+ 
+Código:302 
+Prestaciones de servicios de salud, para la atención integral del adolescente; a 
+través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, dirigidas al desarrollo físico, maduración mental, desarrollo 
+intelectual, desarrollo emocional y desarrollo social. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. Aplica para el Curso de Vida: 12 a 17 años 11 meses y 29 días. 
+303 
+Cuidado 
+Integral de la 
+salud por 
+curso de vida 
+del Joven 
+ 
+Código:303 
+Prestaciones de servicios de salud, para la atención integral del joven; a través 
+de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, identificando pr ecozmente los factores y conductas de 
+riesgo, así como los problemas de salud; orientadas al  desarrollo físico, 
+maduración mental, desarrollo intelectual, desarrollo emocional y desarrollo 
+social. 
+Este servicio puede ser registrado por los establecimientos del  I Nivel de 
+atención. Aplica para el Curso de Vida: 18 a 29 años, 11 meses y 29 días. 
+
+=== PDF PAGE 21 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 21 de 45 
+ 
+ 
+Código 
+prestacional Denominación Definición operacional 
+304 
+Cuidado 
+Integral de la 
+salud por 
+curso de vida 
+Adulto 
+ 
+Código:304 
+Prestaciones de servicios de salud, para la atención integral en el adulto; a 
+través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, dirigid as para satisfacer las necesidades de salud que 
+fomenten las conductas de autocuidado, prevención y promoción de 
+comportamientos saludables. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. Aplica para el Curso de Vida: 30 a 59 años 11 meses 29 días. 
+305 
+Cuidado 
+Integral de la 
+salud por 
+curso de vida 
+Adulto Mayor 
+ 
+Código:305 
+Prestaciones de servicios de salud, para la atención integral en el adulto mayor, 
+a través de estrategias, intervenciones y actividades, en los componentes de 
+promoción de la salud, prevención de riesgos y daños a la salud, diag nóstico, 
+recuperación, rehabilitación, cuidados paliativos y seguimiento, prestados por 
+el personal de salud, dirigid as para satisfacer las necesidades de salud, 
+reduciendo los periodos de enfermedad y promoviendo su autonomía e 
+independencia. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. Aplica para el Curso de Vida: 60 años a más. 
+306 
+Cuidado 
+Integral de la 
+salud Prenatal 
+ 
+Código:306 
+Prestaciones de servicios de salud, para la atención integral de la gestante 
+(durante el embarazo, parto y puerperio), a través de intervenciones de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, orientadas a lograr el bienestar físico y mental, emocional, 
+afectivo y social, así como, reducir la morbilidad y mortalidad. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. 
+Aplica para el Curso de Vida: Mujer gestante 
+ 
+
+=== PDF PAGE 22 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 22 de 45 
+ 
+ 
+7.2 Compendio de Códigos Prestacionales y definiciones operativas 
+El Compendio de Códigos Prestacionales surge como una herramienta técnica orientada a 
+fortalecer el control prestacional y mejorar la calidad del registro de las atenciones de 
+salud. Los códigos prestacionales cumplen una función estratégica dentro del sistema de 
+información, ya que se encuentran directamente vinculados a la lógica de las reglas de 
+auditoría automatizada, permitiendo ejecutar controles de registro, consistencia y 
+validación. En este marco, actúan como marcadores estructurados que identifican el tipo 
+de prestación consignada y activan los algoritmos de verificación correspondientes, 
+contribuyendo a garantizar la integridad, coherencia y trazabilidad de la información. 
+Es importante precisar que los códigos prestacionales tienen naturaleza estrictamente 
+registral y de uso operativo en el Formato Único de Atención (FUA), no constituyen 
+prestaciones valorizadas ni generan reconocimiento económico, ya que su finalidad es 
+exclusivamente técnica y de control. Su adecuada utilización impacta directamente en la 
+calidad del dato, en la eficiencia de los procesos de validación automatizada y en la 
+transparencia del sistema de registro prestacional. 
+Considerando la relevancia de estos códigos y la necesidad de contar con definiciones 
+operacionales claras, uniformes y alineadas con la normativa vigente, se elaboró el 
+Compendio de Códigos Prestacionales como un instrumento técnico –normativo que 
+consolida, sistematiza y estandariza los criterios de aplicación. Este documento incorpora 
+las actualizaciones pertinentes derivadas de la normativa emitida por la Autoridad 
+Nacional de Salud, asegurando coherencia regulatoria y adecuada interpretación 
+operativa. 
+El compendio establece para cada código su denominación, definición operacional, 
+criterios de registro, restricciones y, cuando corresponde, la base normativa que lo 
+sustenta. De esta manera, se reduce la discrecionalidad en su uso, se minimizan 
+ambigüedades y se fortalecen los mecanismos de control automatizado. Asimismo, se 
+configura como un documento de referencia institucional para todos los responsables del 
+registro prestacional. 
+En consecuencia, el Compendio de Códigos Prestacionales constituye una herramienta 
+estratégica para la estandarización del registro, el fortalecimiento del control prestacional 
+y la mejora continua de la gestión sanitaria, contribuyendo a garantizar mayor 
+consistencia, transparencia y calidad en la información registrada. 
+  
+ 
+ 
+ 
+
+=== PDF PAGE 23 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 23 de 45 
+ 
+ 
+Código Descripción, población objetivo, base legal. 
+001 Control de crecimiento y desarrollo en menores de 0–4 años. 
+ Definición operacional 
+Conjunto de actividades periódicas y secuenciales realizado por el licenciado en 
+enfermería o médico cirujano, con el objetivo de vigilar el crecimiento y 
+desarrollo, detectar riesgos y alteraciones de forma oportuna, e implementar 
+intervenciones para el cuidado integral del niño. El control de CRED comprende 
+cuatro procesos secuenciales: Valoración, diagnóstico, intervención y 
+seguimiento, a fin de mejorar las prácticas de cuidado, alimentación y crianza 
+de la familia. 
+Población objetivo (rango etario) De 0 a 4 años, 11 meses y 29 días. 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: R.M. N.° 682-2025-MINSA. 
+002 Control del recién nacido con menos de 2,500 gr, prematuro y con 
+secuelas al nacer. 
+ Definición operacional 
+Conjunto de actividades periódicas y secuenciales realizado por el licenciado en 
+enfermería o médico cirujano, con el objetivo de vigilar el crecimiento y 
+desarrollo, detectar riesgos y alteraciones de forma oportuna, e implementar 
+intervenciones para el cuidado integral del niño. El control de CRED comprende 
+cuatro procesos secuenciales: Valoración, diagnóstico, intervención y 
+seguimiento, a fin de mejorar las prácticas de cuidado, alimentación y crianza 
+de la familia. 
+Población objetivo (rango etario) De 0 a 28 días de nacido  
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 545-2024-MINSA 
+  
+
+=== PDF PAGE 24 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 24 de 45 
+ 
+ 
+005 Consejería Nutricional para Niñas o Niños en Riesgo Nutricional y 
+Desnutrición. 
+ Definición operacional 
+Es un proceso educativo y comunicacional, concebido como un dialogo 
+participativo, que facilita a la madre, padre o cuidador principal la comprensión 
+de los factores que influyen en la salud, nutrición y desarrollo del niño, 
+identificando durante la valora ción. Permite la identificación conjunta de 
+alternativas y la toma de decisión, basadas en los resultados de la evaluación 
+nutricional y en el análisis de las prácticas, fortaleciendo aquellas que se 
+identifican como positivas y corrigiendo las de riesgo, para asegurar un 
+adecuado estado nutricional. 
+Población objetivo (rango etario) 0 a 11 años, 11 meses y 29 días 
+Normativa  
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 034-2024-MINSA 
+007 Suplemento de micronutrientes. 
+ Definición operacional 
+Esta intervención preventiva, tiene por objetico mantener los niveles 
+adecuados de hierro en el organismo de los niños con suplemento de hierro y/o 
+en combinación con otras vitaminas y minerales. 
+Población objetivo (rango etario) 0 a 11 años, 11 meses y 29 días 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 251-2024-MINSA, RM N.° 429-2024-MINSA 
+008 Profilaxis antiparasitaria. 
+ Definición operacional 
+Se refiere a la administración preventiva de medicamentos antihelminticos a 
+intervalos regulares (02 veces al año) como profilaxis para prevenir el desarrollo 
+de parasitosis intestinal debido a geohelmintos. 
+Población objetivo (rango etario)  
+Todas las personas mayores de 2 años de edad. 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 479-2017-MINSA 
+  
+
+=== PDF PAGE 25 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 25 de 45 
+ 
+ 
+009 Atención prenatal. 
+ Definición operacional 
+Comprende la atención preventiva de la gestante. Es la vigilancia y evaluación 
+integral de la gestante y el feto, idealmente  iniciado antes de las catorce 
+semanas de gestación, para brindar un paquete básico de intervenciones que 
+permita la detección oportuna de signos de alarma, factores de riesgo, la 
+educación para el autocuidado y la participación de la familia, así como el 
+manejo ade cuado de las complicaciones; con enfoque de género e 
+interculturalidad en el marco de los derechos humanos. 
+Población objetivo (rango etario) Mujer gestante 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 827-2013-MINSA 
+010 Atención de puerperio normal. 
+ Definición operacional 
+Conjunto sistematizado de actividades, intervenciones y procedimientos 
+ambulatorios que se brinda a la mujer durante el periodo puerperal, con la 
+finalidad de prevenir o detectar complicaciones. 
+Población objetivo (rango etario) Mujeres dentro de los 42 días post parto 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 827-2013-MINSA 
+011 Exámenes de laboratorio completo de la gestante. 
+ Definición operacional 
+Consiste en los exámenes de laboratorio que se deben solicitar a la gestante en 
+la primera consulta, los cuales podrán ser realizados en el mismo EESS o en 
+otro, de acuerdo a la capacidad resolutiva. 
+Considera el set completo de exámenes de laboratorio: Hemoglobina, Glicemia, 
+Grupo sanguíneo y Factor RH, Orina completa y urocultivo (o tira reactiva para 
+bacteriuria en el primer nivel de atención), Serología (RPR o VDRL), Prueba de 
+VIH (sea prueba de ELISA o prueba rápida), y otras de acuerdo a normatividad 
+vigente. 
+Población objetivo (rango etario) Mujer gestante 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 827-2013-MINSA 
+  
+
+=== PDF PAGE 26 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 26 de 45 
+ 
+ 
+013 Exámenes de ecografía obstétrica. 
+ Definición operacional 
+Procedimiento de apoyo al diagnóstico que permite evaluar el desarrollo del 
+feto e inspeccionar los órganos pélvicos de la mujer durante el embarazo. 
+Comprende los materiales e insumos utilizados del procedimiento de ayuda 
+diagnóstica, que se emplea de forma rutinaria en todas las gestantes. 
+Población objetivo (rango etario)  Mujer gestante 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 827-2013-MINSA 
+015 Diagnóstico del embarazo. 
+ Definición operacional 
+Se refiere al procedimiento de apoyo al diagnóstico que se realiza para el dosaje 
+de la fracción beta de la GCH para diagnóstico de embarazo en toda mujer en 
+edad fértil con sospecha de embarazo. 
+Población objetivo (rango etario)   Mujer en edad fértil 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 827-2013-MINSA 
+016 Atención Temprana del Desarrollo menores de 36 meses. 
+ Definición operacional 
+La Atención Temprana del Desarrollo (ATD) es una intervención sanitaria 
+integral, operativa y vivencial, ejecutada mediante sesiones grupales de 60 
+minutos. Su propósito es fortalecer las capacidades de los padres o cuidadores 
+para optimizar el neurodesarrollo de la niña o niño menor de 36 meses. Se basa 
+en el juego guiado, la observación y la promoción de un entorno de movimiento 
+libre con seguridad afectiva y física. 
+Población objetivo (rango etario)   Menores de 36 meses 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 682-2025-MINSA 
+  
+
+=== PDF PAGE 27 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 27 de 45 
+ 
+ 
+017 Atención Integral del Adolescente. 
+ Definición operacional 
+La atención integral de salud comprende la provisión continua, integrada y con 
+calidad de una atención orientada hacia la promoción, prevención de 
+enfermedades, recuperación y rehabilitación de la salud de las y los 
+adolescentes, en el contexto de su vida en familia, institución educativa y en la 
+comunidad. 
+Población objetivo (rango etario)   De 12 a 17 años 11 meses y 29 días. 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 1001-2019/MINSA 
+018 Salud reproductiva (planificación familiar). 
+ Definición operacional 
+Conjunto de actividades, procedimientos e intervenciones dirigidas a mujeres 
+y hombre en edad fértil, dentro de las cuales se encuentra la información, 
+educación, orientación/consejería y la prescripción y provisión de métodos 
+anticonceptivos, para que las  personas o parejas ejerzan el derecho a decidir 
+libre y responsablemente, si quieren o no tener hijos, así como el número y el 
+espaciamiento entre ellos. 
+Población objetivo (rango etario)   Mujer en edad fértil 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 652-2016-MINSA 
+019 Detección de trastorno de agudeza visual y ceguera. 
+ Definición operacional 
+Consiste en la detección precoz de trastornos de agudeza visual y ceguera en 
+todas las etapas de vida. No incluye la provisión de lentes. 
+Esta prestación consiste en la evaluación de la visión, medición de la agudeza 
+visual y otros procedimientos que se establezcan en la normativa vigente. 
+Población objetivo (rango etario)   Todas las Edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: R.M. N.° 1009-2018/MINSA 
+  
+
+=== PDF PAGE 28 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 28 de 45 
+ 
+ 
+020 Salud bucal. 
+ Definición operacional 
+Se refiere a la atención estomatológica brindada por el Cirujano Dentista, que 
+realiza el procedimiento de Evaluación oral completa. 
+Población objetivo (rango etario)   Todas las Edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 859-2024/MINSA 
+021 Prevención de caries. 
+ Definición operacional 
+Se refiere a la atención estomatológica preventiva brindada por cirujano 
+dentista, que realiza los procedimientos de Profilaxis Dental, Aplicación de Flúor 
+Barniz, Aplicación de Flúor Gel, Aplicación de Sellantes. 
+Población objetivo (rango etario)   6 meses a mas 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 1231-2021-MINSA 
+022 Detección de problemas de salud mental. 
+ Definición operacional 
+Conjunto de actividades y procedimientos, orientados a la identificación precoz 
+de problemas de salud mental, problemas psicosociales, trastornos mentales, 
+violencia, así mismo la promoción del bienestar. Comprende la aplicación de 
+fichas de tamizaje en Salud Mental y la Consejería en Salud Mental, ejecutados 
+de acuerdo a normatividad vigente. Los temas priorizados son depresión, 
+ansiedad, abuso de alcohol, psicosis/esquizofrenia y población víctima de 
+violencia política. 
+Población objetivo (rango etario)   Todas las Edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 574-2017/MINSA, RM N° 670-2021/MINSA 
+  
+
+=== PDF PAGE 29 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 29 de 45 
+ 
+ 
+023 Detección precoz de cáncer de próstata. 
+ Definición operacional 
+Conjunto de actividades y procedimientos orientados a la detección precoz del 
+cáncer de próstata mediante la realización del examen Antígeno Prostático 
+Específico (PSA) y Examen digito rectal, de acuerdo a normatividad vigente. 
+Comprende el procedimiento y  la entrega del resultado acorde a normas 
+vigente. 
+Población objetivo (rango etario)   Hombres de 50 a 75 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente:  RM. N.° 876-2024/MINSA, Guia Técnica N° 005-INS/CETS-2025. Vs.01 
+024 Detección precoz de cáncer cérvico-uterino. 
+ Definición operacional 
+Conjunto de actividades y procedimientos (examen de Papanicolaou -PAP o 
+examen citológico, Inspección visual con ácido acético -IVAA y otros que se 
+determinen por norma), brindados según las normas técnicas vigentes. Se 
+encuentran orientados a la detección p recoz del cáncer cérvico -uterino en la 
+etapa de vida Adolescente, Joven y Adulto. 
+Población objetivo (rango etario)   Mujeres de 25 a 65 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N.º 876-2024, RM N.° 480-2025-MINSA 
+025 Detección precoz de cáncer de mama. 
+ Definición operacional 
+Conjunto de actividades y procedimientos (Evaluación anual del alto riesgo de 
+desarrollar cáncer de mama, examen clínico de mamas y la mamografía), 
+orientados a la detección precoz del cáncer de mama, en la etapa de vida adulto 
+y adulto mayor. 
+Población objetivo (rango etario)   Mujeres de 40 a 69 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N.° 876-2024/MINSA, RM. N° 725-2025/MINSA 
+  
+
+=== PDF PAGE 30 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 30 de 45 
+ 
+ 
+026 Tratamiento profiláctico a gestante positiva a la prueba rápida / ELISA 
+VIH. 
+ Definición operacional 
+Se refiere al uso de antirretrovirales (ARV) en la gestante con infección por VIH, 
+probable o confirmada. Se realiza en todos los establecimientos de salud del 
+país, según su categoría, nivel de complejidad y de acuerdo a norma técnica 
+vigente para la prevención de la transmisión vertical del VIH. 
+El tratamiento antirretroviral de gran actividad (TARGA) de la gestante con 
+infección por VIH, probable o confirmada deberá ser realizada por el Médico 
+Infectólogo o médico capacitado según nivel de complejidad. 
+Población objetivo (rango etario)   Mujer gestante 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N° 1138-2019/MINSA. 
+027 Tratamiento profiláctico a niños expuestos al VIH. 
+ Definición operacional 
+Prestación que se brinda para disminuir la transmisión madre - niño del VIH, 
+comprende el uso de antirretrovirales en la recién nacida o nacido expuesto y 
+la provisión de sucedáneos de leche materna, de acuerdo a los criterios 
+establecidos por la norma técnica vigente. 
+Población objetivo (rango etario)   Menores de 12 meses 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 1138-2019/MINSA  
+029 Tamizaje Neonatal. 
+ Definición operacional 
+Aplicación de procedimientos y pruebas a todos los recién nacidos con el objeto 
+de identificar oportunamente a aquellos que puedan presentar alguna de las 
+siguientes enfermedades: cuatro enfermedades metabólicas (hipotiroidismo 
+congénito. hiperplasia suprarrenal congénita, fenilcetonuria y fibrosis quística), 
+hipoacusia congénita, catarata congénita o patologías cardiacas críticas, con el 
+propósito de prevenir discapacidad física y/o mental o la muerte prematura. 
+Población objetivo (rango etario)   Menores de 12 meses 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N.° 545-2024/MINSA, RM. N.° 558-2019/MINSA 
+  
+
+=== PDF PAGE 31 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 31 de 45 
+ 
+ 
+118 Control de crecimiento y desarrollo en menores entre 5 - 9 años. 
+ Definición operacional 
+Conjunto de actividades periódicas y secuenciales realizado por el licenciado en 
+enfermería o médico cirujano, con el objetivo de vigilar el crecimiento y 
+desarrollo, detectar riesgos y alteraciones de forma oportuna, e implementar 
+intervenciones para el cuidado integral del niño. El control de CRED comprende 
+cuatro procesos secuenciales: Valoración, diagnóstico, intervención y 
+seguimiento, a fin de mejorar las prácticas de cuidado, alimentación y crianza 
+de la familia. 
+Población objetivo (rango etario)   De 5 a 9 años, 11 meses y 29 días 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 682-2025-MINSA 
+119 Control de crecimiento y desarrollo en menores entre 10 - 11 años. 
+ Definición operacional 
+Conjunto de actividades periódicas y secuenciales realizado por el licenciado en 
+enfermería o médico cirujano, con el objetivo de vigilar el crecimiento y 
+desarrollo, detectar riesgos y alteraciones de forma oportuna, e implementar 
+intervenciones para el cuidado integral del niño. El control de CRED comprende 
+cuatro procesos secuenciales: Valoración, diagnóstico, intervención y 
+seguimiento, a fin de mejorar las prácticas de cuidado, alimentación y crianza 
+de la familia. 
+Población objetivo (rango etario)   De 10 a 11 años, 11 meses y 29 dias 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 682-2025-MINSA 
+902 Atención Preconcepcional. 
+ Definición operacional 
+Comprende el conjunto de actividades e intervenciones preventivas de 
+atención integral dirigido a la mujer en edad fértil, a fin de promover los 
+cuidados más adecuados durante el periodo preconcepcional y lograr un 
+embarazo, parto y puerperio y un recién n acido en buen estado de bienestar 
+biológico, psicológico y social. 
+Población objetivo (rango etario)   Mujeres en edad fértil 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° N° 827-2013/MINSA 
+  
+
+=== PDF PAGE 32 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 32 de 45 
+ 
+ 
+903 Atención Integral del Adulto Mayor. 
+ Definición operacional 
+Es una atención preventiva de atención integral al adulto mayor, que 
+comprende un conjunto de prestaciones de salud contemplando las acciones 
+de promoción, prevención, recuperación y rehabilitación en salud. Es 
+individual, integral, oportuno, periódico y s ecuencial y requiere el diagnóstico 
+de la evaluación nutricional. 
+Población objetivo (rango etario)   De 60 a más años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° N°789-2023-MINSA 
+904 Atención Integral del Joven y Adulto. 
+ Definición operacional 
+Es una atención preventiva de atención integral al joven y adulto, que 
+comprende un conjunto de prestaciones de salud contemplando las acciones 
+de promoción, prevención, recuperación y rehabilitación en salud. Es 
+individual, integral, oportuno, periódico y secuencial y requiere el diagnóstico 
+de la evaluación nutricional.  
+Población objetivo (rango etario)    De 18 - 59 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. Nº 030-2020/MINSA 
+911 Instrucción de Higiene Oral y Asesoría nutricional para el control de 
+enfermedades dentales. 
+ Definición operacional 
+Intervención que comprende la enseñanza individual de la técnica de higiene 
+oral según habilidad y desarrollo del usuario externo mediante el uso de cepillo, 
+pasta fluorada e hilo dental; incluye también la detección de la placa bacteriana 
+y la entrega de pasta dental fluorada y cepillo dental y el asesoramiento en la 
+elección de alimentos y hábitos dietéticos saludables como parte de la 
+prevención, tratamiento y el control de las enfermedades del sistema 
+estomatognático.  
+Se entrega en la modalidad de oferta presencial (fija o móvil) y en la modalidad 
+de oferta a distancia, según los criterios técnicos y frecuencia que determine la 
+Dirección de Salud Bucal. Esta actividad es realizada exclusivamente por el 
+Cirujano Dentista.  
+Población objetivo (rango etario)   Todas las Edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 1231-2021-MINSA 
+  
+
+=== PDF PAGE 33 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 33 de 45 
+ 
+ 
+050 Atención del recién nacido. 
+ Definición operacional 
+Comprende el conjunto sistematizado de procedimientos, actividades e 
+intervenciones sanitarias que se realiza desde el momento del nacimiento y 
+durante su permanencia en alojamiento conjunto con la madre hasta el alta, 
+con el propósito de garantizar condiciones óptimas para su adaptación a la vida 
+extrauterina, fortalecer el vínculo afectivo, promover y/o dar continuidad a la 
+lactancia materna, detectar oportunamente signos de alarma, y brindar 
+consejería a la madre sobre cuidados generales del recién nacid o y lactancia 
+materna. 
+Población objetivo (rango etario)   De 0 a 28 días de nacido 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 545-2024-MINSA 
+051 Internamiento del recién nacido con patología no quirúrgica. 
+ Definición operacional 
+Es el conjunto de cuidados, procedimientos y atención médica especializada 
+que se brinda en hospitalización a todo recién nacido que presenta patología 
+que se detectan durante el periodo neonatal, que no requiere de intervención 
+quirúrgica. 
+Población objetivo (rango etario)    De 0 a 28 días de nacido 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 545-2024-MINSA 
+052 Internamiento con intervención quirúrgica del recién nacido. 
+ Definición operacional 
+Es el conjunto de cuidados, procedimientos y atención médica especializada 
+que se brinda en hospitalización y en centro quirúrgico, a toda recién nacida o 
+nacido con patología quirúrgica. Se realiza en establecimientos de salud con 
+capacidad resolutiva de acuerdo a la complejidad de la patología. 
+Población objetivo (rango etario)    De 0 a 28 días de nacido 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 545-2024-MINSA 
+  
+
+=== PDF PAGE 34 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 34 de 45 
+ 
+ 
+053 Tratamiento VIH-SIDA (0-19 años). 
+ Definición operacional 
+Comprende el tratamiento con antirretrovirales de pacientes infectados con 
+VIH, según Norma Técnica vigente. 
+Población objetivo (rango etario)    De 0 - 19 Años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.º 035-2026/MINSA 
+054 Atención de parto vaginal. 
+ Definición operacional 
+Es aquel nacimiento por vía vaginal. Puede ser sin complicaciones (eutócico) o 
+con complicaciones (distócico) pero que termina por vía vaginal. 
+Población objetivo (rango etario)    Mujeres de 09 a 60 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N.° 827-2013/MINSA 
+055 Cesárea. 
+ Definición operacional 
+Se refiere a la atención de parto por cesárea, que incluye los productos 
+farmacéuticos, insumos y procedimientos necesarios consumidos en la 
+intervención quirúrgica mayor, que consiste en la extracción del feto, placenta 
+y anexos ovulares mediante incisión abdominal (laparotomía) e incisión uterina 
+(histerotomía), indicada cuando el parto vaginal representa riesgo materno y/o 
+fetal o está contraindicado. 
+Población objetivo (rango etario)    Mujeres de 09 a 60 años 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM. N.° 827-2013/MINSA 
+056 Consulta externa. 
+ Definición operacional 
+Brindada por médico y odontólogo, para atender patologías cuya solución es 
+ambulatoria y que es ofrecida por el establecimiento de salud. Incluye 
+medicamentos, insumos y otros procedimientos utilizados en la prestación. 
+Población objetivo (rango etario) Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: D.S. N.° 013-2006-SA 
+  
+
+=== PDF PAGE 35 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 35 de 45 
+ 
+ 
+057 Restauración dental simple (Obturación y curación dental simple). 
+ Definición operacional 
+Prestación realizada por el Cirujano Dentista que consiste en la reconstrucción 
+de un diente para restaurar su anatomía, fisiología y estética que han sido 
+afectadas por caries, traumatismos, erosión, abrasión u otros problemas o 
+defectos congénitos y logr ar prevenir lesiones futuras. Se considera una sola 
+superficie dentaria afectada. 
+Población objetivo (rango etario) Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM 422-2017-MINSA, RM 859-2024- MINSA 
+058 Restauración dental compuesta (Obturación y curación dental 
+compuesta). 
+ Definición operacional 
+ Prestación realizada por el Cirujano Dentista que consiste en la reconstrucción 
+de un diente para restaurar su anatomía, fisiología y estética que han sido 
+afectadas por caries, traumatismos, erosión, abrasión u otros problemas o 
+defectos congénitos y lograr prevenir lesiones futuras. Se considera dos o más 
+superficies dentarias afectadas. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM 422-2017-MINSA, RM 859-2024- MINSA 
+059 Extracción dental (exodoncia). 
+ Definición operacional 
+Prestación realizada por el Cirujano Dentista que consiste en la remoción 
+quirúrgica de la pieza dentaria afectada en su vitalidad, función y capacidad de 
+restaurar, con la finalidad de eliminar el foco infeccioso. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 422-2017/MINSA 
+ 
+  
+
+=== PDF PAGE 36 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 36 de 45 
+ 
+ 
+061 Atención en tópico. 
+ Definición operacional 
+Es la prestación recuperativa realizada de manera ambulatoria en los tres 
+niveles de atención que comprende procedimientos que se relacionan 
+directamente a una atención inicial del paciente en Consulta Externa o 
+Emergencia. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS Nº 021-MINSA/DGSP-V.03 
+ 
+062 Atención por emergencia o urgencia. 
+ Definición operacional 
+Se refiere a la atención brindada al paciente que ingresa por emergencia o 
+urgencia y que no requiere observación, incluyendo el registro de los daños 
+conforme a la clasificación de prioridad de atención establecida para la 
+prestación. 
+Población objetivo (rango etario) 
+Todas las edades  
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS Nº 042-MINSA/DGSP-V.01 
+063 Atención por emergencia con observación. 
+ Definición operacional 
+Se refiere a la atención brindada al paciente que ingresa en situación de 
+emergencia y que requiere observación, incluyendo el registro de los daños 
+conforme a la clasificación de prioridad de atención establecida para la 
+prestación. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS Nº 042-MINSA/DGSP-V.01 
+  
+
+=== PDF PAGE 37 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 37 de 45 
+ 
+ 
+064 Intervención médico-quirúrgica ambulatoria. 
+ Definición operacional 
+Prestación de salud médico quirúrgica que se brinda a un paciente en una 
+Unidad Productora de Servicios de Salud (UPSS) Centro Quirúrgico, para cuya 
+recuperación y permanencia postoperatoria no requiere pernoctar en el 
+establecimiento de salud. El paciente  sale de alta el mismo día del 
+procedimiento. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS N°101-MINSA/DGSP-V.01 
+065 Internamiento en establecimiento de salud sin intervención 
+quirúrgica. 
+ Definición operacional 
+Es la atención médica no quirúrgica brindada en establecimientos de salud con 
+internamiento a pacientes agudos o crónicos cuya condición o complicaciones 
+requieren hospitalización por un periodo superior a 24 horas, con permanencia 
+y necesidad de soporte a sistencial, incluye durante la estancia, los 
+medicamentos, insumos y procedimientos realizados. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: D.S. N.° 013-2006-SA 
+066 Internamiento con intervención quirúrgica menor. 
+ Definición operacional 
+Es una prestación de salud médico -quirúrgica brindada a un paciente, cuya 
+patología o complicación requiere la realización de una cirugía menor y 
+demanda internamiento pre y postoperatorio por un periodo superior a 24 
+horas para su recuperación y permanenc ia postquirúrgica; incluye durante la 
+estancia, los medicamentos, insumos y procedimientos realizados. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS N°101-MINSA/DGSP-V.01 
+  
+
+=== PDF PAGE 38 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 38 de 45 
+ 
+ 
+067 Internamiento con intervención quirúrgica mayor (no cesárea). 
+ 
+ Definición operacional 
+Es la atención médica quirúrgica, de un asegurado con complicaciones o 
+patología cuya solución requiere de una cirugía mayor (excepto cesárea) con 
+internamiento por un periodo superior a 24 horas. incluye durante la estancia, 
+los medicamentos, insumos y procedimientos realizados. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS N°101-MINSA/DGSP-V.01 
+068 Internamiento con Estancia en la Unidad de Cuidados Intensivos (UCI). 
+ 
+ Definición operacional 
+Corresponde al internamiento de un asegurado con estancia en la Unidad de 
+Cuidados Intensivos (UCI). Incluye materiales, insumos, procedimientos y 
+medicamentos durante la estancia. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 115-2026/MINSA 
+069 Transfusión sanguínea o hemoderivados. 
+ Definición operacional 
+La transfusión sanguínea es un procedimiento médico terapéutico que 
+involucra procedimientos e insumos necesarios para la obtención, tamizaje, 
+conservación y transfusión por cada unidad de Sangre, de acuerdo con la 
+normatividad vigente.  
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: Manual de TRANSFUSIÓN SANGUÍNEA 
+  
+
+=== PDF PAGE 39 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 39 de 45 
+ 
+ 
+070 Atención odontológica especializada. 
+ Definición operacional 
+Conjunto de procedimientos estomatológicos especializados que se entregan 
+según necesidad individual de la persona. Se realiza en la modalidad presencial 
+en oferta fija y/o móvil y en la modalidad a distancia de corresponder de 
+acuerdo al procedimiento. Realizado 
+Se realiza con la finalidad de restablecer la salud del sistema estomatognático y 
+en la salud general. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 1231-2021-MINSA 
+ 
+071 Apoyo al diagnóstico. 
+ Definición operacional 
+Se refiere al conjunto de procedimientos que se brindan en los Servicios 
+Médicos de Apoyo (UPSS Patología Clínica, Anatomía Patológica, Diagnóstico 
+por Imágenes y otros que se implementen según normativa) para coadyuvar en 
+el diagnóstico médico - quirúrgico (en ese caso se considera prestación 
+recuperativa) o que forman parte de los procesos de atención integral de salud 
+determinados por norma (en ese caso se considera prestación preventiva). 
+Incluye también las actividades de apoyo al diagnóstico de los establecimientos 
+que carecen de Servicios Médicos de Apoyo (pruebas rápidas, ecografía, 
+radiología y otros que puedan implementarse según normativa vigente). 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS Nº 021-MINSA/DGSP-V.03 
+  
+
+=== PDF PAGE 40 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 40 de 45 
+ 
+ 
+074 
+Prevención, detección y tratamiento de ITS en adolescentes, jóvenes, 
+adultos y adultos mayores (Tratamiento de ITS en adolescentes, 
+adultos y adultos mayores). 
+ Definición operacional 
+Conjunto de actividades y procedimientos establecidos por la normativa 
+vigente, orientados a la prevención, diagnóstico y tratamiento oportuno de las 
+infecciones de transmisión sexual (ITS) en adolescentes, adultos y adultos 
+mayores. Incluye la realización de consejerías para la prevención del contagio 
+de ITS, pruebas rápidas para su detección y el tratamiento correspondiente. 
+Población objetivo (rango etario) 
+Adolescentes, adultos y adultos mayores 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: R.M. N.° 263-2009-MINSA  
+075 Atención extramural en zona rural (visita domiciliaria: recuperativo 
+y/o preventivo). 
+ Definición operacional 
+Comprende actividades preventivo – promocionales y recuperativas, fuera del 
+establecimiento de salud, realizada en el domicilio del asegurado, de acuerdo 
+con normas del MINSA.  El domicilio se encuentra en zona rural. 
+Se considera como prestación preventiva a las actividades realizadas en el 
+domicilio de un asegurado sano (CIE 10 Z74.2 o Z74.3) y prestación recuperativa 
+cuando la atención se realiza al asegurado en condición de riesgo o morbilidad 
+(Otros CIE 10). 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 834-2019- MINSA. 
+ 
+908 Atención Domiciliaria. 
+ Definición operacional 
+Prestaciones de salud brindadas por el profesional de salud en el domicilio del 
+asegurado para el seguimiento de pacientes crónicos en domicilio a solicitud 
+del médico tratante. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 834-2019- MINSA  
+ 
+  
+
+=== PDF PAGE 41 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 41 de 45 
+ 
+ 
+060 Atención extramural en zona urbana y urbana marginal (visita 
+domiciliaria: recuperativo y/o preventivo). 
+ Definición operacional 
+Comprende actividades preventivo – promocionales y recuperativas, 
+efectuadas en el domicilio del asegurado, de acuerdo a normas del MINSA.  El 
+domicilio se encuentra en zona urbana o urbano marginal. 
+Se considera como prestación preventiva a las actividades realizadas en el 
+domicilio de un asegurado sano (CIE 10 Z74.2 o Z74.3), y prestación 
+recuperativa cuando la atención se realiza al asegurado en condición de riesgo 
+o morbilidad (Otros CIE 10) 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 834-2019- MINSA 
+901 Apoyo al Tratamiento. 
+ Definición operacional 
+Es el conjunto de procedimientos asistenciales que complementan la atención 
+médica. Las prestaciones de apoyo al tratamiento serán realizadas en aquellos 
+establecimientos que cuentan con la capacidad operativa para ello.  
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: NTS Nº 021-MINSA/DGSP-V.03 
+906 Consulta Externa por Profesional no médico ni odontólogo. 
+ Definición operacional 
+Se refiere a la consulta ambulatoria preventiva o recuperativa realizada por los 
+profesionales de salud no médicos ni odontólogos (psicólogo, nutricionista u 
+otro según norma) realizado a los asegurados. 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa  
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: Ley N° 26842 
+  
+
+=== PDF PAGE 42 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 42 de 45 
+ 
+ 
+200 Atención de Rehabilitación. 
+ Definición operacional 
+Prestación que cubre los procedimientos de rehabilitación en el I nivel de 
+atención y II con población adscrita, según lo dispuesto por normas específicas 
+en los niveles que corresponda.   
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente:  Ley N° 29973 
+900 Prótesis dental removible (Rehabilitación protésica). 
+ Definición operacional 
+Conjunto de procedimientos realizados según necesidad individual de la 
+persona, mediante aparatos protésicos intraorales con el fin de restablecer la 
+función masticatoria y fonética por ausencia parcial o total de piezas dentarías, 
+en la etapa de vida del adulto mayor en los tres niveles de atención. 
+Población objetivo (rango etario) 
+De 60 años a mas 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N.° 1231-2021-MINSA 
+300 Telemedicina. 
+ Definición operacional 
+Provisión de servicios de salud a distancia en los componentes de promoción, 
+prevención, diagnóstico, tratamiento, recuperación, rehabilitación y cuidados 
+paliativos, prestados por personal de salud que utiliza las TIC, con el propósito 
+de facilitar el acceso a los servicios de salud a la población. Este servicio puede 
+ser registrado por los establecimientos del I, II y III nivel de atención 
+Población objetivo (rango etario) 
+Todas las edades 
+Normativa 
+Base: R.M. N.° 226-2011-MINSA; R.J. N.° 001-2018-SIS/J 
+Vigente: RM N° 664-2025-MINSA 
+  
+
+=== PDF PAGE 43 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 43 de 45 
+ 
+ 
+301 Cuidado Integral por curso de vida del Niño. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral en el niño y niña; a 
+través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, orientad as al bienestar físico y mental, el desarrollo 
+cognitivo, psicomotor, emocional, afectivo y social, así como, reducir la 
+morbilidad y mortalidad infantil. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención 
+Población objetivo (rango etario) 
+De 0 a 11 años 11 meses y 29 días. 
+Normativa 
+Base: RM. Nº 030-2020-MINSA 
+Vigente: RM. Nº 682-2025-MINSA 
+ 
+302 Cuidado Integral por curso de vida del Adolescente. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral del adolescente; a 
+través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, dirigidas al desarrollo físico, maduración mental, desarrollo 
+intelectual, desarrollo emocional y desarrollo social. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención.  
+Población objetivo (rango etario) 
+De 12 a 17 años 11 meses y 29 días. 
+Normativa 
+Base: RM. Nº 030-2020/MINSA 
+Vigente: RM. Nº 1001-2019/MINSA 
+ 
+  
+
+=== PDF PAGE 44 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 44 de 45 
+ 
+ 
+303 Cuidado Integral de la salud por curso de vida del Joven. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral del joven; a través 
+de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, identificando pr ecozmente los factores y conductas de 
+riesgo, así como los problemas de salud; orientadas al desarrollo físico, 
+maduración mental, desarrollo intelectual, desarrollo emocional y desarrollo 
+social. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. 
+Población objetivo (rango etario) 
+De 12 a 17 años 11 meses y 29 días. 
+Normativa 
+Base: RM. Nº 030-2020/MINSA 
+Vigente: RM. Nº 944-2012/MINSA 
+ 
+304 Cuidado Integral de la salud por curso de vida Adulto. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral en el adulto; a 
+través de estrategias, intervenciones y actividades, en los componentes de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, dirigidas par a satisfacer las necesidades de salud que 
+fomenten las conductas de autocuidado, prevención y promoción de 
+comportamientos saludables. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención. 
+Población objetivo (rango etario) 
+ De 30 a 59 años 11 meses 29 días. 
+Normativa 
+Base: RM. Nº 030-2020/MINSA 
+Vigente: RM N°310-2025-MINSA 
+ 
+  
+
+=== PDF PAGE 45 ===
+ 
+Criterios Técnicos para el Registro Modular por 
+Curso de Vida (RM-CV) en el FUA. 
+Responsable: GREP 
+Versión: 01 
+Página 45 de 45 
+ 
+ 
+305 Cuidado Integral de la salud por curso de vida Adulto Mayor. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral en el adulto mayor, 
+a través de estrategias, intervenciones y actividades, en los componentes de 
+promoción de la salud, prevención de riesgos y daños a la salud, diagnóstico, 
+recuperación, rehabilitación, cuidados paliativos y seguimiento, prestados por 
+el personal de salud, dirigidas para satisfacer las necesidades de salud, 
+reduciendo los periodos de enfermedad y promoviendo su autonomía e 
+independencia.  
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención 
+Población objetivo (rango etario) 
+De 60 años a más. 
+Normativa 
+Base: RM. Nº 030-2020/MINSA 
+Vigente: RM N°789-2023-MINSA 
+ 
+306 Cuidado Integral de la salud Prenatal. 
+ Definición operacional 
+Prestaciones de servicios de salud, para la atención integral de la gestante 
+(durante el embarazo, parto y puerperio), a través de intervenciones de 
+promoción, prevención, recuperación y rehabilitación, prestados por el 
+personal de salud, orientadas a logr ar el bienestar físico y mental, emocional, 
+afectivo y social, así como, reducir la morbilidad y mortalidad. 
+Este servicio puede ser registrado por los establecimientos del I Nivel de 
+atención.  
+Población objetivo (rango etario) 
+Mujer gestante (durante el embarazo, parto y puerperio). 
+Normativa 
+Base: RM. Nº 030-2020/MINSA 
+Vigente: RM. Nº 007-2017/MINSA 
+ 
+ 

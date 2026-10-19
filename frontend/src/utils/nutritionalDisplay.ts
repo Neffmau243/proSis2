@@ -1,7 +1,7 @@
 import type { Attention, NutritionalIndicatorsPreview } from '@/services/atenciones'
 
 export interface NutritionalTableRow {
-  key: 'pe' | 'te' | 'pt' | 'imc' | 'diagnostico_imc' | 'ganancia_peso'
+  key: 'pe' | 'te' | 'pt' | 'imc' | 'imc_edad' | 'diagnostico_imc' | 'ganancia_peso'
   label: string
   value: string
 }
@@ -51,9 +51,9 @@ export function nutritionalLimits(result: NutritionalIndicatorsPreview | null): 
     case 'PUERPERA':
       return 'P/E, T/E y P/T no aplican al grupo Puérperas. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes; el IMC actual es de seguimiento del puerperio.'
     case 'ESCOLAR':
-      return 'P/T corresponde a la referencia infantil. OMS 2007 cubre T/E e IMC/edad de 61 a 228 meses y P/E hasta 120 meses. Fuera de esos rangos no se extrapolan resultados.'
+      return 'Desde los 5 años se muestran T/E e IMC/edad. A los 60 meses se usa la tabla mensual OMS 2006; desde 61 meses, OMS 2007. No se extrapolan puntajes.'
     default:
-      return 'Referencia infantil OMS 2006 (hasta aproximadamente 60 meses). P/T también depende del rango de talla de la tabla.'
+      return 'Menores de 5 años: referencia OMS 2006 para P/E, T/E y P/T. P/T también depende del rango de talla de la tabla.'
   }
 }
 
@@ -130,7 +130,27 @@ export function nutritionalTableRows(
   group: NutritionalReferenceGroup = result?.grupo_referencia ?? 'INFANTIL',
   unavailable = 'No disponible',
 ): NutritionalTableRow[] {
-  if (group === 'INFANTIL' || group === 'ESCOLAR') {
+  if (group === 'ESCOLAR') {
+    return [
+      {
+        key: 'imc_edad',
+        label: 'IMC/edad',
+        value:
+          result?.imc_edad == null
+            ? unavailable
+            : `${result.diagnostico_imc ? `${result.diagnostico_imc} · ` : ''}Z: ${result.imc_edad}`,
+      },
+      {
+        key: 'te',
+        label: 'T/E',
+        value:
+          result?.te == null
+            ? unavailable
+            : `${result.diagnostico_talla_edad ? `${result.diagnostico_talla_edad} · ` : ''}Z: ${result.te}`,
+      },
+    ]
+  }
+  if (group === 'INFANTIL') {
     const keys = ['pe', 'te', 'pt'] as const
     const rows = nutritionalRows(result)
     return keys.map((key, index) => ({

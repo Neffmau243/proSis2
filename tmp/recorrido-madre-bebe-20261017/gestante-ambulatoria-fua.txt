@@ -1,0 +1,365 @@
+Browser tab: 1, Title: "Admisión de paciente · Sistema de Salud IPRESS", URL: "http://127.0.0.1:8000/admision?patientId=18".
+0 AXWebArea Admisión de paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/admision?patientId=18
+	1 container
+		2 button (collapsed) Abrir menú, Secondary Actions: Expand
+		3 container
+			4 text Admisión de paciente
+			5 container el-id-5350-61
+				308 text * Fecha y hora de atención
+			7 container
+				8 image
+				9 combo box (disabled, collapsed, settable) Description: Fecha y hora de atención, Value: 01/10/2026 09:00, ID: el-id-5350-129, Secondary Actions: Expand
+		10 container
+			11 container Base de datos
+				12 heading Base de datos, Value: 3, ID: patient-context-title
+					13 text Base de datos
+				14 container
+					15 text N.° H. clínica
+					16 text field (disabled) Description: N.° H. clínica, Value: PRUEBA-MADRE-171026, ID: el-id-5350-112
+					17 container Historia familiar
+						18 text Historia familiar
+						19 container
+							20 container
+								21 combo box (disabled, collapsed, settable) Description: Color o sector de historia familiar, ID: el-id-5350-113, Secondary Actions: Expand
+								22 text AZUL
+								23 image
+							24 text field (disabled) Description: Número de historia familiar, Value: 171026, ID: el-id-5350-114
+							25 text AZ-171026
+					26 text Tipo documento
+					27 container
+						28 combo box (disabled, collapsed, settable) Description: Tipo de documento, ID: v-0, Secondary Actions: Expand
+						29 text Documento Nacional de Identidad
+						30 image
+					31 container el-id-5350-14
+						309 text *
+						33 text N.° documento
+					34 text field (disabled) Description: N.° documento, Value: 99061701, ID: el-id-5350-115
+					35 container el-id-5350-15
+						310 text *
+						37 text Fecha nacimiento
+					38 date field (disabled, settable) Description: Fecha nacimiento, Value: 1998-05-20, ID: el-id-5350-116
+					44 text Apellido paterno
+					45 text field (disabled) Description: Apellido paterno, Value: Prueba, ID: el-id-5350-117
+					46 text Apellido materno
+					47 text field (disabled) Description: Apellido materno, Value: Materna, ID: el-id-5350-118
+					48 text Primer nombre
+					49 text field (disabled) Description: Primer nombre, Value: Elena, ID: el-id-5350-119
+					50 text Otros nombres
+					51 text field (disabled) Description: Otros nombres, Value: Simulada, ID: el-id-5350-120
+					52 text Sexo
+					53 container
+						54 combo box (disabled, collapsed, settable) Description: Sexo, ID: el-id-5350-121, Secondary Actions: Expand
+						55 text FEMENINO
+						56 image
+					57 text Distrito
+					58 container
+						59 combo box (disabled, collapsed, settable) Description: Distrito, ID: el-id-5350-122, Secondary Actions: Expand
+						60 text ALTO SELVA ALEGRE · Arequipa · Arequipa
+					61 text Localidad
+					62 container
+						63 combo box (disabled, collapsed, settable) Description: Localidad, ID: el-id-5350-123, Secondary Actions: Expand
+						64 text ALTO SELVA ALEGRE
+						65 image
+					66 text Dirección
+					67 text field (disabled) Description: Dirección, Value: DOMICILIO FICTICIO - RECORRIDO MADRE Y BEBE 17/10/2026, ID: el-id-5350-124
+					68 text Establecimiento
+					69 container
+						70 combo box (disabled, collapsed, settable) Description: Establecimiento, ID: el-id-5350-125, Secondary Actions: Expand
+						71 text C.S. ALTO SELVA ALEGRE
+					72 image SIS · Seguro Integral de Salud
+					73 container
+						74 combo box (disabled, collapsed, settable) Description: Seguro de salud, ID: el-id-5350-126, Secondary Actions: Expand
+						75 text S.I.S. Gratuito
+						76 image
+					77 container Código del asegurado SIS
+						78 text Código del asegurado SIS
+						79 container
+							80 text DIRESA
+							81 text field (disabled) Description: SIS · DIRESA / DISA, Value: 040, ID: v-3-sis_diresa
+							82 text 3 caracteres
+						83 container
+							84 text Tipo
+							85 text field (disabled) Description: SIS · Tipo / formato, Value: 2, ID: v-3-sis_tipo
+							86 text 1–2 caracteres
+						87 container
+							88 text Número
+							89 text field (disabled) Description: SIS · Número de afiliación, Value: 99061701, ID: v-3-sis_numero
+							90 text 8–9 dígitos
+					91 text Teléfono
+					92 text field (disabled) Teléfono
+					93 container Responsables y riesgos del paciente
+						94 text Grupo de riesgo
+						95 pop up button (disabled, collapsed) Description: Grupo de riesgo, ID: el-id-5350-42, Secondary Actions: Expand
+							96 text Sin registrar
+						97 text Nombre de madre
+						98 container
+							99 text field Description: Nombre de madre, ID: v-1-mother
+							100 button (disabled) Agregar madre
+						101 text Grupo etáreo
+						102 container
+							103 combo box (disabled, collapsed, settable) Description: Grupo etáreo, ID: el-id-5350-128, Secondary Actions: Expand
+							274 text GESTANTE
+							105 image
+					106 text Datos del paciente guardados.
+			109 container Consultorio
+				110 container el-id-5350-63
+					311 text * Modalidad de atención
+				112 Description: Modalidad de atención, ID: el-id-5350-132
+					113 container
+						114 radio button (disabled, settable, integer) Description: Ambulatoria, Value: 1
+						115 text Ambulatoria
+					116 container
+						117 radio button (disabled, settable, integer) Description: Emergencia, Value: 0
+						118 text Emergencia
+				119 heading Consultorio, Value: 3, ID: encounter-context-title
+					120 text Consultorio
+				121 container
+					122 container el-id-5350-65
+						312 text * Consultorio
+					124 container
+						125 combo box (disabled, collapsed, settable) *Consultorio, ID: el-id-5350-133, Secondary Actions: Expand
+						261 text MED · MEDICINA
+						127 image
+					128 text Servicio / especialidad
+					129 container
+						130 combo box (disabled, collapsed, settable) Servicio / especialidad, ID: el-id-5350-134, Secondary Actions: Expand
+						262 text MEDICINA GENERAL
+						132 image
+					133 container el-id-5350-104
+						313 text * Profesional
+					135 container
+						136 combo box (disabled, collapsed, settable) *Profesional, ID: el-id-5350-135, Secondary Actions: Expand
+						264 text ELSA GUILLEN TOCCAS
+			138 container Mediciones clínicas
+				139 text Grupo de atención
+				140 Description: Grupo de atención, ID: el-id-5350-136
+					141 container
+						142 radio button (disabled, settable, integer) Description: Niños, adolescentes, adultos y adultos mayores, Value: 0
+						143 text Niños, adolescentes, adultos y adultos mayores
+					144 container
+						145 radio button (disabled, settable, integer) Description: Gestantes, Value: 1
+						146 text Gestantes
+					147 container
+						148 radio button (disabled, settable, integer) Description: Puérperas, Value: 0
+						149 text Puérperas
+				150 heading Mediciones clínicas, Value: 4, ID: measurements-title
+					151 text Mediciones clínicas
+				152 container
+					233 text Tipo de embarazo
+					234 container
+						235 combo box (disabled, collapsed, settable) Tipo de embarazo, ID: el-id-5350-288, Secondary Actions: Expand
+						272 text Embarazo único
+						273 image
+					238 text Peso antes del embarazo (kg)
+					239 stepper (disabled, settable, integer) Peso antes del embarazo (kg), Value: 58, Details: 58.00, ID: el-id-5350-289
+					153 text Peso actual (kg)
+					154 stepper (disabled, settable, integer) Peso actual (kg), Value: 68, Details: 68.00, ID: el-id-5350-137
+					155 text Talla (cm)
+					156 stepper (disabled, settable, integer) Talla (cm), Value: 160, Details: 160.00, ID: el-id-5350-138
+					240 text Fecha probable de parto
+					241 container
+						242 image
+						243 combo box (disabled, collapsed, settable) Fecha probable de parto, Value: 2026-10-20, ID: el-id-5350-290, Secondary Actions: Expand
+				159 heading Presión arterial y temperatura, Value: 4
+					160 text Presión arterial y temperatura
+				161 container Presión arterial y temperatura
+					162 text Diast.
+					163 stepper (disabled, settable, integer) Description: Presión diastólica, Value: 70, ID: el-id-5350-140
+					164 text Sist.
+					165 stepper (disabled, settable, integer) Description: Presión sistólica, Value: 110, ID: el-id-5350-141
+					166 text Temp.
+					167 stepper (disabled, settable, float) Description: Temperatura en grados Celsius, Value: 36.70000076293945, Details: 36.7, ID: el-id-5350-142
+					168 text °C
+			169 container Valoración nutricional
+				170 heading Valoración nutricional, Value: 3, ID: nutrition-title
+					171 text Valoración nutricional
+				172 container
+					173 text Edad a la atención 28 años, 4 meses y 11 días
+				244 table Valoración nutricional de gestantes
+					245 row
+						246 cell
+							247 text IMC
+						248 cell
+							265 text 22.656
+					250 row
+						251 cell
+							252 text Dx IMC
+						253 cell
+							266 text Normal
+					255 row
+						256 cell
+							257 text Ganancia de peso
+						258 cell
+							267 text 10 kg
+			184 container Acciones de admisión
+				275 text Atención guardada correctamente. Ya puede imprimir S.I.S.
+				186 container Acciones de admisión
+					187 button (disabled) Atención guardada
+						276 text Atención guardada
+					189 button Imprimir S.I.S.
+						190 text Imprimir S.I.S.
+					191 button (disabled) Otra consulta, Help: Otra consulta: aún no disponible
+						192 text Otra consulta
+					193 button (disabled) FUA adicional, Help: FUA adicional: aún no disponible
+						194 text FUA adicional
+					195 button Salir
+						196 text Salir
+			197 heading Historial de atenciones del paciente, Value: 3
+				198 text Historial de atenciones del paciente
+			199 button Refrescar
+			200 container
+				201 table
+					202 row
+						203 cell
+							204 text N.° historia
+						205 cell
+							206 text Fecha atención
+						207 cell
+							208 text Edad del paciente
+						209 cell
+							210 text Peso
+						211 cell
+							212 text Talla
+						213 cell
+							214 text Diast.
+						215 cell
+							216 text Sist.
+						217 cell
+							218 text IMC
+						219 cell
+							220 text P/E
+						221 cell
+							222 text T/E
+						223 cell
+							224 text P/T
+						225 cell
+							226 text Consultorio
+						227 cell
+							228 text Estado
+				277 table
+					278 row
+						279 cell
+							280 text PRUEBA-MADRE-171026
+						281 cell
+							282 text 1/10/2026
+						283 cell
+							284 text 28 años, 4 meses y 11 días
+						285 cell
+							286 text 68.00
+						287 cell
+							288 text 160.00
+						289 cell
+							290 text 70
+						291 cell
+							292 text 110
+						293 cell
+							294 container Resultado disponible: IMC: 26.563 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 10 kg. P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes. IMC pregestacional y cambio de peso. Interpretar según semana gestacional; adolescentes requieren valoración específica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+								295 text 26.563
+						296 cell
+							297 text No aplica
+						298 cell
+							299 text No aplica
+						300 cell
+							301 text No aplica
+						302 cell
+							303 text MEDICINA
+							304 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+						305 cell
+							306 text ATENDIDO
+			307 text P/E: peso/edad · T/E: talla/edad · P/T: peso/talla. «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo. «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración.
+			314 container Imprimir FUA · uso local
+				315 container Use «Ver FUA / guardar PDF» para ver los datos sobre el formulario en la vista de impresión. «Imprimir sobre FUA preimpresa» envía solo datos y marcas al papel que ya tiene el formulario. Se usa la copia conservada al guardar la atención; reimprimir no crea otra consulta ni reemplaza el número del papel preimpreso. Este sistema no envía datos al SIS. Datos de la FUA Ir a calibración Cerrar Imprimir sobre FUA preimpresa Ver FUA / guardar PDF
+					316 container
+						317 heading Imprimir FUA · uso local, Value: 2
+							318 text Imprimir FUA · uso local
+						319 button Close this dialog
+					320 container el-id-5350-308
+						321 text Use «Ver FUA / guardar PDF» para ver los datos sobre el formulario en la vista de impresión. «Imprimir sobre FUA preimpresa» envía solo datos y marcas al papel que ya tiene el formulario. Se usa la copia conservada al guardar la atención; reimprimir no crea otra consulta ni reemplaza el número del papel preimpreso. Este sistema no envía datos al SIS.
+						322 tab group
+							323 tab (selected, settable, boolean) Datos de la FUA, Value: 1, ID: tab-datos
+							324 tab (selectable, settable, boolean) Vista previa y calibración, Value: 0, ID: tab-calibracion
+						325 container Description: Datos de la FUA, ID: pane-datos
+							326 definition list
+								327 container Profesional responsable de la atención
+									328 text Profesional responsable de la atención
+								329 text ELSA GUILLEN TOCCAS
+								330 container Personal que atiende · categoría FUA
+									331 text Personal que atiende · categoría FUA
+								332 text De la IPRESS
+								333 container Lugar de atención
+									334 text Lugar de atención
+								335 text Intramural
+								336 container Atención en la FUA
+									337 text Atención en la FUA
+								338 text AMBULATORIA · según la modalidad guardada
+								339 container IPRESS de la atención
+									340 text IPRESS de la atención
+								341 text C.S. ALTO SELVA ALEGRE
+								342 container Consultorio a la atención
+									343 text Consultorio a la atención
+								344 text MEDICINA
+								345 container Servicio / especialidad a la atención
+									346 text Servicio / especialidad a la atención
+								347 text MEDICINA GENERAL
+								348 container Distrito / localidad de residencia a la atención
+									349 text Distrito / localidad de residencia a la atención
+								350 text ALTO SELVA ALEGRE / ALTO SELVA ALEGRE
+								351 container RENIPRESS
+									352 text RENIPRESS
+								353 container
+									354 text 00001291 Configurado como preimpreso: no se sobreimprime. Compruebe el código de su hoja.
+								355 container Paciente
+									356 text Paciente
+								357 text PRUEBA MATERNA, ELENA SIMULADA
+								358 container Afiliación SIS del paciente
+									359 text Afiliación SIS del paciente
+								360 text 040 · 2-99061701
+								361 container Etnia declarada · código
+									362 text Etnia declarada · código
+								363 text Sin declarar
+								364 container Identificación
+									365 text Identificación
+								366 text DNI 99061701 · TDI 2
+								367 container Atención
+									368 text Atención
+								369 text 2026-10-01 · 09:00
+								370 container Peso / talla / PA / IMC
+									371 text Peso / talla / PA / IMC
+								372 text 68 kg / 160 cm / 110/70 mmHg / 26.56
+								373 container Fecha probable de parto
+									374 text Fecha probable de parto
+								375 text 2026-10-20
+							376 container Valoración nutricional conservada
+								377 heading Valoración nutricional conservada, Value: 3, ID: fua-nutrition-title
+									378 text Valoración nutricional conservada
+								379 table Indicadores nutricionales conservados en la FUA
+									380 row
+										381 cell
+											382 text IMC
+										383 cell
+											384 text 22.656
+									385 row
+										386 cell
+											387 text Dx IMC
+										388 cell
+											389 text NORMAL
+									390 row
+										391 cell
+											392 text Ganancia de peso
+										393 cell
+											394 text 10 kg
+							395 text El profesional se conserva con la atención. La categoría de personal y el lugar se copian de la configuración de la sede: «De la IPRESS» corresponde a personal con vínculo contractual con esa IPRESS; «Intramural» corresponde a atención dentro de la IPRESS. Compruebe que describan la atención realizada. La afiliación y la etnia provienen de la ficha del paciente; este módulo no acredita la cobertura SIS.
+							396 container
+								397 text Campos pendientes de revisar Colegiatura del profesional (cuando corresponda) · Etnia (cuando corresponda)
+							398 container
+								399 checkbox (settable, integer) Description: Revisé los faltantes; completaré los que correspondan a mano., Value: 0
+								400 text Revisé los faltantes; completaré los que correspondan a mano.
+							401 text No es una validación integral del SIS: prestaciones, diagnósticos, firmas, vacunas y otros campos quedan fuera de este prellenado.
+					402 container
+						403 text Falta confirmar la calibración: pruebe el tamaño y la alineación antes de imprimir sobre la FUA preimpresa.
+						404 button Ir a calibración
+						405 button Cerrar
+						406 button (disabled) Imprimir sobre FUA preimpresa
+						407 button (disabled) Ver FUA / guardar PDF
+
+The focused UI element is 315 container Use «Ver FUA / guardar PDF» para ver los datos sobre el formulario en la vista de impresión. «Imprimir sobre FUA preimpresa» envía solo datos y marcas al papel que ya tiene el formulario. Se usa la copia conservada al guardar la atención; reimprimir no crea otra consulta ni reemplaza el número del papel preimpreso. Este sistema no envía datos al SIS. Datos de la FUA Ir a calibración Cerrar Imprimir sobre FUA preimpresa Ver FUA / guardar PDF

@@ -38,7 +38,8 @@ def test_interpolates_lms_for_fractional_month():
 @pytest.mark.parametrize(
     "age_days,expected",
     [
-        (1826, "INFANTIL"),
+        (1825, "INFANTIL"),
+        (1826, "ESCOLAR"),
         (1827, "ESCOLAR"),
         (1857, "ESCOLAR"),
         (6940, "ADULTO"),
@@ -98,10 +99,16 @@ def test_maternal_groups_never_use_current_weight_for_general_bmi_classification
 @pytest.mark.parametrize(
     "bmi,older,expected",
     [
-        ("18.499", False, "Bajo peso"),
+        ("15.999", False, "Delgadez grado III"),
+        ("16", False, "Delgadez grado II"),
+        ("16.999", False, "Delgadez grado II"),
+        ("17", False, "Delgadez grado I"),
+        ("18.499", False, "Delgadez grado I"),
         ("18.5", False, "Normal"),
         ("25", False, "Sobrepeso"),
-        ("30", False, "Obesidad"),
+        ("30", False, "Obesidad grado I"),
+        ("35", False, "Obesidad grado II"),
+        ("40", False, "Obesidad grado III"),
         ("23", True, "Delgadez"),
         ("23.001", True, "Normal"),
         ("28", True, "Sobrepeso"),

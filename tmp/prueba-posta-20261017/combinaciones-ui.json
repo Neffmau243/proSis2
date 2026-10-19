@@ -1,0 +1,72 @@
+[
+  {
+    "case": "Campos obligatorios: sin consultorio ni profesional",
+    "passed": true,
+    "result": "No guarda y muestra ambos campos requeridos"
+  },
+  {
+    "case": "Peso 501 kg",
+    "passed": true,
+    "result": "Rechaza el guardado; protocolo permite 0.10 a 500.00"
+  },
+  {
+    "case": "Talla 301 cm",
+    "passed": true,
+    "result": "Rechaza guardado; protocolo permite 10.00 a 300.00"
+  },
+  {
+    "case": "Fecha futura 18/10/2026",
+    "passed": true,
+    "result": "Rechaza antes de guardar: fecha de atención no puede estar en futuro"
+  },
+  {
+    "case": "Cambio a fecha histórica sin asignación vigente",
+    "passed": true,
+    "result": "Limpia profesional y exige volver a seleccionarlo; no se guarda"
+  },
+  {
+    "case": "Niño de 3 años / selección Gestantes",
+    "passed": false,
+    "result": "La interfaz permite seleccionar grupo sin advertencia de compatibilidad; no se guardó en base de trabajo"
+  },
+  {
+    "case": "Cambiar Gestantes a Puérperas",
+    "passed": true,
+    "result": "Sustituye fecha probable por fecha del parto; conserva peso pregestacional compartido"
+  },
+  {
+    "case": "Cambiar Puérperas a grupo general",
+    "passed": true,
+    "result": "Oculta campos obstétricos y recupera cálculo infantil Normal"
+  },
+  {
+    "case": "Profesionales filtrados por enfermería",
+    "passed": true,
+    "result": "Lista cambia a profesionales de enfermería asignados"
+  },
+  {
+    "case": "Cambiar Enfermería a Medicina con profesional seleccionado",
+    "passed": true,
+    "result": "Limpia profesional anterior y actualiza servicio a MEDICINA GENERAL"
+  },
+  {
+    "case": "Emergencia / niño / grupo general / medidas completas tras cambios de grupo y consultorio",
+    "passed": true,
+    "result": "Guardada correctamente con Normal en P/E, T/E y P/T"
+  },
+  {
+    "case": "Protección contra segundo guardado en misma pantalla",
+    "passed": true,
+    "result": "Botón Guardar atención queda deshabilitado tras éxito"
+  },
+  {
+    "case": "FUA de atención emergencia",
+    "passed": true,
+    "result": "Recupera EMERGENCIA, profesional correcto, DNI, afiliación y mediciones de la atención guardada"
+  },
+  {
+    "case": "Persistencia tras reabrir atención #22",
+    "passed": true,
+    "result": "Conserva EMERGENCIA y medidas; tipo embarazo, peso pregestacional y FPP vacíos después de volver al grupo general"
+  }
+]

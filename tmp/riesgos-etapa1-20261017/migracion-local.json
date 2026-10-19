@@ -1,0 +1,15 @@
+{
+  "revision_anterior": "20261014_0036_locality_keys",
+  "revision_actual": "20261017_0037_nutrition_followup",
+  "historico_conservado": true,
+  "comprobacion": {
+    "atenciones": {
+      "cantidad": 29,
+      "sha256": "f13525eeefd86d671f4517ac1c8294b82d16fe4fd08efbafd6fc89e5436a142b"
+    },
+    "riesgos": {
+      "cantidad": 1,
+      "sha256": "3d589ab494252f5e4ccaede4844e956f660bb00253ca38eabaa3f684e2bb1dbe"
+    }
+  }
+}

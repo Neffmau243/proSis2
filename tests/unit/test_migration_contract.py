@@ -18,10 +18,15 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
         "documento_series",
         "limites_inicio_sesion",
         "historias_familiares_catalogo",
-    } <= set(
-        Base.metadata.tables
-    )
-    assert script.get_current_head() == "20261014_0036_locality_keys"
+    } <= set(Base.metadata.tables)
+    assert script.get_current_head() == "20261017_0037_nutrition_followup"
+    assert {
+        "atencion_origen_id",
+        "evaluacion_origen",
+        "confirmado_por_usuario_id",
+        "fecha_proximo_control",
+        "motivo_cierre",
+    } <= set(Base.metadata.tables["paciente_grupos_riesgo"].columns.keys())
 
 
 def test_every_revision_fits_the_alembic_version_column() -> None:

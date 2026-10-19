@@ -1,0 +1,1700 @@
+=== PDF PAGE 1 ===
+ 
+
+
+=== PDF PAGE 2 ===
+
+
+=== PDF PAGE 3 ===
+
+
+=== PDF PAGE 4 ===
+1 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+GUÍA DE PRÁCTICA CLÍNICA  
+PARA EL MANEJO DE LA DESNUTRICIÓN O EL 
+RIESGO DE DESNUTRICIÓN EN EL ADULTO 
+  
+ 
+GUÍA EN VERSIÓN CORTA 
+ 
+ 
+GPC N° 46 
+Diciembre 2021 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 5 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+2 
+ 
+SEGURO SOCIAL DE SALUD - ESSALUD 
+ 
+Mario Carhuapoma Yance 
+Presidente Ejecutivo, EsSalud 
+ 
+Christian Rafael Miranda Orrillo  
+Gerente General, EsSalud 
+ 
+ 
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN - IETSI 
+ 
+Cristian Díaz Vélez 
+Director del Instituto de Evaluación de Tecnologías en Salud e Investigación 
+ 
+Ricardo Eric Peña Sánchez 
+Gerente de la Dirección de Evaluación de Tecnologías Sanitarias 
+ 
+Moisés Alexander Apolaya Segura 
+Gerente de la Dirección de Investigación en Salud 
+ 
+Moisés Alexander Apolaya Segura 
+Gerente (e) de la Dirección de Guías de Práctica Clínica, Farmacovigilancia y Tecnovigilancia  
+ 
+Lourdes del Rocío Carrera Acosta 
+Vladimir Ernesto Santos Sánchez 
+Asesores del Instituto de Evaluación de Tecnologías en Salud e Investigación 
+ 
+  
+
+=== PDF PAGE 6 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+3 
+ 
+Grupo elaborador 
+ Holguín Marín, Rosario Angela. Hospital Nacional Edgardo Rebagliati Martins. EsSalud. 
+ Acosta Huertas, Antonio Fernando. Hospital Nacional Guillermo Almenara Irigoyen. 
+EsSalud. 
+ Carrillo Valverde, Maria Elena. Gerencia de Oferta Flexible – Atención domiciliaria. 
+EsSalud. 
+ De Stefano Beltrán, Raúl Mario. Gerencia Central de la Persona Adulta Mayor y 
+Persona con Discapacidad. EsSalud. 
+ Ferreyra Mujica, Mario Eugenio. Hospital Nacional Edgardo Rebagliati Martins. 
+EsSalud. 
+ Gómez Luján, Martín Jesús. Hospital Nacional Edgardo Rebagliati Martins. EsSalud. 
+ Guerrero Muñoz, Luisa Angélica. Hospital Nacional Edgardo Rebagliati Martins. 
+EsSalud. 
+ Najarro Oriondo, Rosa Maximiliana. Hospital Nacional Alberto Sabogal Sologuren. 
+EsSalud. 
+ Quispe Arbildo, Diana. Hospital Nacional Alberto Sabogal Sologuren. EsSalud. 
+ Soto Cochón, Carlina Roxana. Hospital Nacional Edgardo Rebagliati Martins. EsSalud. 
+ Valdez Narbasta, Angelina del Pilar. Hospital Nacional Guillermo Almenara Irigoyen. 
+EsSalud. 
+ Verástegui Sayers, Teresa Zoraida . Hospital Nacional Guillermo Almenara Irigoyen. 
+EsSalud. 
+ Dolores Maldonado, Gandy Kerlin. Instituto de Evaluación de Tecnologías en Salud e 
+Investigación. EsSalud. 
+ Delgado Flores Carolina Jaqueline, Instituto de Evaluación de Tecnologías en Salud e 
+Investigación. EsSalud. 
+ Stefany Salvador Salvador, Instituto de Evaluación de Tecnologías en Salud e 
+Investigación, EsSalud  
+ Lourdes Carrera Acosta, Instituto de Evaluación de Tecnologías en Salud e 
+Investigación, EsSalud 
+ 
+Revisor Clínico 
+ Mg. Gladys Panduro Vasquez. Exper ta en soporte nutricional. Hospital Nacional 
+Hipólito Unanue.  
+ Mg. Carmen Yncio Callacná. Especialista en nutrición clínica. Universidad Peruana de 
+Ciencias Aplicadas. 
+ 
+Revisor Metodológico 
+ Mg. Álvaro Taype Rondán  
+Médico cirujano magister en  Ciencias Epidemiológicas por la Universidad Peruana 
+Cayetano Heredia, Perú. 
+ 
+Revisor Externo 
+ Dra. Diana  Cardenas Braz . Facultad de Medicina, Universidad El Bosque, Bogotá, 
+Colombia.  
+ Dra. Dolores Rodríguez Veintimilla. Jefe del Servicio de Nutrición Clíni ca y Dietética de 
+SOLCA- matriz Guayaquil.  
+ 
+
+=== PDF PAGE 7 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+4 
+ 
+Citación 
+Este documento debe ser citado como: “Instituto de Evaluación de Tecnologías en Salud e 
+Investigación. Guía de Práctica Clínica para el Manejo de la desnutrición o el riesgo de 
+desnutrición en el adulto: Guía en Versión Corta. Lima: EsSalud; 2021” 
+ 
+Agradecimientos 
+Agradecemos a David Renato Soriano Moreno  (Unidad de Investigación Clínica y 
+Epidemiológica, Escuela de Medicina, Universidad Peruana Unión, Lima, Perú ) por su apoyo en 
+la búsqueda bibliográfica. 
+ 
+Datos de contacto 
+Lourdes del Rocío Carrera Acosta 
+Correo electrónico: ietsi.gpc@gmail.com  
+Teléfono: (+511) 265 6000, anexo 1953 
+  
+
+=== PDF PAGE 8 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+5 
+ 
+Tabla de contenido 
+I. Tabla 1. Lista de recomendaciones y buenas prácticas clínicas (BPC) .................................. 6 
+II. Flujogramas ......................................................................................................................... 18 
+Flujograma 1. Flujograma para el tamizaje y evaluación nutricional ...................................... 18 
+Flujograma 2. Flujograma para indicar soporte nutricional farmacológico ............................ 19 
+III. Introducción .................................................................................................................... 20 
+IV. Objetivo y población de la GPC ....................................................................................... 20 
+Usuarios y ámbito de la GPC ................................................................................................... 20 
+V. Metodología ........................................................................................................................ 22 
+VI. Desarrollo de recomendaciones ..................................................................................... 24 
+Pregunta 1: En adultos ambulatorios u hospitalizados, ¿se debería realizar el tamizaje para 
+detectar el riesgo de desnutrición?......................................................................................... 24 
+Pregunta 2. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+indicar soporte nutricional? .................................................................................................... 24 
+Pregunta 3. En adultos con diagnóstico de desnutrición con alto riesgo del síndrome de 
+realimentación o el síndrome de Wernicke -Korsakoff, ¿cuál debería ser el manejo par a 
+iniciar soporte nutricional? ..................................................................................................... 25 
+Pregunta 4. En adultos hospitalizados en riesgo de desnutrición o con diagnóstico de 
+desnutrición, ¿se debe indicar suplemento nutricional oral? ................................................. 25 
+Pregunta 5. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+proveer soporte nutricional enteral? ...................................................................................... 26 
+Pregunta 6. En el adulto en riesgo de desnutrición o diagnosticado como desnutrido  que 
+recibe nutrición enteral por sonda. ¿Cómo debe ser el modo de administración: infusión 
+continua o intermitente? ........................................................................................................ 27 
+Pregunta 7. En adultos en riesgo de desnutrición o diagnosticados como desnutridos, a 
+quienes se les brinda nutrición enteral (NE) por sonda, ¿se debería usar agentes de 
+motilidad (agentes procinéticos)? ........................................................................................... 27 
+Pregunta 8. En adultos desnutridos sometidos a procedimientos quirúrgicos, ¿se debería 
+brindar la nutrición parenteral total? ..................................................................................... 28 
+Pregunta 9. En adultos con soporte nutricional enteral o parenteral, ¿con qué frecuencia se 
+deben monitorizar los parámetros nutricionales, antropométrico, func ión gastrointestinal, 
+condición clínica y de laboratorio? ......................................................................................... 28 
+VII. Referencias ...................................................................................................................... 29 
+ 
+  
+
+=== PDF PAGE 9 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+6 
+ 
+GUÍA DE PRÁCTICA CLÍNICA  
+PARA EL MANEJO DE LA DESNUTRICIÓN O EL RIESGO DE DESNUTRICIÓN EN EL ADULTO 
+VERSIÓN CORTA 
+I. Tabla 1. Lista de recomendaciones y buenas prácticas clínicas (BPC) 
+Enunciado Tipo * Certeza ** 
+Tamizaje  
+Pregunta 1. En adultos ambulatorios u hospitalizados, ¿se debería realizar el tamizaje para 
+detectar el riesgo de desnutrición? 
+En pacientes adultos hospitalizados, realizar el tamizaje de 
+riesgo nutricional dentro de las 24 a 48 horas  después del 
+ingreso del paciente.  
+En l os pacientes adultos ambulatorios , que acudan a los 
+hospitales niveles II y III, realizar el tamizaje para detectar el 
+riesgo de desnutrición en la primera cita clínica. 
+BPC  
+En pacientes adultos ambulatorios u hospitalizados, para 
+realizar el tamizaje de riesgo de desnutrición, considerar usar 
+(según factibilidad y experiencia) alguna  de estas dos 
+herramientas: “Malnutrition Screening Tool (MST)” o 
+“Malnutrition Universal Scre ening Tool (MUST)”. Asimismo, 
+para adultos mayores de 60 años, considerar usar la 
+herramienta “Mini Nutritional Assessment - Short Form 
+(MNA-SF)”. Además, si los profesionales vienen ejecutando 
+otras herramientas que dominan podrían continuar con su 
+aplicación. 
+ 
+A continuación, se describen los puntos de corte para definir 
+“riesgo de desnutrición” con cada herramienta: 
+Herramienta MUST: ≥ 1 
+Herramienta MST: ≥ 2 
+Herramienta MNA-SF: ≤ 11 
+ 
+Herramienta: “Malnutrition Universal Screening Tool 
+(MUST)” 
+Pregunta Puntaje 
+1. Índice de masa corporal (IMC) 
+> 20 0 
+18.5 a 20 1 
+< 18.5 2 
+2. Pérdida de peso involuntaria en los últimos 3-6 meses 
+    Porcentaje de pérdida de peso = [(peso inicial – peso actual) / peso inicial] * 
+100 
+< 5% 0 
+5% a 10% 1 
+> 10% 2 
+3. Efecto de las enfermedades agudas: el paciente está muy enfermo y no ha 
+habido, o es probable que no vaya a haber aporte nutricional durante >5 días 
+No 0 
+Sí 2 
+Riesgo global de malnutrición: sume las puntuaciones para calcular el riesgo 
+global de malnutrición: 
+ 0 puntos: riesgo bajo 
+ 1 punto: riesgo intermedio 
+ 2 o más puntos: riesgo alto 
+La herramienta fue adaptada del estudio de Elia M. THE ‘MUST’ REPORT Nutritional screening of 
+adults: a multidisciplinary responsibility. In: BAPEN MAGASo, editor. 2003 
+ 
+ 
+ 
+BPC  
+
+=== PDF PAGE 10 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+7 
+ 
+Herramienta “Malnutrition screening tool (MST)” 
+Pregunta Puntaje 
+1. ¿Ha perdido peso de manera involuntaria recientemente?  
+No 0 
+No estoy seguro 2 
+Sí. ¿Cuántos kilogramos?  
+1-5 kg 1 
+6-10 kg 2 
+11-15 kg 3 
+>15 kg 4 
+No es estoy seguro 2 
+2. ¿Ha comido menos de lo normal a causa de disminución del apetito? 
+No 0 
+Sí 1 
+MST: 0 o 1 sin riesgo.  
+MST: ≥ 2 en riesgo de desnutrición. 
+La herramienta fue adaptada del estudio de Ferguson M, Capra S, Bauer J, Banks M. Development of a valid and 
+reliable malnutrition screening tool for adult acute hospital patients. Nutrition (Burbank, Los Angeles County, 
+Calif). 1999;15(6):458-64. 
+ 
+ 
+Herramienta “Mini Nutritional Assessment - Short Form  
+(MNA-SF)” 
+Preguntas 
+A. ¿Ha perdido el apetito o ha comido menos por falta de apetito, problemas 
+digestivos, dificultades de masticación o deglución en los últimos 3  meses? 
+0 = ha comido mucho menos 
+1 = ha comido menos 
+2 = ha comido igual 
+B. Pérdida reciente de peso (en los últimos 3 meses) 
+0 = pérdida de peso > 3 kg  
+1 = no lo sabe 
+2 = pérdida de peso entre 1 y 3 kg 
+3 = no ha habido pérdida de peso 
+C. Movilidad 
+0 = de la cama al sillón 
+1 = autonomía en el interior 
+2 = sale del domicilio 
+D. ¿Ha tenido una enfermedad aguda o situación de estrés psicológico en los últimos 
+3 meses? 
+0 = sí  
+2 = no 
+E. Problemas neuropsicológicos  
+0 = demencia o depresión grave  
+1 = demencia leve  
+2 = sin problemas psicológicos 
+F. Índice de masa corporal (IMC) 
+0 = IMC <19 
+1 = 19 ≤ IMC < 21 
+2 = 21 ≤ IMC < 23 
+3 = IMC ≥ 23 
+Evaluación del cribaje 
+12 puntos o más: Estado nutricional normal 
+11 puntos o menos: Riesgo de malnutrición 
+7 puntos o menos: Malnutrido 
+La herramienta fue adaptada del estudio de Rubenstein LZ, Harker JO, Salvà A, Guigoz Y, Vellas 
+B. Screening for undernutrition in geriatric practice: developing the short -form mini -nutritional 
+assessment (MNA -SF). The journals of gerontology Series A, Biol ogical sciences and medical 
+sciences. 2001;56(6):M366-72. 
+ 
+En el paciente que permanece hospitalizado por más de 7 
+días, repetir el tamizaje semanalmente y en caso de los 
+pacientes ambulatorios o pacientes vistos en su domicilio, 
+repetir el tamizaje ante algún síntoma o signo clínico (pérdida 
+de peso involuntario, pérdida de apetito, anemia u otros).   
+BPC  
+Los pacientes identificados con riesgo nutricional deben ser 
+referidos para la evaluación nutricional e intervención 
+inmediata. 
+BPC  
+ 
+Los pacientes identificados con riesgo nutricional serán 
+sometidos a la evaluación nutricional  (se considerará 
+principalmente el parámetro antropométrico, la composición 
+BPC  
+
+=== PDF PAGE 11 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+8 
+ 
+corporal [Según disponibilidad de los instrumentos, evaluar 
+PCT, CMB u otra medición] , bioquímico , y  dietético). Esto 
+permitirá realizar el diagnóstico de desnutrición. 
+Manejo 
+Pregunta 2. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+indicar soporte nutricional? 
+En adultos hospitalizados o ambulatorios con riesgo de 
+desnutrición o diagnosticados como desnutridos, sugerimos 
+ofrecer soporte nutricional (asesoramiento dietético, 
+enriquecimiento de alimentos, suplementación nutricional 
+oral, nutrición enteral y/o parenteral, según se requiera).  
+Recomendación 
+condicional a 
+favor 
+Baja 
+(⊕⊕⊝⊝) 
+El equipo de soporte nutricional es multidisciplinario, prioriza 
+un trabajo conjunto con los pacientes,  con los pacientes, los 
+familiares, los cuidadores, el servicio de nutrición y los 
+médicos tratantes; para prevenir o tratar la desnutrición 
+según sea necesario. 
+BPC  
+Pregunta 3. En adultos con diagnóstico de desnutrición con alto riesgo del síndrome de 
+realimentación o el síndrome de Wernicke-Korsakoff, ¿cuál debería ser el manejo para iniciar 
+soporte nutricional? 
+En pacientes gravemente enfermos o con condiciones 
+clínicas que requieran nutrición enteral por sonda o nutrición 
+parenteral (con ayuno prolongado), considere lo siguiente 
+para el soporte nutricional:  
+ De manera previa valorar los electrolitos como fósforo 
+(signo cardinal), magnesio, potasio y calcio. 
+ Iniciar soporte nutricional con precaución, no más del 
+50% del objetivo energético y proteico estimado. Este 
+debe ser construido para satisfacer todas las necesidades 
+durante las primeras 24 a 48 horas, según metabolismo y 
+tolerancia gastrointestinal.  
+ Administrar los requerimientos completos de líquidos, 
+electrolitos (según los resultados de laboratorio), 
+multivitamínicos, y minerales desde el comienzo de la 
+alimentación. 
+BPC  
+Los pacientes con nada o muy poca ingesta de alimentos 
+durante > 5 días tienen cierto riesgo de problemas de 
+realimentación. En ellos, considere lo siguiente:  
+ Evitar la hidratación inicial en estos pacientes con 
+dextrosa para prevenir el desarrollo del síndrome de 
+Wernicke-Korsakoff.  
+ Para el soporte nutricional de pacientes en los que se 
+observa ausencia de problemas de realimentación según 
+la clínica y el cont rol bioquímico, considere introducir un 
+máximo del 50% del requerimiento nutricional durante 
+los primeros 2 días, y posteriormente brindar el 
+requerimiento total para satisfacer sus necesidades. 
+BPC  
+Considerar en alto riesgo de desarrollar síndrome de 
+realimentación, a las personas que cumplan con uno o más 
+de los siguientes criterios: 
+ IMC < 16 kg/m2. 
+ Pérdida de peso involuntaria superior al 15% en los 
+BPC  
+
+=== PDF PAGE 12 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+9 
+ 
+últimos 3 a 6 meses. 
+ Poca o ninguna ingesta nutricional durante más de 5 días. 
+ Niveles bajos de potasio,  fósforo o magnesio antes de la 
+alimentación. 
+ Problemas gastrointestinales, vómito recurrente. 
+ 
+O a las personas que cumplan dos o más de los siguientes 
+criterios: 
+ IMC < 18,5 kg/m2. 
+ Pérdida de peso involuntaria superior al 10% en los 
+últimos 3 a 6 meses. 
+ Antecedentes de abuso de alcohol o drogas, incluidos 
+insulina, quimioterapia, antiácidos o diuréticos. 
+ Problemas gastrointestinales, vómito recurrente. 
+Las personas con alto riesgo de desarrollar problemas de 
+realimentación deberán ser atendidas por profesionales de la 
+salud debidamente capacitados y con un conocimiento 
+profundo sobre requerimiento nutricional y soporte 
+nutricional. 
+BPC  
+Para el soporte nutricional en personas con alto riesgo de 
+desarrollar síndrome de realimentación, se debe conside rar 
+lo siguiente: 
+ Iniciar el soporte nutricional con el 25% de las calorías 
+estimadas para el paciente. El aporte calórico se irá 
+aumentando paulatinamente hasta llegar a la meta 
+calórica a los 3 a 5 días. 
+ Realizar una distribución calórica equilibrada: 50 -60% 
+carbohidratos, 30-40% lípidos, y 15-20% de proteínas.  
+ La progresión del soporte nutricional debe ser vigilada y 
+diaria, por lo que, de no conseguir el objetivo nutricional 
+del 50% a los 3 o 5 días, so licitar interconsulta al equipo 
+de soporte nutricional para iniciar nutrición parenteral. 
+ En casos extremos (por ejemplo, IMC < 14 kg/m 2 o con 
+ingesta insignificante durante más de 15 días) utilizar solo 
+5 kcal/kg/día y, monitorear el ritmo cardíaco 
+continuamente en estas personas. 
+ Restaurar el volumen circulatorio, y monitorizar el 
+equilibrio de líquidos y el estado clínico general de cerca. 
+ Proporcionar inmediatamente antes y durante los 
+primeros 10 días de alimentación: multivitamínicos y 
+elementos traza  suplementarios una vez al día, de 
+acuerdo con el dosaje en suero. 
+ Proveer suplementos de potasio, fósforo y magnesio 
+según el requerimiento del paciente, después de realizar 
+la evaluación de los niveles bioquímicos de los mismos. 
+ Para disminuir el riesgo de desarrollar el síndrome de 
+Wernicke-Korsakoff, evitar el uso de dextrosa, cual sea su 
+concentración. 
+ En pacientes no alcohólicos con sospecha o riesgo de 
+síndrome de Wernicke Korsakoff, administrar como 
+tratamiento profiláctico tiamina de 100 a 200 mg c /6h en 
+BPC  
+
+=== PDF PAGE 13 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+10 
+ 
+bolo IV (o IM si IV no es posible) durante 3 a 5 días, 
+seguidos de tiamina oral 100 mg c/8h durante 1 a 2 
+semanas y 100 mg diarios a partir de entonces. 
+ En pacientes alcohólicos con diagnóstico definitivo de 
+síndrome de Wernicke -Korsakoff administrar tiamina de 
+200 a 500 mg c/8h IV durante 5 a 7 días, seguidos de 
+tiamina oral 100 mg c/8h durante 1 a 2 semanas, 
+posteriormente 100 mg diarios a partir de entonces. 
+Pregunta 4. En adultos hospitalizados en riesgo de desnutrición o con diagnóstico de  
+desnutrición, ¿se debe indicar asesoramiento dietético y suplemento nutricional oral? 
+En pacientes adultos hospitalizados con riesgo de 
+desnutrición o con diagnóstico de desnutrición, quienes 
+tengan el tracto gastrointestinal funcional y accesible, 
+sugerimos ofrecer asesoramiento dietético y suplemento 
+nutricional oral.  
+Recomendación 
+condicional a 
+favor  
+Muy baja 
+(⊕⊝⊝⊝) 
+A las personas adultas hospitalizados con riesgo de 
+desnutrición o con diagnóstico de desnutrición, que puedan 
+deglutir, se puede ofrecer suplemento nutricional oral 
+cuando el asesoramiento dietético y el enriquecimiento de 
+los alimentos no sean suficientes para aumentar la ingesta 
+dietética y alcanzar los objetivos nutricionales. 
+BPC  
+En estos casos, el nutricionista debe asegurar que el aporte 
+global de nutrientes del suplemento nutricional oral ofrecido 
+contenga macro y micronutrientes específicos en las 
+cantidades necesarias para la patología y condición del 
+paciente. Asimismo, consi derar el tipo, el sabor, la textura y 
+el momento de consumo del suplemento nutricional oral 
+para adaptarlo a la condición clínica y a la capacidad 
+alimentaria del paciente. 
+BPC  
+En los adultos mayores, tras el alta hospitalaria se podría 
+ofrecer suplement o nutricional oral para continuar con la 
+mejora de la ingesta dietética, el peso corporal, reducir el 
+riesgo de deterioro funcional y prevenir el reingreso 
+hospitalario. 
+BPC  
+Considerar la continuidad del suplemento nutricional oral de 
+manera periódica (a  nivel hospitalario, ambulatorio y/o 
+domiciliario), tomando en cuenta la evaluación del 
+cumplimiento, la tolerancia, condición clínica del paciente. 
+BPC  
+El suplemento nutricional oral debe suspenderse cuando el 
+paciente haya establecido una ingesta oral adecuada 
+(consumo de por lo menos 70% de los requerimientos) y 
+haya mejorado sus indicadores nutricionales y bioquímicos. 
+BPC  
+Pregunta 5. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+proveer soporte nutricional enteral? 
+En pacientes adultos con diagnóstico de desnutrición 
+hospitalizados con ingesta oral insuficiente (menos del 60%)  
+y un tracto gastrointestinal funcional y accesible, 
+recomendamos brindar soporte nutricional enteral en lugar 
+de la atención estándar. 
+Recomendación 
+fuerte a favor 
+Baja 
+(⊕⊕⊝⊝) 
+En pacientes adultos con diagnóstico de desnutrición dados 
+de alta hospitalaria con ingesta oral insuficiente (menos del 
+Recomendación 
+fuerte a favor 
+Muy baja 
+(⊕⊝⊝⊝) 
+
+=== PDF PAGE 14 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+11 
+ 
+60%) y un tracto gastrointestinal funcional y accesible, 
+recomendamos continuar con el soport e nutricional enteral 
+en el hogar en lugar de la atención estándar. 
+Se ofrecerá soporte nutricional enteral cuando: la ingesta 
+oral sea imposible durante más de tres días, o se encuentre 
+por debajo del 60% de l os requerimientos nutricionales 
+durante más de una semana, a pesar de las intervenciones 
+para asegurar una ingesta oral adecuada. 
+BPC  
+Está indicada la nutrición enteral por sonda en: pacientes en 
+estado de inconciencia (traumatismo craneoencefálico, en 
+ventilación mecánica), trastorno de deglución neuromuscular 
+(Post-ACV, esclerosis múltiple, enfermedad de la neurona 
+motora, enfermedad de Parkinson, miastenia gravis, parálisis 
+cerebral, esclerosis lateral amiotrófica), anorexia fisiológica 
+(cáncer, sepsis, enfermedad hepática, VIH), obstrucción 
+gastrointestinal superior (estenosis o tumor orofaríngeo o 
+esofágico), disfunción gastrointesti nal o malabsorción 
+(dismotilidad, enfermedad inflamatoria intestinal, longitud 
+del intestino reducida aunque puede ser necesaria nutrición 
+parenteral), aumento de las necesidades nutricionales 
+(fibrosis quística, quemaduras), problemas psicológicos 
+(depresión severa o anorexia nerviosa), tratamiento 
+específico (enfermedad inflamatoria intestinal, tuberculosis 
+[pulmonar, gastrointestinal o sistémica], lesiones por presión 
+(a partir de grado II)), pacientes con COVID -19 moderado o 
+en pacientes con problemas d e salud mental (demencia, 
+Alzheimer).  
+BPC  
+Las personas en medicina general, cirugía y cuidados 
+intensivos, con desnutrición o en riesgo de desnutrición con 
+ingesta oral insuficiente (menos del 60%) , y con tracto 
+gastrointestinal funcional y accesible , proveer soporte 
+nutricional enteral mediante una sonda enteral  
+(nasogástrica, duodenal o yeyunal). En caso de un tracto 
+gastrointestinal superior disfuncional se debe considerar 
+alimentación enteral a través de ostomías (gastrostomías o 
+yeyunostomías). 
+BPC  
+En pacientes con disfagia que necesiten soporte nutricional 
+enteral a largo plazo (de 4 semanas a más) considerar la 
+alimentación por gastrostomía. 
+BPC  
+Después de un accidente cerebrovascular, las personas que 
+no pueden tragar con seguridad o cubrir s us requerimientos 
+nutricionales por vía oral, deben ser evaluados inicialmente 
+para el soporte nutricional enteral por sonda nasogástrica y 
+de necesitar nutrición enteral por más de 5 semanas 
+considerar el uso de gastrostomía. 
+BPC  
+En pacientes quirúrgicos que están desnutridos y con ingesta 
+oral insuficiente (menos del 60%) y un tracto gastrointestinal 
+funcional y accesible, que serán sometidos a procedimientos 
+abdominales importantes, se debe considerar tratamiento 
+enteral preoperatorio mediante sonda na sogástrica y/o 
+nasoyeyunal. 
+BPC  
+
+=== PDF PAGE 15 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+12 
+ 
+Los pacientes en cirugía general post-operados pueden tener 
+soporte nutricional enteral temprana o precoz por sonda 
+nasogástrica y/o nasoyeyunal según evaluación e indicación, 
+para asegurar su requerimiento nutricional. 
+BPC  
+Pregunta 6. En el adulto en riesgo de desnutrición o diagnosticado como desnutrido que 
+recibe nutrición enteral por sonda. ¿Cómo debe ser el modo de administración, infusión 
+continua o intermitente? 
+En pacientes adultos en riesgo de desnutrición o 
+diagnosticados como desnutridos  que reciben nutrición 
+enteral (NE), optar por las modalidades de infusión continua 
+o intermitente teniendo en cuenta la condición clínica, 
+tolerancia, la comodidad del paciente y la administración de 
+las medicinas. 
+BPC  
+En pacientes adultos en cuidados intensivos  que reciben 
+nutrición enteral (NE), por lo general se debe administrar 
+dicha alimentación de forma continua durante 20 horas 
+netas a diario en lugar de intermitente. Si se necesita la 
+administración de insulina, es más seguro y práctico 
+administrar la nutricional de forma continua durante 24 
+horas. 
+BPC  
+Pregunta 7. En adultos en riesgo de desnutrición o diagnosticados como desnutridos, a 
+quienes se les brinda nutrición enteral (NE) por sonda, ¿se debería usar agentes de motilidad 
+(agentes procinéticos)? 
+En adultos con nutrición enteral por sonda, en cuidados 
+intensivos, recomendamos indicar el uso de agentes 
+procinéticos. 
+Recomendación 
+fuerte a favor 
+Baja 
+(⊕⊕⊝⊝) 
+Considere los agentes procinéticos como por ejemplo 
+metoclopramida 10mg IV cada 8h durante 5 días, por sonda 
+durante 5 días. 
+BPC  
+Considere que las dosis propuestas están sujetas a 
+evaluación de comorbilidades del paciente como 
+insuficiencia renal. 
+BPC  
+Considere la alimentación por sonda enteral pospilórica y/o 
+nutrición parenteral, en caso de que a pesar del uso de 
+agentes procinéticos persista el retraso del vaciamiento 
+gástrico, lo cual limitaría gravemente la nutrición en el 
+estómago. 
+BPC  
+Pregunta 8. En adultos desnutridos sometidos a procedimientos quirúrgicos, ¿se debería 
+brindar la nutrición parenteral total? 
+En pacientes adultos desnutridos sometidos a 
+procedimientos quirúrgicos, sugerimos brindar nutrición 
+parenteral total.  
+Recomendación 
+condicional a 
+favor 
+Baja 
+(⊕⊕⊝⊝) 
+En los pacientes desnutridos sometidos a procedimientos 
+quirúrgicos, considere brindar nutrición parenteral total en: 
+- Aquellos con ingesta nutricional oral y/o enteral 
+insuficiente (menos del 60%). 
+- Aquellos con el tracto gastrointestinal no funcional, 
+inaccesible o con falta de continuidad. 
+- Aquellos con tratamiento de fístula gastrointestinal de 
+alto gasto > 500 ml/ día. 
+- Aquellos con íleo posquirúrgico prolongado > 500 ml de 
+BPC  
+
+=== PDF PAGE 16 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+13 
+ 
+residuo. 
+- Aquellos con ostomías menores a 100 cm del ángulo de 
+Treitz, o complicaciones con la sonda de alimentación. 
+En los pacientes desnutridos sometidos a procedimientos 
+quirúrgicos, considere brindar soporte nutrición parenteral 
+complementaria cuando ingieren por vía enteral menos del 
+60% de su requerimiento nutricional: 
+- Aquellos con capacidad de absorción inadecuada 
+(síndrome del intestino corto).  
+- Aquellos con malabsorción (enfermedad inflamatoria 
+intestinal, enteritis por radiación).  
+- Aquellos con enfermedades subyacentes con 
+dismotilidad crónica (pseudoobstrucción crón ica, 
+pseudocolitis membranosa refractaria, diarrea 
+refractaria). 
+BPC  
+La nutrición parenteral debe introducirse de forma 
+progresiva usualmente no mayor del 50% del requerimiento 
+nutricional durante las primeras 24 a 48 h, y debe ser 
+monitoreada diariamente. 
+BPC  
+Los requerimientos nutricionales se ajustarán a la situación 
+de estrés del paciente.  
+Habitualmente, ante un paciente quirúrgico que ingresa en la 
+unidad de cuidados intensivos que se encuentra en fase 
+catabólica, se administrarán 20 -25 kcal/kg/dí a y se 
+aumentará a 25-30 kcal/kg/día en la fase anabólica.  
+BPC  
+ 
+
+=== PDF PAGE 17 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+14 
+ 
+Para el inicio y avance de macronutrientes en los adultos, 
+seguir los requerimientos detallados en la Tabla Nº1. 
+Considere los requerimientos de electrolitos en los pacientes 
+adultos, detallados en la Tabla Nº2. 
+ 
+Tabla Nº1. Requerimiento de macronutrientes en adultos. 
+Inicio Avance Objetivos 
+Proteínas, g /kg/día 0.8-2 -- 0.8-2 
+Dextrosa como tasa de infusión 
+de glucosa (GIR), mg/kg/min 2.5-3 1-2 4.5 
+Emulsión de grasa intravenosa 
+(IVFE), g/kg/día 1 1 1-1.5 
+ 
+Tabla Nº2. Requerimiento de electrolitos en adultos. 
+Electrolitos Requerimientos 
+Sodio 60-100 mEq/día o 1-2 mEq/kg/día 
+Potasio 60-100 mEq/día o 1-2 mEq/kg/día 
+Cloruro Según sea necesario para mantener el equilibrio ácido-
+base 
+Acetato Según sea necesario para mantener el equilibrio ácido-
+base 
+Calcio 10-15 mEq/día (no necesariamente en la bolsa de NPT) 
+Fósforo 20-40 mmol/día o 0.25-0.5 mmol/kg/día (no 
+necesariamente en la bolsa de NPT) 
+Magnesio 8-20 mEq/día o 0.25-0.5 mEq/kg/día (no necesariamente 
+en la bolsa de NPT) 
+Zinc 14 mg/día (IV) con déficit comprobado de zinc en suero. 
+ 
+BPC  
+En los pacientes con comorbilidad como la insuficiencia 
+renal, considere iniciar los requerimientos de electrolitos al 
+50%. 
+BPC  
+Realizar monitoreo mediante pruebas de laboratorio diario 
+en los pacientes con enfermedad crítica: conteo sanguíneo 
+completo con diferencial (semanal), creatinina, triglicéridos, 
+pruebas de función hepática, electrolitos, glucosa, glucosa en 
+sangre capilar (cada 6h), magnesio, fósforo. 
+BPC  
+La nutrición parenteral se suspende cuando el paciente 
+tolera más del 60% de sus requerimientos nutricionales, sea 
+por vía oral o enteral. La suspensión debe planificarse, con 
+una revisión diaria del progreso del paciente. No hay un 
+período mínimo de tiempo para la duración de la nutrición 
+parenteral. 
+BPC  
+Monitoreo 
+Pregunta 9. En adultos con soporte nutricional enteral o parenteral, ¿con qué frecuencia se 
+deben monitorizar los parámetros nutricionales, antropométrico, función gastrointestinal, 
+condición clínica y de laboratorio? 
+
+=== PDF PAGE 18 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+15 
+ 
+En adultos hospitalizados con soporte nutricional enteral o 
+parenteral, establecer la frecuencia de monitoreo de 
+acuerdo con lo descrito en las tablas Nº 3 y Nº4.  
+ 
+Asimismo, para la frecuencia tener en cuenta la naturaleza y 
+severidad del estado de la enfermedad subyacente si es que 
+previamente los resultados fueron anormales. Además, 
+considerar la tolerancia del soporte nutricional, nivel del 
+estrés metabólico, e stado nutricional, progreso de los 
+valores bioquímicos, entorno de la atención nutricional y la 
+duración prevista del soporte nutricional. 
+ 
+Tabla Nº3: Monitoreo nutricional, antropométrico, función 
+gastrointestinal y clínico del soporte nutricional a nivel 
+hospitalario. 
+Parámetro Frecuencia 
+Nutricional   
+Cantidad/volumen del 
+soporte nutricional 
+administrado (oral, 
+enteral o parenteral) 
+En UCI diario. En salas generales de 
+hospitalización inicialmente diario, luego dos 
+veces a la semana. Cuando el paciente  llegue 
+a estabilizarse y/o se verifique tolerancia, 
+semanal hasta la suspensión del soporte 
+nutricional. 
+Balance de fluidos 
+(estabilidad 
+hemodinámica). 
+En UCI diario. En salas generales de 
+hospitalización inicialmente diario, luego dos 
+veces a la semana cuando el paciente llegue 
+a estabilizarse. 
+Balance nitrogenado Prioritariamente en pacientes quirúrgicos 
+lesionados (quemaduras y traumatismos) 
+realizar la medición hasta 3 veces la primera 
+semana, luego cada 15 días y hasta el mes de 
+recibir ya sea NET, NPT o soporte mixto.  
+Antropométrico  
+Peso En la hospitalización diariamente si le 
+preocupa el balance de fluidos, de lo 
+contrario semanalmente. En control 
+ambulatorio en cada cita.  
+%Peso usual, % 
+Pérdida de peso. 
+Al iniciar, luego semanal o quincenalmente y 
+en control ambulatorio según cita.  
+Circunferencia media 
+de brazo, pliegue 
+tricipital 
+Mensualmente, si el peso no puede ser 
+obtenido o es difícil de interpretar. 
+Función gastrointestinal  
+Nauseas/vómitos, 
+diarrea, constipación 
+Diario inicialmente. Luego dos veces a la 
+semana y/o según la verificación de 
+tolerancia y luego semanal hasta su 
+suspensión. 
+Distensión abdominal Según sea necesario. 
+Condición clínica  
+Estado general  Diario por el personal del servicio de 
+hospitalización. 
+Signos vitales  Diario por el personal del servicio de 
+hospitalización. 
+Terapia farmacológica Diario por el personal del servicio de 
+hospitalización y en control ambulatorio 
+hasta siguiente control.  
+Evidencia de infección 
+o sepsis 
+Diario por el personal del servicio de 
+hospitalización.  
+ 
+BPC  
+
+=== PDF PAGE 19 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+16 
+ 
+ 
+ 
+Tabla Nº4: Monitoreo de laboratorio en el soporte 
+nutricional 
+ 
+Parámetro Frecuencia de medición en 
+la nutrición enteral 
+Frecuencia de medición 
+en la nutrición 
+parenteral 
+Glucosa  A las 48 horas y luego 
+Semanal sino es diabético 
+A las 48 horas, cada 4 
+días y luego Semanal. 
+De acuerdo con la 
+condición clínica (por 
+ejemplo, diabetes) 
+considerar la medición 
+de glucemia capilar 
+diariamente y cada 8 
+horas. 
+Urea, 
+creatinina 
+A las 48 horas y luego 
+Semanal sino tiene 
+compromiso renal  
+A las 48 horas, cada 4 
+días y luego Semanal 
+Sodio, 
+potasio 
+A las 48 horas y luego 
+Semanal sino tiene 
+compromiso renal  
+A las 48 horas, cada 4 
+días y luego Semanal  
+Magnesio, 
+fósforo 
+A las 48 horas y luego 
+Semanal  
+A las 48 horas, cada 4 
+días y luego Semanal. 
+En pacientes con riesgo 
+de síndrome de 
+realimentación el 
+monitoreo de los 
+valores de potasio, 
+magnesio y de fósforo 
+sea diario por una 
+semana como mínimo o 
+hasta asegurarnos que 
+estos valores están 
+normales.  
+Calcio A las 48 horas y luego 
+Semanal  
+A las 48 horas, cada 4 
+días y luego Semanal 
+Zinc, cobre y 
+selenio 
+Al inicio y si los valores 
+están alterados cada 
+semana 
+Al inicio y si los valores 
+están alterados cada 
+semana. Se realizará 
+monitoreo inicial si la 
+condición del paciente 
+se encuentra 
+gravemente 
+comprometido, 
+asimismo cuando el 
+paciente se encuentre 
+estable, realizar el 
+monitoreo de manera 
+mensual. 
+Perfil lipídico Al inicio y luego cada 4 
+semanas 
+Al inicio y luego cada 3 
+semanas  
+Perfil 
+hepático  
+A las 48 horas y luego 
+Semanal (albúmina 
+quincenal) 
+A las 48 horas y luego 
+Semanal (albúmina 
+quincenal) 
+ 
+ 
+ 
+ 
+
+=== PDF PAGE 20 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+17 
+ 
+El monitoreo en el paciente ambulatorio con soporte 
+nutricional oral y/o enteral será realizado por un profesional 
+de la salud que sea parte del equipo de la Unidad de Soporte 
+Nutricional, con entrenamiento y experiencia en el manejo 
+de soporte nutricional. Estos pacientes serán monitorizados 
+al mes de inicio, luego cada 2 o 3 meses y posteriormente 
+cada 3 meses, o más frecuente si hay algún cambio en su 
+condición clínica. Se considera realizar un número limitado 
+de observaciones y/o pruebas referentes a la tabla Nº 3 
+referida anteriormente, adem ás las pruebas de laboratorio 
+generalmente no serán necesarias si el progreso clínico es 
+satisfactorio.  
+BPC  
+Se supervisará el progreso del paciente hacia los objetivos a 
+corto y largo plazo definidos en el plan de intervención 
+nutricional de acuerdo con  los parámetros descritos en las 
+tablas Nº3 y Nº4. Si no se cumplen los objetivos, se presenta 
+un nuevo problema o complicación clínica y/o se produce un 
+evento adverso, modificar el plan de intervención 
+nutricional. 
+BPC  
+* Recomendación basada en evidencias, (R) o buena s prácticas clínicas (BPC) basada s en 
+consenso. 
+** La certeza de la evidencia solo se establece para las recomendaciones, mas no para las BPC. 
+ 
+ 
+  
+
+=== PDF PAGE 21 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+18 
+ 
+Sí 
+II. Flujogramas 
+Flujograma 1. Flujograma para el tamizaje y evaluación nutricional  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+MST: Malnutrition screening tool, MUST: Malnutrition Universal Screening Tool, MNA-SF: Mini Nutritional Assessment 
+– Short Form, PADOMI: Programa de Atención Domiciliaria. 
+a Se consideran las siguientes dependencias: PADOMI, COPOHES, Unidad de Soporte Nutricional (según sea el caso),  
+b De acuerdo con la gravedad y urgencia, iniciar con el tratamiento de inmediato. 
+  
+En todas las etapas de la atención: 
+Considerar el aspecto cultural y ético para proveer soporte nutricional. 
+Proveer información a los pacientes acerca de su tratamiento de manera oportuna. 
+Asegurar que existe una vía de atención con objetivos de tratamiento claros de manera 
+personalizada. 
+TAMIZAJE 
+ 
+Ambiente hospitalario: 
+Pacientes hospitalizados en el momento del ingreso. 
+Pacientes ambulatorios en su primera consulta clínica. 
+ 
+Domiciliario a: 
+Todos en su primera visita. 
+Instrumentos que considerar y 
+sus puntos de corte para definir 
+“riesgo de malnutrición”: 
+ 
+Adultos hospitalizados o 
+ambulatorios: 
+Herramienta MUST: ≥ 1 
+Herramienta MST: ≥ 2 
+ 
+Adultos mayores hospitalizados o 
+ambulatorios: 
+Herramienta MNA-SF: ≤ 11 
+ 
+ 
+Según tamizaje, ¿el paciente se 
+encuentra en riesgo de desnutrición? 
+  
+No 
+REPETIR TAMIZAJE: 
+ 
+Hospitales: Semanalmente. 
+ 
+Ambulatorio / domicilio: 
+Cuando hay preocupación 
+clínica. 
+Usar 
+Si el paciente está desnutrido: 
+Consideración apropiada para el soporte 
+nutricional 
+ 
+Sí 
+Adulto (mayor de 18 años)  hospitalizado o ambulatorio 
+atendido en hospitales del nivel II y III del Seguro Social del 
+Perú. 
+EVALUACIÓN NUTRICIONAL b 
+ 
+Valorar parámetros: 
+Antropométrico 
+Composición corporal 
+Bioquímico 
+Clínico 
+Dietético 
+ 
+
+=== PDF PAGE 22 ===
+19 
+ 
+Flujograma 2. Flujograma para indicar soporte nutricional farmacológico 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+RGE: Reflujo gastroesofágico, GI: Gastro intestinal, SNG: Sonda naso gástrica, SNY: Sonda naso yeyunal, SND: Sonda naso duodenal. 
+Nota: Si el consumo (dieta oral) es mayor a 70% de los requerimientos nutricionales, realizar la derivación al servicio de nutrición 
+¿Intestino con funcionamiento normal? 
+ 
+Menos igual a 5 semanas 
+Ingesta entre 60 - al 70% de 
+los requerimientos 
+ 
+Ingesta inferior al 60% 
+de los requerimientos 
+ 
+NO 
+Nutrición oral/enteral Nutrición parenteral 
+Considerar las siguientes 
+opciones: 
+ Asesoramiento nutricional 
+ Suplementos nutricionales 
+orales (SNO) y/o en 
+combinación con alimentos 
+naturales. 
+Nutrición enteral por sonda 
+Más a 5 semanas 
+Nasoentérica 
+Ostomías 
+RGE (*), gastroparesia, riesgo de 
+aspiración, pancreatitis, fístula GI alta 
+SNG SND o SNY 
+Gastrostomía 
+Yeyunostomía 
+¿Cuál será la 
+duración estimada? 
+¿Recupera la función 
+GI? 
+Sí No 
+Sí No 
+SÍ 
+Adulto (mayor de 18 años)  hospitalizado o ambulatorio atendido en hospitales del nivel II y 
+III del Seguro Social del Perú con riesgo de desnutrición o diagnosticado como desnutrido. 
+
+=== PDF PAGE 23 ===
+20 
+ 
+III. Introducción 
+La desnutrición es un estado de nutrición caracterizada por una deficiencia de energía, 
+proteínas y otros nutrientes que provoca efectos adversos en el cuerpo humano, impactando 
+en la funcionabilidad y en el resultado clínico (1, 2). Las principales causas de la desnutrición 
+están orientadas a una ingesta insuficiente, problemas en la digestión o absorción, alteración 
+de las necesidades metabólicas de nutrientes y pérdida excesiva de nutrientes (3).  
+Asimismo, una reducción de la ingesta de alimentos o d e la absorción de nutrientes, 
+combinada con una inflamación aguda o crónica por alguna enfermedad adicional, puede 
+provocar una alteración de la composición corporal y una disminución de la función, la cual se 
+denomina desnutrición asociada a una enfermedad o a una lesión (1, 2). 
+En el Reino Unido la prevalencia de desnutrición en los adultos es 25% (4) aumentando 
+progresivamente en los adultos mayores. En Irlanda la medi a de riesgo de desnutrición en los 
+pacientes que ingresan a los centros hospitalarios es de 30% (5). A nivel nacional se ha 
+observado que en un hospital de alta complejidad como el “Hospital Nacional Guillermo 
+Almenara Irigoyen” en el Servicio de Cirugía de Emergencia se realizó tamizaje para detectar 
+riesgo de desnutrición, hallándose un 34.5% de pacientes con riesgo de desnutrición de 
+moderada o severa al momento del ingreso. En cuanto a su evolución nutricional durante la  
+hospitalización, el 16% empeoró en su estado nutricional (6).  
+La optimización de la detección, manejo y monitoreo de los casos de desnutrición podría tener 
+impacto en reducir su morbimortalidad y complicaciones. Por ello, el Seguro Social de Salud 
+(EsSalud) priorizó la realización de la presente guía de práctica clínica (GPC) para establecer 
+lineamientos basados en evidencia para gestionar de la mejor manera los procesos y 
+procedimientos asistenciales de la presente condición. 
+Esta GPC fue realizada por la Dirección de Guías de Práctica Clínica, Farmacovigilancia y 
+Tecnovigilancia del Instituto de Evaluación de Tecnologías en Salud e Investigación (IETSI) de 
+EsSalud. 
+IV. Objetivo y población de la GPC 
+ Objetivos de la GPC: 
+o Brindar recomendaciones para la detección del riesgo de desnutrición, manejo 
+y monitoreo, con el fin de contribuir a un mejor pronóstico clínico, reducir la 
+morbimortalidad, y reducir la incidencia de complicaciones de los pacientes y 
+por ende contribuir a un mejor estado nutricional. 
+ Población a la cual se aplicará la GPC:  
+o Personas adultas con factores de riesgo para el desarrollo de desnutrición. 
+o Personas adultas con diagnóstico de desnutrición. 
+Usuarios y ámbito de la GPC 
+ Usuarios de la GPC:  
+o Esta GPC  está dirigida al personal médico y no médico, que participa en la 
+atención multidisciplinaria del paciente con riesgo de desnutrición o 
+diagnosticado como desnutrido.  
+o Las recomendaciones serán aplicadas por el médico tratante, nutricionistas, 
+enfermeras, químico farmacéutico, médicos gestores, enfermeros y personal 
+
+=== PDF PAGE 24 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+21 
+ 
+técnico. Asimismo, podrá ser utilizada como referencia por estudiantes de 
+profesiones relacionadas al ámbito de la salud y pacientes. 
+ 
+ Ámbito asistencial:  
+o El ámbito asistencial incluye los establecimientos de segundo y tercer nivel de 
+atención, pues para el abordaje de la desnutrición hospitalaria es necesario 
+que contar con la cartera de servicios de soporte nutricional enteral y/o 
+parenteral según sea el caso. 
+Esta guía no cubre: 
+o El tamizaje nutricional específico de la enfermedad o del área para el riesgo de 
+malnutrición, por ejemplo, unidades de cuidados intensivos o unidades 
+hepáticas. 
+o Apoyo nutricional oral específico para cada enfermedad o área, por ejemplo, 
+unidades de cuidados intensivos, unidades hepáticas. 
+o Tratamiento de los trastornos alimentarios. 
+o Tratamiento de errores congénitos del metabolismo. 
+o Atención especializada específica para el embarazo. 
+o Tamizaje o soporte nutricionales en la comunidad. 
+o Nutrición parenteral específico para alguna enfermedad. 
+ 
+Proceso o procedimiento para estandarizar 
+Nombre y código CIE-10: 
+Código 
+CIE Nombre CIE Código de la 
+Subcategoría Nombre de la Subcategoría 
+E40.X Kwashiorkor 10501 Malnutrición proteico-calórica 
+E41.X Marasmo nutricional 10501 Malnutrición proteico-calórica 
+E42.X Kwashiorkor marasmático 10501 Malnutrición proteico-calórica 
+E43.X 
+Desnutrición proteicocalórica 
+severa, no especificada 10501 Malnutrición proteico-calórica 
+E44 
+Desnutrición proteicocalórica de 
+grado moderado y leve 10501 Malnutrición proteico-calórica 
+E44.0 
+Desnutrición proteicocalórica 
+moderada 10501 Malnutrición proteico-calórica 
+E44.1 Desnutrición proteicocalórica leve 10501 Malnutrición proteico-calórica 
+E45.X 
+Retardo del desarrollo debido a 
+desnutrición proteicocalórica 10501 Malnutrición proteico-calórica 
+E46.X 
+Desnutrición proteicocalórica, no 
+especificada 10501 Malnutrición proteico-calórica 
+  
+ 
+ 
+ 
+ 
+
+=== PDF PAGE 25 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+22 
+ 
+V. Metodología 
+El procedimiento seguido para la elaboración de la presente GPC está detallado en su versión 
+“in extenso”, la cual puede descargarse de la página web del IETSI de EsSalud 
+(http://www.essalud.gob.pe/ietsi/guias_pract_clini.html). 
+En resumen, se aplicó la siguiente metodología: 
+Conformación del grupo elaborador de la guía (GEG): 
+Se conformó un GEG, que incluyó metodólogos, nutricionistas, enfermeras y médicos. 
+Formulación de preguntas:  
+En concordancia con los objetivos y alcances de esta GPC, el GEG formuló 9 preguntas clínicas 
+(Tabla 1), cada una de las cuales pudo tener una o más preguntas PICO ( Population, 
+Intervention, Comparator, Outcome ). A su vez, cada pregunta PICO pudo tener uno o más 
+desenlaces (o outcomes) de interés. 
+Búsqueda y selección de la evidencia:  
+Para cada pregunta PICO, durante abril del 2021, se buscaron revisiones sistemáticas (RS) 
+publicadas como artículos científicos (mediante búsquedas sistemáticas en PubMed y 
+CENTRAL) o realizadas como parte de una GPC previa (mediante una búsqueda s istemática de 
+GPC). Cuando se encontraron RS de calidad aceptable según el instrumento A Measurement 
+Tool to Assess Systematic Reviews -II (AMSTAR II) (7), se escogió una para cada desenlace de 
+interés, la cual fue actualizada cuando el GEG lo consideró necesario. Cuando no se encontró 
+ninguna RS de calidad aceptable, se realizó una búsqueda de novo de estudios primarios.  
+Evaluación de la certeza de la evidencia y cálculo de efectos absolutos: 
+Para cada desenlace de cada pregunta PICO, se evaluó la certeza de la evidencia siguiendo la 
+metodología de Grading of Recommendations Assessment, Develop ment, and Evaluation  
+(GRADE) (8).  
+Asimismo, se calcularon los efectos absolutos para cada desenlace (diferencias de riesgos para 
+desenlaces dicotómicos, o diferencias de medias para desenlaces numéricos). Para el cálculo 
+de las diferencias de riesgos, se consideró que la incidencia del desenlace en el grupo control 
+fue la reportada por el cuerpo de la evidencia, salvo se mencione lo contrario para alguna 
+pregunta. 
+Formulación de las recomendaciones:  
+El GEG revisó la evidencia seleccionada para cada pregunta clínica en reuniones periódicas , 
+usando los marcos Evidence to Decision (EtD) de la metodología GRADE (9, 10). Para ello, tuvo 
+en consideración: 1) Beneficios y daños de las opciones, 2) Valores y preferencias de los 
+pacientes, 3) Aceptabilidad por parte de l os profesionales de salud  y pacientes, 4) Equidad, 5) 
+Factibilidad de las opciones en EsSalud, y 6) Uso de recursos. Luego de discutir estos criterios 
+para cada pregunta, el GEG, por consenso o por mayoría simple, formuló cada recomendación, 
+asignándole una fuerza (fuerte o condicional) y una certeza de la evidencia (alta, moderada, 
+baja, o muy baja) (Tabla 2). 
+  
+
+=== PDF PAGE 26 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+23 
+ 
+Tabla 2. Significado de los niveles de certeza de la evidencia y de la fuerza de la 
+recomendación 
+ 
+Formulación de buenas prácticas clínicas:  
+El GEG formuló buenas prácticas clínicas (BPC), usualmente en base a su experiencia clínica o a 
+adopciones de otras guías o protocolos (Tabla 1).  
+Revisión por expertos externos:  
+La presente GPC fue revisada en reuniones con especialistas representantes de otras 
+instituciones, tomadores de decisiones  de EsSalud, y pacientes . Asimismo, su versión extensa 
+fue enviada por vía electrónica a expertos externos para su revisión (mencionados en la 
+sección de agradecimientos). Cuando fue pertinente, e l GEG tuvo en cuenta los resu ltados de 
+estas revisiones para modificar las recomendaciones finales. 
+Actualización de la GPC:  
+La presente GPC tiene una vigencia de tres años. Al acercarse al fin de este período, se 
+procederá a realizar una RS de la literatura para su actualización, lu ego de la cual se decidirá si 
+se actualiza la presente GPC o se procede a realizar una nueva versión. 
+Enunciado Significado 
+Fraseo que se usó para 
+expresar esta certeza o 
+fuerza en el texto 
+Certeza de la 
+evidencia 
+⨁⨁⨁⨁ 
+ALTA 
+Nuestra confianza en la 
+evidencia usada para tomar 
+la decisión es alta.  
+“Se evitarán/causarán, 
+incrementará/disminuirá, no 
+modificará …”. 
+⨁⨁⨁◯ 
+MODERADA 
+Nuestra confianza en la 
+evidencia usada para tomar 
+la decisión es moderada.  
+“Probablemente se 
+evitarán/causarán, 
+incrementará/disminuirá, no 
+modificará …”. 
+⨁⨁◯◯ 
+BAJA 
+Nuestra confianza en la 
+evidencia usada para tomar 
+la decisión es baja. El 
+verdadero efecto podría ser 
+sustancialmente diferente al 
+efecto estimado.  
+“Posiblemente se 
+evitarán/causarán, 
+incrementará/disminuirá, no 
+modificará …”. 
+⨁◯◯◯ 
+MUY BAJA 
+Nuestra con fianza en la 
+evidencia usada para tomar 
+la decisión es muy baja. 
+Existe mucha incertidumbre 
+sobre los efectos evaluados.  
+“Posiblemente se 
+evitarán/causarán, 
+incrementará/disminuirá, no 
+modificará… aunque esto es 
+incierto”. 
+Fuerza de la 
+recomendación 
+Recomendación 
+fuerte (a favor o 
+en contra) 
+El GEG considera que esta 
+recomendación debe 
+seguirse en todos los casos, 
+salvo excepciones puntuales 
+y bien justificadas. 
+Se usó el término 
+“Recomendamos” 
+Recomendación 
+condicional (a 
+favor o en 
+contra) 
+El GEG considera que esta 
+recomendación se seguirá 
+en la gran mayoría de casos, 
+aunque podría ser oportuno 
+no aplicarlas en algunos 
+casos, siempre que esto sea 
+justificado. 
+Se usó el término “Sugerimos” 
+
+=== PDF PAGE 27 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+24 
+ 
+VI. Desarrollo de recomendaciones 
+ 
+La presente GPC abordó 9 preguntas clínicas , e n base a las cuales se formularon 6 
+recomendaciones (3 fuertes y 3 condicionales), 39 BPC, y 2 flujogramas (uno de tamizaje y otro 
+de manejo) (Tabla 1, Figuras 1 y 2). 
+A continuación, se expondrán las recomendaciones para cada pregunta clínica, así como un 
+resumen del razonamiento seguido para llegar a cada recomendación . No se incluyó la 
+justificación de las BPC  adicionales (que no respondían directamente a la pregunta clínica 
+planteada), las cuales se pueden leer en el documento in-extenso. 
+Pregunta 1: En adultos ambulatorios u hospitalizados, ¿se debería realizar el ta mizaje para 
+detectar el riesgo de desnutrición? 
+Evidencia: Se realizó búsquedas sistemáticas para responder esta pregunta, sin encontrar RS ni 
+ECA. Por ello, el GEG decidió responder la pregunta emitiendo una BPC por consenso. 
+Justificación: El GEG consideró que u na identificación oportuna del riesgo de desnutrición 
+puede llevar a una intervención temprana, y esto a su vez a obtener resultados positivos en el 
+paciente (11), por lo que se decidió emitir un punto de BPC a favor de realizar este tamizaje en 
+un contexto hospitalario. Asimismo, se consideró que las herramientas Malnutrition Screening 
+Tool ( MST), Malnutrition Universal Screening Tool (MUST) y Mini Nutritional Assessment - 
+Short Form ( MNA-SF) pueden ser usadas, debido a su facilidad de uso ( dado que no necesita 
+cálculos complejos, criterios profesionales especiales e involucra un mínimo contacto físico con 
+el paciente) y a ser recomenda das por diversas guías internacionales (3, 5, 12). Además, si los 
+profesionales vienen ejecutando otras herramientas que dominan podrían continuar con su 
+aplicación. 
+Pregunta 2. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+indicar soporte nutricional? 
+Para esta pregunta, el soporte nutricional abarcó  el asesoramiento dietético , el 
+enriquecimiento de alimentos, la adición de colaciones, la suplementación nutricional oral y la 
+alimentación enteral por sonda. 
+Evidencia: se encontró una RS que res pondió a la pregunta: Gomes 2019 (13). Esta RS incluyó 
+27 ECA. Al actualizarla, se halló 1 ECA adicional (Merker 2020) (14). Puesto que los resultados 
+de este ECA fueron consistentes con la RS de Gomes 2019 , se decidió usar dicha RS  para la 
+toma de decisiones.  
+Beneficios y dañ os: La RS evaluada encontró que, s i brindamos soporte nutricional a 1000 
+personas en lugar de no brindarlo, posiblemente se evitarían 30 muertes (IC 95%: -48 a -3), y 
+posiblemente se evitarían 45 reingresos hospitalarios (IC 95%: -72 a -7) aunque esto es 
+incierto. Asimismo, posiblemente no modificará la estancia hospitalaria y posiblemente 
+tampoco se modifique en resultado funcional, aunque esto es incierto . Finalmente, brindar 
+soporte nutricional posiblemente no modifique el riesgo de infecciones. 
+Recomendación: Los beneficios se consideraron moderados ( por los efectos en mortalidad y 
+reingreso hospitalario) y los daños se consideraron triviales ( por el posible efecto nulo en el 
+resto de las infecciones ). Por ello, se emitió una recomendación a favor  del soporte 
+
+=== PDF PAGE 28 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+25 
+ 
+nutricional. Puesto que la certeza general de la evidencia fue baja, esta recomendación fue 
+condicional. 
+Pregunta 3. En adultos con diagnóstico de desnutrición con alto riesgo del síndrome de 
+realimentación o el síndrome de Wernicke-Korsakoff, ¿cuál debería ser el manejo para iniciar 
+soporte nutricional? 
+Evidencia: Se realizó búsquedas sistemáticas para responder esta pregunta, sin encontrar RS ni 
+ECA. Por ello, el GEG decidió responder la pregunta emitiendo una BPC por consenso. 
+ 
+Justificación: Se consideró emitir pautas alinead as a la guía  National Institute for Health and 
+Clinical Excellence  (NICE) 2006 (3) que recomienda iniciar soporte nutricional en aquellos 
+pacientes que están gravemente enfermos o que tienen lesiones que necesiten nutrición 
+enteral por sonda o nutrición parenteral (con ayuno prolongado), así como en pacientes con 
+nada o muy poca ingesta de alimentos durante m ás de 5 días que tienen cierto riesgo de 
+problemas de realimentación. Además, dicho manejo debiese ser conducido por expertos en 
+soporte nutricional que consideren el aporte calórico proteico y de micronutrientes de manera 
+individualizada de acuerdo con el requerimiento nutricional del paciente. 
+Pregunta 4. En adultos hospitalizados en riesgo de desnutrición o con diagnóstico de 
+desnutrición, ¿se debe indicar suplemento nutricional oral? 
+En personas con riesgo o diagnóstico de desnutrición  con una condición  clínica delicada , el 
+asesoramiento dietético solo muchas veces es insuficiente, por lo que tipo de soporte 
+nutricional se convierte en una alternativa idónea.  Dentro de los tipos de soporte nutricional 
+se tiene a la suplementación nutricional oral (15). Los estudios que han ido emergiendo han 
+presentado resultados heterogéneos en cuanto a los b eneficios de ofrecer el suplemento 
+nutricional oral (16-18), por lo cual resulta importante abordar esta pregunta. 
+Evidencia: En la búsqueda sistemática se hallaron cuatro RS (3, 19-21). Se denotó que la RS de 
+Baldwin 2011 (20) fue la mejor calidad metodológica, dado su antigüedad se decidió actualizar 
+la búsqueda de la RS, sin embargo no se hallaron nuevos estudios , por lo que se optó por 
+considerar como cuerpo de evidencia a la RS de Baldwin 2011.  
+ 
+Beneficios y daños:  La RS evaluada encontró que, s i brindamos asesoramiento die tético y 
+suplemento nutricional oral a 1000 personas en lugar de no brindar lo, posiblemente 
+incrementaría el grosor del pliegue cutáneo tricipital y posiblemente incrementaría el peso, 
+pero esto es incierto , sin embargo  no modificaríamos el riesgo de mortalidad ni la ingesta 
+energética, aunque esto es incierto.  
+Recomendación: Los beneficios se consideraron pequeños ( por su efecto sobre el pliegue 
+cutáneo tricipital y el peso fue incierto ) y los daños se consideraron triviales (puesto que el 
+tamaño del efecto para los eventos adversos podría ser similares entre ofrecer suplemento 
+nutricional oral o no). Por ello, se emitió una recomendación a favor  del suplemento 
+nutricional oral. Puesto que la certeza general de evidencia fue muy baja, esta recomendación 
+fue condicional. 
+  
+
+=== PDF PAGE 29 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+26 
+ 
+Pregunta 5. En adultos en riesgo de desnutrición o con diagnóstico de desnutrición, ¿se debe 
+proveer soporte nutricional enteral? 
+El soporte nutricional enteral hace referencia al suministro de calorías,  proteínas electrolitos, 
+vitaminas, minerales, oligoelementos y líquidos ; que van directamente al intestino mediante 
+un tubo o sonda  (22). Para esta pregunta, se explorarán dos subpoblaciones: pacientes con 
+diagnóstico de desnutrición en contexto hospitalario y en contexto ambulatorio. 
+ 
+Subpoblación de pacientes con diagnóstico de desnutrición en contexto hospitalario 
+Evidencia: Se encontraron tres RS publicadas (3, 23, 24) . Se decidió tomar como referencia la 
+RS de Feinberg 2017 (24), debido a que tuvo mejor cal idad metodológica según AMSTAR -2, e 
+incluyó la mayor cantidad de estudios en sus meta-análisis. 
+Beneficios: La RS evaluada encontró que, s i brindamos soporte nutricional enteral a 1000 
+personas en lugar de no brindarlo, posiblemente se evitarían 31 casos de muerte por cualquier 
+causa (IC 95% -49 a -10), posiblemente se incrementará 0,53 kg/m2 del índice de masa corporal 
+(IC 95% +0,32 a +0,75), posiblemente se incrementará 2,62 kg de peso (IC 95% +1,23 a +4,01) 
+aunque esto es incierto, y no modificaríamos la calidad de vida (EQ5D y EuroQol -VAS) aunque 
+esto es incierto. 
+Daños: Si brindamos soporte nutricional enteral a 1000 personas en lugar de no brindarlo , 
+posiblemente se evitarían 26 casos de eventos adversos serios (IC 95% -45 a -3). 
+Recomendación: Los beneficios se consideraron moderados  (por los efectos sobre la 
+mortalidad, índice de masa corporal, y peso) y los daños se consideraron triviales  (puesto que 
+no se observó que cause más eventos adversos serios). Por este motivo, se optó por emitir una 
+recomendación a favor de brindar el soporte nutricional enteral. Si bien la certeza general de 
+la evidencia fue baja, sus beneficios parecen contundentes, por lo cual esta recomendación fue 
+fuerte. 
+Subpoblación de pacientes con diagnóstico de desnutrición en contexto comunitario 
+Evidencia: No se encontraron RS específicamente en  pacientes adultos desnutridos en 
+contexto comunitario, por lo que se decidió realizar una búsqueda de novo de ECA. Producto 
+de esta búsqueda, se encontró el ECA de Zeng 2017(25) que evaluó el desenlace de calidad de 
+vida y el ECA de Bowrey 2015 (26) evaluó los desenlaces de índice de masa corporal y peso. 
+Dado que los ECA no valoraron los desenlaces críticos como muerte y eventos adversos serios, 
+se tomó como cuerpo de evidencia la RS  de Feinberg 2017 (24) citada en la subpoblación de 
+pacientes hospitalizados. 
+Beneficios: Si brindamos soporte nutricional enteral a 1000 personas en lugar de no brindarlo, 
+posiblemente evitaríamos 31 casos de muerte por cualquier causa (IC 95% -49 a -10) aunque 
+esto es incierto, posiblemente se incrementará 1,30 kg/m2 del índice de masa corporal (IC 95% 
++0,60 a +2,10) aunque esto es incierto. En contraste, no modificaríamos el peso 2,50 kg (IC 95% 
+-1,20 a +6,10) aunque esto es incierto, y no modificaríamos la calidad de vida, aunque esto es 
+incierto. 
+Daños: Si brindamos soporte nutricional enteral a  1000 personas en lugar de no brindarlo , 
+posiblemente evitaríamos 26 casos de eventos adversos serios (IC 95% -45 a -3) aunque esto es 
+incierto. 
+
+=== PDF PAGE 30 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+27 
+ 
+Recomendación: Los beneficios se consideraron moderados  (por los efectos sobre la 
+mortalidad e índice de masa corporal) y los daños se consideraron triviales  (puesto que no se 
+observó que cause más eventos adversos serios) . Por este motivo, se optó por emitir una 
+recomendación a favor de brindar el soporte nutricional enteral. Si bien la certeza general de 
+la evidencia fue baja, sus beneficios parecen contundentes, por lo cual esta recomendación fue 
+fuerte. 
+Pregunta 6. En el adulto en riesgo de desnutrición o diagnosticado como desnutrido que 
+recibe nutrición enteral por sonda. ¿Cómo debe ser el modo de administrac ión: infusión 
+continua o intermitente? 
+Evidencia: Se realizó búsquedas sistemáticas para responder esta pregunta, sin encontrar RS ni 
+ECA. Por ello, el GEG decidió responder la pregunta emitiendo una BPC por consenso. 
+Justificación: El GEG consideró que am bas modalidades de administración de la nutrición 
+enteral en una población que no se encuentra en cuidados críticos, generalmente han 
+mostrado tener efectos casi similares, sin embargo para su elección es importante considerar 
+aspectos como el estado clínico, la tolerancia, administración de medicinas, entre otros (3). Por 
+otro lado, l os pacientes críticos poseen una condición clínica delicada, por lo que ofrecer 
+alimentación enteral de manera continua es la mejor elección. La Guía “ESPEN guideline on 
+clinical nutrition in the intensive care unit”  (27) recomienda que en caso de los pacientes en 
+cuidados intensivos se debe de utilizar la nutrición enteral continua. Asimismo la Guía NICE  (3) 
+menciona que en caso de pacientes en cuidados int ensivos debido a la gravedad de la 
+enfermedad y los problemas de vaciado gástrico, la estabilidad metabólica y el control de los 
+niveles de glucosa favorecen a la administración de alimentación continua. 
+Pregunta 7. En adultos en riesgo de desnutrición o d iagnosticados como desnutridos, a 
+quienes se les brinda nutrición enteral (NE) por sonda, ¿se debería usar agentes de motilidad 
+(agentes procinéticos)? 
+Los pacientes que reciben nutrición enteral, pueden desarrollar síntomas de distensión 
+abdominal, vómitos, reflujo gastroesofágico, aspiración pulmonar, neumonía o sepsis  (3). Con 
+esta pregunta clínica se busca determinar los posibles beneficios o daños potenciales de los 
+agentes procinéticos al respecto. 
+ 
+Evidencia: Se encontraron cinco RS publicadas como artículos científicos (28-32). Se decidió 
+tomar como referencia la RS de Peng 2021 (28) por ser la que tuvo la mejor calidad 
+metodológica según AMSTAR-2. 
+Beneficios: La RS evaluada encontró que, si brindamos agentes procinéticos en lugar de no 
+brindarlos, probablemente se causaría una mejora de la tolerancia a la alimentación gástrica. 
+En contraste, posiblemente no modificaría mos el riesgo de la mortalidad, neumonía, duración 
+de la estancia hospitalaria, y duración de estancia en UCI. 
+Daños: Si brindamos agentes procinéticos en lugar de no brindarlos , posiblemente no 
+modificaríamos el riesgo de síntomas gastrointestinales y eventos adversos. 
+Recomendación: Los beneficios de brindar agentes procinéticos se consideraron moderados  
+(mejora de la tolerancia a la alimentación gástrica), y los daños se consideraron triviales (no se 
+encontraron daños significativos) . Por ello, se emitió una recomendación a favor. A pesar de 
+
+=== PDF PAGE 31 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+28 
+ 
+que l a certeza de la evidencia fue baja,  la intervención no genera inequidad, es factible de 
+implementar, además aceptable por pacientes y personal de salud . Por ello, esta 
+recomendación fue fuerte. 
+Pregunta 8. En adultos desnutridos sometidos a procedimientos quirúrgicos, ¿se debería 
+brindar la nutrición parenteral total? 
+Evidencia: Se encontró una RS publicada como artículo científico : Heyland 2001 (33) de los 
+cuáles 9 ECAS fueron en población desnutrida . Debido a su antigüedad, se decidió actualizar la 
+búsqueda de ECA, encontrando un ECA nuevo: Ganaie 2015 (34). Se decidió actualizar el meta- 
+análisis (los 9 ECA de la RS de Heyland 2001 más el ECA de Ganaie 2015). 
+Beneficios y daños: Del meta-análisis se encontró que, si brindamos nutrición parenteral total 
+a 1000 personas en lugar de no brindarla, posiblemente se evitarán 378 casos de 
+complicaciones no infecciosas en los pacientes con desnutrición severa (IC95%: -420 a -39), y 
+posiblemente se evitarán 106 casos de complicaciones post -operatorias (IC95%: -170 a -6). En 
+contraste, posiblemente no se modificaría el riesgo de la duración de la estancia hospitalaria ni 
+el riesgo de mortalidad. 
+Recomendación: Los beneficios se consideraron moderados  (debido al  efecto sobre las 
+complicaciones no infecciosas, y las complicaciones post -operatorias) y los daños se 
+desconocen (por no tener información sobre potenciales daños como morbilidad), por lo cual 
+se optó por emitir una recomendación a favor de brindar la nutr ición parenteral total. Puesto 
+que la certeza general de la evidencia fue baja, esta recomendación fue condicional. 
+Pregunta 9. En adultos con soporte nutricional enteral o parenteral, ¿con qué frecuencia se 
+deben monitorizar los parámetros nutricionales, antropométrico, función gastrointestinal, 
+condición clínica y de laboratorio? 
+Evidencia: Se realizó búsquedas sistemáticas para responder esta pregunta, sin encontrar RS ni 
+ECA. Por ello, el GEG decidió responder la pregunta emitiendo una BPC por consenso.  
+Justificación: El GEG consider ó que los protocolos de monitoreo deben estar fundamentadas 
+en la clínica del paciente, el entorno donde se encuentra, entre otros factores. Por ello, s e 
+decidió adecuar las recomendaciones guías internacionales (3, 35, 36), diferenciando pacientes 
+ambulatorios de ambulatorios . Concluyendo que l a frecuencia de monitoreo podría ser en 
+promedio de manera mensual al inicio, luego cada 2 o 3 meses y posteriormente cada 3 meses, 
+según condición clínica, pudiéndose limitar las pruebas de laboratorio. 
+  
+
+=== PDF PAGE 32 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+29 
+ 
+VII. Referencias 
+1. Elia M, Chairman and Editor. The MUST Report. Nutritional screening of adults: a 
+multidisciplinary responsibility. Development and use of the ‘Malnutrition Universal 
+Screening Tool’ (‘MUST’) for adults. In: Malnutrition Advisory Group (MA G) aSCoB, editor. 
+2003. 
+2. Cederholm T, Jensen GL, Correia M, Gonzalez MC, Fukushima R, Higashiguchi T, et al. GLIM 
+criteria for the diagnosis of malnutrition - A consensus report from the global clinical 
+nutrition community. Clinical nutrition (Edinburgh, Scotland). 2019;38(1):1-9. 
+3. Care NCCfA. Nutrition support in adults Oral nutrition support, enteral tube feeding and 
+parenteral nutrition. In: London, editor. February 2006 [Updated 2017]. 
+4. Stratton R ST, Gabe S. Managing malnutrition to improve lives  and save money. In: BAPEN, 
+editor. 2018. 
+5. Health Do. Nutrition screening and use of oral nutrition support for adults in the acute care 
+setting. (NCEC National Clinical Guideline No. 22). 2020. 
+6. Zeña-Huancas PA, Pajuelo -García D, Díaz -Vélez C. Factore s asociados a desnutrición en 
+pacientes hospitalizados en el servicio de cirugía de emergencia de un hospital del seguro 
+social peruano. Acta Médica Peruana. 2020;37:278-84. 
+7. Shea BJ, Reeves BC, Wells G, Thuku M, Hamel C, Moran J, et al. AMSTAR 2: a crit ical 
+appraisal tool for systematic reviews that include randomised or non-randomised studies of 
+healthcare interventions, or both. Bmj. 2017;358:j4008. 
+8. Balshem H, Helfand M, Schünemann HJ, Oxman AD, Kunz R, Brozek J, et al. GRADE 
+guidelines: 3. Rating t he quality of evidence. Journal of clinical epidemiology. 
+2011;64(4):401-6. 
+9. Alonso-Coello P, Schünemann HJ, Moberg J, Brignardello-Petersen R, Akl EA, Davoli M, et al. 
+GRADE Evidence to Decision (EtD) frameworks: a systematic and transparent approach to  
+making well informed healthcare choices. 1: Introduction. bmj. 2016;353:i2016. 
+10. Alonso-Coello P, Oxman AD, Moberg J, Brignardello -Petersen R, Akl EA, Davoli M, et al. 
+GRADE Evidence to Decision (EtD) frameworks: a systematic and transparent approach to  
+making well informed healthcare choices. 2: Clinical practice guidelines. bmj. 
+2016;353:i2089. 
+11. Reber E, Gomes F, Vasiloglou MF, Schuetz P, Stanga Z. Nutritional Risk Screening and 
+Assessment. J Clin Med. 2019;8(7):1065. 
+12. Volkert D, Beck AM, Cederholm T, Cruz-Jentoft A, Goisser S, Hooper L, et al. ESPEN guideline 
+on clinical nutrition and hydration in geriatrics. Clinical nutrition (Edinburgh, Scotland). 
+2019;38(1):10-47. 
+13. Gomes F, Baumgartner A, Bounoure L, Bally M, Deutz NE, Greenwald JL, et al. Association of 
+Nutritional Support With Clinical Outcomes Among Medical Inpatients Who Are 
+Malnourished or at Nutritional Risk: An Updated Systematic Review and Meta -analysis. 
+JAMA Netw Open. 2019;2(11):e1915138. 
+14. Merker M, Felder M, Gueissaz L, Bollig er R, Tribolet P, Kägi -Braun N, et al. Association of 
+Baseline Inflammation With Effectiveness of Nutritional Support Among Patients With 
+Disease-Related Malnutrition: A Secondary Analysis of a Randomized Clinical Trial. JAMA 
+Netw Open. 2020;3(3):e200663-e. 
+15. Lochs H, Allison SP, Meier R, Pirlich M, Kondrup J, Schneider S, et al. Introductory to the 
+ESPEN Guidelines on Enteral Nutrition: Terminology, definitions and general topics. Clinical 
+nutrition (Edinburgh, Scotland). 2006;25(2):180-6. 
+16. Stratton RJ, Elia M. Who benefits from nutritional support: what is the evidence? European 
+Journal of Gastroenterology & Hepatology. 2007;19(5):353-8. 
+17. Stratton RJ GC, Elia M Disease‐Related Malnutrition: an Evidence‐Based Approach to 
+Treatment. Wallingford, UK: CABI. 2003. 
+
+=== PDF PAGE 33 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+30 
+ 
+18. Koretz RL, Avenell A, Lipman TO, Braunschweig CL, Milne AC. Does enteral nutrition affect 
+clinical outcome? A systematic review of the randomized trials. The American journal of 
+gastroenterology. 2007;102(2):412-29; quiz 68. 
+19. Baldwin C, Parsons TJ. Dietary advice and nutritional supplements in the management of 
+illness-related malnutrition: systematic review. Clinical nutrition (Edinburgh, Scotland). 
+2004;23(6):1267-79. 
+20. Baldwin C, Weekes CE. Dietary advice with or without oral nutriti onal supplements for 
+disease-related malnutrition in adults. Cochrane Database Syst Rev. 
+2011;2011(9):Cd002008. 
+21. Baldwin C, Weekes CE. Dietary counselling with or without oral nutritional supplements in 
+the management of malnourished patients: a systema tic review and meta -analysis of 
+randomised controlled trials. Journal of human nutrition and dietetics : the official journal 
+of the British Dietetic Association. 2012;25(5):411-26. 
+22. D S. Nutrition support in critically ill patients: Enteral nutrition. 
+23. Ojo O, Keaveney E, Wang XH, Feng P. The Effect of Enteral Tube Feeding on Patients' 
+Health-Related Quality of Life: A Systematic Review. Nutrients. 2019;11(5). 
+24. Feinberg J, Nielsen EE, Korang SK, Halberg Engell K, Nielsen MS, Zhang K, et al. Nutriti on 
+support in hospitalised adults at nutritional risk. Cochrane Database Syst Rev. 
+2017;5(5):Cd011598. 
+25. Zeng J, Hu J, Chen Q, Feng J. Home enteral nutrition's effects on nutritional status and 
+quality of life after esophagectomy. Asia Pacific journal of  clinical nutrition. 2017;26(5):804-
+10. 
+26. Bowrey DJ, Baker M, Halliday V, Thomas AL, Pulikottil -Jacob R, Smith K, et al. A randomised 
+controlled trial of six weeks of home enteral nutrition versus standard care after 
+oesophagectomy or total gastrectomy f or cancer: report on a pilot and feasibility study. 
+Trials. 2015;16:531. 
+27. Singer P, Blaser AR, Berger MM, Alhazzani W, Calder PC, Casaer MP, et al. ESPEN guideline 
+on clinical nutrition in the intensive care unit. Clinical nutrition (Edinburgh, Scotland ). 
+2019;38(1):48-79. 
+28. Peng R, Li H, Yang L, Zeng L, Yi Q, Xu P, et al. The efficacy and safety of prokinetics in 
+critically ill adults receiving gastric feeding tubes: A systematic review and meta -analysis. 
+PloS one. 2021;16(1):e0245317-e. 
+29. Jiang Q -J, Jiang C -F, Chen Q -T, Shi J, Shi B. Erythromycin for Promoting the Postpyloric 
+Placement of Feeding Tubes: A Systematic Review and Meta -Analysis. Gastroenterol Res 
+Pract. 2018;2018:1671483-. 
+30. Liu Y, Dong X, Yang S, Wang A, Wang M. Metoclopramide for pr eventing nosocomial 
+pneumonia in patients fed via nasogastric tubes: a systematic review and meta -analysis of 
+randomized controlled trials. Asia Pacific journal of clinical nutrition. 2017;26(5):820-8. 
+31. Lewis K, Alqahtani Z, McIntyre L, Almenawer S, Alshamsi F, Rhodes A, et al. The efficacy and 
+safety of prokinetic agents in critically ill patients receiving enteral nutrition: a systematic 
+review and meta -analysis of randomized trials. Critical care (London, England). 
+2016;20(1):259. 
+32. Booth CM, Heyland DK, Paterson WG. Gastrointestinal promotility drugs in the critical care 
+setting: a systematic review of the evidence. Critical care medicine. 2002;30(7):1429-35. 
+33. Heyland DK, Montalvo M, MacDonald S, Keefe L, Su XY, Drover JW. Total parenteral 
+nutrition in the surgical patient: a meta -analysis. Canadian journal of surgery Journal 
+canadien de chirurgie. 2001;44(2):102-11. 
+34. Ganaie AR, Itoo MS, Bhat GM. Effects of perioperative parenteral nutrition on wound 
+healing and hospital stay in surgical patien ts: a randomized controlled study. International 
+Journal of Research in Medical Sciences. 2015;3:3156-60. 
+
+=== PDF PAGE 34 ===
+INSTITUTO DE EVALUACIÓN DE TECNOLOGÍAS EN SALUD E INVESTIGACIÓN 
+31 
+ 
+35. McClave SA, DiBaise JK, Mullin GE, Martindale RG. ACG Clinical Guideline: Nutrition Therapy 
+in the Adult Hospitalized Patient. The American journa l of gastroenterology. 
+2016;111(3):315-34; quiz 35. 
+36. Ukleja A, Gilbert K, Mogensen KM, Walker R, Ward CT, Ybarra J, et al. Standards for 
+Nutrition Support: Adult Hospitalized Patients. Nutrition in Clinical Practice. 2018;33(6):906-
+20. 
+ 
+
+=== PDF PAGE 35 ===
+Domingo Cueto 120, Jesús María
+Lima - Perú. Tel. 265-6000 / 265-7000

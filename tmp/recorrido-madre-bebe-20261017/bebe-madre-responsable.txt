@@ -1,0 +1,52 @@
+Browser tab: 1, Title: "Ficha del paciente · Sistema de Salud IPRESS", URL: "http://127.0.0.1:8000/pacientes/19".
+1 AXWebArea Ficha del paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/pacientes/19
+	2 container
+		3 button (collapsed) Abrir menú, Secondary Actions: Expand
+		4 text Ficha del paciente
+		5 container
+			6 heading Ficticio Prueba Nicolas Simulado, Value: 2
+				7 text Ficticio Prueba Nicolas Simulado
+			8 text OTRO RN-FICTICIO-171026 · HC: PRUEBA-RN-171026 
+			9 text Activo
+			10 button Dar de baja
+			11 button Volver
+			12 tab group
+				13 tab (selectable, settable, boolean) Datos, Value: 0, ID: tab-datos
+				14 tab (selected, settable, boolean) Responsables, Value: 1, ID: tab-responsables
+				15 tab (selectable, settable, boolean) Riesgos, Value: 0, ID: tab-riesgos
+				16 tab (selectable, settable, boolean) Atenciones, Value: 0, ID: tab-atenciones
+			17 container Description: Responsables, ID: pane-responsables
+				18 button Agregar responsable
+				19 container
+					20 table
+						21 row
+							22 cell
+								23 text Nombre
+							24 cell
+								25 text Parentesco
+							26 cell
+								27 text Documento
+							28 cell
+								29 text Teléfono
+							30 cell
+								31 text Principal
+							32 cell
+								33 text Activo
+							34 cell
+								35 text Acciones
+					36 table
+						37 row
+							38 cell
+								39 text Prueba Materna Elena Simulada
+							40 cell
+								41 text MADRE
+							42 cell
+								43 text DNI 99061701
+							44 cell
+								50 text Sí
+							46 cell
+								47 text Activo
+							48 cell
+								49 button Editar
+
+The focused UI element is 1 AXWebArea Ficha del paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/pacientes/19

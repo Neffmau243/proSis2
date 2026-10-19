@@ -204,6 +204,8 @@ class NutritionalIndicatorsPreviewInput(BaseModel):
 
 
 class NutritionalIndicatorsResponse(BaseModel):
+    version_calculo: str | None = None
+    seguimiento: dict[str, Any] | None = None
     grupo_referencia: str = "INFANTIL"
     imc_edad: Decimal | None = None
     diagnostico_imc: str | None = None

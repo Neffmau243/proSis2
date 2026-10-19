@@ -98,7 +98,10 @@ def age_group_to_catalog_item(entity: AgeGroup) -> AgeGroupCatalogItem:
 
 
 def risk_group_to_catalog_item(entity: RiskGroup) -> RiskGroupCatalogItem:
+    from app.domain.nutrition_followup import group_kind
+
     return RiskGroupCatalogItem(
+        tipo=group_kind(entity.codigo),
         id=entity.id,
         codigo=entity.codigo,
         nombre=entity.nombre,

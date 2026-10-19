@@ -12,12 +12,13 @@ from app.domain.nutrition import (
 
 @pytest.mark.parametrize("kind,score,expected", [
     ("pe", "-3.001", "Bajo peso severo"), ("pe", "-3", "Bajo peso"),
-    ("pe", "-2", "Normal"), ("pe", "1.001", "Evaluar IMC/edad"),
+    ("pe", "-2", "Normal"), ("pe", "1.001", "Normal"),
+    ("pe", "2", "Normal"), ("pe", "2.001", "Sobrepeso"),
     ("te", "-3.001", "Talla baja severa"), ("te", "-3", "Talla baja"),
-    ("te", "-2", "Normal"), ("te", "3", "Normal"), ("te", "3.001", "Talla alta"),
+    ("te", "-2", "Normal"), ("te", "2", "Normal"), ("te", "2.001", "Talla alta"),
     ("pt", "-3.001", "Emaciación severa"), ("pt", "-3", "Emaciación"),
     ("pt", "-2", "Normal"), ("pt", "1", "Normal"),
-    ("pt", "1.001", "Riesgo de sobrepeso"), ("pt", "2", "Riesgo de sobrepeso"),
+    ("pt", "1.001", "Normal"), ("pt", "2", "Normal"),
     ("pt", "2.001", "Sobrepeso"), ("pt", "3", "Sobrepeso"),
     ("pt", "3.001", "Obesidad"),
 ])

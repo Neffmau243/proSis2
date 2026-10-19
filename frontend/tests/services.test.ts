@@ -166,6 +166,7 @@ test('atenciones: la búsqueda, la vista previa y los documentos no se confunden
 })
 
 test('catálogos simples: cada método consulta su propio endpoint', async () => {
+  stub([])
   await catalogos.etnias()
   await catalogos.tiposDocumento()
   await catalogos.sexos()
@@ -188,6 +189,24 @@ test('catálogos simples: cada método consulta su propio endpoint', async () =>
     '/catalogos/grupos-riesgo',
   ])
   expect(requests.every((request) => request.method === 'get')).toBe(true)
+})
+
+test('etnias: el selector recibe los códigos en orden numérico sin modificar el catálogo', async () => {
+  const source = [
+    { codigo: '1', nombre: 'Achuar', activo: true },
+    { codigo: '56', nombre: 'Afroperuano', activo: true },
+    { codigo: '2', nombre: 'Aimara', activo: true },
+    { codigo: '10', nombre: 'Cashinahua', activo: true },
+    { codigo: '9', nombre: 'Capanahua', activo: true },
+    { codigo: '58', nombre: 'Mestizo', activo: true },
+  ]
+  stub(source)
+
+  const items = await catalogos.etnias()
+
+  expect(items.map((item) => item.codigo)).toEqual(['1', '2', '9', '10', '56', '58'])
+  expect(items.find((item) => item.codigo === '58')).toEqual(source[5])
+  expect(source.map((item) => item.codigo)).toEqual(['1', '56', '2', '10', '9', '58'])
 })
 
 test('catálogos buscables: los filtros vacíos se omiten y q exige dos caracteres', async () => {

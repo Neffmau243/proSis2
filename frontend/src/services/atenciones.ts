@@ -141,6 +141,26 @@ export interface NutritionalIndicatorsPreviewPayload {
 }
 
 export interface NutritionalIndicatorsPreview {
+  version_calculo?: string | null
+  seguimiento?: {
+    version: string
+    mensaje: string
+    tamizaje: 'NO_EVALUADO'
+    tendencia: {
+      estado: 'NO_APLICA' | 'DATOS_INSUFICIENTES' | 'COMPARADO'
+      mensaje: string
+      fecha_anterior?: string
+      dias?: number
+      cambio_peso_kg?: string
+      cambio_talla_cm?: string
+    }
+    sugerencias: readonly {
+      codigo: string
+      motivo: string
+      metodo: string
+      requiere_confirmacion: boolean
+    }[]
+  } | null
   grupo_referencia?: 'INFANTIL' | 'ESCOLAR' | 'ADULTO' | 'ADULTO_MAYOR' | 'GESTANTE' | 'PUERPERA'
   imc_edad?: string | null
   diagnostico_imc?: string | null
@@ -224,7 +244,9 @@ export interface ReferralResponse {
 
 export const atenciones = {
   async exportNutrition(id: number): Promise<Record<string, unknown>> {
-    const { data } = await http.post<Record<string, unknown>>(`/atenciones/${id}/nutricion/exportacion`)
+    const { data } = await http.post<Record<string, unknown>>(
+      `/atenciones/${id}/nutricion/exportacion`,
+    )
     return data
   },
   async confirmNutritionSent(id: number, constancia: string): Promise<Attention> {

@@ -1,0 +1,2420 @@
+=== PDF PAGE 1 ===
+Lima, 2015
+Instituto Nacional de Salud
+Jirón Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfonos: (511) 748-0000 / 748-1111
+Página web: www.ins.gob.pe
+9 7 8 6 1 2 3 1 0 0 7 2 8
+ISBN: 978-612-310-072-8
+
+=== PDF PAGE 2 ===
+Lima, 2015
+Elaborado por:
+Luis Ángel Aguilar Esenarro
+Mariela Constanza Contreras Rojas
+María del Carmen Calle Dávila de Saavedra
+
+=== PDF PAGE 3 ===
+Catalogación hecha por el Centro de Información y Documentación Científica del INS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ISBN: 978-612-310-072-8 
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú Nº 2015-17971 
+1ra. edición (diciembre, 2015) 
+Tiraje: 9000 ejemplares 
+ 
+© Ministerio de Salud, 2015 
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú  
+Teléfono: (511) 315-6600  
+Página web: www.minsa.gob.pe 
+ 
+© Instituto Nacional de Salud, 2015 
+Cápac Yupanqui 1400, Jesús María, Lima, Perú 
+Teléfono: (511) 748-1111 
+Co
+rreo electrónico: postmaster@ins.gob.pe 
+Página web: www.ins.gob.pe 
+ 
+Impreso por: 
+LANCE GRÁFICO SAC 
+R.U.C. 20429258376 
+Calle Mama Ocllo 1923  
+Lince - Lima - Perú 
+ 
+La versión electrónica de este documento se encuentra disponible en forma gratuita en www.ins.gob.pe 
+ 
+Prohibida la reproducción total o parcial de esta obra por cualquier medio sin autorización del Instituto 
+Nacional de Salud. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Guía técnica para la valoración nutricional antropométrica de la persona adolescente / 
+Elaborado  por   Luis Aguilar Esenarro, Mariela Contreras Rojas, María del Carmen 
+Calle Dávila de Saavedra.-- Lima: Ministerio de  Salud, Instituto Nacional de Salud, 
+2015. 
+48 p. : il., tab., 20.5 x 29.5 cm. 
+  
+1. ANTROPOMETRÍA  2. ESTATURA   3. EVALUACIÓN NUTRICIONAL                
+4. ADOLESCENTE  5. PERÚ 
+  
+I. Aguilar Esenarro, Luis Ángel 
+II. Contreras Rojas, Mariela Constanza 
+III. Calle Dávila de Saavedra, María del Carmen 
+IV. Perú. Ministerio de Salud 
+V. Instituto Nacional de Salud (Perú). Centro Nacional de Alimentación y Nutrición 
+
+=== PDF PAGE 4 ===
+MINISTERIO DE SALUD
+Ministro
+Aníbal Velásquez Valdivia
+Viceministro de Salud Pública
+Percy Luis Minaya León
+Viceministro de Prestaciones y Aseguramiento en Salud
+Pedro Fidel Grillo Rojas
+DIRECCIÓN GENERAL DE SALUD DE LAS PERSONAS
+Directora General
+Nora Reyes Puma de Comesaña
+INSTITUTO NACIONAL DE SALUD
+Jefe
+Ernesto Eugenio Gozzer Infante
+Subjefa
+Silvia Saravia Cahuana
+CENTRO NACIONAL DE ALIMENTACIÓN Y NUTRICIÓN
+Directora General
+María Virginia Castillo Jara
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Director Ejecutivo
+Lucio Pepe Huamán Espino
+Dirección Ejecutiva de Vigilancia Alimentaria y Nutricional
+Directora Ejecutiva
+Rocío Silvia Valenzuela Vargas
+Catalogación hecha por el Centro de Información y Documentación Científica del INS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ISBN: 978-612-310-072-8 
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú Nº 2015-17971 
+1ra. edición (diciembre, 2015) 
+Tiraje: 9000 ejemplares 
+ 
+© Ministerio de Salud, 2015 
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú  
+Teléfono: (511) 315-6600  
+Página web: www.minsa.gob.pe 
+ 
+© Instituto Nacional de Salud, 2015 
+Cápac Yupanqui 1400, Jesús María, Lima, Perú 
+Teléfono: (511) 748-1111 
+Co
+rreo electrónico: postmaster@ins.gob.pe 
+Página web: www.ins.gob.pe 
+ 
+Impreso por: 
+LANCE GRÁFICO SAC 
+R.U.C. 20429258376 
+Calle Mama Ocllo 1923  
+Lince - Lima - Perú 
+ 
+La versión electrónica de este documento se encuentra disponible en forma gratuita en www.ins.gob.pe 
+ 
+Prohibida la reproducción total o parcial de esta obra por cualquier medio sin autorización del Instituto 
+Nacional de Salud. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Guía técnica para la valoración nutricional antropométrica de la persona adolescente / 
+Elaborado  por   Luis Aguilar Esenarro, Mariela Contreras Rojas, María del Carmen 
+Calle Dávila de Saavedra.-- Lima: Ministerio de  Salud, Instituto Nacional de Salud, 
+2015. 
+48 p. : il., tab., 20.5 x 29.5 cm. 
+  
+1. ANTROPOMETRÍA  2. ESTATURA   3. EVALUACIÓN NUTRICIONAL                
+4. ADOLESCENTE  5. PERÚ 
+  
+I. Aguilar Esenarro, Luis Ángel 
+II. Contreras Rojas, Mariela Constanza 
+III. Calle Dávila de Saavedra, María del Carmen 
+IV. Perú. Ministerio de Salud 
+V. Instituto Nacional de Salud (Perú). Centro Nacional de Alimentación y Nutrición 
+
+=== PDF PAGE 5 ===
+EQUIPO TÉCNICO RESPONSABLE DE LA ELABORACIÓN DE LA GUÍA TÉCNICA
+REVISORES DE LA GUÍA TÉCNICA
+Centro Nacional de Alimentación y 
+Nutrición - INS
+Luis Ángel Aguilar Esenarro
+Mariela Constanza Contreras Rojas
+Dirección General de Salud de las 
+Personas - MINSA
+Centro Nacional de Alimentación y 
+Nutrición - INS
+Luis Ángel Aguilar Esenarro
+Mirko Luis Lázaro Serrano
+Víctor Iván Gómez-Sánchez Prieto
+Dirección General de Salud
+de las Personas - MINSA
+Julie Mariaca Oblitas
+Lourdes Palomino Gamarra
+María Elena Yumbato Pinto
+Secretaría General - 
+MINSA
+Luis Robles Guerrero
+Corrector de textos: Daniel Cárdenas Rojas, Josefina Vásquez Awad
+Diseño y diagramación: Jorge Donayre Del Carmen
+PARTICIPARON EN LA REDACCIÓN Y REVISIÓN DE LA GUÍA TÉCNICA INICIAL
+Laura Astete Robilliard  CENAN/INS
+Margot Quintana Salinas CENAN/INS
+AGRADECIMIENTO
+Rosa Victoria Salvatierra Ruiz CENAN/INS
+Paula Lita Espinoza Oriundo CENAN/INS
+Henry Trujillo Aspilcueta CENAN/INS
+Doris Dionisio Astuhuamán CENAN/INS
+Jacqueline Lino Calderón DGSP/MINSA
+Víctor Hernández Martínez DGSP/MINSA
+Rosario Ique Ríos  DGSP/MINSA
+Julissa Mogollón Quiroz DISA II Lima Sur
+Olga Ávila Blas  DISA II Lima Sur, Microrred Pachacamac
+Pier Cuellar Huaringa  DISA IV Lima Este
+Sandy Vanessa Ruiz Salazar DISA IV Lima Este
+Ruth Flores Berrios  DISA IV Lima Este, Microrred Chosica I
+Zina Navarro Honda  DISA IV Lima Este, Microrred Ate I, Centro de Salud Santa Clara
+Rosa Elena Cruz Maldonado DISA V Lima Ciudad
+Julio César García  Dirección Regional de Salud Callao
+Inés Anzualdo Padilla  Dirección Regional de Salud Callao
+Walter Ravelo Zapata  Hospital Nacional Dos de Mayo
+Gladys Panduro Vásquez Hospital Nacional Hipólito Unanue
+Ideliza Navarro Coronado Hospital Nacional Cayetano Heredia
+Ivonne Bernui Leo  Universidad Nacional Mayor de San marcos
+Sissy Espinoza Bernardo Universidad Nacional Mayor de San Marcos
+Nelly Zavaleta Pimentel  Instituto de Investigación Nutricional
+Si por algún acto involuntario en la presente lista se omitió a alguna persona o institución que contribuyó
+en la elaboración del documento, ofrecemos de antemano nuestras más sinceras disculpas
+PARTICIPARON EN LA VALIDACIÓN DE LA GUÍA TÉCNICA
+Direcciones Regionales de Salud
+Amazonas Cajamarca Ica Loreto Puno
+Ancash Callao Junín Madre de Dios San Martín
+Apurímac Cusco La Libertad Moquegua Tacna
+Arequipa Huancavelica Lambayeque Pasco Tumbes
+Ayacucho Huánuco Lima Piura Ucayali
+Direcciones de Salud Lima Ciudad Lima Este Lima Sur
+María del Carmen Calle Dávila de Saavedra
+
+=== PDF PAGE 6 ===
+
+
+=== PDF PAGE 7 ===
+
+
+=== PDF PAGE 8 ===
+CONTENIDOS
+PRESENTACIÓN .........................................................................................................8
+I. FINALIDAD ......................................................................................................... 9
+II. OBJETIVOS ........................................................................................................ 9
+III. ÁMBITO DE APLICACIÓN ....................................................................................9
+IV. PROCEDIMIENTO A ESTANDARIZAR: VALORACIÓN NUTRICIONAL
+ ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE ........................................10
+V. CONSIDERACIONES GENERALES ......................................................................10
+VI. CONSIDERACIONES ESPECÍFICAS ....................................................................13
+VII. RECOMENDACIONES ....................................................................................... 28
+VIII. ANEXOS ..........................................................................................................28
+IX. BIBLIOGRAFÍA .................................................................................................. 46
+
+
+=== PDF PAGE 9 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+8
+PRESENTACIÓN
+La adolescencia es un período importante de crecimiento, desarrollo y maduración del ser 
+humano, durante el cual se producen cambios físicos, psicológicos y sociales, y se establecen 
+muchas de las características de la persona adulta. En este período, la antropometría juega un 
+rol importante, porque permite evaluar el tamaño, las proporciones y la composición del cuerpo 
+humano, así como, monitorear su crecimiento, mediante una correcta valoración nutricional.
+En nuestro país, el estado nutricional de la población adolescente ha tenido un cambio gradual, 
+pues coexisten diferentes formas de malnutrición como la delgadez, el sobrepeso y la obesidad. 
+Sin embargo, estos dos últimas han ido aumentando en forma progresiva debido a los cambios 
+en la dieta y en los estilos de vida, que nos ubican como un país con un problema latente de 
+sobrepeso y obesidad, situación que requiere ser abordada incluso desde el establecer los 
+criterios técnicos para la evaluación antropométrica y el diagnóstico nutricional.
+El Ministerio de Salud, en cumplimiento de sus funciones y teniendo como marco el modelo 
+de atención integral de salud basada en familia y comunidad, orienta sus intervenciones de 
+promoción de la salud, prevención de riesgos y daños, recuperación y rehabilitación de la 
+salud y de desarrollo de un entorno saludable para las personas adolescentes, disponiendo el 
+desarrollo de instrumentos y herramientas para proveer una atención de calidad. 
+En este contexto, el Instituto Nacional de Salud a través del Centro Nacional de Alimentación 
+y Nutrición, entidad responsable de promover y desarrollar investigaciones, tecnologías 
+sanitarias, y normativas relacionadas con la alimentación y nutrición de la persona, familia y 
+comunidad; la Dirección General de Salud de las Personas como órgano técnico normativo de 
+los procesos relacionados con la atención integral de salud, y los profesionales de nutrición y 
+de la atención de la persona adolescente participaron en la formulación de la “Guía técnica para 
+la valoración nutricional antropométrica de la persona adolescente” , para su implementación en 
+los establecimientos de salud del país.
+La presente guía técnica, aprobada mediante Resolución Ministerial 283-2015/MINSA, tiene 
+como propósito el establecer los criterios técnicos del proceso de valoración nutricional 
+antropométrica de la persona adolescente, para la toma de decisiones oportunas en la atención 
+integral de salud de este grupo poblacional, evitando así tener diagnósticos nutricionales 
+erróneos, y por consiguiente atenciones inadecuadas que no respondan a la situación 
+nutricional encontrada.
+
+=== PDF PAGE 10 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+9
+GUÍA TÉCNICA PARA LA VALORACIÓN 
+NUTRICIONAL ANTROPOMÉTRICA DE LA 
+PERSONA ADOLESCENTE
+I. FINALIDAD
+Contribuir a la promoción y protección del estado de salud de las personas adolescentes, 
+mediante la valoración nutricional antropométrica en la atención integral de salud.
+II. OBJETIVOS
+2.1. OBJETIVO GENERAL 
+Establecer los criterios técnicos normativos de la valoración nutricional antropométrica de 
+las personas adolescentes, a fin de tomar decisiones oportunas en la atención integral 
+de salud.
+2.2. OBJETIVOS ESPECÍFICOS
+2.2.1 . Definir los procedimientos técnicos para la valoración nutricional antropométrica 
+de las personas adolescentes en los establecimientos de salud.
+2.2.2. Establecer la clasificación de la valoración nutricional antropométrica de las per-
+sonas adolescentes.
+2.2.3. Identificar precozmente la malnutrición para reducir la morbilidad y mortalidad en 
+la etapa de vida adolescente.
+2.2.4. Orientar las intervenciones de salud a través de las acciones sostenibles de pro-
+moción de la salud, prevención de enfermedades, recuperación y rehabilitación 
+en salud. 
+III. ÁMBITO DE APLICACIÓN
+La presente Guía Técnica es de aplicación en los establecimientos de salud que brindan 
+atención de salud a las personas adolescentes, del Ministerio de Salud y del Instituto de Gestión 
+de Servicios de Salud - IGSS,  las DIRESA, GERESA, o quien haga sus veces a nivel regional, 
+y puede servir de referencia para los demás integrantes del sector salud.
+
+=== PDF PAGE 11 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+10
+IV. PROCEDIMIENTO A ESTANDARIZAR: VALORACIÓN NUTRICIONAL 
+ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE1
+La valoración nutricional antropométrica de la persona adolescente comprende procedimientos 
+técnicos a seguir en la atención integral de salud por el prestador de salud, para determinar el 
+estado nutricional de este grupo poblacional.
+V. CONSIDERACIONES GENERALES
+5.1. DEFINICIONES OPERATIVAS
+Atención integral de salud de las y los adolescentes: comprende la provisión continua, 
+integrada y con calidad de una atención orientada hacia la promoción de la salud, prevención 
+de enfermedades, recuperación y rehabilitación de la salud de adolescentes, en el contexto de 
+su vida en familia, institución educativa y en la comunidad.
+Clasificación de la valoración nutricional: son escalas de valoración nutricional caracterizadas 
+por su fácil aplicación e interpretación; y recomendadas por la Organización Mundial de la Salud 
+(OMS).
+Consejería nutricional: es un proceso educativo comunicacional entre el nutricionista o 
+personal de salud capacitado en nutrición y consejería, y la persona adolescente. El propósito 
+es analizar una situación determinada y ayudar a tomar decisiones sobre ella, basadas en 
+los resultados de la evaluación nutricional y en el análisis de las prácticas del adolescente, 
+fortaleciendo aquellas que se identifiquen como positivas y corrigiendo las de riesgo, para 
+asegurar un adecuado estado nutricional. El tiempo estimado para la consejería es de 20 a 45 
+minutos, y de ser el caso, pueden estar presentes los padres o acompañantes.
+Consulta nutricional: es la atención especializada realizada por el profesional nutricionista, 
+dirigida a la promoción, prevención, recuperación y control nutricional.
+Delgadez: es una clasificación de la valoración nutricional de adolescentes, caracterizada por 
+una insuficiente masa corporal con relación a la talla. En adolescentes es determinada por 
+un índice de masa corporal para la edad menor a -2 desviación estándar de la población de 
+referencia.
+Desviación estándar (DE): es una medida estadística de dispersión que informa en qué 
+medida un valor determinado se aparta de la media.
+Equipo mínimo de valoración nutricional antropométrica: es el conjunto mínimo de 
+herramientas necesarias para realizar la valoración nutricional antropométrica en una persona 
+adolescente; comprende una balanza de plataforma, un tallímetro y una cinta métrica en buen 
+estado.
+Estadios de Tanner: es la valoración del desarrollo puberal en adolescentes, considerando los 
+índices de maduración sexual en cinco estadios, basados en el desarrollo mamario para el sexo 
+femenino, y en el desarrollo de genitales para el sexo masculino. 
+1 No incluye a la adolescente gestante
+
+=== PDF PAGE 12 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+11
+Estado nutricional: es la situación de salud de la persona como resultado de su régimen 
+alimentario, nutrición, estilo de vida, condiciones sociales y condiciones de salud.
+Estilos de vida saludable: es la forma de vivir de las personas, cuyo conjunto de patrones de 
+conducta o hábitos promueven y protegen su salud, de la familia y comunidad.
+Índice de masa corporal (IMC): es la relación entre el peso corporal con la talla elevada al 
+cuadrado de la persona. Se le conoce también como índice de Quetelet, y su fórmula de cálculo 
+es: IMC = Peso (kg) / talla (m)
+2.     
+Índice de masa corporal para edad (IMC/Edad): es un indicador resultante de comparar el 
+IMC de la persona adolescente con el IMC de referencia correspondiente a su edad. Clasifica el 
+estado nutricional en delgadez, normal, sobrepeso y obesidad.
+Malnutrición: es el estado nutricional anormal causado por la deficiencia o exceso de energía, 
+macronutrientes y/o micronutrientes; incluye la delgadez, el sobrepeso, la obesidad, la anemia, 
+entre otros.
+Medición del perímetro abdominal: es la medición de la circunferencia abdominal que se 
+realiza para determinar el riesgo de enfermedades crónicas no transmisibles: enfermedades 
+cardiovasculares, diabetes, entre otras.
+Medición de la talla: es la medición antropométrica del tamaño o estatura de la persona 
+adolescente, obtenida siguiendo procedimientos establecidos.
+Monitoreo de crecimiento: es la recolección frecuente de información sobre la valoración o 
+evaluación del crecimiento de la persona adolescente.
+Obesidad: es una enfermedad caracterizada por un estado excesivo de grasa corporal o tejido 
+adiposo. En adolescentes, es determinada cuando el índice de masa corporal para la edad es 
+mayor a +2 desviación estándar (DE) de la población de referencia.
+Orientación nutricional: es una actividad educativa básica y puntual, en la cual se brinda 
+información para la adopción de prácticas alimentarias saludables en la vida diaria.
+Patrón de referencia: son medidas de datos recolectados de una población representativa 
+saludable a través de métodos estandarizados, sirven como referencia para comparar valores 
+individuales o colectivos de una población evaluada.
+Persona adolescente
+2: es la persona cuya edad está comprendida entre los 12 y 17 años 11 
+meses y 29 días. Se caracteriza por ser un periodo de intensos cambios físicos, psicológicos y 
+sociales, que se inicia en la pubertad y culmina con la obtención de las características físicas, 
+biológicas y psicológicas de la juventud.
+Personal capacitado en valoración nutricional antropométrica: es el personal de salud 
+que ha recibido por lo menos 24 horas lectivas de capacitación teórico-práctico en valoración 
+nutricional antropométrica durante los últimos 12 meses.
+Plano de Frankfurt: es una línea imaginaria que sale del borde superior del conducto auditivo 
+externo (parte superior del orificio de la oreja), hacia la base de la órbita (hueso) del ojo. Debe 
+2 R.M. 538-2009/MINSA, que modifica la clasificación de los Grupos Objetivo para los Programas de Atención Integral 
+de Salud
+
+=== PDF PAGE 13 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+12
+ser perpendicular al eje del tronco o tablero del tallímetro y paralelo al piso; es útil para una 
+adecuada medición de la talla.
+Pubertad: es el tiempo durante el cual las características físicas y sexuales de una niña o niño 
+maduran, y se presentan debido a cambios hormonales. La pubertad precoz es cuando estos 
+cambios corporales suceden más temprano de lo normal.
+Punto de corte o valor límite: es el valor de una variable que divide a la población en dos 
+subpoblaciones, por encima y por debajo de ese valor. Permite clasificar el estado nutricional 
+del individuo o de una población.
+Riesgo nutricional: es la probabilidad de padecer enfermedad o complicaciones médicas por 
+presentar malnutrición o tener inadecuados hábitos o comportamientos alimentarios.
+Sobrepeso: es una clasificación de la valoración nutricional, donde el peso corporal es superior 
+a lo normal. En adolescentes, es determinado por un índice de masa corporal para la edad entre 
+más de 1 DE a 2 DE de la población de referencia.
+Talla baja: es cuando la talla para la edad de la persona adolescente es menor a -2 DE de la 
+población de referencia. También se le conoce como baja estatura o detención del crecimiento.
+Talla baja severa: es cuando la talla para la edad de la persona adolescente es menor a  -3 DE 
+de la población de referencia.
+Talla para la edad (T/E): es el indicador resultante de comparar la talla de la mujer o varón 
+adolescente con la talla de referencia correspondiente a su edad. Este indicador permite evaluar 
+el crecimiento lineal del sujeto.
+Toma del peso corporal: es la estimación de la masa corporal de una persona expresada en 
+kilogramos, y varía de acuerdo a la edad, sexo, estilo de vida, estado de salud, entre otros.
+Valoración o evaluación nutricional: es el conjunto de procedimientos que permiten determinar 
+el estado nutricional de una persona, valorar las necesidades o requerimientos nutricionales 
+y determinar los posibles riesgos de salud que pueda presentar con relación a su estado 
+nutricional.
+Valoración o evaluación nutricional antropométrica: es la determinación de la valoración 
+nutricional de la persona adolescente, mediante la toma de peso, medición de la talla, medición 
+del perímetro abdominal y otras medidas antropométricas.
+5.2. REQUERIMIENTOS BÁSICOS
+Los establecimientos de salud deben organizarse de acuerdo a la categoría del estable-
+cimiento de salud, considerando la infraestructura, los recursos humanos y los recursos 
+materiales.
+5.2.1. Infraestructura
+Los establecimientos de salud tienen que considerar en los ambientes de triaje o 
+consultorio un área física privada, ventilada y con buena iluminación para la toma 
+de peso, medición de talla y medición del perímetro abdominal.
+
+=== PDF PAGE 14 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+13
+5.2.2. Recursos humanos
+Los establecimientos de salud deben disponer de un profesional nutricionista, 
+de no ser este el caso, se debe disponer de un profesional de la salud o de un 
+personal de salud capacitado en valoración nutricional antropométrica según la 
+categoría del establecimiento de salud. 
+5.2.3. Recursos materiales
+Los establecimientos de salud deben contar con los siguientes recursos:
+Equipo antropométrico básico3
+• Balanza mecánica de plataforma (sin tallímetro incorporado).
+• Tallímetro fijo de madera, según especificaciones técnicas4.
+• Cinta métrica flexible, no elástica y de fibra de vidrio.
+Historia clínica
+• Los resultados obtenidos de la valoración nutricional antropométrica de la persona  
+adolescente, deben estar consignados en este instrumento.
+Materiales de apoyo
+• Calculadora;
+• Cuaderno de registro de atención de personas adolescentes;
+• Escalera de dos peldaños;
+• Formatos HIS (Sistema de Información en Salud);
+• Gráficas clínicas para monitorear el estado nutricional de adolescentes;
+• Tablas de valoración nutricional antropométrica para personas adolescentes;
+• Afiches, rotafolios, folletos, trípticos, material audiovisual, entre otros, para proveer 
+información a las personas adolescentes, familiares y público en general, que les 
+permita tomar decisiones sobre su estado de salud y nutrición.
+VI. CONSIDERACIONES ESPECÍFICAS
+La guía técnica establece las siguientes consideraciones específicas para la valoración 
+nutricional antropométrica de las personas adolescentes:
+• A toda persona adolescente que acuda al establecimiento de salud por primera vez o en 
+condición de continuador, se le debe realizar la valoración nutricional antropométrica; y 
+luego cada tres meses para la identificación temprana de cualquier riesgo nutricional y 
+tratamiento respectivo. Los controles deben ser más frecuentes cuando se sospecha o 
+evidencia problemas nutricionales (en el caso de problemas de peso realizar controles 
+mensuales, y en el caso de problemas de talla realizar controles bimensuales). 
+3 Para el caso de establecimientos de salud I-4, II y III, se podrá contar con los siguientes instrumentos: plicómetro o 
+cáliper, e impedanciómetro.
+4 Contreras M, Palomino C. Guía Técnica: Elaboración y Mantenimiento de Infantómetros y Tallímetros de Madera. 
+Instituto Nacional de Salud / UNICEF . Lima: 2007 .
+
+=== PDF PAGE 15 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+14
+• La captación de personas adolescentes para la valoración nutricional antropométrica 
+debe ser de diferentes maneras: como usuaria o usuario, derivado por otros servicios o 
+establecimientos de salud, referido por algún promotor de salud, personal de la comunidad 
+u otros agentes comunitarios, y también como resultado de las intervenciones extramurales.
+• La toma del peso, medición de la talla y la medición del perímetro abdominal deben estar a 
+cargo del personal de salud capacitado en técnicas de medición antropométrica.
+• La valoración nutricional antropométrica debe estar a cargo del profesional nutricionista o 
+personal de salud capacitado en el tema, y se realizará según la categoría del establecimiento 
+de salud.
+• En la historia clínica se deben incluir las gráficas de monitoreo de crecimiento de adolescentes. 
+Asimismo, se deben registrar los datos de edad, peso, talla y perímetro abdominal.
+• La clasificación de la valoración nutricional antropométrica se debe registrar en la historia 
+clínica y en el HIS.
+6.1 MEDICIONES ANTROPOMÉTRICAS
+Las mediciones antropométricas a realizar en las personas adolescentes consistirán en 
+la toma de peso, medición de la talla y medición del perímetro abdominal; siendo esencial 
+explicar a la persona y a su acompañante, el procedimiento que se va a realizar para las 
+mediciones antropométricas, sobre todo cuando se evalúe el grado de desarrollo puberal 
+con los estadios de Tanner.
+6.1.1. CONTROL DEL PESO
+Condiciones
+Balanza mecánica de plataforma (sin tallímetro incorporado): es el instrumento para pe-
+sar personas, de pesas con resolución de 100 g y con capacidad igual o mayor de 140 kg. 
+Debe calibrarse periódicamente con pesas patrones de pesos conocidos previamente pesa-
+das en balanzas certificadas.
+Kit de pesas patrones: son las pesas destinadas a reproducir valores de pesos cono-
+cidos para servir de referencia en la calibración de balanzas. Se recomienda que cada 
+microrred de salud disponga de un kit de pesas patrones de 5 kg (1 unidad); y de 10 kg 
+(seis unidades).
+Resolución de la balanza de plataforma: es el valor mínimo medible entre dos valores 
+consecutivos. En las balanzas de plataforma la resolución debe ser de 100 g.
+Ajuste diario y/o antes de cada pesada: es la operación de llevar la balanza a un es-
+tado de funcionamiento conveniente para su uso. Observar las siguientes indicaciones:
+• En la balanza de plataforma coloque la pesa mayor y la pesa menor en “0” (cero), 
+el extremo común de las varillas debe mantenerse sin movimiento en la parte cen-
+tral de la abertura (Figura 1 y 2).
+• En caso de que el extremo común de las varillas no se mantenga en la parte cen-
+tral de la abertura de la varilla central derecha que lo sostiene, realice los ajustes 
+con el tornillo calibrador hasta que la varilla horizontal se mantenga estable en el 
+centro de la abertura.
+
+=== PDF PAGE 16 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+15
+Calibración mensual y/o cada vez que sea necesario: se refiere a la evaluación de 
+precisión de la balanza, comparándola periódicamente con el kit de pesas patrones. 
+Procedimientos
+1) Verificar la ubicación y condiciones de la balanza. La balanza debe estar ubicada 
+sobre una superficie lisa, horizontal y plana, sin desnivel o presencia de algún objeto 
+extraño bajo esta, y debe contar con una buena iluminación.
+2) Explicar a la persona adolescente el procedimiento de la toma de peso, y solicitar su 
+consentimiento y colaboración, previa aprobación de la persona acompañante.
+3) Solicitar a la persona adolescente que se quite los zapatos y el exceso de ropa.
+4) Ajustar la balanza a “0” (cero) antes de realizar la toma de peso.
+5) Solicitar a la persona adolescente que se coloque en el centro de la plataforma de 
+la balanza, en posición erguida y relajada, mirando al frente de la balanza, con los 
+brazos a los costados del cuerpo, con las palmas descansando sobre los muslos, los 
+talones ligeramente separados y la punta de los pies separados formando una “V” 
+(Figura 3).
+6) Deslizar la pesa mayor correspondiente a kilogramos hacia la derecha, hasta que el 
+extremo común de ambas varillas no se mueva, luego retroceder una medida de diez 
+kilogramos. La pesa menor correspondiente a gramos debe estar ubicado al extremo 
+izquierdo de la varilla (Figura 1 y 2).
+7) Deslizar la pesa menor correspondiente a gramos hacia la derecha, hasta que el 
+extremo común de ambas varillas se mantenga en equilibrio en la parte central de la 
+abertura que lo contiene (Figura 2).
+8) Leer el peso en kilogramos y la fracción en gramos, y descontar el peso de las 
+prendas con la que se le pesó a la persona.
+9) Registrar el peso obtenido en kilogramos (kg), con un decimal que corresponda a 
+100 g, en el formato correspondiente, con letra clara y legible (ejemplo: 49,3 kg).
+NOTA: Si las condiciones ambientales, la falta de privacidad del servicio u otras circuns-
+tancias no permiten tomar el peso en condiciones óptimas, se debe pesar a la persona y 
+luego restarle el peso de la ropa con la que fue pesado. Para ello, el servicio debe contar 
+con una lista de prendas de mayor uso local con sus respectivos pesos.
+ 
+Pesa mayor
+Tornillo
+calibrador
+Pesa menor
+Extremo común
+de las varillas en
+equilibrio
+Figura 1
+Parte superior de una balanza 
+de plataforma sin tallímetro 
+Figura 2
+Extremo común de las 
+varillas  
+
+=== PDF PAGE 17 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+16
+6.1.2. MEDICIÓN DE LA TALLA
+Condiciones
+Tallímetro fijo de madera: instrumento para medir la talla en personas, el cual debe ser 
+colocado sobre una superficie lisa y plana, sin desnivel u objeto extraño alguno bajo el 
+mismo, y con el tablero apoyado en una superficie plana formando un ángulo recto con 
+el piso (Figura 4).
+El tallímetro incorporado a la balanza no cumple con las especificaciones técnicas para 
+una adecuada medición, por tanto, no se recomienda su uso (Figura 5).
+Revisión del equipo: el deslizamiento del tope móvil debe ser suave y sin vaivenes, la 
+cinta métrica debe estar adherida al tablero y se debe observar nítidamente su numera-
+ción. Asimismo, se debe verificar las condiciones de estabilidad del tallímetro.
+Procedimientos
+1) Verificar la ubicación y condiciones del tallímetro. Verificar que el tope móvil se deslice 
+suavemente, y chequear las condiciones de la cinta métrica a fin de dar una lectura 
+correcta.
+2) Explicar a la persona adolescente el procedimiento de medición de la talla y solicitar 
+su consentimiento y colaboración, previa aprobación de la persona acompañante.
+3) Solicitar se quite los zapatos, el exceso de ropa, y los accesorios u otros objetos en 
+la cabeza que interfieran con la medición.
+4) Indicar que se ubique en el centro de la base del tallímetro, de espaldas al tablero, en 
+posición erguida, mirando al frente, con los brazos a los costados del cuerpo, con las 
+palmas de las manos descansando sobre los muslos, los talones juntos y las puntas 
+de los pies ligeramente separados.
+5) Asegurar que los talones, pantorrillas, nalgas, hombros, y parte posterior de la 
+cabeza se encuentren en contacto con el tablero del tallímetro.
+Figura 3
+Control del peso en 
+balanza de plataforma
+
+
+=== PDF PAGE 18 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+17
+6) Verificar el “plano de Frankfurt” (línea horizontal imaginaria que sale del borde 
+superior del conducto auditivo externo hacia la base de la órbita del ojo, y que debe 
+ser perpendicular al tablero del tallímetro). Ver Figura 6.
+7) Colocar la palma abierta de su mano izquierda sobre el mentón de la persona que se 
+está midiendo, luego ir cerrándola de manera suave y gradual sin cubrir la boca, con 
+la finalidad de asegurar la posición correcta de la cabeza sobre el tallímetro. 
+8) Con la mano derecha, deslizar el tope móvil hasta hacer contacto con la superficie 
+superior de la cabeza (vertex craneal), comprimiendo ligeramente el cabello; luego 
+deslizar el tope móvil hacia arriba. Este procedimiento debe ser realizado tres veces 
+en forma consecutiva, acercando y alejando el topo móvil. Cada procedimiento tiene 
+un valor en metros, centímetros y milímetros.
+9) Leer las tres medidas obtenidas, obtener el promedio y registrarlo en la historia 
+clínica en centímetros con una aproximación de  0,1 cm. Si la medida cae entre dos 
+milímetros, se debe registrar el milímetro inferior.
+Figura 4
+Tallímetro fijo
+Figura 6
+Plano de Frankfurt
+90º
+Figura 5
+No utilizar tallímetro 
+incorporado a balanza
+Figura 7
+Medición de la talla
+Observación:
+Si quien mide tiene 
+menor talla que 
+la persona, debe 
+usar una escalera 
+de dos peldaños 
+para una adecuada 
+medición.
+
+=== PDF PAGE 19 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+18
+6.1.1.3. MEDICIÓN DEL PERÍMETRO ABDOMINAL
+Condiciones
+Cinta métrica: es el instrumento para medir el perímetro abdominal, el cual 
+debe tener una longitud de 200 cm y una resolución de 1 mm. Se recomienda 
+utilizar cinta métrica de fibra de vidrio, de no contar con esta cinta, utilizar cinta 
+métrica no elástica. 
+Procedimientos
+1) Explicar a la persona adolescente el procedimiento de medición, y solicitar su 
+consentimiento y colaboración; previa aprobación de la persona acompañante.
+2) Solicitar a la persona que se ubique en posición erguida, sobre una superficie 
+plana, con el torso descubierto, y con los brazos relajados y paralelos al tronco.
+3) Asegurarse que la persona se encuentre relajada y, de ser el caso, solicitarle 
+se desabroche el cinturón o correa que pueda comprimir el abdomen.
+4) Mantener separados los pies a una distancia de 25 a 30 cm, de tal manera 
+que su peso se distribuya sobre ambos miembros inferiores.
+5) Palpar el borde inferior de la última costilla y el borde superior de la cresta 
+iliaca, ambos del lado derecho, determinar la distancia media entre ambos 
+puntos y proceder a marcarlo; realizar este mismo procedimiento para el 
+lado izquierdo (Figura 8).
+6) Colocar la cinta métrica horizontalmente alrededor del abdomen, tomando 
+como referencia las marcas de las distancias medias de cada lado, sin 
+comprimir el abdomen de la persona.
+7) Realizar la lectura en el punto donde se cruzan los extremos de la cinta 
+métrica (Figura 9).
+8) Tomar la medida en el momento en que la persona respira lentamente y 
+expulsa el aire (al final de una exhalación normal). Este procedimiento debe 
+ser realizado tres veces en forma consecutiva, acercando y alejando la cinta.
+9) Leer las tres medidas, obtener el promedio y registrarlo en la historia clínica 
+en centímetros con una aproximación de 0,1 cm. Si la medida cae entre 
+dos milímetros, se debe registrar el milímetro inferior.
+Figura 9
+Medición del perímetro 
+abdominal, al final de 
+una exhalación.
+Figura 8
+Marca del punto de medición. 
+Punto medio entre la última 
+costilla y la cresta ilíaca.
+
+
+=== PDF PAGE 20 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+19
+6.2.  DETERMINACIÓN DE LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA
+6.2.1. CLASIFICACIÓN DE LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA 
+SEGÚN ÍNDICE DE MASA CORPORAL PARA LA EDAD
+El índice de masa corporal para la edad (IMC/Edad) es el indicador resultante de com-
+parar el IMC de la persona adolescente con el IMC de referencia correspondiente a su 
+edad; permite evaluar los niveles de delgadez, normal, sobrepeso y obesidad, según las 
+referencias de crecimiento corporal OMS 2007
+5 (Anexo 3). Para su cálculo se debe con-
+siderar la siguiente fórmula: IMC = Peso (kg) / (talla (m))², y el resultado debe ser compa-
+rado con el Cuadro 1 de clasificación de la valoración nutricional según IMC para la edad.
+Cuadro 1
+Clasificación de la valoración nutricional de adolescentes según
+índice de masa corporal para la edad (IMC/Edad)
+Clasificación Puntos de corte  (DE)
+Obesidad >  2
+Sobrepeso >  1  a  2
+Normal 1  a  - 2
+Delgadez < - 2  a - 3
+Delgadez severa  < - 3
+Fuente: Referencia de Crecimiento OMS 2007
+6.2.2. CLASIFICACIÓN DE LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA 
+SEGÚN TALLA PARA LA EDAD
+El indicador talla para la edad es el indicador resultante de comparar la talla de la perso-
+na adolescente con la talla de referencia correspondiente a su edad, y permite evaluar el 
+crecimiento lineal alcanzado de la persona adolescente según las referencias de creci-
+miento corporal OMS 2007
+6 (Anexo 4). 
+Cuadro 2
+Clasificación de la valoración nutricional de adolescentes según talla para la edad
+Clasificación Puntos de corte (DE)
+Talla alta > + 2 
+Normal + 2 a - 2
+Talla baja < - 2 a - 3
+Talla baja severa < - 3
+Fuente: Referencia de Crecimiento OMS 2007
+5 World Health Organization 2007 , Growth reference data for 5-19 years.
+6 World Health Organization 2007 , Growth reference data for 5-19 years
+
+=== PDF PAGE 21 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+20
+NOTA: para monitorear la velocidad del crecimiento en adolescentes se debe utilizar las 
+gráficas de crecimiento corporal propuestos por la OMS 2007 (Anexos 1 y 2), a fin de 
+favorecer al máximo el crecimiento correspondiente a esta etapa de vida, y evitar riesgos 
+de delgadez u obesidad. 
+Para una clasificación rápida se pueden utilizar las tablas de valoración nutricional antro-
+pométrica de los Anexos 3 o 4 según corresponda. 
+6.2.3. DETERMINACIÓN DEL RIESGO DE ENFERMEDADES CARDIOVASCULA -
+RES Y ENFERMEDADES METABÓLICAS EN LA PERSONA ADOLESCENTE SEGÚN 
+PERÍMETRO ABDOMINAL PARA LA EDAD
+El indicador perímetro abdominal para la edad es el indicador resultante de comparar el 
+perímetro abdominal de la mujer o el varón adolescente con el perímetro abdominal de 
+referencia correspondiente a su edad. En adolescentes, un perímetro abdominal sobre el 
+percentil 75 puede determinar un riesgo alto, y uno sobre el percentil 90 un riesgo muy 
+alto de tener enfermedades cardiovasculares y enfermedades metabólicas (hiperinsuli-
+nemia, diabetes tipo 2, entre otras).
+Cuadro 3
+Clasificación de riesgo de enfermar según sexo, edad y perímetro abdominal
+Edad 
+(años)
+Riesgo de enfermar según perímetro abdominal (cm)
+ Adolescentes varones Adolescentes mujeres
+Bajo
+(< P75)
+Alto
+(≥ P75)
+Muy alto
+(≥ P90)
+Bajo 
+(< P75)
+Alto
+(≥ P75)
+Muy alto
+(≥ P90)
+12 74,2 74,3 84,8 73,4 73,5 82,7
+13 76,7 76,8 88,2 76,8 76,9 85,8
+14 79,3 79,4 91,6 78,2 78,3 88,8
+15 81,8 81,9 95,0 80,6 80,7 91,9
+16 84,4 84,5 98,4 83,0 83,1 94,9
+17 86,9 87 ,0 101,8 85,4 85,5 98,0
+Fuente: Adaptado de Fernández J, Redden D, Pietrobelli A, Allison D. Waist circumference percentiles in nationally 
+representative samples of African-American, European-American, and Mexican-American children and adolescents. 
+J Pediatric 2004.
+6.2.4. CLASIFICACIÓN DE LA EDAD BIOLÓGICA SEGÚN ESTADIOS DE TANNER
+La valoración nutricional antropométrica de la persona adolescente, considerando la 
+edad cronológica, no considera el grado de desarrollo puberal o edad biológica; este 
+último se valora con los estadios de Tanner (específicamente con el desarrollo mamario 
+para mujeres y desarrollo genital para varones7); en tal sentido, es conveniente ajustarla. 
+7 Freyre E, Llaza G, Rebaza R. Aplicabilidad de la Escala de Tanner para evaluar el desarrollo del vello púbico en 
+adolescentes peruanos.
+
+=== PDF PAGE 22 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+21
+Las formas de realizar la clasificación de la edad biológica en adolescentes según los 
+estadios de Tanner son: por tamizaje mediante gráficas (autopercepción) y por examen 
+visual del desarrollo sexual; y su aplicación debe ser de acuerdo a los procedimientos 
+descritos en la R.M. 917 -2014/MINSA, que aprueba el “Documento Técnico: Orientacio-
+nes para la Atención Integral de Salud de las y los Adolescentes en el I Nivel de Atención” .
+En el nivel de atención I: se realizará la evaluación del desarrollo puberal según los 
+estadios de Tanner por tamizaje mediante gráficas (autopercepción), el cual debe ser 
+realizado por el profesional de salud capacitado y especializado en la aplicación de esta 
+prueba, y debe contar con la autorización y presencia del padre, madre o tutor(a) previa-
+mente informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada. 
+De no contarse con este tipo de profesional de salud capacitado y especializado en la 
+aplicación del tamizaje mediante gráficas, se procederá a realizar la clasificación de la 
+valoración nutricional antropométrica con la edad cronológica. Asimismo, de contarse en 
+este nivel, con profesionales de la salud capacitados y especializados en la evaluación 
+del desarrollo puberal por examen visual, estos podrán realizar este tipo de evaluación.
+En los niveles de atención II y III : se realizará el examen visual del desarrollo puberal 
+según los estadios de Tanner, el cual debe ser realizado por el profesional de salud ca-
+pacitado y especializado en evaluación del desarrollo puberal por examen visual, y debe 
+contar con la autorización y presencia del padre, madre o tutor(a) previamente informa-
+do(a)s, o de otro personal de salud del mismo sexo que el o la evaluada. De no contarse 
+con este tipo de profesional, se podrá realizar la evaluación del desarrollo puberal según 
+los estadios de Tanner por tamizaje mediante gráficas, siempre que se cuente con el 
+profesional de salud capacitado y especializado en la aplicación de esta prueba, y con la 
+autorización y presencia del padre, madre o tutor(a) previamente informado(a)s, o de otro 
+personal de salud del mismo sexo que el o la evaluada.
+NOTA: cuando la edad cronológica y la edad biológica presenten una diferencia menor 
+de un año se debe evaluar el estado nutricional según el IMC por edad cronológica, 
+usando los mismos criterios descritos previamente. Si existe una diferencia igual o mayor 
+de un año se debe evaluar el estado nutricional según el IMC por edad biológica. La cla-
+sificación de la edad biológica según estadios de Tanner y sus características respectivas 
+por cada estadio se muestra en los Cuadros 4 y 5, y en las figuras del Anexo 7 . 
+Cuadro 4
+Clasificación de la edad biológica según estadios de Tanner para mujeres
+Estadio 
+de Tanner Características de la mama Edad biológica 
+(años y meses)
+Mama I No hay cambios o ligera elevación del pezón < 10 a 6 m
+Mama ll Aparece el botón mamario. Crecimiento de la glándula 10 a 6 m
+Mama lll Mama en forma de cono. Inicia el crecimiento del 
+pezón 11 a
+Mama IV Crecimiento de la areola y del pezón: doble contorno 12 a 
+Mama V Mama adulta. Solo es prominente el pezón 12 a 8 m
+Fuente: Burrows R, Muzzo S. Rev Chil Nutr 1999; 26: 95S-101S. 
+
+=== PDF PAGE 23 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+22
+Cuadro 5
+Clasificación de la edad biológica según estadios de Tanner para varones
+Estadio de 
+Tanner Características de los genitales Edad biológica 
+(años y meses)
+Genitales I No hay cambios < 12 a
+Genitales ll Escroto y testículos aumentan ligeramente de 
+tamaño 12 a
+Genitales lll Crece el pene ligeramente, sobre todo en 
+longitud 12 a 6 m
+Genitales IV Engrosamiento del pene y desarrollo de 
+testículos y escroto 13 a 6 m
+Genitales V Genitales adultos 14 a 6 m
+Fuente: Burrows R, Muzzo S. Rev Chil Nutr 1999; 26: 95S-101S.
+6.3. INTERPRETACIÓN DE LOS RESULTADOS DE LA VALORACIÓN NUTRICIONAL 
+ANTROPOMÉTRICA
+6.3.1. INTERPRETACIÓN DE LOS VALORES DE ÍNDICE DE MASA CORPORAL 
+PARA LA EDAD (IMC/EDAD):
+IMC < -2 DE (delgadez)
+Las personas adolescentes con un IMC < -2 DE, son clasificadas con valoración nutri-
+cional de “delgadez” , que es una malnutrición por déficit, y presentan un bajo riesgo de 
+comorbilidad para enfermedades no transmisibles. Sin embargo, pueden presentar un 
+riesgo incrementado para enfermedades digestivas y pulmonares, entre otras. 
+Las personas adolescentes con un IMC < -3 DE son clasificadas con valoración nutricio-
+nal de “delgadez severa” . 
+IMC ≥ -2 DE y ≤ 1 DE (normal)
+Las personas adolescentes con un IMC ≥ -2 DE y < 1 DE, son clasificadas con valoración 
+nutricional “normal” , y es el IMC que debe mantener esta población, de manera constante.
+IMC > 1 DE a ≤ 2 DE (sobrepeso)
+Las personas adolescentes con un IMC de ≥ 1 DE a < 2 DE, son clasificadas con valo-
+ración nutricional de “sobrepeso” , que es una malnutrición por exceso, caracterizado por 
+la ingesta elevada de calorías, malos hábitos alimentarios, escasa actividad física, entre 
+otros. Asimismo, puede significar que existe riesgo de comorbilidad, principalmente de las 
+enfermedades crónicas no transmisibles como enfermedades cardiovasculares, diabetes 
+mellitus tipo 2, entre otros.
+IMC > 2 DE (obesidad)
+Las personas adolescentes con un IMC ≥ 2 DE, son clasificadas con valoración nutricio-
+nal de “obesidad” , que es una malnutrición por exceso, e indica que existe un alto riesgo 
+de comorbilidad, principalmente de las enfermedades cardiovasculares, diabetes 
+mellitus 
+tipo 2, entre otros.
+
+=== PDF PAGE 24 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+23
+6.3.2. INTERPRETACIÓN DE LOS VALORES DE TALLA PARA LA EDAD (TALLA/
+EDAD)
+Talla < - 2 DE (talla baja)
+Las personas adolescentes con una talla < -2 DE, son clasificadas con valoración nutri-
+cional de “talla baja” , que es una malnutrición por déficit.
+Las personas adolescentes con un IMC < -3 DE son clasificadas con valoración nutricio-
+nal de “talla baja severa” . 
+Talla ≥ -2 DE y ≤ 2 DE (normal)
+Las personas adolescentes con una talla ≥ -2 DE y ≤ 2 DE, son clasificadas con valo-
+ración nutricional “normal” , y es la talla que debe mantener esta población, de manera 
+constante.
+Talla > 2 DE (talla alta)
+Las personas adolescentes con una talla ≥ 2 DE, son clasificadas con valoración nutri-
+cional de “talla alta” .
+6.3.3. INTERPRETACIÓN DE LOS VALORES SEGÚN RIESGO NUTRICIONAL
+Toda persona adolescente tiene su propia velocidad de crecimiento, el que se espera que 
+sea ascendente y que se mantenga en un mismo carril. Cuando la tendencia del creci-
+miento en la gráfica cambia de carril o se establece una meseta antes de los 18 años, 
+puede ser una señal de riesgo.
+La interpretación del riesgo depende de donde empieza el cambio de la tendencia, de 
+la dirección de la tendencia y de la historia de salud de la o el adolescente. Por eso es 
+necesario conocer cual ha sido su velocidad o carril de crecimiento durante su niñez.
+IMC para edad
+• Riesgo de delgadez: IMC ≥ -2 DE a < -1 DE
+• Sobrepeso: IMC ≥ 1 DE a < 2 DE
+• Cuando el IMC/EDAD Normal varía en ±1,5 o más, en 6 meses.
+• Cambio en la clasificación de IMC/EDAD en sentido opuesto a lo “normal” en dos 
+controles. Ejemplo: de normal a delgadez, o de normal a obesidad.
+Talla para edad
+• Riesgo de talla baja: talla ≥ -2DE a -1DE.
+• Incremento en talla > 3,5 cm. en 6 meses (pudiera ser pubertad precoz)
+• Talla no varía entre dos controles (con distancia de 6 meses), excepto a partir de 
+los 18 años de edad.
+• El riesgo de talla baja es diferente según sexo.
+
+=== PDF PAGE 25 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+24
+Talla para edad, en el 2.º y 3.er nivel de atención, incorporando el desarrollo puberal:
+• Adolescente con pubertad iniciada que incrementa < 3 cm en 6 meses.
+• Adolescente sin pubertad iniciada que incrementa < 2 cm en 6 meses.
+• Sospecha de pubertad precoz si incrementa en talla > 3,5 cm en 6 meses.
+Registro de casos de riesgo nutricional: el riesgo de delgadez o sobrepeso deberá ser 
+realizado junto con el registro de la consejería nutricional. 
+6.3.4. INTERPRETACIÓN DE LOS VALORES DEL PERÍMETRO ABDOMINAL PARA 
+LA EDAD (PAB/EDAD)
+El perímetro abdominal se encuentra estrechamente correlacionado con el índice de 
+masa corporal; aun sin presentar obesidad por IMC para la edad, el perímetro abdominal 
+puede determinar riesgos de enfermedades crónico degenerativas (enfermedades car -
+diovasculares, diabetes, entre otros). 
+En adolescentes es válido que un aumento en el perímetro abdominal sobre el percentil 
+75, tenga un incremento ante la presencia de enfermedades cardiovasculares8.
+PAB < Percentil 75 en varones y mujeres (bajo)
+Existe bajo riesgo de comorbilidad, de enfermedades crónicas no transmisibles como 
+diabetes 
+mellitus tipo 2, enfermedades cardiovasculares incluida la hipertensión arterial, 
+enfermedad coronaria, entre otras.
+PAB ≥ Percentil 75 y < Percentil 90 en varones y mujeres (alto)
+Es considerado factor de alto riesgo de comorbilidad, de enfermedades crónicas no 
+transmisibles como diabetes mellitus tipo 2, enfermedades cardiovasculares incluida la 
+hipertensión arterial, enfermedad coronaria, entre otras.
+PAB ≥ Percentil 90 en varones y mujeres (muy alto)
+Es considerado factor de muy alto riesgo de comorbilidad, de enfermedades crónicas no 
+transmisibles como diabetes mellitus tipo 2, enfermedades cardiovasculares incluida la 
+hipertensión arterial, enfermedad coronaria, entre otras.
+6.4. INSTRUMENTOS PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA
+6.4.1. GRÁFICAS CLÍNICAS PARA MONITOREAR EL ESTADO NUTRICIONAL
+Las gráficas clínicas son sistemas gráficos lineales de los valores numéricos correspon-
+dientes al IMC/edad y talla/edad según desviaciones estándar (Anexo 1 y 2); y son de 
+utilidad para el monitoreo del crecimiento por parte del personal de salud.
+Las gráficas clínicas permiten luego de dos o más controles evaluar la tendencia de la 
+curva de crecimiento, y la detección oportuna de riesgo de malnutrición en las personas 
+adolescentes. Para su elaboración se han considerado como referencia los datos de cre-
+8 Katzmarzyk PT, Sathanur R. Srinivasan, Wei Chen, Robert M. Malina, Claude Bouchard and Gerald S. Berenson. Body Mass Index, 
+Waist Circumference, and Clustering of Cardiovascular Disease Risk Factors in a Biracial Sample of Children and Adolescents, 
+Pediatrics. 2004; 114;e198-e205.
+
+=== PDF PAGE 26 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+25
+cimiento de la OMS 2007 para mujeres y varones adolescentes de 12 a 17 años 11 meses 
+con 29 días.
+Procedimiento para el uso de las gráficas
+• Ubicar en la línea horizontal de la gráfica el dato de la edad de la persona 
+adolescente.
+• Ubicar en la línea vertical el valor de IMC de la persona adolescente.
+• Graficar un punto en la intersección de las dos líneas.
+• Registrar el valor numérico del IMC junto al punto marcado. 
+• Colocar la fecha de atención en el eje vertical correspondiente a la edad.
+• Identificar en qué intervalo de DE o en qué línea queda el punto marcado.
+• Realizar el diagnóstico según el cuadro 1 de clasificación nutricional.
+• En la siguiente visita volver a graficar el punto con los datos antropométricos del 
+momento y unir ambos puntos con una línea. 
+• Observar la tendencia de la línea graficada y verificar si el adolescente se encuen-
+tra normal según el carril que le corresponde, o si muestra riesgo de malnutrición 
+o malnutrición por exceso o por déficit. 
+• Proceder de la misma manera con la gráfica de talla para la edad.
+• Registrar en la historia clínica el diagnóstico obtenido y las indicaciones generales 
+de la consejería u orientación para realizar el monitoreo correspondiente.
+Para una mejor comprensión de los procedimientos anteriores, revisar los ejercicios del 
+Anexo 8.
+6.4.2. TABLAS DE VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA
+Las tablas de valoración nutricional antropométrica para adolescentes mujeres (Anexo 5) 
+y para adolescentes varones (Anexo 6) son instrumentos de clasificación nutricional “rápi-
+da” , que pueden ser utilizados en situaciones específicas como actividades extramurales 
+y masivas, donde se tiene poco tiempo o no se cuenta con el equipo de apoyo necesario 
+(calculadora, papel, entre otros), para realizar los cálculos correspondientes.
+Características
+Las tablas de valoración nutricional antropométrica para personas adolescentes son so-
+bres rectangulares, con una abertura central por donde se visualizan los valores refe-
+renciales de IMC para la edad y talla para la edad, correspondiente a los valores límites 
+según desviaciones estándar, contenidos en un encarte o lámina interior movible, que 
+facilita la clasificación nutricional respectiva. Además, contiene las instrucciones para su 
+manejo y los signos de alerta a considerar.
+Procedimiento para su uso
+• Realiza la toma de peso y medición de talla de la persona adolescente.
+• Registrar en la historia clínica el peso y talla obtenidos.
+
+=== PDF PAGE 27 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+26
+• Para clasificar el estado nutricional según el indicador IMC para la edad o talla 
+para la edad, ubicarse en la columna de edad de la tabla; si no coincide la edad, 
+tomar la edad anterior, pues la tabla muestra los datos de la referencia cada 3 
+meses.
+• Comparar el IMC o la talla de la persona adolescente con los valores de referencia 
+que aparecen en el recuadro que se visualiza por la abertura central del sobre de 
+la tabla.
+• Clasificar el estado nutricional. Los puntos de corte y la clasificación se visualizan 
+encima de la abertura del sobre de la tabla y en la parte inferior de la misma.
+• Registrar la clasificación del estado nutricional en la historia clínica y además re-
+gistrar en el HIS el código correspondiente.
+6.5. INTERVENCIÓN NUTRICIONAL
+En el marco de la atención integral de salud se debe derivar a interconsulta médica al 
+adolescente que presente delgadez, sobrepeso u obesidad, para descartar alguna enfer-
+medad asociada al estado nutricional (anemia, entre otros), además de tomar en consi-
+deración su referencia a psicología.  
+Las actividades de intervención nutricional se deben brindar según resultado de la valo-
+ración nutricional: 
+• De encontrarse un estado nutricional normal donde la curva de crecimiento sigue 
+una tendencia ascendente, con tendencia al aplanamiento o con variaciones no 
+esperadas, el profesional de salud capacitado en nutrición brindará consejería 
+nutricional para el mantenimiento de la normalidad en forma óptima o para la re-
+cuperación de la velocidad de crecimiento según corresponda.
+• De encontrarse daño nutricional (delgadez, sobrepeso u obesidad), se realizará 
+un tratamiento de recuperación nutricional por el profesional nutricionista, que se 
+encargará de prescribir y programar la frecuencia de controles dentro de un es-
+quema de intervención personalizado.
+Dependiendo del recurso humano se debe proceder de la siguiente manera:
+• En los establecimientos de salud donde no haya profesional nutricionista u otro 
+profesional capacitado en consejería nutricional, la intervención del adolescente 
+con clasificación “normal” , consistirá en orientación nutricional por parte del per-
+sonal de salud capacitado en lineamientos de nutrición. Todo adolescente con un 
+estado de malnutrición por déficit o exceso deberá referirse a un establecimiento 
+donde se cuente con un profesional capacitado, de preferencia nutricionista para 
+iniciar y monitorear su tratamiento.
+• En los establecimientos de salud donde se cuente con un profesional nutricionis-
+ta u otro profesional capacitado en consejería nutricional, se aplicará además la 
+anamnesis alimentaria, estudios clínicos o bioquímicos, según se estime pertinen-
+te, y se procederá a realizar el tratamiento respectivo (Anexo 10). 
+
+=== PDF PAGE 28 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+27
+A nivel individual y familiar
+Cuando el IMC para la edad y/o la talla para la edad esté disminuido o esté disminuyendo 
+se recomienda lo siguiente:
+• Aplicar un plan de atención personalizado que monitorice el aumento progresivo 
+de peso y/o talla, dentro del plan de atención integral de salud.
+• La consejería debe subrayar la importancia de una alimentación y un estilo de vida 
+saludable para lograr el máximo potencial de crecimiento durante este período de 
+vida.
+Cuando el IMC o la talla esté aumentado por encima del canal de normalidad, se 
+recomienda:
+• Mantener el peso del adolescente, y contribuir a una ganancia de peso más lenta.
+• Motivar el incremento de la actividad física.
+• Promover la adopción de prácticas alimentarias saludables como inclusión de ali-
+mentos de menor densidad calórica e incremento de fibra dietética.
+• Referir al médico cuando se evidencie un incremento anormal excesivo de talla.
+A nivel colectivo
+• Promover la vigilancia del estado nutricional de adolescentes en escenarios que 
+congreguen a los mismos, priorizando a las instituciones educativas y comunidad. 
+La vigilancia del estado nutricional considera a todas las clasificaciones (normal, 
+delgadez, sobrepeso y obesidad); no sólo al daño o malnutrición.
+• Implementar acciones de educación para la salud con énfasis en la promoción de 
+la alimentación saludable y actividad física.
+• Implementar acciones de comunicación social para la detección de factores de 
+riesgo y prevención de los trastornos que afectan a estos grupos, evaluando su 
+aplicación y resultados.
+• Implementar, monitorear y evaluar las intervenciones de promoción de la salud y 
+prevención de la enfermedad en los grupos poblacionales de adolescentes.
+• Realizar investigaciones operativas que permitan orientar las intervenciones de 
+promoción de la salud y prevención de la enfermedad en los grupos poblacionales 
+de adolescentes.
+• Implementar políticas y normas que favorecen la promoción de prácticas y entor -
+nos saludables, relacionada a la alimentación y actividad física de la población 
+adolescente.
+• Desarrollar acciones a nivel intra e intersectorial para la promoción de la alimenta-
+ción saludable en la población adolescente.
+
+=== PDF PAGE 29 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+28
+6.6. REGISTRO DE LA ATENCIÓN
+Las actividades de la valoración nutricional antropométrica serán registradas en el Siste-
+ma de Información de Salud (HIS). Ver Anexo 9.
+Las redes, microrredes y establecimientos de salud del nivel regional deben verificar la 
+calidad de la información, desde su registro, procesamiento, análisis y reporte; asimismo, 
+la toma de decisiones basado en evidencias a partir del análisis de la información.
+VII. RECOMENDACIONES
+El personal de salud debe tener en cuenta lo siguiente: 
+• La valoración nutricional antropométrica es una evaluación esencial dentro de la atención 
+integral de salud de la persona adolescente.
+• La valoración nutricional antropométrica permite la evaluación de las intervenciones orien-
+tadas a promover estilos de vida saludable, mejorar o recuperar la salud, contribuyendo al 
+bienestar y calidad de vida de las personas adolescentes.
+• La mejora de las competencias de desempeño para la valoración nutricional antropométrica 
+contribuye con la calidad de los servicios de salud.
+• La provisión y mantenimiento del equipo, así como el desempeño del personal de salud 
+para la adecuada valoración nutricional antropométrica, son claves para la toma de decisio-
+nes en el cuidado de las personas adolescentes.
+VIII.  ANEXOS
+Anexo  1. Gráfica del crecimiento corporal OMS 2007 - Mujeres de 12 a <18 años.
+Anexo  2. Gráfica del crecimiento corporal OMS 2007 - Varones de 12 a <18 años.
+Anexo  3. Tabla: Índice de masa corporal por edad para adolescentes según sexo.
+Anexo  4. Tabla: Talla por edad para adolescentes según sexo.
+Anexo  5. Tabla de valoración nutricional antropométrica para adolescentes mujeres.
+Anexo  6. Tabla de valoración nutricional antropométrica para adolescentes varones.
+Anexo  7 . Estadios de Tanner.
+Anexo  8. Ejercicios de aplicación del uso de gráficas y tablas de valoración nutricional 
+antropométrica para personas adolescentes.
+Anexo  9. Ejercicios de aplicación del Sistema HIS.
+Anexo 10. Flujograma: Intervención nutricional para la atención de las personas  adolescentes 
+según nivel de complejidad y recurso humano.
+
+=== PDF PAGE 30 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+29
+ANEXO 1
+
+
+=== PDF PAGE 31 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+30
+ANEXO 2
+
+
+=== PDF PAGE 32 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+31
+ANEXO 3
+TABLA: ÍNDICE DE MASA CORPORAL POR 
+EDAD PARA ADOLESCENTES SEGÚN SEXO
+MUJERES
+EDAD - 3DE - 2 DE - 1DE Med 1 DE 2 DE 3 DE
+12a 13,2 14,4 16,0 18,0 20,8 25,0 31,9
+12a 3m 13,3 14,5 16,1 18,2 21,1 25,3 32,3
+12a 6m 13,4 14,7 16,3 18,4 21,3 25,6 32,7
+12a 9m 13,5 14,8 16,4 18,6 21,6 25,9 33,1
+13a 13,6 14,9 16,6 18,8 21,8 26,2 33,4
+13a 3m 13,7 15,1 16,8 19,0 22,0 26,5 33,8
+13a 6m 13,8 15,2 16,9 19,2 22,3 26,8 34,1
+13a 9m  13,9 15,3 17,1 19,4 22,5 27,1 34,4
+14a 14,0 15,4 17,2 19,6 22,7 27,3 34,7
+14a 3m 14,1 15,6 17,4 19,7 22,9 27,6 34,9
+14a 6m 14,2 15,7 17,5 19,9 23,1 27,8 35,1
+14a 9m 14,3 15,8 17,6 20,1 23,3 28,0 35,4
+15a 14,4 15,9 17,8 20,2 23,5 28,2 35,5
+15a 3m 14,4 16,0 17,9 20,4 23,7 28,4 35,7
+15a 6m 14,5 16,0 18,0 20,5 23,8 28,6 35,8
+15a 9m 14,5 16,1 18,1 20,6 24,0 28,7 36,0
+16a 14,6 16,2 18,2 20,7 24,1 28,9 36,1
+16a 3m 14,6 16,2 18,2 20,8 24,2 29,0 36,1
+16a 6m 14,7 16,3 18,3 20,9 24,3 29,1 36,2
+16a 9m 14,7 16,3 18,4 21,0 24,4 29,2 36,3
+17a 14,7 16,4 18,4 21,0 24,5 29,3 36,3
+17a 3m 14,7 16,4 18,5 21,1 24,6 29,4 36,3
+17a 6m 14,7 16,4 18,5 21,2 24,6 29,4 36,3
+17a 9m 14,7 16,4 18,5 21,2 24,7 29,5 36,3
+VARONES
+EDAD - 3DE - 2 DE - 1DE Med 1 DE 2 DE 3 DE
+12a 13,4 14,5 15,8 17,5 19,9 23,6 30,0
+12a 3m 13,5 14,6 15,9 17,7 20,2 23,9 30,4
+12a 6m 13,6 14,7 16,1 17,9 20,4 24,2 30,9
+12a 9m 13,7 14,8 16,2 18,0 20,6 24,5 31,3
+13a 13,8 14,9 16,4 18,2 20,8 24,8 31,7
+13a 3m 13,9 15,1 16,5 18,4 21,1 25,1 32,1
+13a 6m 14,0 15,2 16,7 18,6 21,3 25,3 32,4
+13a 9m  14,1 15,3 16,8 18,8 21,5 25,6 32,8
+14a 14,3 15,5 17,0 19,0 21,8 25,9 33,1
+14a 3m 14,4 15,6 17,2 19,2 22,0 26,2 33,4
+14a 6m 14,5 15,7 17,3 19,4 22,2 26,5 33,6
+14a 9m 14,6 15,9 17,5 19,6 22,5 26,7 33,9
+15a 14,7 16,0 17,6 19,8 22,7 27,0 34,1
+15a 3m 14,8 16,1 17,8 20,0 22,9 27,2 34,3
+15a 6m 14,9 16,3 18,0 20,1 23,1 27,4 34,5
+15a 9m 15,0 16,4 18,1 20,3 23,3 27,7 34,6
+16a 15,1 16,5 18,2 20,5 23,5 27,9 34,8
+16a 3m 15,2 16,6 18,4 20,7 23,7 28,1 34,9
+16a 6m 15,3 16,7 18,5 20,8 23,9 28,3 35,0
+16a 9m 15,4 16,8 18,7 21,0 24,1 28,5 35,1
+17a 15,4 16,9 18,8 21,1 24,3 28,6 35,2
+17a 3m 15,5 17,0 18,9 21,3 24,4 28,8 35,3
+17a 6m 15,6 17,1 19,0 21,4 24,6 29,0 35,3
+17a 9m 15,6 17,2 19,1 21,6 24,8 29,1 35,4
+Fuente: Referencia de Crecimiento OMS 2007 
+http://www.who.int/growthref/bmifa_girls_5_19years_z.pdf 
+http://www.who.int/growthref/bmifa_boys_5_19years_z.pdf
+
+=== PDF PAGE 33 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+32
+ANEXO 4
+TABLA: TALLA POR EDAD PARA 
+ADOLESCENTES SEGÚN SEXO
+MUJERES
+EDAD - 3DE - 2 DE - 1DE Med 1 DE 2 DE 3 DE
+12a 130,7 137,6 144,4 151,2 158,1 164,9 171,8
+12a 3m 132,0 138,9 145,8 152,7 159,5 166,4 173,3
+12a 6m 133,3 140,2 147,1 154,0 160,9 167,8 174,7
+12a 9m 134,5 141,4 148,3 155,2 162,2 169,1 176,0
+13a 135,6 142,5 149,4 156,4 163,3 170,3 177,2
+13a 3m 136,5 143,5 150,4 157,4 164,3 171,3 178,2
+13a 6m 137,4 144,4 151,3 158,3 165,3 172,2 179,2
+13a 9m  138,2 145,2 152,1 159,1 166,0 173,0 179,9
+14a 139,0 145,9 152,8 159,8 166,7 173,7 180,6
+14a 3m 139,6 146,5 153,5 160,4 167,3 174,2 181,2
+14a 6m 140,1 147,1 154,0 160,9 167,8 174,7 181,6
+14a 9m 140,6 147,5 154,4 161,3 168,2 175,1 182,0
+15a 141,0 147,9 154,8 161,7 168,5 175,4 182,3
+15a 3m 141,4 148,2 155,1 162,0 168,8 175,7 182,5
+15a 6m 141,7 148,5 155,4 162,2 169,0 175,9 182,7
+15a 9m 141,9 148,7 155,6 162,4 169,2 176,0 182,8
+16a 142,2 148,9 155,7 162,5 169,3 176,1 182,9
+16a 3m 142,3 149,1 155,9 162,6 169,4 176,2 182,9
+16a 6m 142,5 149,2 156,0 162,7 169,5 176,2 182,9
+16a 9m 142,6 149,4 156,1 162,8 169,5 176,2 182,9
+17a 142,8 149,5 156,2 162,9 169,5 176,2 182,9
+17a 3m 142,9 149,6 156,2 162,9 169,6 176,3 182,9
+17a 6m 143,0 149,7 156,3 163,0 169,6 176,3 182,9
+17a 9m 143,1 149,8 156,4 163,0 169,6 176,3 182,9
+VARONES
+EDAD - 3DE - 2 DE - 1DE Med 1 DE 2 DE 3 DE
+12a 127,8 134,9 142,0 149,1 156,2 163,3 170,3
+12a 3m 129,2 136,4 143,6 150,7 157,9 165,1 172,2
+12a 6m 130,7 137,9 145,2 152,4 159,7 167,0 174,2
+12a 9m 132,2 139,5 146,9 154,2 161,6 168,9 176,3
+13a 133,8 141,2 148,6 156,0 163,5 170,9 178,3
+13a 3m 135,4 142,9 150,4 157,9 165,4 172,9 180,4
+13a 6m 137,0 144,5 152,1 159,7 167,3 174,8 182,4
+13a 9m  138,6 146,2 153,8 161,5 169,1 176,7 184,4
+14a 140,1 147,8 155,5 163,2 170,9 178,6 186,3
+14a 3m 141,6 149,3 157,1 164,8 172,5 180,3 188,0
+14a 6m 143,0 150,8 158,5 166,3 174,1 181,8 189,6
+14a 9m 144,3 152,1 159,9 167,7 175,5 183,3 191,1
+15a 145,5 153,4 161,2 169,0 176,8 184,6 192,4
+15a 3m 146,7 154,5 162,3 170,1 177,9 185,7 193,5
+15a 6m 147,7 155,5 163,3 171,1 178,9 186,8 194,6
+15a 9m 148,7 156,5 164,3 172,1 179,9 187,7 195,4
+16a 149,6 157,4 165,1 172,9 180,7 188,4 196,2
+16a 3m 150,4 158,1 165,9 173,6 181,4 189,1 196,9
+16a 6m 151,1 158,8 166,5 174,2 181,9 189,7 197,4
+16a 9m 151,7 159,4 167,1 174,7 182,4 190,1 197,8
+17a 152,2 159,9 167,5 175,2 182,8 190,4 198,1
+17a 3m 152,7 160,3 167,9 175,5 183,1 190,7 198,3
+17a 6m 153,1 160,6 168,2 175,8 183,3 190,9 198,4
+17a 9m 153,4 160,9 168,5 176,0 183,5 191,0 198,5
+Fuente: Referencia de crecimiento OMS 2007 
+http://www.who.int/growthref/hfa_girls_5_19years_z.pdf
+http://www.who.int/growthref/hfa_boys_5_19years_z.pdf
+
+=== PDF PAGE 34 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+33
+ANEXO 5
+TABLA DE VALORACIÓN NUTRICIONAL 
+ANTROPOMÉTRICA PARA 
+ADOLESCENTES MUJERES
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla de la niña o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17987
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla de la niña o adolescente calcular el IMC, 
+según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Mama en forma de cono.
+Inicia el crecimiento del pezón.
+Estadio Características de la mama
+
+=== PDF PAGE 35 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+34
+ANEXO 6
+TABLA DE VALORACIÓN NUTRICIONAL 
+ANTROPOMÉTRICA PARA
+ADOLESCENTES VARONES
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla del niño o adolescente calcular el IMC,  
+    según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Estadio
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.
+INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla del niño o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17991
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+Características de los genitales
+
+=== PDF PAGE 36 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+35
+ANEXO 7
+ESTADIOS DE TANNER
+FIGURA 1: ETAPAS DE DESARROLLO MAMARIO EN LA ADOLESCENTE
+Fuente: Burrows R , Muzzo S. Rev Chil Nutr 1999; 26: 95S-101S.
+
+=== PDF PAGE 37 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+36
+FIGURA 2: ETAPAS DEL DESARROLLO GENITAL EN EL ADOLESCENTE
+Fuente: Burrows R , Muzzo S. Rev Chil Nutr 1999; 26: 95S-101S.
+
+=== PDF PAGE 38 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+37
+ANEXO 8
+EJERCICIOS DE APLICACIÓN DEL USO 
+DE GRÁFICAS Y TABLAS DE VALORACIÓN 
+NUTRICIONAL ANTROPOMÉTRICA PARA 
+PERSONAS ADOLESCENTES
+EJERCICIO 1:
+MONITOREO DEL ESTADO NUTRICIONAL DE ADOLESCENTES SEGÚN EL ÍNDICE DE 
+MASA CORPORAL / EDAD Y TALLA / EDAD
+Caso 1 Nombre: Carlos, fecha de nacimiento: 05 noviembre 1998 con H.C N.º 696. Ver detalle 
+de los controles en el siguiente cuadro:
+Materiales
+Gráficas de IMC/edad y talla/edad para varones (Anexo 2)
+Procedimiento
+• Registre el nombre y la historia clínica en cada gráfica.
+• Marque un punto en la intersección correspondiente al valor del IMC de Carlos en la Gráfica 
+de IMC para la Edad. 
+• Registre el valor numérico del IMC junto al punto marcado.
+• Coloque la fecha en el reborde superior de la línea vertical del punto marcado.
+• Proceda de la misma manera en el siguiente control de Carlos, y una los puntos con una 
+línea. 
+• Proceda en forma semejante con el dato de la talla para la edad en su gráfica correspondiente.
+Interpretación
+Carlos muestra un adecuado crecimiento, la velocidad de crecimiento de su talla muestra 
+una curva ascendente que corresponde a su carril; también muestra una ganancia de IMC 
+correspondiente a su edad. 
+La consejería nutricional insistirá en la continuidad de una alimentación balanceada y del 
+ejercicio habitual de actividad física.
+Fecha Edad
+(años/meses)
+Peso
+kg
+Estatura
+cm IMC
+15-08-11 12 a 9 m 34,2 144,1 16,4
+09-04-12 13 a 5 m 40,4 154,0 1 7, 0
+10-06-13 14 a 7 m 46,8 162,0 1 7, 8
+
+=== PDF PAGE 39 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+38
+16,4 15/08/11
+09/04/12
+10/06/13
+17,0
+17,8
+144,1
+154,0
+162,0
+696Carlos
+
+=== PDF PAGE 40 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+39
+EJERCICIOS DE APLICACIÓN 
+EJERCICIO 2:
+CLASIFICACIÓN DEL ESTADO NUTRICIONAL DE ADOLESCENTES SEGÚN EL INDICE DE 
+MASA CORPORAL / EDAD Y TALLA / EDAD
+Caso 1 Adolescente mujer de 12 años 7 meses, con talla o estatura igual a 1,43 m, y peso 
+48,5 kg. Es evaluada en un centro de salud.
+Materiales
+Tablas de IMC/edad y talla/edad para adolescentes mujeres (Anexo 5)
+Procedimiento
+IMC /Edad
+• Calcule el IMC según fórmula: peso (kg) / (talla (m) x talla(m))
+ IMC =  48,5 / (1,43 x 1,43) = 23,7
+• Ubique en la tabla de IMC por edad de mujeres, la edad de la adolescente: 12 años 7 meses que 
+corresponde a 12 años 6 meses (los valores de edad se encuentran por cada 3 meses por lo que 
+se redondea al inmediato inferior).
+• Ubique el intervalo de DE al que correspondería el valor  23,7
+• En este caso el IMC 23,7 se ubica sobre el valor 21,3 y debajo de 25,6 (≥ 1DE y < 2DE).
+Clasificación: Sobrepeso
+EDAD
+(años
+y meses)
+CLASIFICACIÓN
+Delgadez
+<-2 DE NORMAL Sobrepeso Obesidad
+>2 DE
+*
+<-3 DE ≥-3DE
+**
+≥-2DE -1DE Med
+***
+1DE ≤2DE ≤3DE >3DE
+12a 6m 13,4 14,7 16,3 18,4 21,3 25,6 32,7
+23,7
+Talla para la edad
+• Utilice la Tabla de talla por edad.
+• Proceda en forma similar al caso anterior, a ubicar la talla de la adolescente. Si primero clasificó 
+el estado nutricional con IMC, una vez finalizado solo voltee la tabla y estará ubicada en la misma 
+fila de edad.
+• Proceda a comparar el valor de la talla 1,43 m con los valores de la fila correspondiente a 12 años 
+6 meses. Para esto el valor de talla en metros pasarlo a centímetros.
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.
+INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla de la niña o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17987
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla de la niña o adolescente calcular el IMC, 
+según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Mama en forma de cono.
+Inicia el crecimiento del pezón.
+Estadio Características de la mama
+
+=== PDF PAGE 41 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+40
+• Ubicar el intervalo correspondiente a 143 cm, en este caso se encuentra en el intervalo -2DE 
+y -1DE, que corresponde a la clasificación “normal” , sin embargo, al encontrarse entre esas DE 
+significa que se encuentra en “riesgo de talla baja” .
+EDAD
+(años
+y meses)
+CLASIFICACIÓN
+Talla baja
+<-2DE NORMAL Talla alta
+>2DE
+*
+<-3 DE ≥-3DE
+**
+≥-2DE -1DE Med 1DE ≤2DE ≥3DE >3DE
+12a 6m 133,3 140,2 147,1 154,0 160,9 167,8 174,7
+143
+Caso 2 Varón de 13 años 4 meses, con talla 1,54 m, y peso 40,3 kg.
+Él es evaluado en un hospital donde hay personal de salud especializado.
+Materiales
+Tablas de IMC/edad y talla/edad para adolescentes varones (Anexo 6)
+Figuras de desarrollo de caracteres sexuales secundarios de varones (Anexo 7)
+Procedimiento
+Evaluación del desarrollo sexual
+• Solicite la presencia y autorización de la madre o tutor del adolescente para la evaluación.
+• En caso de que no esté la madre o tutor presente, solicite la presencia de otro profesional o 
+técnico de salud.
+• Explique que es conveniente conocer cómo está creciendo y madurando, para clasificar mejor 
+su estado nutricional.
+• Con la ayuda de las figuras y con la participación del mismo adolescente identifique el estadio 
+de genitales correspondiente. 
+• El adolescente del ejemplo se halla en estadio de genitales 3, que corresponde a una edad de 12 
+años y 6 meses, y al haber una diferencia menor de un año entre su edad cronológica y su edad 
+biológica, se considera la edad cronológica para la valoración de su estado nutricional.
+IMC/edad
+• Calcule el IMC según fórmula: peso (kg) / (talla (m) x talla(m))
+ IMC =  40,2 / (1,54 x 1,54) = 16,9
+• Ubique en la tabla de IMC por edad de varones, la edad del adolescente: 13 años 5 meses que 
+corresponde a 13 años 3 meses (se redondea al inmediato inferior).
+• Ubique el intervalo al que correspondería 16,9
+• En este caso el IMC 16,9 se ubica en el rango de normalidad, por lo que se le clasifica como “normal” .
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.
+INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla de la niña o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17987
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - MUJERES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A las mujeres de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla de la niña o adolescente calcular el IMC, 
+según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad de la niña o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Mama en forma de cono.
+Inicia el crecimiento del pezón.
+Estadio Características de la mama
+
+=== PDF PAGE 42 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+41
+16,9
+EDAD
+(años
+y meses)
+CLASIFICACIÓN
+Delgadez
+<-2DE NORMAL Sobrepeso Obesidad
+>2DE
+*
+<-3 DE >-3DE
+**
+≥-2DE -1DE Med
+***
+1DE ≤2DE ≤3DE >3DE
+13a 3m 13,9 15,1 16,5 18,4 21,1 25,1 32,1
+Talla para la edad
+• Utilice la tabla talla por edad.
+• Proceda en forma similar al caso anterior para ubicar la edad. Si primero clasificó el estado 
+nutricional con IMC, una vez finalizado solo voltee la tabla y estará ubicada en la misma fila de 
+edad.
+• Proceda a comparar el valor de la talla 1,54 m. con los valores de la fila correspondiente a 13 
+años 4  meses. Para esto el valor de talla en metros pasarlo a centímetros.
+• Ubicar el intervalo correspondiente a 154 cm, en este caso se encuentra entre el intervalo -1DE 
+y la mediana, que corresponde a clasificación “normal” .
+EDAD
+(años
+y meses)
+CLASIFICACIÓN
+Talla baja
+<-2DE NORMAL Talla alta
+>2DE
+<-3 DE ≥-3DE
+**
+≥-2DE -1DE Med 1DE ≤2DE ≤3DE >3DE
+13a 3m 135,4 142,9 150,4 157,9 165,4 172,9 180,4
+154
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla del niño o adolescente calcular el IMC,  
+    según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Estadio
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.
+INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla del niño o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17991
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+Características de los genitales
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+CLASIFICACIÓN
+Delgadez
+< -2 DE
+Obesidad
+> 2 DE(años y
+meses)
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Delgadez severa.
+** Alerta, evaluar riesgo de delgadez.
+*** Alerta, evaluar riesgo de sobrepeso.
+Cualquier cambio de columna de IMC entre -2 y 1 DE debe ser
+motivo de consejería nutricional, a fin de prevenir malnutrición.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+Nota: esta evaluación debe ser realizada por el profesional de salud 
+capacitado y especializado en la aplicación de esta prueba, y debe contar con 
+la autorización y presencia del padre, madre o tutor(a) previamente 
+informado(a)s, o de otro personal de salud del mismo sexo que el o la evaluada.
+CUADRO 1   EDAD BIOLÓGICA
+ESTADIOS TANNER
+INSTRUCCIONES:
+1. Con los valores de peso y talla del niño o adolescente calcular el IMC,  
+    según fórmula:
+ IMC= peso (kg) / talla (m) / talla (m).
+2. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide, ubicarse en la edad anterior.
+3. Compare el IMC calculado, con los valores del IMC que aparecen en el 
+recuadro y clasifique según corresponda.
+Estadio
+(años y
+meses)
+Talla baja
+< -2 DE
+Talla alta
+> 2 DE
+CLASIFICACIÓN
+>: mayor, <: menor, ≥: mayor o igual, ≤: menor o igual
+DE: Desviación estándar
+* Talla baja severa.
+** Alerta, evaluar riesgo de talla baja.
+Cualquier cambio de columna de crecimiento en sentido desfavorable al
+crecimiento o el mantenimiento de su talla de un control a otro o crecimiento
+menor a 2,5 cm en 6 meses es motivo de consejería nutricional.
+INSTRUCCIONES:
+1. Ubique en la columna de EDAD, la edad del niño o adolescente. Si no 
+coincide los meses, tomar la edad anterior.
+2. Compare la talla del niño o adolescente con los valores de talla que 
+aparecen en el recuadro y clasifique según corresponda.
+A los varones de 10 a 16 años se les calculará la edad biológica a través de los 
+estadios de Tanner. 
+Se les explicará que debemos conocer su edad biológica a través de los 
+estadios Tanner, se les mostrará las imágenes y se les solicitará indiquen el 
+estadio en que se encuentran, para luego determinar su edad biológica.
+Si la edad cronológica y la edad biológica difieren en un año o más, utilizar la 
+edad biológica para evaluar el estado nutricional según IMC/Edad y Talla/Edad.
+CUADRO 1   EDAD BIOLÓGICA
+Hecho el Depósito Legal en la Biblioteca Nacional del Perú N.º 2015-17991
+2da. edición (diciembre, 2015)
+Tiraje: 9000 ejemplares
+© Ministerio de Salud, 2015
+Av. Salaverry cuadra 8 s/n, Jesús María, Lima, Perú
+Teléfono: (511) 315-6600
+Página web: www.minsa.gob.pe
+© Instituto Nacional de Salud, 2015
+Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfono: (511) 748-1111
+Correo electrónico: postmaster@ins.gob.pe
+Página web: www.ins.gob.pe
+Centro Nacional de Alimentación y Nutrición
+Dirección Ejecutiva de Prevención de Riesgo y Daño Nutricional
+Jr. Tizón y Bueno 276, Jesús María.
+Teléfono: (511) 748-0000 Anexo 6625
+a
+Lima, Perú. 2015. 2.  Edición
+Elaboración: Lic. Mariela Contreras Rojas
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+TABLA DE VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA - VARONES
+(5 a 17 años)
+Características de los genitales
+
+=== PDF PAGE 43 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+42
+ANEXO 9
+EJERCICIOS DE APLICACIÓN DEL SISTEMA 
+HIS 
+1.  Se tendrá en cuenta la siguiente codificación.
+IMC PARA LA EDAD
+PUNTO DE CORTE (DE) CLASIFICACIÓN LAB CÓDIGO
+IMC < - 3
+IMC < - 2  a - 3
+IMC 1  a  - 2
+IMC >  1  a   2
+IMC >  2
+Delgadez severa
+Delgadez
+Normal
+Sobrepeso
+Obesidad
+IMC
+IMC
+IMC
+IMC
+IMC
+E43X
+E440
+Z006
+E660
+E669
+TALLA PARA LA EDAD
+PUNTO DE CORTE (DE) CLASIFICACIÓN LAB CÓDIGO
+TE < - 3
+TE < - 2 a - 3
+TE - 2 a + 2
+TE     > + 2
+Talla baja severa
+Talla baja
+Normal
+Talla alta
+TES
+TE
+TE
+TE
+E45X
+E45X
+Z006
+E344
+2.  Registre de la siguiente manera:
+En el ítem “diagnóstico motivo de consulta y/o actividad de salud” , anote el diagnóstico resultado de 
+la clasificación de la valoración nutricional antropométrica.
+En el ítem “tipo de diagnóstico” marque siempre “D” . 
+En el ítem LAB anote la sigla IMC de índice de masa corporal, TE de Talla para la Edad.
+DÍA
+H.C.
+FINANC. DE 
+SALUD
+PERTENENCIA 
+ÉTNICA
+DISTRITO DE
+PROCEDENCIA
+EDAD
+SEXO
+ESTA-
+BLECIMIENTO
+SERVICIO
+DIAGNÓSTICO MOTIVO 
+DE CONSULTA Y/O 
+ACTIVIDAD DE SALUD
+TIPO DE 
+DIAGNÓSTICO
+LAB CODDOCUMENTO 
+DE IDENTIDAD
+23
+992335
+2 80 LIMA 14 A M N N 1. Sobrepeso P D R IMC E660
+C C 2. Talla baja P D R TE E45X
+25244124 F N R 3. Consejería nutricional P D R 1 99403
+3.  En pacientes recuperados: 
+En el ítem “diagnóstico motivo de consulta y/o actividad de salud” , anote los diagnósticos de la 
+clasificación de la valoración nutricional antropométrica.     
+En el ítem “tipo de diagnóstico” marque siempre “R” . 
+En el ítem LAB anote: 
+
+
+=== PDF PAGE 44 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+43
+• En el primer casillero: la sigla IMC correspondiente a la clasificación del índice de masa corporal.
+• En el segundo casillero: la sigla TE correspondiente a la clasificación de talla para edad.
+• En el tercer casillero: el número de la sesión de la consejería nutricional.
+• En el cuarto casillero: registra PR que significa si el paciente se ha recuperado.
+DÍA
+H.C.
+FINANC. DE 
+SALUD
+PERTENENCIA 
+ÉTNICA
+DISTRITO
+PROCEDENCIA
+EDAD
+SEXO
+ESTA-
+BLECIMIENTO
+SERVICIO
+DIAGNÓSTICO MOTIVO 
+DE CONSULTA Y/O 
+ACTIVIDAD DE SALUD
+TIPO DE 
+DIAGNÓSTICO
+LAB CODDOCUMENTO 
+DE IDENTIDAD
+25
+992335
+2 80 YAULI 17 A
+M N N 1. Delgadez P D R IMC E440
+C C 2. Normal P D R TE Z006
+99244123 F N R 3. Consejería nutricional P D R 4 99403
+PR
+CASO 1
+Historia clínica N.° 792334. Adolescente mujer de 15 años 6 meses, con talla 1,43 m y peso de 48,5 
+kg; procedente del distrito de Lima Cercado, acude por tercera vez en el año al establecimiento 
+de salud, pero esta vez es transferida al servicio de nutrición por primera vez para su valoración 
+nutricional antropométrica. 
+Pasos
+1 . Anote el diagnóstico, resultado de la clasificación de la valoración nutricional antropométrica 
+según corresponda.
+ IMC = 48,5 / 1,43 / 1,43 =  23,7 (normal)
+ Talla / Edad = 1,43 m (talla baja)
+2. En “tipo de diagnóstico” marque “D” .
+3. En “Laboratorio (LAB)” anote la sigla IMC de índice de masa corporal, y TE de talla para la edad.
+4. El código que corresponde a la clasificación de IMC (normal) es Z006, y de TE (talla baja) es 
+E45X.
+DÍA
+H.C.
+FINANC. DE 
+SALUD
+PERTENENCIA 
+ÉTNICA
+DISTRITO
+PROCEDENCIA
+EDAD
+SEXO
+ESTA-
+BLECIMIENTO
+SERVICIO
+DIAGNÓSTICO MOTIVO 
+DE CONSULTA Y/O 
+ACTIVIDAD DE SALUD
+TIPO DE 
+DIAGNÓSTICO
+LAB CODDOCUMENTO 
+DE IDENTIDAD
+26
+792334
+2 80 LIMA 15 A M
+N N 1. Normal P D R IMC Z006
+C C 2. Talla baja P D R TE E45X
+89244121 F N R 3. Consejería nutricional P D R 1 99403
+
+
+=== PDF PAGE 45 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+44
+CASO 2
+Historia clínica N.º 492334. Varón de 17 años 6 meses con talla 1,68 m y peso de 79 kg; procedente 
+del distrito de Jesús María, Lima. Fue atendido anteriormente en el establecimiento de salud 
+y actualmente acude por primera vez en este año al establecimiento de salud para la valoración 
+nutricional antropométrica en el servicio de nutrición.
+Pasos
+1 . Anote el diagnóstico, resultado de la clasificación de la valoración nutricional antropométrica.
+ IMC = 79,0 / 1,68 / 1,68 = 27 ,9 (sobrepeso).
+ Talla = 1,68 m (talla normal)
+2. En “tipo de diagnóstico” marque “D” .
+3. En “Laboratorio (LAB)” anote la sigla IMC de índice de masa corporal y TE de talla para la edad.
+4. El código que corresponde a la clasificación de IMC (sobrepeso) es E660, y de TE (talla normal) 
+es Z006.
+DÍA
+H.C.
+FINANC. DE 
+SALUD
+PERTENENCIA 
+ÉTNICA
+DISTRITO
+PROCEDENCIA
+EDAD
+SEXO
+ESTA-
+BLECIMIENTO
+SERVICIO
+DIAGNÓSTICO MOTIVO 
+DE CONSULTA Y/O 
+ACTIVIDAD DE SALUD
+TIPO DE 
+DIAGNÓSTICO
+LAB CODDOCUMENTO 
+DE IDENTIDAD
+27
+492334
+2 80 JESÚS 
+MARÍA 17 A
+M N N 1. Sobrepeso P D R IMC E660
+F C C 2. Normal P D R TE Z006
+69244123 N R 3. Consejería nutricional P D R 1 99403
+
+
+=== PDF PAGE 46 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+45
+ANEXO 10
+FLUJOGRAMA: INTERVENCIÓN NUTRICIONAL PARA LA ATENCIÓN DE LAS PERSONAS 
+ADOLESCENTES SEGÚN NIVEL DE COMPLEJIDAD Y RECURSO HUMANO
+* Factores de riesgo
+• Fumar
+• Consumo de alcohol
+• Alimentación inadecuada
+• Escasa o nula actividad física
+• Hipertensión arterial
+• Dislipidemias
+• Alteración de glucosa en ayunas
+• Historia familiar de enfermedades cardiovasculares
+** De no contar con nutricionista en el primer nivel referir al segundo nivel.
+Valoración nutricional:
+- Antropométrica: IMC y PAB
+- Anamnesis alimentaria
+- Evaluación de factores de
+  riesgo y conmorbilidad*
+Examen médico general
+y psicológica
+Exámenes auxiliares:
+- Bioquímicos
+- Evaluación clínica
+Primer nivel:
+Puesto de salud / Centro de salud
+Sin nutricionista
+Valoración nutricional
+antropométrica
+(IMC y PAB)
+Con nutricionista o
+profesional capacitado
+Valoración nutricional:
+- Antropométrica: IMC y PAB
+- Anamnesis alimentaria
+- Evaluación bioquimica
+- Evaluación de factores de
+  riesgo y conmorbilidad*
+Segundo nivel:
+Hospitales
+Tratamiento nutricional:
+- Prescripción del régimen dietético
+- Consulta nutricional
+- Control de seguimiento nutricional
+- Interconsulta médica y psicológica
+Interconsulta con 
+medicina interna, 
+endocrinología y otros 
+según requerimiento
+Establecimiento de salud
+Nivel de atención
+Con clasi/f_icación:
+normal
+Orientación
+nutricional
+Con clasi/f_icación
+de malnutrición y/o
+con factores de
+riesgo*
+Interconsulta o
+referencia a
+medicina
+y nutrición**
+Exámenes
+auxiliares
+
+=== PDF PAGE 47 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+46
+IX BIBLIOGRAFÍA
+1) Burrows R, Muzzo S. (1999). Estándares de crecimiento y desarrollo del escolar chileno. 
+Rev Chil Nutr 1999;26:95S-101S.
+2) Centers for Disease Control and Prevention (CDC), Health Resources and Services 
+Administration (HRSA) Maternal and Child Health Bureau (MCHB), U.S. Department of 
+Health and Human Services. (2000). Training Modules: Accurately weighing & measuring, 
+infants, children, adolescent: Equipment. Disponible en http://depts.washington.edu/growth/. 
+Acceso al 18 de febrero de 2015.
+3) Centers for Disease Control and Prevention (CDC), Health Resources and Services 
+Administration (HRSA) Maternal and Child Health Bureau (MCHB), U.S. Department of 
+Health and Human Services. (2000). Training Modules: Accurately weighing & measuring, 
+infants, children, adolescent: Technique. Disponible en http://depts.washington.edu/growth/. 
+Acceso al 18 de febrero de 2015.
+4) Centers for Disease Control and Prevention. (2000). Growth Charts for the United Status: 
+Methods and Development. Series 11, Nº 246. 2002. Disponible en: http://www.cdc.gov/
+nchs/data/series/sr_11/sr11_246.pdf. Acceso al 18 de febrero de 2015.
+5) Centers for Disease Control and Prevention. (2004). Anthropometry Procedures Manual. 
+Disponible en: www.cdc.gov/nchs/data/nhanes/nhanes_03_04/BM.pdf Acceso al 18 de 
+febrero de 2015.
+6) Coelho K, Sichieri R, Gonzáles HC. (2002). Influencia de la maduración sexual en el índice 
+de masa corporal en adolescentes de bajo nivel socioeconómico de Río de Janeiro. Rev. 
+Chil  Nutr. 2002;.29(1):33-9. Disponible en: http://www.scielo.cl/scielo.php?script=sci_
+arttext&pid=S0717 -75182002000100005&lng=es&nrm=iso&tlng=es Acceso al 18 de febrero 
+de 2015.
+7) Cogill B. (2003). Anthropometric Indicators Measurement Guide. Food and Nutrition 
+Technical Assistance Project, Academy for Educational Development. Washington D.C. 
+2003. Disponible en: www.fantaproject.org. Acceso al 18 de febrero de 2015.
+8) De Onis M, Onyango AW, Borghi e, Siyam A, Nishida Ch, Siekmann J. (2007). Development 
+of a WHO Growth reference for School-Aged Children and Adolescents. Bulletin of the 
+World Health Organization. 2007:85(9):660-7 . Disponible en: http://www.who.int/bulletin/
+volumes/85/9/07 -043497/en/index.html Acceso al 18 de febrero de 2015.
+9) Fernández J, Redden D, Pietrobelli A, Allison D. (2004). Waist circumference percentiles in 
+nationally representative samples of African-American, European-American, and Mexican-
+American children and adolescents. J Pediatr. Oct 2004; 145(4): 439-44.
+10) Freyre E, Llaza G, Rebaza R. (2001). Aplicabilidad de la Escala de Tanner para evaluar el 
+desarrollo del vello púbico en adolescentes peruanos. Diagnóstico 2001:40(2). Disponible 
+en: http://www.fihu-diagnostico.org.pe/revista/numeros/2001/marabr01/105-109.html  
+Acceso al 18 de febrero de 2015.
+11) Gibson S. Rosalind. (2005). Principles of Nutritional Assessment. Second Edition. Oxford 
+University Press. New Y ork.
+12) Girolami D. (2003). Fundamentos de Valoración Nutricional y Composición Corporal. 1ª ed. 
+Buenos Aires. 
+
+=== PDF PAGE 48 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+47
+13) Health Canada Publication Center. (2005). Canadian Guidelines for Body Weight 
+Classification in Adults: Application in Clinical Practice to Screen for Overweight and Obesity 
+and to Assess Disease Risk. CMAJ 172 (8):995-998. Disponible en: www.cmaj.ca/cgi/
+reprint/172/8/995.pdf. Acceso 18 de febrero de 2015.
+14) Hirschler V, Delfino A, Clemente G, Aranda C, Calcagno ML, Pettinicchio H et al. (2005). 
+¿Es la circunferencia de cintura un componente del síndrome metabólico en la infancia?, 
+Arch.argent.pediatr. 2005; 103(1), 7 -13. Disponible en http://www3.sap.org.ar/staticfiles/
+archivos/2005/arch05_1/A1 .07 -13.pdf. Acceso al 18 de febrero de 2015.
+15) Katzmarzyk PT, Sathanur R. Srinivasan, Wei Chen, Robert M. Malina, Claude Bouchard 
+and Gerald S. Berenson. (2004). Body Mass Index, Waist Circumference, and Clustering 
+of Cardiovascular Disease Risk Factors in a Biracial Sample of Children and Adolescents, 
+Pediatrics. 2004; 114; e198-e205. Disponible en: http://pediatrics.aappublications.org/
+content/114/2/e198.full.pdf. Acceso al 18 de febrero de 2015.
+16) Instituto Nacional de Salud / Ministerio de Salud de Perú. (2004). La Medición de Peso y 
+Talla. Guía para el personal de la salud del primer nivel de atención.
+17) Ministerio de Salud de Perú. (2014). Documento Técnico: Orientaciones para la Atención 
+Integral de Salud de las y los Adolescentes en el I Nivel de Atención” . Resolución Ministerial 
+N.
+O 917 -2014/MINSA. Lima. 2014.
+18) Organización Mundial de la Salud. (1995). El Estado físico: Uso e Interpretación de la 
+Antropometría. Informe del Comité de Expertos de la OMS, Serie de Informes técnicos 
+854, Ginebra. OMS 1995.
+19) Rosa Maria Luiza Garcia, Mesquita Evandro Tinoco, Rocha Emanuel Ribeiro Romeiro da, 
+Fonseca Vânia de Matos. (2007). Body mass index and waist circumference as markers of 
+arterial hypertension in adolescents. Arq. Bras. Cardiol., São Paulo, v. 88, n. 5, May 2007 . 
+Disponible en: http://www.scielo.br/scielo.php?pid=S0066-782X2007000500012&script=sci_
+arttext&tlng=en. Acceso al 18 de febrero de 2015.
+20) The National Institutes of Health. (2000). Practical Guide Identification, Evaluation, and 
+Treatment of Overweight and Obesity in Adults. NIH Publication Number 00-4084. 
+21) Unidad de Nutrición del Ministerio de Salud de Chile (2004). Norma Técnica de Evaluación 
+Nutricional del niño de 6 a 18 años. Año 2003. Rev Chil Nutr  2004; 31 (2):128-37 . Disponible 
+en http://www.scielo.cl/scielo.php?pid=S0717 -75182004000200007&script=sci_arttext 
+Acceso al 18 de febrero de 2015.
+22) World Health Organization. (2000). Obesity: Preventing and Managing the Global Epidemic. 
+Technical Report Series 894, Geneva. Disponible en http://whqlibdoc.who.int/trs/WHO_
+TRS_894.pdf. Acceso 18 de febrero de 2015.
+23) World Health Organization. (2003). Diet, Nutrition, and the Prevention of Chronic Diseases, 
+Technical Report Series 916. Report of a Joint WHO/FAO Expert Consultation. Disponible 
+en: http://www.who.int/nutrition/topics/dietnutrition_and_chronicdiseases/en/index.html. 
+Acceso 18 de febrero de 2015.
+24) World Health Organization. (2007). Growth reference data for 5-19 years. Disponible en 
+http://www.who.int/growthref/en/. Acceso 18 de febrero de 2015.
+
+=== PDF PAGE 49 ===
+GUÍA TÉCNICA PARA LA VALORACIÓN NUTRICIONAL
+ANTROPOMÉTRICA DE LA PERSONA ADOLESCENTE
+Se terminó de imprimir en diciembre de 2015
+en los talleres gráficos de LANCE GRÁFICO SAC
+Calle Mama Ocllo 1923 - Lince, Lima • Teléfono 265-5205
+licitaciones@lancegrafico.com.pe
+
+=== PDF PAGE 50 ===
+Lima, 2015
+Instituto Nacional de Salud
+Jirón Cápac Yupanqui 1400, Jesús María, Lima, Perú
+Teléfonos: (511) 748-0000 / 748-1111
+Página web: www.ins.gob.pe
+9 7 8 6 1 2 3 1 0 0 7 2 8
+ISBN: 978-612-310-072-8

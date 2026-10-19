@@ -1,0 +1,199 @@
+- button "Abrir menú":
+  - generic: Abrir menú
+- generic: Admisión de paciente
+- generic: "*Fecha y hora de atención"
+- combobox "Fecha y hora de atención": 17/10/2026 16:53
+- main:
+  - complementary:
+    - region "Base de datos":
+      - heading "Base de datos" [level=3]
+      - generic: N.° H. clínica
+      - textbox "N.° H. clínica": PRUEBA-RIESGO-ADULTO-171026
+      - group "Historia familiar":
+        - generic: Historia familiar
+        - combobox "Color o sector de historia familiar"
+        - generic: Color o sector
+        - textbox "Número de historia familiar":
+          - /placeholder: N.° familiar
+      - generic: Tipo documento
+      - combobox "Tipo de documento"
+      - generic: Documento Nacional de Identidad
+      - generic: "* N.° documento"
+      - textbox "N.° documento": "99061712"
+      - generic: "* Fecha nacimiento"
+      - textbox "Fecha nacimiento": 1991-10-17
+      - generic: Apellido paterno
+      - textbox "Apellido paterno": Prueba
+      - generic: Apellido materno
+      - textbox "Apellido materno": Nutricional
+      - generic: Primer nombre
+      - textbox "Primer nombre": Adulto
+      - generic: Otros nombres
+      - textbox "Otros nombres": Ficticio
+      - generic: Sexo
+      - combobox "Sexo"
+      - generic: MASCULINO
+      - generic: Distrito
+      - combobox "Distrito"
+      - generic: Seleccione
+      - generic: Localidad
+      - combobox "Localidad" [disabled]
+      - generic: Elija el distrito primero
+      - generic: Dirección
+      - textbox "Dirección"
+      - generic: Establecimiento
+      - combobox "Establecimiento"
+      - generic: C.S. ALTO SELVA ALEGRE
+      - generic "Seguro sin registrar":
+        - generic "Sin registro":
+          - generic: Sin registro
+      - combobox "Seguro de salud"
+      - generic: Sin seguro registrado
+      - generic: Teléfono
+      - textbox "Teléfono"
+      - region "Responsables y riesgos del paciente":
+        - generic: Grupo de riesgo
+        - button "Grupo de riesgo":
+          - generic: Sin registrar
+        - generic: Nombre de madre
+        - textbox "Nombre de madre":
+          - /placeholder: Sin registrar
+        - button "Agregar madre":
+        - generic: Grupo etáreo
+        - generic "Condición registrada del paciente; independiente de la edad calculada en la atención":
+          - combobox "Grupo etáreo"
+          - generic: ADULTO
+      - status: Datos del paciente guardados.
+      - generic "Más acciones del paciente"
+  - region "Consultorio":
+    - generic: "*Modalidad de atención"
+    - radiogroup "Modalidad de atención":
+      - radio "Ambulatoria" [checked]
+      - generic: Ambulatoria
+      - radio "Emergencia"
+      - generic: Emergencia
+    - heading "Consultorio" [level=3]
+    - generic: "*Consultorio"
+    - combobox "*Consultorio"
+    - generic: Seleccione el consultorio
+    - generic: Servicio / especialidad
+    - combobox "Servicio / especialidad" [disabled]
+    - generic: Seleccione el servicio
+    - generic: "*Profesional"
+    - combobox "*Profesional" [disabled]
+    - generic: Seleccione el profesional
+  - region "Mediciones clínicas":
+    - generic: Grupo de atención
+    - radiogroup "Grupo de atención":
+      - radio "Niños, adolescentes, adultos y adultos mayores" [checked]
+      - generic: Niños, adolescentes, adultos y adultos mayores
+      - radio "Gestantes"
+      - generic: Gestantes
+      - radio "Puérperas"
+      - generic: Puérperas
+    - heading "Mediciones clínicas" [level=4]
+    - generic: Peso actual (kg)
+    - spinbutton "Peso actual (kg)"
+    - generic: Talla (cm)
+    - spinbutton "Talla (cm)"
+    - generic: Perímetro abdominal (cm)
+    - spinbutton "Perímetro abdominal (cm)"
+    - heading "Presión arterial y temperatura" [level=4]
+    - group "Presión arterial y temperatura":
+      - generic: Diast.
+      - spinbutton "Presión diastólica"
+      - generic: /
+      - generic: Sist.
+      - spinbutton "Presión sistólica"
+      - generic: Temp.
+      - spinbutton "Temperatura en grados Celsius"
+      - generic: °C
+  - region "Valoración nutricional":
+    - heading "Valoración nutricional" [level=3]
+    - generic: Edad a la atención
+    - strong: 35 años, 0 meses y 0 días
+    - group "Diagnósticos de peso/edad, talla/edad y peso/talla":
+      - generic: DIAGNÓSTICO
+      - generic: P/E
+      - textbox "Diagnóstico P/E": No aplica
+      - generic: T/E
+      - textbox "Diagnóstico T/E": No aplica
+      - generic: P/T
+      - textbox "Diagnóstico P/T": No aplica
+    - paragraph: P/E, T/E y P/T no aplican a esta edad. La valoración se realiza por IMC.
+  - generic "Acciones de admisión":
+    - status: Guarde la atención para habilitar Imprimir S.I.S.
+    - group "Acciones de admisión":
+      - button "Guardar atención":
+        - generic: Guardar atención
+      - button "Imprimir S.I.S." [disabled]:
+        - generic: Imprimir S.I.S.
+      - button "Otra consulta" [disabled]:
+        - generic: Otra consulta
+      - button "FUA adicional" [disabled]:
+        - generic: FUA adicional
+      - button "Salir":
+        - generic: Salir
+  - heading "Historial de atenciones del paciente" [level=3]
+  - button "Refrescar":
+    - generic: Refrescar
+  - table:
+    - rowgroup:
+      - row "N.° historia Fecha atención Edad del paciente Peso Talla Diast. Sist. IMC P/E T/E P/T Consultorio Estado":
+        - columnheader "N.° historia":
+          - generic: N.° historia
+        - columnheader "Fecha atención":
+          - generic: Fecha atención
+        - columnheader "Edad del paciente":
+          - generic: Edad del paciente
+        - columnheader "Peso":
+          - generic: Peso
+        - columnheader "Talla":
+          - generic: Talla
+        - columnheader "Diast.":
+          - generic: Diast.
+        - columnheader "Sist.":
+          - generic: Sist.
+        - columnheader "IMC":
+          - generic: IMC
+        - columnheader "P/E":
+          - generic: P/E
+        - columnheader "T/E":
+          - generic: T/E
+        - columnheader "P/T":
+          - generic: P/T
+        - columnheader "Consultorio":
+          - generic: Consultorio
+        - columnheader "Estado":
+          - generic: Estado
+  - table:
+    - rowgroup:
+      - 'row "PRUEBA-RIESGO-ADULTO-171026 17/10/2026 35 años, 0 meses y 0 días 50.00 175.00 — — Resultado disponible: IMC: 16.327 · Bajo peso. P/E, T/E y P/T no aplican: esta edad está fuera de las tablas de crecimiento utilizadas. La valoración disponible es por IMC. Valoración por IMC; interpretar junto con la evaluación clínica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica No aplica No aplica No aplica MEDICINA C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL ATENDIDO"':
+        - cell "PRUEBA-RIESGO-ADULTO-171026":
+          - generic: PRUEBA-RIESGO-ADULTO-171026
+        - cell "17/10/2026":
+          - generic: 17/10/2026
+        - cell "35 años, 0 meses y 0 días":
+          - generic: 35 años, 0 meses y 0 días
+        - cell "50.00":
+          - generic: "50.00"
+        - cell "175.00":
+          - generic: "175.00"
+        - cell "—":
+          - generic: —
+        - cell "—":
+          - generic: —
+        - 'cell "Resultado disponible: IMC: 16.327 · Bajo peso. P/E, T/E y P/T no aplican: esta edad está fuera de las tablas de crecimiento utilizadas. La valoración disponible es por IMC. Valoración por IMC; interpretar junto con la evaluación clínica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica"':
+          - generic: "16.327"
+        - cell "No aplica":
+          - generic: No aplica
+        - cell "No aplica":
+          - generic: No aplica
+        - cell "No aplica":
+          - generic: No aplica
+        - cell "MEDICINA C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL":
+          - text: MEDICINA
+          - generic: C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+        - cell "ATENDIDO":
+          - generic: ATENDIDO
+  - paragraph: "P/E: peso/edad · T/E: talla/edad · P/T: peso/talla. «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo. «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración."

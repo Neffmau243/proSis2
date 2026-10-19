@@ -124,6 +124,10 @@ def risk_to_response(entity: "PatientRisk") -> PatientRiskResponse:
 
     group = getattr(entity, "grupo_riesgo", None)
     return PatientRiskResponse(
+        **{key: getattr(entity, key, None) for key in (
+            "atencion_origen_id", "evaluacion_origen", "confirmado_por_usuario_id",
+            "fecha_proximo_control", "motivo_cierre",
+        )},
         grupo_riesgo_id=entity.grupo_riesgo_id,
         fecha_inicio=entity.fecha_inicio,
         fecha_fin=entity.fecha_fin,

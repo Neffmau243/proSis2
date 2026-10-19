@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-17",
+  "method": "Recorrido manual desde interfaz con medico.demo; sin tests automatizados ni escrituras SQL/API para registrar los casos",
+  "mother": {
+    "id": 18,
+    "name": "Prueba Materna Elena Simulada",
+    "document": "99061701",
+    "condition": "PUERPERA",
+    "family": "AZ-171026"
+  },
+  "baby": {
+    "id": 19,
+    "name": "Ficticio Prueba Nicolas Simulado",
+    "birth_date": "2026-10-16",
+    "document": "OTRO RN-FICTICIO-171026",
+    "condition": "RECIEN NACIDO",
+    "mother_document": "99061701",
+    "mother_principal": true,
+    "family": "AZ-171026"
+  },
+  "attentions": [
+    {
+      "id": 23,
+      "patient_id": 18,
+      "group": "GESTANTES",
+      "mode": "AMBULATORIA",
+      "date": "2026-10-01T09:00:00",
+      "fua": "00001291-26-00000002"
+    },
+    {
+      "id": 24,
+      "patient_id": 18,
+      "group": "GESTANTES",
+      "mode": "EMERGENCIA",
+      "date": "2026-10-15T18:00:00",
+      "fua": "00001291-26-00000005"
+    },
+    {
+      "id": 25,
+      "patient_id": 18,
+      "group": "PUERPERAS",
+      "mode": "EMERGENCIA",
+      "date": "2026-10-16T18:00:00",
+      "delivery_date": "2026-10-16",
+      "fua": "00001291-26-00000006"
+    },
+    {
+      "id": 27,
+      "patient_id": 18,
+      "group": "PUERPERAS",
+      "mode": "AMBULATORIA",
+      "date": "2026-10-17T09:00:00",
+      "delivery_date": "2026-10-16",
+      "fua": "00001291-26-00000003"
+    },
+    {
+      "id": 26,
+      "patient_id": 19,
+      "group": "GENERAL",
+      "mode": "AMBULATORIA",
+      "date": "2026-10-17T10:00:00",
+      "weight": 3.25,
+      "height": 50,
+      "fua": "00001291-26-00000004"
+    }
+  ],
+  "pdf_saved": false,
+  "diagnoses_and_services_completed": false
+}

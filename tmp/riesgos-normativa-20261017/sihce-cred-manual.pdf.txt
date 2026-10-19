@@ -1,0 +1,1895 @@
+=== PDF PAGE 1 ===
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+2024 
+
+=== PDF PAGE 2 ===
+ 
+ 
+ 
+PRESENTACIÓN 
+ 
+La historia clínica electrónica es una herramienta informática asistencial y administrativa que ha 
+sido desarrollada por el Ministerio de Salud para los diferentes niveles de atención y que está 
+compuesto de los módulos de: Gestión de Administración (progr amación de turnos), Ventanilla 
+Única, Caja, Triaje, Consulta Externa, CRED, Inmunizaciones, Wawared). 
+La implementación de la historia clínica electrónica traerá como consecuencia la eliminación de las  
+Hojas HIS físicas, ya que cada componente creado interoperará con la aplicación HISMINSA, 
+alimentando esta Base de Datos, permitiendo de esta manera realizar las estadísticas necesarias 
+para la definición de las políticas públicas necesarias para el Sector Salud. 
+Asimismo, la historia clínica electrónica permitirá que la evaluación del paciente sea óptima, rápida  
+y acertada emitiendo un diagnóstico adecuado luego de realizar un acto médico al usarse 
+mecanismos de interoperabilidad con SIS, RENIEC, CNV, HISMINSA, enfocándose el profesional de 
+la salud de forma prioritaria a la atención del paciente, reduciendo los tiempos de espera y trabajo 
+administrativo. 
+Por otro lado, la implementación de la firma digital, siendo este un requisito para ser considerado 
+con un Sistema de Información de Historia Clínica Electrónica – SIHCE, según la definición indicada 
+en el Reglamento de la Ley N° 30024. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+=== PDF PAGE 3 ===
+CONTENIDO 
+ 
+I. INGRESO AL SISTEMA ................................................................................................ 4 
+II. INICIO DEL MÓDULO DE CRED ................................................................................... 5 
+OPCIONES DEL MÓDULO ................................................................................................................. 5 
+III. AÑADIR Y/O BUSQUEDA ............................................................................................ 6 
+1. Añadir ...................................................................................................................................... 6 
+2. Búsqueda por nombres ........................................................................................................... 7 
+IV. REGISTRO DE ATENCIÓN ............................................................................................ 7 
+EDICIÓN DE DATOS DEL NIÑO Y DEL FAMILIAR .............................................................................. 7 
+PACIENTES NUEVOS (ANTECEDENTES) ........................................................................................... 9 
+ATENCIÓN ..................................................................................................................................... 11 
+1. CONTROL CRED ..................................................................................................................... 12 
+1.1. PRIMERA PARTE ................................................................................................................ 12 
+1.2. SEGUNDA PARTE ............................................................................................................... 15 
+1.2.1. Evaluación nutricional y del desarrollo ......................................................................... 15 
+1.2.2. Laboratorio .................................................................................................................... 22 
+1.2.3. Intervenciones ............................................................................................................... 23 
+1.2.4. Acuerdos y compromisos .............................................................................................. 24 
+1.2.5. Citas / Referencia y Exámenes auxiliares ...................................................................... 25 
+1.2.6. Registro HIS ................................................................................................................... 25 
+1.2.7. Ediciones de atenciones Migradas a HISMINSA ............................................................ 27 
+1.2.8. Emisión de Reportes de la atención .............................................................................. 28 
+1.2.9. Firma digital ................................................................................................................... 28 
+2. VACUNAS ............................................................................................................................... 30 
+3. SEGUIMIENTO POR RIESGO EN EL CRECIMIENTO / DESARROLLO ........................................ 31 
+3.1. PRIMERA PARTE ................................................................................................................ 31 
+3.2. SEGUNDA PARTE ............................................................................................................... 32 
+4. PRESTACIONES ADICIONALES DE SALUD .............................................................................. 34 
+V. ACTUALIZACIÓN DE DOCUMENTOS ......................................................................... 35 
+VI. BANDEJA DE DOCUMENTOS ELECTRÓNICOS ........................................................... 37 
+VII. REPORTES ................................................................................................................ 38 
+1. REGISTRO DE SEGUIMIENTO DE LA ATENCIÓN INTEGRAL .................................................... 38 
+2. REPORTE DE ATENCIÓN ........................................................................................................ 39 
+3. SOLICITUD A DE PRODUCTOS A FARMACIA .......................................................................... 40 
+4. ORDEN DE LABORATORIO ..................................................................................................... 40 
+5. REPORTES DEL ESTABLECIMIENTO DE SALUD ....................................................................... 41 
+Reporte de atención CRED ............................................................................................................ 41 
+Reporte de Tamizaje de Anemia ................................................................................................... 41 
+Reporte Detallado ......................................................................................................................... 41 
+ 
+ 
+
+=== PDF PAGE 4 ===
+CRED 
+ 
+ 
+4 
+      
+ 
+ 
+MODULO DE CRED 
+ 
+ 
+I. INGRESO AL SISTEMA 
+1 . Los navegadores web necesarios para el óptimo funcionamiento del sistema en sus versiones 
+más actualizadas son: 
+• Google Chrome y/o Mozilla Firefox. 
+• Ingresar a la URL https://sihce.minsa.gob.pe 
+ 
+ 
+ 
+ 
+ 
+ 
+2 . Iniciar sesión con usuario (DNI) y contraseña. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Nota: Si ingresa por primera vez, el usuario y contraseña es el DNI, y el sistema solicitará que registre 
+su nueva contraseña. 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 5 ===
+CRED 
+ 
+ 
+5 
+      
+ 
+ 
+II. INICIO DEL MÓDULO DE CRED 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1 . Muestra el nombre del establecimiento de salud. 
+2 . Muestra el nombre del usuario. 
+3 . Casilla de selección del tipo de documento. 
+4 . Casilla de búsqueda del número de documento. 
+5 . Descarga listado de recién nacidos en el EESS registrados en el aplicativo del CNV. 
+ 
+OPCIONES DEL MÓDULO  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6 . Volver a la página inicial del módulo. 
+7 . Descarga reporte del registro de atenciones CRED por un periodo de hasta 1 mes. 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 6 ===
+CRED 
+ 
+ 
+6 
+      
+ 
+ 
+8 . Descarga reporte de niños que han sido tamizados por anemia dentro del centro de salud. 
+9 . Descarga reporte detallado de atenciones CRED por un periodo de hasta 3 meses y 11 días. 
+ 
+ 
+ 
+ 
+ 
+III. AÑADIR Y/O BUSQUEDA 
+Al realizar la búsqueda del paciente, por tipo de documento Acta de nacimiento, CNV, DI del 
+extranjero, No se conoce y pasaporte; se habilitan los botones: 
+1. Añadir 
+ 
+ 
+ 
+ 
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 7 ===
+CRED 
+ 
+ 
+7 
+      
+ 
+ 
+2. Búsqueda por nombres 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+IV. REGISTRO DE ATENCIÓN 
+EDICIÓN DE DATOS DEL NIÑO Y DEL FAMILIAR 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 8 ===
+CRED 
+ 
+ 
+8 
+      
+ 
+ 
+Datos del niño 
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Datos del familiar 
+Esta sección tiene 3 pestañas: 
+• Madre 
+• Padre 
+• Tutor 
+Siendo el contenido de registro el mismo para tres los casos 
+ 
+
+
+=== PDF PAGE 9 ===
+CRED 
+ 
+ 
+9 
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PACIENTES NUEVOS (ANTECEDENTES) 
+Al registrar la atención de un paciente nuevo en el módulo de CRED, se visualizará la ventana de 
+Antecedentes, que deberá registrarse obligatoriamente: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+ 
+ 
+ 
+Regresa al menú principal 
+ Guarda el registro 
+
+=== PDF PAGE 10 ===
+CRED 
+ 
+ 
+10 
+      
+ 
+Antecedentes perinatales y del Recién nacido 
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Antecedentes Patológicos del Menor 
+ 
+ 
+ 
+Al no encontrar la patología del menor en la relación de antecedentes, se puede buscar por código 
+o descripción CIE10 en la casilla enfermedad, una vez seleccionada se agregará a la relación. 
+ 
+ 
+ 
+ 
+ 
+Al encontrar la patología del niño, se puede escribir en la casilla observaciones y marcar el check 
+ 
+ 
+ 
+ 
+Si es necesario escribir en el campo de 
+observaciones y para grabar marcar en recuadro 
+
+=== PDF PAGE 11 ===
+CRED 
+ 
+ 
+11 
+      
+ 
+Antecedentes familiares 
+ 
+ 
+ 
+ 
+Al no encontrar la patología del menor en la relación de antecedentes, se puede buscar por código 
+o descripción CIE10 en la casilla enfermedad, una vez seleccionada se agregará a la relación. 
+ 
+ 
+ 
+ 
+ 
+Al encontrar la patología del familiar, se puede escribir en la casilla observaciones y marcar el check 
+ 
+ 
+ 
+ 
+ 
+ 
+            
+            
+            
+           
+ 
+ATENCIÓN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Si es necesario escribir en el campo de 
+observaciones y para grabar marcar en recuadro 
+Marcar la opción(es) 
+correspondiente(s) 
+Regresa al menú principal 
+Guarda el registro 
+
+
+=== PDF PAGE 12 ===
+CRED 
+ 
+ 
+12 
+      
+ 
+LISTADO DE ATENCIONES 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+ 
+Opciones de Atención 
+ 
+ 
+ 
+Controles CRED y Seguimientos 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1. CONTROL CRED 
+ 
+ 
+ 
+ 
+1.1. PRIMERA PARTE 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+Al pasar el cursor, se habilita el 
+botón de Eliminar. 
+(Solo con las atenciones que el 
+mismo usuario generó) 
+Reporte de Seguimiento de Atención 
+ Regresa al menú principal 
+
+
+=== PDF PAGE 13 ===
+CRED 
+ 
+ 
+13 
+      
+ 
+1.1.1 Consulta 
+Al ingresar, se genera de forma automática la fecha, hora de atención, N° control CRED. 
+Importante: Se puede editar el N° control CRED haciendo clic en icono candado 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Ventanas emergentes 
+Todas tienen opción de ver su historial de registro. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 14 ===
+CRED 
+ 
+ 
+14 
+      
+ 
+1.1.2 Motivo consulta 
+ 
+ 
+ 
+ 
+1.1.3 Signos vitales y medidas antropométricas  
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+1.1.4 Último examen de hemoglobina 
+Se visualizará el último registro del examen de hemoglobina 
+ 
+ 
+ 
+1.1.5 Examen físico 
+Al seleccionar patológico, se despliegan las opciones de examen físico para marcar. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Guarda el registro 
+ Listados de atenciones 
+
+=== PDF PAGE 15 ===
+CRED 
+ 
+ 
+15 
+      
+ 
+1.2. SEGUNDA PARTE 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+ 
+1.2.1. Evaluación nutricional y del desarrollo 
+ 
+ 
+Valores Antropométricos del niño: 
+Consiste en visualizar de acuerdo al peso y la talla registrados durante la atención, con tablas 
+oficializadas para que el personal de enfermería diagnostique el desarrollo físico. 
+ 
+ 
+ 
+Leyenda: 
++2 estándar mayor y -2 estándar menor 
+0 
+Es la marca del niño 
+Recomendación: En cuanto más controles se registran, la marca se convierte en curva 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Peso para la talla 
+ Peso para la edad 
+
+=== PDF PAGE 16 ===
+CRED 
+ 
+ 
+16 
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Talla para la edad 
+ Ganancia de peso 
+Perímetro cefálico 
+
+=== PDF PAGE 17 ===
+CRED 
+ 
+ 
+17 
+      
+ 
+Test peruano : Cada control CRED va a marcar según su evolución psicomotriz y habilidad. Va 
+marcando cuando cumple con la actividad. Al seleccionar una opción se habilita el botón GUARDAR. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Evaluación de desarrollo psicomotor EEDP: Corresponde al niño de 0 a 24 meses, en el cual se mide 
+el rendimiento del niño frente a situaciones expuestas por el examinador. De acuerdo a la edad, se 
+evalúa 4 áreas correspondiente: Coordinación, Social, Lenguaje, Motora. 
+Presionar Guardar para iniciar. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Test peruano 
+
+
+=== PDF PAGE 18 ===
+CRED 
+ 
+ 
+18 
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Test de desarrollo psicomotor  TEPSI: Este test de Desarrollo Psicomotor evalúa el desarrollo 
+psicomotor del niño de entre 2 y 5 años de edad, que evalúa las áreas de Coordinación Lenguaje y 
+Motricidad. 
+ 
+ 
+
+
+=== PDF PAGE 19 ===
+CRED 
+ 
+ 
+19 
+      
+ 
+Coordinación 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Después de registrar, presionar el botón Guardar, y presionar siguiente para pasar a la sección de 
+Lenguaje 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 20 ===
+CRED 
+ 
+ 
+20 
+      
+ 
+Lenguaje 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Después de registrar, presionar el botón Guardar , y presionar siguiente para pasar a la sección de 
+Motricidad y atrás para ir a Coordinación 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 21 ===
+CRED 
+ 
+ 
+21 
+      
+ 
+Motricidad 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Después de registrar, presionar el botón Guardar, y presionar atrás para ir a Coordinación 
+ 
+ 
+Resultado TEPSI 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 22 ===
+CRED 
+ 
+ 
+22 
+      
+ 
+Los resultados de las medidas antropométricas se registran de forma automática de acuerdo al peso 
+y talla registrados en la PRIMERA PARTE, sección Signos vitales y medidas antropométricas. 
+ 
+ 
+ 
+ 
+ 
+ 
+En relación al resultado de EEDP y TEPSI, se marca automáticamente el resultado: Condición de 
+desarrollo psicomotor. Se debe marcar obligatoriamente un Transtorno de desarrollo psicomotor. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.2. Laboratorio 
+Se puede agregar los exámenes requeridos con el botón Agregar 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Una vez guardado, se puede ver el resumen de los exámenes registrados, con el botón Ver resumen 
+ 
+
+
+=== PDF PAGE 23 ===
+CRED 
+ 
+ 
+23 
+      
+ 
+Al presionar el botón Ocultar resumen, regresa a la vista inicial de la sección Laboratorio 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.3. Intervenciones 
+Se registran los suplementos o micronutrientes 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sulfato ferroso o Polimaltosado férrico 
+*Total prescrito durante todos sus controles anteriores, cálculo es automático de acuerdo a la edad 
+*Cantidad a entregar, registro de acuerdo a lo registrado en Tiempo de prescripción (meses) 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 24 ===
+CRED 
+ 
+ 
+24 
+      
+ 
+Micronutrientes 
+Se contabilizará el total prescrito durante los controles previos, lo prescrito en la última visita. 
+ 
+ 
+ 
+ 
+ 
+Administración de Profilaxis Antiparasitaria 
+Al seleccionar una de las opciones se muestra: 
+ 
+ 
+ 
+Al seleccionar Jarabe o Tabletas, se registra la dosis automáticamente 
+ 
+ 
+ 
+ 
+ 
+1.2.4. Acuerdos y compromisos 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Seleccionado en 
+controles anteriores 
+Bloqueado 
+Seleccionado en 
+registro actual 
+
+=== PDF PAGE 25 ===
+CRED 
+ 
+ 
+25 
+      
+ 
+1.2.5. Citas / Referencia y Exámenes auxiliares 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.6. Registro HIS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Después de registrar los datos de la atención, presionar el botón Guardar  la atención  y generar 
+diagnósticos 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 26 ===
+CRED 
+ 
+ 
+26 
+      
+ 
+Lo que permitirá agregar los CIE/CPT que corresponden a la atención de acuerdo a lo registrado en 
+la atención. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Si se desea agregar otra actividad, en el desplegable Buscar Dx se puede buscar por código CIE/CPT 
+o descripción. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Se selecciona el deseado y se agrega en la lista. 
+ 
+ 
+ 
+ 
+ 
+ 
+Se marca el tipo de diagnóstico y para guardar se presiona                 y se confirma el mensaje de 
+modificación de cambios. Se confirmará  
+ 
+
+
+=== PDF PAGE 27 ===
+CRED 
+ 
+ 
+27 
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Para eliminar un registro, se presiona el botón              se confirma el mensaje y se eliminará el 
+registro. 
+Después de las ediciones de códigos CIE/CPT no es necesario volver a presionar el botón. 
+ 
+ 
+ Solo si se editaron datos en otras secciones de la atención. 
+ 
+ 
+1.2.7.  Ediciones de atenciones Migradas a HISMINSA 
+Cuando las atenciones han sido migradas al HISMINSA, se visualiza el botón Actualizar trama 
+HISMINSA. 
+Una vez editada la atención en CRED se puede actualizar la atención registrada en HISMINSA, 
+presionando ese botón 
+IMPORTANTE: Es importante mencionar que el botón solo se visualizará en caso la atención 
+corresponda al usuario que generó la atención. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 28 ===
+CRED 
+ 
+ 
+28 
+      
+ 
+1.2.8. Emisión de Reportes de la atención 
+Una vez terminada la atención se pueden descargar los reportes resultados de la atención 
+presionando el botón Imprimir Reportes. 
+ 
+ 
+ 
+ 
+ 
+ 
+1.2.9. Firma digital 
+Si el usuario, tiene el rol de Firma del profesional y puede firmar digitalmente, los botones que se 
+visualizan al final de la atención son los siguientes: 
+ 
+ 
+ 
+ 
+Al presionar el botón Firmar documentos, se visualiza la siguiente ventana 
+Se marcar con check los documentos que se desean firmar, y se presiona Firmar Ahora 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                     
+        Nota: Para descargar los documentos de la atención, se presiona el icono   
+ 
+
+
+=== PDF PAGE 29 ===
+CRED 
+ 
+ 
+29 
+      
+ 
+Se presiona continuar: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Se ingresa el PIN: 
+ 
+ 
+ 
+ 
+ 
+ 
+Se visualiza la ventana que el proceso de firma fue completado exitosamente. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 30 ===
+CRED 
+ 
+ 
+30 
+      
+ 
+2. VACUNAS 
+ 
+ 
+ 
+Direcciona al calendario de vacunación del niño o niña. 
+Para mayor detalle en el registro, puede ingresar al manual de Inmunizaciones 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 31 ===
+CRED 
+ 
+ 
+31 
+      
+ 
+3. SEGUIMIENTO POR RIESGO EN EL CRECIMIENTO / DESARROLLO 
+ 
+ 
+ 
+ 
+ 
+3.1. PRIMERA PARTE 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+ 
+3.2.1. Consulta 
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2.2. Signos vitales y medidas antropométricas 
+Las casillas con (*) son datos que deben registrarse obligatoriamente 
+ 
+ 
+ 
+ 
+ 
+3.2.3. Último examen de hemoglobina 
+Se visualiza el resultado del último examen registrado 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 32 ===
+CRED 
+ 
+ 
+32 
+      
+ 
+3.2. SEGUNDA PARTE 
+Cabecera con datos del Paciente 
+ 
+ 
+ 
+ 
+3.2.1. Evaluación nutricional y del desarrollo 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2.2. Laboratorio 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 33 ===
+CRED 
+ 
+ 
+33 
+      
+ 
+3.2.3. Intervenciones 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+3.2.4. Registro HIS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+El proceso de guardado y edición es el mismo que en CONTROL CRED, Ver página 26 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 34 ===
+CRED 
+ 
+ 
+34 
+      
+ 
+4. PRESTACIONES ADICIONALES DE SALUD 
+ 
+ 
+ 
+ 
+ 
+Al presionar el botón             se visualiza la ventana de Agregar prestaciones de salud 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Las prestaciones son: 
+ 
+*Atención temprana del 
+desarrollo 
+*Orientación en salud bucal 
+*Sesión educativa 
+*Sesión demostrativa 
+*Visita domiciliaria 
+
+
+=== PDF PAGE 35 ===
+CRED 
+ 
+ 
+35 
+      
+ 
+V. ACTUALIZACIÓN DE DOCUMENTOS 
+Se puede realizar la actualización de tipo de documentos NO SE CONOCE a CNV/DNI y CNV a DNI: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Cabecera 
+ 
+ 
+ 
+ 
+Se busca el tipo y numero de documento al que se desea actualizar el paciente de la cabecera 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+*Atenciones del paciente con tipo y número de documento al que se busca 
+actualizar. 
+*Inicialmente se listan con el check marcado. 
+Datos del 
+paciente que 
+se busca 
+actualizar 
+Atenciones 
+del paciente 
+que se desea 
+actualizar su 
+tipo de 
+documento 
+
+
+=== PDF PAGE 36 ===
+CRED 
+ 
+ 
+36 
+      
+ 
+Se deben marcar el check de las atenciones del paciente que se desea actualizar su tipo de 
+documento para que se puedan incluir en la actualización del nuevo tipo de documento. 
+Al presionar el botón                                               se solicitará la confirmación de la actualización  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Si se confirma, se visualizará el siguiente mensaje 
+ 
+ 
+ 
+ 
+Las atenciones se visualizarán en el listado de atenciones 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 37 ===
+CRED 
+ 
+ 
+37 
+      
+ 
+VI. BANDEJA DE DOCUMENTOS ELECTRÓNICOS 
+ 
+Para usuarios con rol de Firma del profesional y Bandeja de documentos electrónicos. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+La búsqueda se puede realizar por fecha y por estado. 
+ 
+ 
+ 
+ 
+Al marcar el check                             realizará la búsqueda en todas las fechas del estado seleccionado 
+ 
+Al seleccionar       se desplegará el botón Firma Docs 
+ 
+ 
+ 
+ 
+ 
+Para firmar seguir los pasos de Firma Digital, Ver página 29 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 38 ===
+CRED 
+ 
+ 
+38 
+      
+ 
+VII. REPORTES 
+ 
+ 
+1. REGISTRO DE SEGUIMIENTO DE LA ATENCIÓN INTEGRAL 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 39 ===
+CRED 
+ 
+ 
+39 
+      
+ 
+2. REPORTE DE ATENCIÓN 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 40 ===
+CRED 
+ 
+ 
+40 
+      
+ 
+3. SOLICITUD A DE PRODUCTOS A FARMACIA 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4. ORDEN DE LABORATORIO 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+=== PDF PAGE 41 ===
+CRED 
+ 
+ 
+41 
+      
+ 
+5. REPORTES DEL ESTABLECIMIENTO DE SALUD 
+ 
+Reporte de atención CRED 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Reporte de Tamizaje de Anemia 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Reporte Detallado 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

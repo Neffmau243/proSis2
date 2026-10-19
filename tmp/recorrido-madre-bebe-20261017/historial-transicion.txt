@@ -1,0 +1,84 @@
+Browser tab: 1, Title: "Ficha del paciente · Sistema de Salud IPRESS", URL: "http://127.0.0.1:8000/pacientes/18".
+1 AXWebArea Ficha del paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/pacientes/18
+	2 container
+		3 button (collapsed) Abrir menú, Secondary Actions: Expand
+		4 text Ficha del paciente
+		5 container
+			6 heading Prueba Materna Elena Simulada, Value: 2
+				81 text Prueba Materna Elena Simulada
+			8 text DNI 99061701 · HC: PRUEBA-MADRE-171026 
+			9 text Activo
+			82 button Dar de baja
+			10 button Volver
+			11 tab group
+				12 tab (selectable, settable, boolean) Datos, Value: 0, ID: tab-datos
+				13 tab (selectable, settable, boolean) Responsables, Value: 0, ID: tab-responsables
+				14 tab (selectable, settable, boolean) Riesgos, Value: 0, ID: tab-riesgos
+				15 tab (selected, settable, boolean) Atenciones, Value: 1, ID: tab-atenciones
+			83 container Description: Atenciones, ID: pane-atenciones
+				84 container
+					85 table
+						86 row
+							87 cell
+								88 text ID
+							89 cell
+								90 text Fecha
+							91 cell
+								92 text Modalidad
+							93 cell
+								94 text Grupo etario
+							95 cell
+								96 text Grupo de atención
+							97 cell
+								98 text Estado
+							99 cell
+								100 text Acciones
+					101 table
+						102 container
+							103 row
+								104 cell
+									105 text 25
+								106 cell
+									107 text 2026-10-16T18:00:00
+								108 cell
+									109 text EMERGENCIA
+								110 cell
+									111 text JOVEN
+								112 cell
+									113 text Puérperas
+								114 cell
+									115 text ATENDIDO
+								116 cell
+									117 button Ver
+							118 row
+								119 cell
+									120 text 24
+								121 cell
+									122 text 2026-10-15T18:00:00
+								123 cell
+									124 text EMERGENCIA
+								125 cell
+									126 text JOVEN
+								127 cell
+									128 text Gestantes
+								129 cell
+									130 text ATENDIDO
+								131 cell
+									132 button Ver
+							133 row
+								134 cell
+									135 text 23
+								136 cell
+									137 text 2026-10-01T09:00:00
+								138 cell
+									139 text AMBULATORIA
+								140 cell
+									141 text JOVEN
+								142 cell
+									143 text Gestantes
+								144 cell
+									145 text ATENDIDO
+								146 cell
+									147 button Ver
+
+The focused UI element is 1 AXWebArea Ficha del paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/pacientes/18

@@ -73,6 +73,7 @@ class AgeGroupCatalogItem(CodeCatalogItem):
 
 class RiskGroupCatalogItem(IdCatalogItem):
     descripcion: str | None = None
+    tipo: str = "RIESGO"
 
 
 class EstablishmentCatalogItem(BaseModel):

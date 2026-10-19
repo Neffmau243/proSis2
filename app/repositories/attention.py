@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from datetime import date
+from datetime import date, datetime, time
 from decimal import Decimal
 
 from sqlalchemy import or_, select
@@ -64,6 +64,33 @@ class AttentionRepository:
                 visibility.append(Attention.establecimiento_id.in_(establishment_ids))
             statement = statement.where(or_(*visibility))
         return list(self._session.execute(statement).unique().scalars())
+
+    def previous_growth_control(
+        self,
+        patient_id: int,
+        before: date,
+        *,
+        birth_date: date,
+        professional_id: int | None = None,
+        establishment_ids: set[int] | None = None,
+    ) -> Attention | None:
+        statement = select(Attention).where(
+            Attention.paciente_id == patient_id,
+            Attention.estado == "ATENDIDO",
+            Attention.grupo_atencion_codigo == "NINOS_ADOLESCENTES_ADULTOS_MAYORES",
+            Attention.fecha_atencion < datetime.combine(before, time.min),
+            Attention.fecha_atencion >= datetime.combine(birth_date, time.min),
+            Attention.peso_kg > 0,
+            Attention.talla_cm > 0,
+        )
+        if professional_id is not None:
+            visibility = [Attention.profesional_id == professional_id]
+            if establishment_ids:
+                visibility.append(Attention.establecimiento_id.in_(establishment_ids))
+            statement = statement.where(or_(*visibility))
+        return self._session.scalar(
+            statement.order_by(Attention.fecha_atencion.desc(), Attention.id.desc()).limit(1)
+        )
 
     def get_active_establishment(self, establishment_id: int) -> Establishment | None:
         return self._session.scalar(

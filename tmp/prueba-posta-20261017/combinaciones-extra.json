@@ -1,0 +1,353 @@
+{
+  "database": "ipress_test_admission_20261017_combinaciones",
+  "negative_cases": [
+    {
+      "case": "Fecha futura",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "FECHA_ATENCION_FUTURA",
+          "message": "La fecha de atención no puede estar en el futuro.",
+          "details": null,
+          "request_id": "7bb9a8937d764d3e8db9b7c49f3767f1"
+        }
+      }
+    },
+    {
+      "case": "Fecha anterior al nacimiento",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "FECHA_ATENCION_ANTERIOR_NACIMIENTO",
+          "message": "La fecha de atención no puede ser anterior al nacimiento.",
+          "details": null,
+          "request_id": "3fe7560f6afa46828bd93c6177c031bd"
+        }
+      }
+    },
+    {
+      "case": "Fecha efectiva anterior a atención",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "message": "La solicitud contiene datos inválidos.",
+          "details": [
+            {
+              "field": "body",
+              "message": "Value error, fecha_atendido no puede ser anterior a fecha_atencion",
+              "type": "value_error"
+            }
+          ],
+          "request_id": "e1e5ebfac95847489e0e4c5ace30ea5e"
+        }
+      }
+    },
+    {
+      "case": "Hora fin anterior a inicio",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "message": "La solicitud contiene datos inválidos.",
+          "details": [
+            {
+              "field": "body",
+              "message": "Value error, hora_fin no puede ser anterior a hora_inicio",
+              "type": "value_error"
+            }
+          ],
+          "request_id": "20ab5355e4d34ac38c5e95fe718745f3"
+        }
+      }
+    },
+    {
+      "case": "Sistólica menor a diastólica",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "SIGNOS_VITALES_INVALIDOS",
+          "message": "La presión sistólica debe ser mayor que la diastólica",
+          "details": null,
+          "request_id": "934785aa6356447c9c6297518e7a29e4"
+        }
+      }
+    },
+    {
+      "case": "Presiones iguales",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "SIGNOS_VITALES_INVALIDOS",
+          "message": "La presión sistólica debe ser mayor que la diastólica",
+          "details": null,
+          "request_id": "2101915fcf6349e89bf2edb9f5be0dd3"
+        }
+      }
+    },
+    {
+      "case": "Temperatura fuera de protocolo",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "SIGNOS_VITALES_INVALIDOS",
+          "message": "temperatura_c debe estar entre 25.0 y 45.0 según el protocolo activo",
+          "details": null,
+          "request_id": "96c7c71b9d454b218637c70ea0baa086"
+        }
+      }
+    },
+    {
+      "case": "Presión fuera de protocolo",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "SIGNOS_VITALES_INVALIDOS",
+          "message": "presion_sistolica debe estar entre 30 y 300 según el protocolo activo",
+          "details": null,
+          "request_id": "1f4e9c0e2e1d4bf984d7a36e0c510c3d"
+        }
+      }
+    },
+    {
+      "case": "Consultorio de otra sede",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "CONSULTORIO_OTRA_SEDE",
+          "message": "El consultorio debe pertenecer al establecimiento de la atención.",
+          "details": null,
+          "request_id": "3b478469a6ae4896b1a8cdbf592b5a72"
+        }
+      }
+    },
+    {
+      "case": "Profesional no asignado al consultorio",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "PROFESIONAL_NO_ASIGNADO",
+          "message": "Seleccione un profesional asignado y vigente en esa fecha.",
+          "details": null,
+          "request_id": "c3c5d2a7680a4063a43254adb95a8bce"
+        }
+      }
+    },
+    {
+      "case": "Grupo general con fecha de parto",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "message": "La solicitud contiene datos inválidos.",
+          "details": [
+            {
+              "field": "body",
+              "message": "Value error, Los datos obstetricos solo se admiten para los grupos GESTANTES y PUERPERAS",
+              "type": "value_error"
+            }
+          ],
+          "request_id": "e41c747c196c471098ad1111e2124ce9"
+        }
+      }
+    },
+    {
+      "case": "Gestante con fecha de parto",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "message": "La solicitud contiene datos inválidos.",
+          "details": [
+            {
+              "field": "body",
+              "message": "Value error, La fecha de parto solo se admite para el grupo PUERPERAS",
+              "type": "value_error"
+            }
+          ],
+          "request_id": "b9bb51d01d724f47a5f71669a3e7a98d"
+        }
+      }
+    },
+    {
+      "case": "Puérpera con fecha probable de parto",
+      "status": 422,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "REQUEST_VALIDATION_ERROR",
+          "message": "La solicitud contiene datos inválidos.",
+          "details": [
+            {
+              "field": "body",
+              "message": "Value error, La fecha probable de parto y la edad gestacional solo se admiten para el grupo GESTANTES",
+              "type": "value_error"
+            }
+          ],
+          "request_id": "7ab27d794ef140938a1f5e755b15a942"
+        }
+      }
+    },
+    {
+      "case": "Código CIE-10 inexistente",
+      "status": 404,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "CIE10_NO_ACTIVO",
+          "message": "El código CIE-10 NO_EXISTE no existe o está inactivo.",
+          "details": null,
+          "request_id": "de6979a26bf5480aaae5e08a47107157"
+        }
+      }
+    },
+    {
+      "case": "Prestación inexistente",
+      "status": 404,
+      "passed": true,
+      "no_partial_save": true,
+      "response": {
+        "error": {
+          "code": "PRESTACION_NO_ACTIVA",
+          "message": "La prestación NO_EXISTE no existe o está inactiva.",
+          "details": null,
+          "request_id": "8fa20a0d399f4d7b895eb8def50b74c5"
+        }
+      }
+    }
+  ],
+  "passed": 15,
+  "total": 15,
+  "observations": [
+    {
+      "case": "Adulto masculino / gestantes",
+      "status": 201,
+      "stored": {
+        "id": 203,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "GESTANTES",
+        "grupo_etario_codigo": "ADULTO",
+        "fecha_parto": null,
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Adulto masculino / puérperas",
+      "status": 201,
+      "stored": {
+        "id": 204,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "PUERPERAS",
+        "grupo_etario_codigo": "ADULTO",
+        "fecha_parto": null,
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Niño de 3 años / gestantes",
+      "status": 201,
+      "stored": {
+        "id": 205,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "GESTANTES",
+        "grupo_etario_codigo": "NINO",
+        "fecha_parto": null,
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Niña de 3 años / puérperas",
+      "status": 201,
+      "stored": {
+        "id": 206,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "PUERPERAS",
+        "grupo_etario_codigo": "NINO",
+        "fecha_parto": null,
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Gestante / fecha probable de parto anterior a atención",
+      "status": 201,
+      "stored": {
+        "id": 207,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "GESTANTES",
+        "grupo_etario_codigo": "ADULTO",
+        "fecha_parto": null,
+        "fecha_probable_parto": "2026-10-01",
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Puérpera / fecha de parto futura",
+      "status": 201,
+      "stored": {
+        "id": 208,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "PUERPERAS",
+        "grupo_etario_codigo": "ADULTO",
+        "fecha_parto": "2027-01-01",
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    },
+    {
+      "case": "Atención sin mediciones, diagnósticos ni prestaciones",
+      "status": 201,
+      "stored": {
+        "id": 209,
+        "estado": "ATENDIDO",
+        "grupo_atencion_codigo": "NINOS_ADOLESCENTES_ADULTOS_MAYORES",
+        "grupo_etario_codigo": "ADULTO",
+        "fecha_parto": null,
+        "fecha_probable_parto": null,
+        "prestaciones": [],
+        "diagnosticos": []
+      }
+    }
+  ],
+  "patients": {
+    "ADULTO": 71,
+    "ADULTA": 72,
+    "NINO": 73,
+    "NINA": 74
+  }
+}

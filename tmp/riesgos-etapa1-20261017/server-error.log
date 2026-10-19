@@ -1,0 +1,47 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\forth\\OneDrive\\Desktop\\proySis\\app']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [21428] using WatchFiles
+INFO:     Started server process [4604]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4604]
+INFO:     Started server process [19596]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\services\patient.py', 'app\domain\nutrition_followup.py', 'app\domain\nutrition.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [19596]
+INFO:     Started server process [1200]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\repositories\attention.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1200]
+WARNING:  WatchFiles detected changes in 'app\services\attention.py'. Reloading...
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 76, in subprocess_started
+    config.configure_logging()
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\config.py", line 388, in configure_logging
+    logging.addLevelName(TRACE_LOG_LEVEL, "TRACE")
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\logging\__init__.py", line 162, in addLevelName
+    _acquireLock()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\logging\__init__.py", line 234, in _acquireLock
+    def _acquireLock():
+    
+KeyboardInterrupt
+INFO:     Started server process [12068]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

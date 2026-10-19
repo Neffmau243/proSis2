@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="patient-record">
     <div class="page-header">
-      <div>
+      <div class="patient-identity">
         <h2>{{ fullName }}</h2>
         <div class="muted">
           {{ patient?.tipo_documento_codigo }} {{ patient?.numero_documento }} · HC:
@@ -11,7 +11,7 @@
           </el-tag>
         </div>
       </div>
-      <div>
+      <div class="patient-actions">
         <el-button
           v-if="can('PACIENTE_DAR_BAJA') && patient?.estado"
           type="danger"
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <el-card v-loading="loading">
+    <el-card v-loading="loading" class="record-panel" shadow="never">
       <el-tabs v-model="activeTab">
         <el-tab-pane label="Datos" name="datos">
           <el-descriptions :column="3" border>
@@ -127,7 +127,7 @@
               v-if="can('PACIENTE_EDITAR')"
               type="primary"
               size="small"
-              @click="riskDialog = true"
+              @click="editRisk(null)"
             >
               Agregar riesgo
             </el-button>
@@ -143,6 +143,13 @@
               <template #default="{ row }">{{ row.fecha_fin || 'Vigente' }}</template>
             </el-table-column>
             <el-table-column prop="observacion" label="Observación" min-width="160" />
+            <el-table-column prop="fecha_proximo_control" label="Próximo control" width="140" />
+            <el-table-column label="Origen" min-width="150">
+              <template #default="{ row }">
+                {{ row.atencion_origen_id ? `Atención #${row.atencion_origen_id}` : row.confirmado_por_usuario_id ? 'Evaluación profesional' : 'Registro previo' }}
+              </template>
+            </el-table-column>
+            <el-table-column prop="motivo_cierre" label="Motivo de cierre" min-width="160" />
             <el-table-column v-if="can('PACIENTE_EDITAR')" label="Acciones" width="90">
               <template #default="{ row }">
                 <el-button link type="primary" @click="editRisk(row)">Editar</el-button>
@@ -297,7 +304,7 @@ function editResponsible(row: PatientResponsible): void {
   responsibleDialog.value = true
 }
 
-function editRisk(row: PatientRisk): void {
+function editRisk(row: PatientRisk | null): void {
   editingRisk.value = row
   riskDialog.value = true
 }
@@ -376,29 +383,204 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.patient-record {
+  --record-panel: #e8eff7;
+  --record-heading: #d4e1ef;
+  --record-border: #b9cbdf;
+  --record-ink: #304f6d;
+  container-type: inline-size;
+  min-width: 0;
+}
+
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--record-border);
+  border-radius: 4px;
+  background: var(--record-heading);
+}
+
+.patient-identity {
+  min-width: 0;
 }
 
 .page-header h2 {
   margin: 0 0 4px;
+  color: var(--record-ink);
+  font-size: 18px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .muted {
-  color: var(--el-text-color-secondary);
-  font-size: 13px;
+  color: var(--record-ink);
+  font-size: 12px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .estado-tag {
   margin-left: 8px;
+  vertical-align: middle;
+}
+
+.patient-actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.patient-actions .el-button {
+  margin: 0;
+}
+
+.record-panel {
+  --el-card-border-color: var(--record-border);
+  --el-card-border-radius: 4px;
+  --el-card-bg-color: var(--record-panel);
+}
+
+.record-panel :deep(.el-card__body) {
+  padding: 0;
+}
+
+.record-panel :deep(.el-tabs__header) {
+  margin: 0;
+  padding: 0 12px;
+  background: var(--record-heading);
+}
+
+.record-panel :deep(.el-tabs__nav-wrap::after) {
+  height: 1px;
+  background: var(--record-border);
+}
+
+.record-panel :deep(.el-tabs__item) {
+  height: 36px;
+  padding: 0 16px;
+  color: var(--record-ink);
+  font-size: 13px;
+}
+
+.record-panel :deep(.el-tabs__item.is-active) {
+  font-weight: 700;
+}
+
+.record-panel :deep(.el-tabs__active-bar) {
+  background: var(--record-ink);
+}
+
+.record-panel :deep(.el-tabs__content) {
+  padding: 8px;
+}
+
+.record-panel :deep(.el-descriptions__table) {
+  table-layout: fixed;
+}
+
+.record-panel :deep(.el-descriptions__cell.is-bordered-label),
+.record-panel :deep(.el-descriptions__cell.is-bordered-content) {
+  padding: 7px 8px;
+  border-color: var(--record-border);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.record-panel :deep(.el-descriptions__label.is-bordered-label) {
+  width: 12%;
+  color: var(--record-ink);
+  background: var(--record-panel);
+  font-weight: 600;
+}
+
+.record-panel :deep(.el-descriptions__content.is-bordered-content) {
+  background: #fff;
+}
+
+.record-panel :deep(.el-table) {
+  --el-table-border-color: var(--record-border);
+  --el-table-header-bg-color: var(--record-heading);
+  --el-table-header-text-color: var(--record-ink);
+  --el-table-row-hover-bg-color: #f0f5fa;
+  font-size: 12px;
+}
+
+.record-panel :deep(.el-table__cell) {
+  padding: 6px 0;
+}
+
+.record-panel :deep(.el-table .cell) {
+  padding: 0 8px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.record-panel :deep(.el-table__empty-text) {
+  color: var(--record-ink);
 }
 
 .tab-actions {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   text-align: right;
+}
+
+@container (max-width: 700px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .page-header h2 {
+    font-size: 16px;
+  }
+
+  .record-panel :deep(.el-descriptions__body tbody) {
+    display: block;
+  }
+
+  .record-panel :deep(.el-descriptions__body tr) {
+    display: grid;
+    grid-template-columns: minmax(110px, 0.8fr) minmax(0, 1.4fr);
+  }
+
+  .record-panel :deep(.el-descriptions__label.is-bordered-label) {
+    width: auto;
+  }
+
+  .record-panel :deep(.el-descriptions__cell) {
+    min-width: 0;
+    border-top: 0;
+  }
+
+  .record-panel :deep(.el-descriptions__body tr:first-child > :nth-child(-n + 2)) {
+    border-top: 1px solid var(--record-border);
+  }
+
+  .record-panel :deep(.el-tabs__header) {
+    padding: 0 8px;
+  }
+
+  .record-panel :deep(.el-tabs__item) {
+    padding: 0 12px;
+  }
+}
+
+@media (pointer: coarse) {
+  .patient-actions .el-button,
+  .tab-actions .el-button,
+  .record-panel :deep(.el-button.is-link) {
+    min-height: 44px;
+  }
+
+  .record-panel :deep(.el-tabs__item) {
+    height: 44px;
+  }
 }
 </style>

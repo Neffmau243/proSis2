@@ -1,0 +1,325 @@
+Browser tab: 1, Title: "Admisión de paciente · Sistema de Salud IPRESS", URL: "http://127.0.0.1:8000/admision?patientId=18".
+1 AXWebArea Admisión de paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/admision?patientId=18
+	2 container
+		3 button (collapsed) Abrir menú, Secondary Actions: Expand
+		4 container
+			5 text Admisión de paciente
+			6 container el-id-2799-59
+				322 text * Fecha y hora de atención
+			8 container
+				9 image
+				10 combo box (disabled, collapsed, settable) Description: Fecha y hora de atención, Value: 16/10/2026 18:00, ID: el-id-2799-127, Secondary Actions: Expand
+		11 container
+			12 container Base de datos
+				13 heading Base de datos, Value: 3, ID: patient-context-title
+					14 text Base de datos
+				15 container
+					16 text N.° H. clínica
+					17 text field (disabled) Description: N.° H. clínica, Value: PRUEBA-MADRE-171026, ID: el-id-2799-110
+					18 container Historia familiar
+						19 text Historia familiar
+						20 container
+							21 container
+								22 combo box (disabled, collapsed, settable) Description: Color o sector de historia familiar, ID: el-id-2799-111, Secondary Actions: Expand
+								23 text AZUL
+								24 image
+							25 text field (disabled) Description: Número de historia familiar, Value: 171026, ID: el-id-2799-112
+							26 text AZ-171026
+					27 text Tipo documento
+					28 container
+						29 combo box (disabled, collapsed, settable) Description: Tipo de documento, ID: v-0, Secondary Actions: Expand
+						30 text Documento Nacional de Identidad
+						31 image
+					32 container el-id-2799-12
+						33 text *
+						34 text N.° documento
+					35 text field (disabled) Description: N.° documento, Value: 99061701, ID: el-id-2799-113
+					36 container el-id-2799-13
+						37 text *
+						38 text Fecha nacimiento
+					39 date field (disabled, settable) Description: Fecha nacimiento, Value: 1998-05-20, ID: el-id-2799-114
+					45 text Apellido paterno
+					46 text field (disabled) Description: Apellido paterno, Value: Prueba, ID: el-id-2799-115
+					47 text Apellido materno
+					48 text field (disabled) Description: Apellido materno, Value: Materna, ID: el-id-2799-116
+					49 text Primer nombre
+					50 text field (disabled) Description: Primer nombre, Value: Elena, ID: el-id-2799-117
+					51 text Otros nombres
+					52 text field (disabled) Description: Otros nombres, Value: Simulada, ID: el-id-2799-118
+					53 text Sexo
+					54 container
+						55 combo box (disabled, collapsed, settable) Description: Sexo, ID: el-id-2799-119, Secondary Actions: Expand
+						56 text FEMENINO
+						57 image
+					58 text Distrito
+					59 container
+						60 combo box (disabled, collapsed, settable) Description: Distrito, ID: el-id-2799-120, Secondary Actions: Expand
+						61 text ALTO SELVA ALEGRE · Arequipa · Arequipa
+					62 text Localidad
+					63 container
+						64 combo box (disabled, collapsed, settable) Description: Localidad, ID: el-id-2799-121, Secondary Actions: Expand
+						65 text ALTO SELVA ALEGRE
+						66 image
+					67 text Dirección
+					68 text field (disabled) Description: Dirección, Value: DOMICILIO FICTICIO - RECORRIDO MADRE Y BEBE 17/10/2026, ID: el-id-2799-122
+					69 text Establecimiento
+					70 container
+						71 combo box (disabled, collapsed, settable) Description: Establecimiento, ID: el-id-2799-123, Secondary Actions: Expand
+						72 text C.S. ALTO SELVA ALEGRE
+					73 image SIS · Seguro Integral de Salud
+					74 container
+						75 combo box (disabled, collapsed, settable) Description: Seguro de salud, ID: el-id-2799-124, Secondary Actions: Expand
+						76 text S.I.S. Gratuito
+						77 image
+					78 container Código del asegurado SIS
+						79 text Código del asegurado SIS
+						80 container
+							81 text DIRESA
+							82 text field (disabled) Description: SIS · DIRESA / DISA, Value: 040, ID: v-3-sis_diresa
+							83 text 3 caracteres
+						84 container
+							85 text Tipo
+							86 text field (disabled) Description: SIS · Tipo / formato, Value: 2, ID: v-3-sis_tipo
+							87 text 1–2 caracteres
+						88 container
+							89 text Número
+							90 text field (disabled) Description: SIS · Número de afiliación, Value: 99061701, ID: v-3-sis_numero
+							91 text 8–9 dígitos
+					92 text Teléfono
+					93 text field (disabled) Teléfono
+					94 container Responsables y riesgos del paciente
+						95 text Grupo de riesgo
+						96 pop up button (disabled, collapsed) Description: Grupo de riesgo, ID: el-id-2799-40, Secondary Actions: Expand
+							97 text Sin registrar
+						98 text Nombre de madre
+						99 container
+							100 text field Description: Nombre de madre, ID: v-1-mother
+							101 button (disabled) Agregar madre
+						102 text Grupo etáreo
+						103 container
+							104 combo box (disabled, collapsed, settable) Description: Grupo etáreo, ID: el-id-2799-126, Secondary Actions: Expand
+							330 text PUERPERA
+							106 image
+					107 text Datos del paciente guardados.
+			110 container Consultorio
+				111 container el-id-2799-61
+					323 text * Modalidad de atención
+				113 Description: Modalidad de atención, ID: el-id-2799-130
+					114 container
+						115 radio button (disabled, settable, integer) Description: Ambulatoria, Value: 0
+						116 text Ambulatoria
+					117 container
+						118 radio button (disabled, settable, integer) Description: Emergencia, Value: 1
+						119 text Emergencia
+				120 heading Consultorio, Value: 3, ID: encounter-context-title
+					121 text Consultorio
+				122 container
+					123 container el-id-2799-63
+						324 text * Consultorio
+					125 container
+						126 combo box (disabled, collapsed, settable) *Consultorio, ID: el-id-2799-131, Secondary Actions: Expand
+						316 text MED · MEDICINA
+						128 image
+					129 text Servicio / especialidad
+					130 container
+						131 combo box (disabled, collapsed, settable) Servicio / especialidad, ID: el-id-2799-132, Secondary Actions: Expand
+						317 text MEDICINA GENERAL
+						133 image
+					134 container el-id-2799-102
+						325 text * Profesional
+					136 container
+						137 combo box (disabled, collapsed, settable) *Profesional, ID: el-id-2799-133, Secondary Actions: Expand
+						319 text ELSA GUILLEN TOCCAS
+			139 container Mediciones clínicas
+				140 text Grupo de atención
+				141 Description: Grupo de atención, ID: el-id-2799-134
+					142 container
+						143 radio button (disabled, settable, integer) Description: Niños, adolescentes, adultos y adultos mayores, Value: 0
+						144 text Niños, adolescentes, adultos y adultos mayores
+					145 container
+						146 radio button (disabled, settable, integer) Description: Gestantes, Value: 0
+						147 text Gestantes
+					148 container
+						149 radio button (disabled, settable, integer) Description: Puérperas, Value: 1
+						150 text Puérperas
+				151 heading Mediciones clínicas, Value: 4, ID: measurements-title
+					152 text Mediciones clínicas
+				153 container
+					293 text Tipo de embarazo
+					294 container
+						295 combo box (disabled, collapsed, settable) Tipo de embarazo, ID: el-id-2799-288, Secondary Actions: Expand
+						326 text Embarazo único
+						327 image
+					298 text Peso antes del embarazo (kg)
+					299 stepper (disabled, settable, integer) Peso antes del embarazo (kg), Value: 58, Details: 58.00, ID: el-id-2799-289
+					154 text Peso actual (kg)
+					155 stepper (disabled, settable, integer) Peso actual (kg), Value: 65, Details: 65.00, ID: el-id-2799-135
+					156 text Talla (cm)
+					157 stepper (disabled, settable, integer) Talla (cm), Value: 160, Details: 160.00, ID: el-id-2799-136
+					300 text Fecha del parto
+					301 container
+						302 image
+						303 combo box (disabled, collapsed, settable) Fecha del parto, Value: 2026-10-16, ID: el-id-2799-290, Secondary Actions: Expand
+				160 heading Presión arterial y temperatura, Value: 4
+					161 text Presión arterial y temperatura
+				162 container Presión arterial y temperatura
+					163 text Diast.
+					164 stepper (disabled, settable, integer) Description: Presión diastólica, Value: 70, ID: el-id-2799-138
+					165 text Sist.
+					166 stepper (disabled, settable, integer) Description: Presión sistólica, Value: 110, ID: el-id-2799-139
+					167 text Temp.
+					168 stepper (disabled, settable, float) Description: Temperatura en grados Celsius, Value: 36.599998474121094, Details: 36.6, ID: el-id-2799-140
+					169 text °C
+			170 container Valoración nutricional
+				171 heading Valoración nutricional, Value: 3, ID: nutrition-title
+					172 text Valoración nutricional
+				173 container
+					174 text Edad a la atención 28 años, 4 meses y 26 días
+				304 table Valoración nutricional de puérperas
+					305 row
+						306 cell
+							307 text IMC
+						308 cell
+							320 text 22.656
+					310 row
+						311 cell
+							312 text Dx IMC
+						313 cell
+							321 text Normal
+			185 container Acciones de admisión
+				328 text Atención guardada correctamente. Ya puede imprimir S.I.S.
+				187 container Acciones de admisión
+					188 button (disabled) Atención guardada
+						329 text Atención guardada
+					190 button Imprimir S.I.S.
+						191 text Imprimir S.I.S.
+					192 button (disabled) Otra consulta, Help: Otra consulta: aún no disponible
+						193 text Otra consulta
+					194 button (disabled) FUA adicional, Help: FUA adicional: aún no disponible
+						195 text FUA adicional
+					196 button Salir
+						197 text Salir
+			198 heading Historial de atenciones del paciente, Value: 3
+				199 text Historial de atenciones del paciente
+			200 button Refrescar
+			201 container
+				202 table
+					203 row
+						204 cell
+							205 text N.° historia
+						206 cell
+							207 text Fecha atención
+						208 cell
+							209 text Edad del paciente
+						210 cell
+							211 text Peso
+						212 cell
+							213 text Talla
+						214 cell
+							215 text Diast.
+						216 cell
+							217 text Sist.
+						218 cell
+							219 text IMC
+						220 cell
+							221 text P/E
+						222 cell
+							223 text T/E
+						224 cell
+							225 text P/T
+						226 cell
+							227 text Consultorio
+						228 cell
+							229 text Estado
+				230 table
+					231 container
+						232 row
+							233 cell
+								234 text PRUEBA-MADRE-171026
+							235 cell
+								236 text 16/10/2026
+							237 cell
+								238 text 28 años, 4 meses y 26 días
+							239 cell
+								240 text 65.00
+							241 cell
+								242 text 160.00
+							243 cell
+								244 text 70
+							245 cell
+								246 text 110
+							247 cell
+								248 container Resultado disponible: IMC: 25.391 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 7 kg. P/E, T/E y P/T no aplican al grupo Puérperas. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes; el IMC actual es de seguimiento del puerperio. IMC pregestacional y cambio de peso. El IMC actual es de seguimiento: interpretar según tiempo desde el parto y evolución clínica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+									331 text 25.391
+							250 cell
+								251 text No aplica
+							252 cell
+								253 text No aplica
+							254 cell
+								255 text No aplica
+							256 cell
+								257 text MEDICINA
+								258 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+							259 cell
+								260 text ATENDIDO
+						261 row
+							262 cell
+								263 text PRUEBA-MADRE-171026
+							264 cell
+								265 text 15/10/2026
+							266 cell
+								267 text 28 años, 4 meses y 25 días
+							268 cell
+								269 text 70.00
+							270 cell
+								271 text 160.00
+							272 cell
+								273 text 75
+							274 cell
+								275 text 115
+							276 cell
+								277 container Resultado disponible: IMC: 27.344 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 12 kg. P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes. IMC pregestacional y cambio de peso. Interpretar según semana gestacional; adolescentes requieren valoración específica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+									332 text 27.344
+							279 cell
+								280 text No aplica
+							281 cell
+								282 text No aplica
+							283 cell
+								284 text No aplica
+							285 cell
+								286 text MEDICINA
+								287 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+							288 cell
+								289 text ATENDIDO
+						333 row
+							334 cell
+								335 text PRUEBA-MADRE-171026
+							336 cell
+								337 text 1/10/2026
+							338 cell
+								339 text 28 años, 4 meses y 11 días
+							340 cell
+								341 text 68.00
+							342 cell
+								343 text 160.00
+							344 cell
+								345 text 70
+							346 cell
+								347 text 110
+							348 cell
+								349 container Resultado disponible: IMC: 26.563 · IMC pregestacional: 22.656 · Normal · Cambio de peso: 10 kg. P/E, T/E y P/T no aplican al grupo Gestantes. Se muestran el IMC pregestacional y el cambio de peso cuando hay datos suficientes. IMC pregestacional y cambio de peso. Interpretar según semana gestacional; adolescentes requieren valoración específica.; Diagnóstico P/E: No aplica; Diagnóstico T/E: No aplica; Diagnóstico P/T: No aplica
+									350 text 26.563
+							351 cell
+								352 text No aplica
+							353 cell
+								354 text No aplica
+							355 cell
+								356 text No aplica
+							357 cell
+								358 text MEDICINA
+								359 text C.S. ALTO SELVA ALEGRE · MEDICINA GENERAL
+							360 cell
+								361 text ATENDIDO
+			290 text P/E: peso/edad · T/E: talla/edad · P/T: peso/talla. «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo. «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración.
+
+The focused UI element is 1 AXWebArea Admisión de paciente · Sistema de Salud IPRESS, URL: 127.0.0.1:8000/admision?patientId=18

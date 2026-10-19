@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import RiskGroupSelect from '@/components/patient/RiskGroupSelect.vue'
 
 import type { RiskGroupCatalogItem } from '@/services/catalogos'
 
@@ -132,6 +133,12 @@ function updateRiskStartDate(fechaInicio: string): void {
     index === 0 ? { ...riesgo, fecha_inicio: fechaInicio } : riesgo,
   )
 }
+
+function updateRiskReason(observacion: string): void {
+  riesgos.value = riesgos.value.map((risk, index) =>
+    index === 0 ? { ...risk, observacion } : risk,
+  )
+}
 </script>
 
 <template>
@@ -205,19 +212,11 @@ function updateRiskStartDate(fechaInicio: string): void {
           <el-input v-model="telefonoPrincipal" />
         </el-form-item>
         <el-form-item class="family-field" label="Grupo de riesgo">
-          <el-select
-            clearable
-            placeholder="Seleccione"
+          <RiskGroupSelect
+            :groups="gruposRiesgo"
             :model-value="riesgoPrincipal?.grupo_riesgo_id ?? null"
             @update:model-value="updateRiskGroup"
-          >
-            <el-option
-              v-for="grupo in gruposRiesgo"
-              :key="grupo.id"
-              :label="grupo.nombre"
-              :value="grupo.id"
-            />
-          </el-select>
+          />
         </el-form-item>
         <el-form-item v-if="riesgoPrincipal" class="family-field" label="Inicio del riesgo">
           <el-date-picker
@@ -228,6 +227,14 @@ function updateRiskStartDate(fechaInicio: string): void {
           />
         </el-form-item>
       </div>
+      <el-form-item v-if="riesgoPrincipal" label="Motivo y evaluación profesional">
+        <el-input
+          :model-value="riesgoPrincipal.observacion"
+          type="textarea"
+          maxlength="500"
+          @update:model-value="updateRiskReason"
+        />
+      </el-form-item>
     </section>
   </aside>
 </template>

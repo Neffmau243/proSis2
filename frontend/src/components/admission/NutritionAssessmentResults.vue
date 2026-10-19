@@ -5,7 +5,6 @@ import NutritionIndicatorsTable from '@/components/admission/NutritionIndicators
 import type { CareGroupCode, NutritionalIndicatorsPreview } from '@/services/atenciones'
 import {
   nutritionalBmiSummary,
-  nutritionalRows,
   nutritionalTableRows,
   type NutritionalReferenceGroup,
   type NutritionalTableRow,
@@ -31,26 +30,17 @@ const rows = computed<NutritionalTableRow[]>(() => {
       pendingValue.value,
     )
   }
-  // The general view retains the original growth indicators at every age.
-  // An inapplicable indicator is never substituted with a BMI result.
-  const values = nutritionalRows({ ...props.result, grupo_referencia: props.referenceGroup })
-  return (['pe', 'te', 'pt'] as const).map((key, index) => {
-    const outsideWeightAge = key === 'pe' && props.ageMonths != null && props.ageMonths > 120
-    const value = outsideWeightAge ? 'No aplica' : values[index]!.value
-    return {
-      key,
-      label: { pe: 'P/E', te: 'T/E', pt: 'P/T' }[key],
-      value: value === 'No aplica' ? value : props.result ? value : pendingValue.value,
-    }
-  })
+  return nutritionalTableRows(props.result, props.referenceGroup, pendingValue.value)
 })
-const bmiSummary = computed(() => (general.value ? nutritionalBmiSummary(props.result) : ''))
+const bmiSummary = computed(() =>
+  general.value && props.referenceGroup === 'INFANTIL' ? nutritionalBmiSummary(props.result) : '',
+)
 const applicability = computed(() => {
   if (!general.value) return ''
   if (props.referenceGroup === 'ADULTO' || props.referenceGroup === 'ADULTO_MAYOR')
     return 'P/E, T/E y P/T no aplican a esta edad. La valoración se realiza por IMC.'
   if (props.referenceGroup === 'ESCOLAR')
-    return 'P/E tiene referencia hasta los 10 años; T/E e IMC/edad, hasta los 19. P/T corresponde a la referencia infantil de 0 a 5 años.'
+    return 'Desde los 5 años: IMC/edad y talla/edad. Los indicadores P/E y P/T se reservan al bloque infantil.'
   return ''
 })
 </script>
@@ -66,9 +56,9 @@ const applicability = computed(() => {
       v-if="general"
       class="nutrition-results__diagnoses"
       role="group"
-      aria-label="Diagnósticos de peso/edad, talla/edad y peso/talla"
+      aria-label="Clasificación nutricional según edad"
     >
-      <span class="nutrition-results__diagnosis-title">DIAGNÓSTICO</span>
+      <span class="nutrition-results__diagnosis-title">VALORACIÓN</span>
       <div class="nutrition-results__diagnosis-fields">
         <div v-for="row in rows" :key="row.key" class="nutrition-results__diagnosis-row">
           <label :for="`${id}-${row.key}`" class="nutrition-results__diagnosis-label">{{
@@ -119,7 +109,7 @@ const applicability = computed(() => {
 }
 .nutrition-results__diagnosis-row {
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
+  grid-template-columns: 70px minmax(0, 1fr);
   gap: var(--admission-space, 8px);
   align-items: center;
 }

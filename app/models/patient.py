@@ -243,6 +243,18 @@ class PatientRisk(Base):
     fecha_fin: Mapped[date | None] = mapped_column(Date, nullable=True)
     observacion: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
+    atencion_origen_id: Mapped[int | None] = mapped_column(
+        mysql.BIGINT(unsigned=True), ForeignKey("atenciones.id", name="fk_riesgo_atencion"),
+        nullable=True,
+    )
+    evaluacion_origen: Mapped[dict | None] = mapped_column(mysql.JSON, nullable=True)
+    confirmado_por_usuario_id: Mapped[int | None] = mapped_column(
+        mysql.BIGINT(unsigned=True), ForeignKey("usuarios.id", name="fk_riesgo_confirmador"),
+        nullable=True,
+    )
+    fecha_proximo_control: Mapped[date | None] = mapped_column(Date, nullable=True)
+    motivo_cierre: Mapped[str | None] = mapped_column(String(500), nullable=True)
+
     paciente: Mapped["Patient"] = relationship(back_populates="riesgos")
     grupo_riesgo: Mapped["RiskGroup"] = relationship(back_populates="riesgos_paciente")
 

@@ -1,0 +1,135 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\forth\\OneDrive\\Desktop\\proySis']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [7220] using WatchFiles
+INFO:     Started server process [11784]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11784]
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition_followup.py', 'app\services\attention.py', 'app\repositories\attention.py', 'app\domain\nutrition.py', 'app\schemas\attention.py'. Reloading...
+INFO:     Started server process [16592]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [16592]
+WARNING:  WatchFiles detected changes in 'app\models\patient.py'. Reloading...
+INFO:     Started server process [18100]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [18100]
+WARNING:  WatchFiles detected changes in 'migrations\versions\20261017_0037_nutrition_followup.py', 'app\schemas\patient.py', 'app\services\patient.py', 'app\schemas\catalog.py', 'app\mappers\patient.py', 'app\mappers\catalog.py'. Reloading...
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 73, in subprocess_started
+    sys.stdin = os.fdopen(stdin_fileno)  # pragma: full coverage
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 1066, in fdopen
+  File "<frozen codecs>", line 309, in __init__
+KeyboardInterrupt
+INFO:     Started server process [28260]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [28260]
+WARNING:  WatchFiles detected changes in 'migrations\versions\20261017_0037_nutrition_followup.py', 'tests\unit\domain\test_growth_reference.py', 'tests\integration\test_mysql_nutrition_followup.py', 'app\services\attention.py', 'app\services\patient.py', 'app\domain\nutrition_followup.py', 'app\repositories\attention.py', 'tests\unit\domain\test_nutrition_followup.py', 'tests\unit\domain\test_nutrition.py', 'app\domain\nutrition.py'. Reloading...
+Process SpawnProcess-6:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 73, in subprocess_started
+    sys.stdin = os.fdopen(stdin_fileno)  # pragma: full coverage
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 1066, in fdopen
+  File "<frozen codecs>", line 309, in __init__
+KeyboardInterrupt
+INFO:     Started server process [27680]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition.py', 'app\services\patient.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [27680]
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition.py'. Reloading...
+Process SpawnProcess-8:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 73, in subprocess_started
+    sys.stdin = os.fdopen(stdin_fileno)  # pragma: full coverage
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 1066, in fdopen
+  File "<frozen codecs>", line 309, in __init__
+KeyboardInterrupt
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition_followup.py'. Reloading...
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 73, in subprocess_started
+    sys.stdin = os.fdopen(stdin_fileno)  # pragma: full coverage
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 1066, in fdopen
+  File "<frozen codecs>", line 309, in __init__
+KeyboardInterrupt
+WARNING:  WatchFiles detected changes in 'app\services\patient.py'. Reloading...
+INFO:     Started server process [27724]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [27724]
+WARNING:  WatchFiles detected changes in 'migrations\versions\20261017_0037_nutrition_followup.py'. Reloading...
+Process SpawnProcess-11:
+Traceback (most recent call last):
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 314, in _bootstrap
+    self.run()
+  File "C:\Users\forth\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\forth\OneDrive\Desktop\proySis\.venv\Lib\site-packages\uvicorn\_subprocess.py", line 73, in subprocess_started
+    sys.stdin = os.fdopen(stdin_fileno)  # pragma: full coverage
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 1066, in fdopen
+  File "<frozen codecs>", line 309, in __init__
+KeyboardInterrupt
+INFO:     Started server process [18416]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'tmp\riesgos-etapa1-20261017\aplicar_local.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [18416]
+INFO:     Started server process [27180]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'app\domain\nutrition_followup.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [27180]
+INFO:     Started server process [25964]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.

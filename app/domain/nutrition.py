@@ -14,8 +14,10 @@ from math import isfinite
 
 from anthro import compute
 
+from app.domain.age import completed_months
+
 WHO_2006_REFERENCE = "OMS 2006 (0 a 60 meses)"
-_MAX_WHO_AGE_DAYS = 1826
+NUTRITION_PROFILE = "MINSA-2026.1"
 _THREE_DECIMALS = Decimal("0.001")
 
 
@@ -35,11 +37,11 @@ class NutritionalIndicators:
     diagnostico_imc: str | None = None
     imc_pregestacional: Decimal | None = None
     ganancia_peso_kg: Decimal | None = None
+    version_calculo: str = NUTRITION_PROFILE
 
     @property
     def classifications(self) -> dict[str, str | None]:
-        # WHO Child Growth Monitoring technical guide, table on page 24:
-        # https://www.emro.who.int/images/stories/nutrition/Child-growth-monitoring-a-technical-guide-for-healtcare-professionals.pdf
+        # MINSA NTS 238-2025 / RM 034-2024 anthropometric classifications.
         return {
             "diagnostico_peso_edad": classify_score(self.pe, "pe"),
             "diagnostico_talla_edad": classify_score(self.te, "te"),
@@ -48,7 +50,7 @@ class NutritionalIndicators:
 
 
 def classify_score(score: Decimal | None, indicator: str) -> str | None:
-    """Strict WHO cutoffs: a value exactly on a line is not below/above it."""
+    """MINSA classifications using WHO Z scores and strict cutoffs."""
     if score is None:
         return None
     if indicator == "pe":
@@ -56,13 +58,13 @@ def classify_score(score: Decimal | None, indicator: str) -> str | None:
             return "Bajo peso severo"
         if score < -2:
             return "Bajo peso"
-        return "Evaluar IMC/edad" if score > 1 else "Normal"
+        return "Sobrepeso" if score > 2 else "Normal"
     if indicator == "te":
         if score < -3:
             return "Talla baja severa"
         if score < -2:
             return "Talla baja"
-        return "Talla alta" if score > 3 else "Normal"
+        return "Talla alta" if score > 2 else "Normal"
     if indicator != "pt":
         raise ValueError("Indicador desconocido")
     if score < -3:
@@ -73,8 +75,6 @@ def classify_score(score: Decimal | None, indicator: str) -> str | None:
         return "Obesidad"
     if score > 2:
         return "Sobrepeso"
-    if score > 1:
-        return "Riesgo de sobrepeso"
     return "Normal"
 
 
@@ -97,7 +97,9 @@ def calculate_nutritional_indicators(
 
     imc = _calculate_bmi(weight_kg, height_cm)
     age_days = (measured_on - birth_date).days
-    if age_days >= 0 and (age_days > _MAX_WHO_AGE_DAYS or care_group in {"GESTANTES", "PUERPERAS"}):
+    if age_days >= 0 and (
+        completed_months(birth_date, measured_on) >= 60 or care_group in {"GESTANTES", "PUERPERAS"}
+    ):
         return _extended_indicators(
             birth_date,
             measured_on,
@@ -196,12 +198,24 @@ def _as_decimal(value: object) -> Decimal | None:
 def classify_bmi(value: Decimal | None, *, older: bool = False) -> str | None:
     if value is None:
         return None
-    below_normal = value <= 23 if older else value < Decimal("18.5")
-    if below_normal:
-        return "Delgadez" if older else "Bajo peso"
+    if older and value <= 23:
+        return "Delgadez"
+    if not older:
+        if value < 16:
+            return "Delgadez grado III"
+        if value < 17:
+            return "Delgadez grado II"
+        if value < Decimal("18.5"):
+            return "Delgadez grado I"
     if value < (28 if older else 25):
         return "Normal"
-    return "Sobrepeso" if value < (32 if older else 30) else "Obesidad"
+    if value < (32 if older else 30):
+        return "Sobrepeso"
+    if older:
+        return "Obesidad"
+    if value < 35:
+        return "Obesidad grado I"
+    return "Obesidad grado II" if value < 40 else "Obesidad grado III"
 
 
 def classify_bmi_age(value: Decimal | None) -> str | None:
@@ -216,10 +230,21 @@ def classify_bmi_age(value: Decimal | None) -> str | None:
     return "Sobrepeso" if value > 1 else "Normal"
 
 
+def _pregestational_classification(value: Decimal | None) -> str | None:
+    """Keep the existing ungraded maternal labels; adult grades are separate."""
+    label = classify_bmi(value)
+    if label and label.startswith("Delgadez grado"):
+        return "Bajo peso"
+    if label and label.startswith("Obesidad grado"):
+        return "Obesidad"
+    return label
+
+
 def _extended_indicators(birth, measured, sex, weight, height, care_group, preweight):
     from app.domain.growth_reference import score
 
-    months = (measured - birth).days / 30.4375
+    # References are selected by completed calendar months, not approximate years.
+    months = completed_months(birth, measured)
     years = measured.year - birth.year - ((measured.month, measured.day) < (birth.month, birth.day))
     bmi = _calculate_bmi(weight, height)
     base = dict(imc=bmi, pe=None, te=None, pt=None, estado="CALCULADO", referencia=None)
@@ -234,7 +259,7 @@ def _extended_indicators(birth, measured, sex, weight, height, care_group, prewe
             ganancia_peso_kg=(
                 weight - preweight if weight is not None and preweight is not None else None
             ),
-            diagnostico_imc=classify_bmi(pre_bmi) if years >= 20 else None,
+            diagnostico_imc=_pregestational_classification(pre_bmi) if years >= 20 else None,
             mensaje=(
                 "IMC pregestacional y cambio de peso. Interpretar según semana gestacional; "
                 "adolescentes requieren valoración específica."
@@ -253,15 +278,15 @@ def _extended_indicators(birth, measured, sex, weight, height, care_group, prewe
             ganancia_peso_kg=(
                 weight - preweight if weight is not None and preweight is not None else None
             ),
-            diagnostico_imc=classify_bmi(pre_bmi) if years >= 20 else None,
+            diagnostico_imc=_pregestational_classification(pre_bmi) if years >= 20 else None,
             mensaje=(
                 "IMC pregestacional y cambio de peso. El IMC actual es de seguimiento: "
                 "interpretar según tiempo desde el parto y evolución clínica."
             ),
         )
-    if months > 228:
+    if years >= 19:
         base["referencia"] = (
-            "MINSA adulto mayor (60 años a más)" if years >= 60 else "OMS IMC adulto"
+            "MINSA adulto mayor (60 años a más)" if years >= 60 else "MINSA IMC adulto"
         )
         base["estado"] = "CALCULADO" if bmi is not None else "DATOS_INCOMPLETOS"
         return NutritionalIndicators(
@@ -273,16 +298,6 @@ def _extended_indicators(birth, measured, sex, weight, height, care_group, prewe
             else "Ingrese peso y talla para calcular el IMC.",
         )
     base["referencia"] = "OMS 2007 (61 a 228 meses)"
-    if months < 61:
-        base["estado"] = "SIN_REFERENCIA"
-        return NutritionalIndicators(
-            **base,
-            grupo_referencia="ESCOLAR",
-            mensaje=(
-                "IMC disponible. Edad entre el final de OMS 2006 instalada y el inicio "
-                "de OMS 2007 (61 meses); sin extrapolar puntajes."
-            ),
-        )
     if sex not in {"M", "F"}:
         base["estado"] = "SIN_REFERENCIA_SEXO"
     elif bmi is None:
@@ -293,14 +308,42 @@ def _extended_indicators(birth, measured, sex, weight, height, care_group, prewe
             grupo_referencia="ESCOLAR",
             mensaje="Se requieren peso, talla y sexo femenino o masculino para el cálculo.",
         )
+    if months == 60:
+        # WHO 2007 starts at 61 months. Use the installed WHO 2006 monthly
+        # reference at 60 completed months; never extrapolate either table.
+        result = compute(
+            {
+                "sex": sex.lower(),
+                "age_months": 60,
+                "mode": "month",
+                "weight_kg": float(weight),
+                "height_cm": float(height),
+                "measure": "H",
+            }
+        )
+        baz = _as_decimal(result.get("z_bmi"))
+        base["te"] = _as_decimal(result.get("z_lhfa"))
+        base["referencia"] = "OMS 2006 mensual (60 meses); transición MINSA desde los 5 años"
+        base["estado"] = (
+            "CALCULADO" if baz is not None and base["te"] is not None else "NO_DISPONIBLE"
+        )
+        return NutritionalIndicators(
+            **base,
+            grupo_referencia="ESCOLAR",
+            imc_edad=baz,
+            diagnostico_imc=classify_bmi_age(baz),
+            mensaje=(
+                "Desde los 5 años se valoran IMC/edad y talla/edad. "
+                "Referencia mensual de 60 meses, sin extrapolar."
+            ),
+        )
     raw_bmi = float(weight / (height / 100) ** 2)
     baz = _as_decimal(score("bmi", sex, months, raw_bmi))
-    base["pe"] = _as_decimal(score("weight", sex, months, float(weight)))
     base["te"] = _as_decimal(score("height", sex, months, float(height)))
     return NutritionalIndicators(
         **base,
         grupo_referencia="ESCOLAR",
         imc_edad=baz,
         diagnostico_imc=classify_bmi_age(baz),
-        mensaje="OMS 2007: talla/edad e IMC/edad; peso/edad disponible hasta 120 meses.",
+        mensaje="OMS 2007: talla/edad e IMC/edad; P/E y P/T se reservan al bloque infantil.",
     )

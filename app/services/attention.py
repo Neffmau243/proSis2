@@ -17,6 +17,7 @@ from app.domain.clinical import (
     VitalSignPayload,
 )
 from app.domain.nutrition import NutritionalIndicators, calculate_nutritional_indicators
+from app.domain.nutrition_followup import assess_followup
 from app.domain.office import office_context
 from app.domain.patient_condition import condition_for_attention
 from app.exceptions import AuthorizationError, BusinessRuleError, ConflictError, NotFoundError
@@ -117,7 +118,7 @@ class AttentionService:
                 )
             # A guessed identifier must not let a clinician create an
             # encounter outside an assigned site or existing care relation.
-            self._ensure_patient_in_scope(
+            scope = self._ensure_patient_in_scope(
                 patient.id,
                 actor_id=actor_id,
                 actor_roles=actor_roles,
@@ -188,8 +189,8 @@ class AttentionService:
                 te=self._format_indicator(indicators.te),
                 pt=self._format_indicator(indicators.pt),
                 referencia_nutricional=indicators.referencia,
-                valoracion_calculada=NutritionalIndicatorsResponse(
-                    **asdict(indicators), **indicators.classifications
+                valoracion_calculada=self._assessment(
+                    indicators, patient, attention_date, command.peso_kg, command.talla_cm, scope
                 ).model_dump(mode="json"),
                 hora_inicio=command.hora_inicio,
                 hora_fin=command.hora_fin,
@@ -268,7 +269,7 @@ class AttentionService:
         truth.
         """
 
-        self._ensure_patient_in_scope(
+        scope = self._ensure_patient_in_scope(
             command.paciente_id,
             actor_id=actor_id,
             actor_roles=actor_roles,
@@ -297,20 +298,32 @@ class AttentionService:
             weight_kg=command.peso_kg,
             height_cm=command.talla_cm,
         )
+        return self._assessment(
+            indicators, patient, measured_on, command.peso_kg, command.talla_cm, scope
+        )
+
+    def _assessment(self, indicators, patient, measured_on, weight, height, scope):
+        age_months = completed_months(patient.fecha_nacimiento, measured_on)
+        previous = None
+        if age_months < 60 and indicators.grupo_referencia == "INFANTIL":
+            previous = self._attentions.previous_growth_control(
+                patient.id,
+                measured_on,
+                birth_date=patient.fecha_nacimiento,
+                professional_id=scope[0] if scope is not None else None,
+                establishment_ids=scope[1] if scope is not None else None,
+            )
         return NutritionalIndicatorsResponse(
-            grupo_referencia=indicators.grupo_referencia,
-            imc_edad=indicators.imc_edad,
-            diagnostico_imc=indicators.diagnostico_imc,
-            imc_pregestacional=indicators.imc_pregestacional,
-            ganancia_peso_kg=indicators.ganancia_peso_kg,
+            **asdict(indicators),
             **indicators.classifications,
-            imc=indicators.imc,
-            pe=indicators.pe,
-            te=indicators.te,
-            pt=indicators.pt,
-            estado=indicators.estado,
-            mensaje=indicators.mensaje,
-            referencia=indicators.referencia,
+            seguimiento=assess_followup(
+                indicators,
+                measured_on=measured_on,
+                age_months=age_months,
+                weight=weight,
+                height=height,
+                previous=previous,
+            ),
         )
 
     def cancel(
