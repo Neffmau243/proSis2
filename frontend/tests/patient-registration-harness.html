@@ -62,6 +62,9 @@
       catalogos.gruposRiesgo = async () => [
         { id: 1, codigo: 'PRUEBA', nombre: 'Grupo de prueba', activo: true },
       ]
+      catalogos.historiasFamiliares = async () => page([
+        { codigo: 'AM', nombre: 'AMARILLO', tipo: 'COLOR', color_hex: '#F2C94C', activo: true },
+      ])
       catalogos.establecimientos = async () =>
         page([{ id: 1, nombre: 'Establecimiento de prueba', activo: true }])
       catalogos.ubigeos = async () =>

@@ -171,7 +171,8 @@ const seeds: [string, string, number?][] = [
   ['tdi', 'TDI'],
   ['numero_documento', 'Documento'],
   ['sis_diresa', 'SIS · DIRESA'],
-  ['sis_numero_completo', 'SIS · Tipo / número / RN'],
+  ['sis_tipo', 'SIS · Tipo'],
+  ['sis_numero', 'SIS · Número / RN'],
   ['apellido_paterno', 'Apellido paterno'],
   ['apellido_materno', 'Apellido materno'],
   ['primer_nombre', 'Primer nombre'],
@@ -224,7 +225,8 @@ const officialPositions: Record<string, [number, number, number]> = {
   tdi: [14, 210, 28],
   numero_documento: [50, 210, 70],
   sis_diresa: [128, 210, 29],
-  sis_numero_completo: [164, 210, 99],
+  sis_tipo: [164, 210, 25],
+  sis_numero: [197, 210, 65],
   apellido_paterno: [4, 235, 259],
   apellido_materno: [274, 235, 318],
   primer_nombre: [4, 260, 259],
@@ -305,18 +307,45 @@ export function parseFuaLayout(raw: string): FuaLayout {
     !bounded(v.height, 150, 600) ||
     !bounded(v.offsetX, -50, 50) ||
     !bounded(v.offsetY, -50, 50) ||
-    !Array.isArray(v.fields) ||
-    (v.fields.length !== template.fields.length &&
-      !(
-        v.fields.length === template.fields.length - 1 &&
-        !v.fields.some((f) => f.id === 'identity_note')
-      ))
+    !Array.isArray(v.fields)
   )
     throw new Error('Calibración inválida.')
-  const migrated = !v.fields.some((f) => f.id === 'identity_note')
+  const legacySis = v.fields.find((f) => f.id === 'sis_numero_completo')
+  const missingLegend = !v.fields.some((f) => f.id === 'identity_note')
+  const expectedIds = new Set(template.fields.map((f) => f.id))
+  if (missingLegend) expectedIds.delete('identity_note')
+  if (legacySis) {
+    expectedIds.delete('sis_tipo')
+    expectedIds.delete('sis_numero')
+    expectedIds.add('sis_numero_completo')
+  }
+  if (
+    v.fields.length !== expectedIds.size ||
+    new Set(v.fields.map((f) => f.id)).size !== expectedIds.size ||
+    v.fields.some((f) => !expectedIds.has(f.id))
+  )
+    throw new Error('Calibración inválida.')
+  // Anchor the new boxes to DIRESA: an old combined field may have been
+  // calibrated over the number box, leaving the type box empty.
+  const sourceFields = v.fields.filter((f) => f.id !== 'sis_numero_completo')
+  if (legacySis) {
+    const diresa = v.fields.find((f) => f.id === 'sis_diresa')!
+    const baseline = template.fields.find((f) => f.id === 'sis_diresa')!
+    for (const original of template.fields.filter((f) => ['sis_tipo', 'sis_numero'].includes(f.id))) {
+      sourceFields.push({
+        ...legacySis,
+        id: original.id,
+        x: original.x + diresa.x - baseline.x,
+        y: original.y + diresa.y - baseline.y,
+        width: original.width,
+        step: 0,
+        skip: 0,
+      })
+    }
+  }
   const fields = template.fields.map((original) => {
-    const f = v.fields.find((entry) => entry.id === original.id)
-    if (!f && original.id === 'identity_note' && migrated) return original
+    const f = sourceFields.find((entry) => entry.id === original.id)
+    if (!f && original.id === 'identity_note' && missingLegend) return original
     if (
       !f ||
       !bounded(f.x, 0, 400) ||
@@ -348,7 +377,7 @@ export function parseFuaLayout(raw: string): FuaLayout {
     height: v.height,
     offsetX: v.offsetX,
     offsetY: v.offsetY,
-    calibrated: v.calibrated === true && !migrated && v.template === 'sis-v02',
+    calibrated: v.calibrated === true && !missingLegend && !legacySis && v.template === 'sis-v02',
     fields,
   }
 }
@@ -367,8 +396,9 @@ export function fuaValues(s: FuaPrintSnapshot): Record<string, string> {
   v.sexo_f = mark(s.sexo_codigo === 'F')
   v.gestante = mark(s.grupo_atencion_codigo === 'GESTANTES')
   v.puerpera = mark(s.grupo_atencion_codigo === 'PUERPERAS')
-  v.sis_numero_completo = [
-    s.sis_tipo,
+  // DIRESA, type and affiliation number each have their own printed box.
+  // Keep the optional RN suffix with the number, as in historical copies.
+  v.sis_numero = [
     s.sis_numero,
     s.version === 2 ? s.sis_secuencia : s.sis_componente,
   ]
@@ -463,6 +493,23 @@ const escapeHtml = (s: string) =>
       })[c]!,
   )
 
+/** The browser uses the print document title as the suggested PDF filename. */
+function fuaDocumentTitle(values: Record<string, string>, test: boolean): string {
+  if (test) return 'Impresión FUA'
+  const patientName = ['primer_nombre', 'otros_nombres', 'apellido_paterno', 'apellido_materno']
+    .map((key) => values[key] || '')
+    .join(' ')
+    .normalize('NFC')
+    .replace(/[<>:"/\\|?*]/g, ' ')
+    .replace(/\p{Cc}/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/[. ]+$/g, '')
+  const attentionDate = values.fecha_atencion?.slice(0, 10) || ''
+  const dateSuffix = /^\d{4}-\d{2}-\d{2}$/.test(attentionDate) ? attentionDate : ''
+  return ['atencion', patientName, dateSuffix].filter(Boolean).join('-')
+}
+
 export function fuaPrintHtml(
   layout: FuaLayout,
   values: Record<string, string>,
@@ -496,7 +543,7 @@ export function fuaPrintHtml(
   const notice = background
     ? '<div style="position:absolute;left:10mm;top:2mm;font:8pt Arial,sans-serif">VISTA DE REVISIÓN · PRELLENADO PARCIAL · USO LOCAL</div>'
     : ''
-  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Impresión FUA</title><style>
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${escapeHtml(fuaDocumentTitle(values, test))}</title><style>
     @page{size:${safe.width}mm ${safe.height}mm;margin:0}
     html,body{margin:0;padding:0;width:${safe.width}mm;height:${safe.height}mm}
     body{position:relative;color:#000;background:#fff;font-family:Courier New,monospace;line-height:1.2;white-space:nowrap}
@@ -522,6 +569,13 @@ export async function printFua(
   })
   frame.srcdoc = fuaPrintHtml(layout, values, test, backgroundUrl, backgroundInset)
   document.body.appendChild(frame)
+  let restoreTitle: (() => void) | undefined
+  let cleanupTimer: number | undefined
+  const cleanup = () => {
+    window.clearTimeout(cleanupTimer)
+    restoreTitle?.()
+    frame.remove()
+  }
   try {
     await ready
     await frame.contentDocument?.fonts.ready
@@ -534,13 +588,26 @@ export async function printFua(
     }
     const target = frame.contentWindow
     if (!target) throw new Error('El navegador no permite abrir la impresión.')
-    target.addEventListener('afterprint', () => frame.remove(), { once: true })
+    target.addEventListener('afterprint', cleanup, { once: true })
     target.focus()
-    target.print()
+    // Chromium may take the suggested filename from the parent tab when
+    // printing an iframe. It can read that title after print() has returned.
+    const previousTitle = document.title
+    const printTitle = fuaDocumentTitle(values, test)
+    restoreTitle = () => {
+      // A route change may already have set the title of another page.
+      if (document.title === printTitle) document.title = previousTitle
+    }
+    document.title = printTitle
+    // Let the browser receive the new tab title before preparing the PDF.
+    await new Promise<void>((resolve) =>
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => resolve())),
+    )
     // Fallback for browsers without afterprint; no patient data survives in storage.
-    window.setTimeout(() => frame.remove(), 120_000)
+    cleanupTimer = window.setTimeout(cleanup, 120_000)
+    target.print()
   } catch (error) {
-    frame.remove()
+    cleanup()
     throw error
   }
 }

@@ -111,8 +111,16 @@ test('cambiar el grupo de atención selecciona tres vistas distintas', async () 
   })
   expect(labels(wrapper)).toEqual(['IMC', 'Dx IMC', 'Ganancia de peso'])
   expect(values(wrapper)).toEqual(['21.5', 'Normal', '8 kg'])
+  expect(wrapper.find('table').exists()).toBe(false)
+  expect(wrapper.get('[role="group"]').attributes('aria-label')).toBe(
+    'Valoración nutricional de gestantes',
+  )
+  for (const input of wrapper.findAll('input')) expect(input.attributes('readonly')).toBeDefined()
   await wrapper.setProps({ careGroup: 'PUERPERAS', referenceGroup: 'PUERPERA' })
   expect(labels(wrapper)).toEqual(['IMC', 'Dx IMC'])
+  expect(wrapper.get('[role="group"]').attributes('aria-label')).toBe(
+    'Valoración nutricional de puérperas',
+  )
   expect(wrapper.find('.nutrition-results__bmi').exists()).toBe(false)
   wrapper.unmount()
 })

@@ -253,7 +253,8 @@ async function print(test: boolean, withReference = false): Promise<void> {
           <div>
             <dt>Afiliación SIS del paciente</dt>
             <dd>
-              {{ snapshot.sis_diresa || '—' }} · {{ values.sis_numero_completo || 'Sin registrar' }}
+              {{ values.sis_diresa || '—' }} · {{ values.sis_tipo || '—' }} ·
+              {{ values.sis_numero || 'Sin registrar' }}
             </dd>
           </div>
           <div>

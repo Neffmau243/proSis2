@@ -14,8 +14,17 @@
 .admission-page--workspace .admission-workbench {
   grid-template-areas: 'patient content' 'patient history';
   grid-template-columns: minmax(300px, 0.95fr) minmax(0, 2fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   gap: 8px;
+}
+
+.admission-page--workspace .admission-workbench__patient {
+  align-self: stretch;
+}
+
+.admission-page--workspace .admission-workbench__history {
+  display: flex;
+  align-self: stretch;
 }
 
 .admission-page--workspace .encounter-card {
@@ -187,6 +196,7 @@
   .admission-page--workspace .admission-workbench {
     grid-template-areas: 'patient' 'content' 'history';
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
   }
 }
 @media (max-width: 560px) {

@@ -180,6 +180,17 @@ tamaño de la página del PDF que contiene el anexo.
 
 ## Calibración y privacidad
 
+Desde el 19/10/2026, la afiliación se imprime en tres casillas independientes:
+**DIRESA | tipo/formato | número**, sin unir el tipo al número con un guion.
+El sufijo opcional Secuencia/RN se conserva junto al número cuando existe
+(en copias versión 1 se conserva el componente histórico).
+Vista previa, PDF y papel usan las mismas tres posiciones, ajustables por separado.
+Los perfiles anteriores con `sis_numero_completo` se migran añadiendo las casillas
+de tipo y número según el formulario, tomando la DIRESA guardada como referencia
+de alineación; conservan los demás campos y desplazamientos.
+La migración exige comprobar la alineación una vez antes de imprimir en papel;
+después de confirmarla, no vuelve a invalidarla al abrir el diálogo.
+
 El perfil inicial es **216 × 356 mm** y las coordenadas parten de una cuadrícula
 del anexo 1 oficial V.02, usado en 2025. La medida inicial no certifica el tamaño
 de la hoja física disponible en la IPRESS. Ajuste ancho, alto, desplazamientos y
@@ -235,7 +246,14 @@ cargue antes de abrir la impresión. Solo la geometría pasa al almacenamiento o
 su exportación; nunca nombres, documentos, afiliaciones ni mediciones.
 
 **Ver FUA / guardar PDF** es el botón principal del diálogo y abre la vista del
-navegador con formulario y datos. Allí se elige Guardar como PDF. La imagen del
+navegador con formulario y datos. Allí se elige Guardar como PDF; se sugiere el
+nombre `atencion-NOMBRES APELLIDOS-AAAA-MM-DD.pdf`, con los datos y la fecha de
+atención de la copia guardada (no la fecha de descarga),
+conservando tildes y omitiendo caracteres no válidos para nombres de archivo.
+El título de la pestaña se mantiene con ese nombre mientras está abierto el
+diálogo de impresión y se restaura al cerrarlo, para evitar que Chromium use
+el título de Admisión como nombre del PDF.
+La prueba sin datos conserva un título genérico. La imagen del
 formulario se imprime como elemento de la página, por lo que aparece incluso con
 Gráficos de fondo desactivado. **Imprimir sobre FUA preimpresa** es la opción
 secundaria para una hoja física que ya contiene el formato; su vista sin imagen

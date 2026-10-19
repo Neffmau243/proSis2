@@ -6,7 +6,6 @@ import LaboratoryPatientPanel from './LaboratoryPatientPanel.vue'
 import LaboratoryHistory from './LaboratoryHistory.vue'
 import LaboratoryActions from './LaboratoryActions.vue'
 import LaboratoryEncounterHeader from './LaboratoryEncounterHeader.vue'
-import SingleChoiceCheckboxes from '@/components/SingleChoiceCheckboxes.vue'
 import { useLaboratory } from '@/composables/useLaboratory'
 import { usePacienteSeleccionado } from '@/composables/usePacienteSeleccionado'
 import { useAuthStore } from '@/stores/auth'
@@ -97,13 +96,6 @@ const sisPrintReady = computed(() =>
 )
 const additionalCopy = shallowRef(false)
 const printError = shallowRef('')
-const modes = [
-  { value: 'AMBULATORIA', label: 'Ambulatoria' },
-  { value: 'EMERGENCIA', label: 'Emergencia' },
-]
-function updateMode(value: string | null): void {
-  if (value === 'AMBULATORIA' || value === 'EMERGENCIA') form.mode = value
-}
 async function submit(): Promise<void> {
   if (attentionCreated.value) {
     newAttention()
@@ -181,16 +173,20 @@ onMounted(() => void initialize(initialPatientId))
           @submit.prevent="submit"
         >
           <section class="lab-panel lab-office" aria-labelledby="lab-office-title">
-            <header class="lab-panel__header lab-office__header">
-              <h2 id="lab-office-title" class="lab-panel__title">Consultorio</h2>
-              <SingleChoiceCheckboxes
+            <div class="lab-attention-mode">
+              <span id="lab-mode-label">Modalidad de atención</span>
+              <el-radio-group
+                v-model="form.mode"
                 class="lab-modes"
-                :model-value="form.mode"
-                :options="modes"
-                label="Modalidad de atención"
+                aria-labelledby="lab-mode-label"
                 :disabled="encounterLocked"
-                @update:model-value="updateMode"
-              />
+              >
+                <el-radio value="AMBULATORIA">Ambulatoria</el-radio>
+                <el-radio value="EMERGENCIA">Emergencia</el-radio>
+              </el-radio-group>
+            </div>
+            <header class="lab-panel__header">
+              <h2 id="lab-office-title" class="lab-panel__title">Consultorio</h2>
             </header>
             <div class="lab-panel__body">
               <el-form-item label="Consultorio:">
@@ -332,16 +328,18 @@ onMounted(() => void initialize(initialPatientId))
 }
 .lab-grid {
   display: grid;
-  grid-template-columns: minmax(340px, 0.85fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 2fr);
+  align-items: stretch;
   gap: 8px;
   min-width: 0;
 }
-.lab-office__header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px 12px;
+.lab-attention-mode {
+  display: grid;
+  gap: 2px;
+  padding: 6px 6px 4px;
+  color: var(--admission-ink);
+  font-size: 12px;
+  line-height: 1.4;
 }
 .lab-saved {
   margin: 0;
@@ -350,25 +348,27 @@ onMounted(() => void initialize(initialPatientId))
   color: var(--el-color-success-dark-2);
 }
 .lab-modes {
-  gap: 0 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
 }
-.lab-modes :deep(.el-checkbox) {
+.lab-modes :deep(.el-radio) {
   margin: 0;
   height: auto;
-  min-height: 22px;
+  min-height: var(--el-component-size);
+  white-space: normal;
 }
-.lab-modes :deep(.el-checkbox__label) {
+.lab-modes :deep(.el-radio__label) {
   font-size: 12px;
-  padding-left: 5px;
-  line-height: 1.3;
-}
-.lab-grid {
-  align-items: start;
+  line-height: 1.35;
+  white-space: normal;
 }
 .lab-grid__content {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   min-width: 0;
+  min-height: 0;
 }
 .laboratory-workspace :deep(.lab-panel) {
   min-width: 0;
@@ -388,8 +388,8 @@ onMounted(() => void initialize(initialPatientId))
   margin: 0;
   color: var(--admission-ink);
   font-size: 13px;
-  font-weight: 600;
-  line-height: 1.4;
+  font-weight: 700;
+  line-height: 1.3;
 }
 .laboratory-workspace :deep(.lab-panel__body) {
   padding: 6px 8px;
@@ -462,14 +462,12 @@ onMounted(() => void initialize(initialPatientId))
   margin-top: 4px;
   font-size: 12px;
 }
-@media (max-width: 1050px) {
-  .lab-grid {
-    grid-template-columns: minmax(320px, 1fr) minmax(0, 1.2fr);
-  }
-}
 @media (max-width: 820px) {
   .lab-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .lab-grid__content :deep(.lab-history) {
+    flex: 0 1 auto;
   }
 }
 @media (max-width: 560px), (pointer: coarse) {
@@ -479,8 +477,8 @@ onMounted(() => void initialize(initialPatientId))
   .laboratory-workspace :deep(.el-form-item__label) {
     line-height: 36px;
   }
-  .lab-modes :deep(.el-checkbox) {
-    min-height: 36px;
+  .laboratory-workspace :deep(.el-input__inner) {
+    font-size: 16px;
   }
 }
 </style>

@@ -373,7 +373,7 @@ function changeDocumentType(value: string): void {
 <style scoped>
 .lab-patient__field {
   display: grid;
-  grid-template-columns: 148px minmax(0, 1fr);
+  grid-template-columns: 122px minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   margin-bottom: 3px;
@@ -386,7 +386,7 @@ function changeDocumentType(value: string): void {
   text-align: right;
 }
 .lab-patient__document {
-  grid-template-columns: 148px minmax(0, 1fr) 28px;
+  grid-template-columns: 122px minmax(0, 1fr) 28px;
 }
 .lab-patient__document :deep(.el-button) {
   width: 28px;

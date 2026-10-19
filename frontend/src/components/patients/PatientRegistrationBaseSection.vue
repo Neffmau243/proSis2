@@ -72,7 +72,7 @@ function updateLocality(value: number | string | null): void {
     </header>
 
     <div class="base-section__fields">
-      <el-form-item class="base-field base-field--short" label="N.° historia clínica">
+      <el-form-item class="base-field" label="N.° historia clínica">
         <el-input
           :model-value="form.historia_clinica"
           @update:model-value="update({ historia_clinica: $event })"
@@ -88,41 +88,37 @@ function updateLocality(value: number | string | null): void {
         />
       </el-form-item>
 
-      <div class="base-section__document-row">
-        <span class="base-section__document-label">Documento</span>
-        <div class="base-section__document-fields">
-          <el-form-item class="base-field" label="Tipo de documento" prop="tipo_documento_codigo">
-            <el-select
-              placeholder="Seleccione"
-              :model-value="form.tipo_documento_codigo"
-              @update:model-value="update({ tipo_documento_codigo: $event })"
-            >
-              <el-option
-                v-for="tipo in tiposDocumento"
-                :key="tipo.codigo"
-                :label="tipo.nombre"
-                :value="tipo.codigo"
-              />
-            </el-select>
-          </el-form-item>
+      <el-form-item class="base-field" label="Tipo de documento" prop="tipo_documento_codigo">
+        <el-select
+          placeholder="Seleccione"
+          :model-value="form.tipo_documento_codigo"
+          @update:model-value="update({ tipo_documento_codigo: $event })"
+        >
+          <el-option
+            v-for="tipo in tiposDocumento"
+            :key="tipo.codigo"
+            :label="tipo.nombre"
+            :value="tipo.codigo"
+          />
+        </el-select>
+      </el-form-item>
 
-          <el-form-item class="base-field" label="N.° documento" prop="numero_documento">
-            <el-input
-              :model-value="form.numero_documento"
-              @update:model-value="update({ numero_documento: $event })"
-            />
-          </el-form-item>
-        </div>
-      </div>
+      <el-form-item class="base-field" label="N.° documento" prop="numero_documento">
+        <el-input
+          :model-value="form.numero_documento"
+          @update:model-value="update({ numero_documento: $event })"
+        />
+      </el-form-item>
 
       <el-form-item
-        class="base-field base-field--short"
+        class="base-field"
         label="Fecha de nacimiento"
         prop="fecha_nacimiento"
       >
         <el-date-picker
           :model-value="form.fecha_nacimiento"
           type="date"
+          format="DD/MM/YYYY"
           value-format="YYYY-MM-DD"
           :disabled-date="(date: Date) => date.getTime() > Date.now()"
           @update:model-value="update({ fecha_nacimiento: $event ?? '' })"
@@ -331,13 +327,17 @@ function updateLocality(value: number | string | null): void {
 .base-section__fields :deep(.base-field) {
   display: grid;
   grid-template-columns: 136px minmax(0, 1fr);
-  align-items: center;
+  align-items: start;
   min-width: 0;
   margin: 0;
 }
 
 .base-section__fields :deep(.base-field .el-form-item__label) {
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: var(--el-component-size);
+  align-items: center;
   height: auto;
   /* Element Plus le pone 8px de margen inferior a la etiqueta en label-position
      "top"; dentro de la grilla eso la subía 4px respecto al centro de la fila. */
@@ -361,8 +361,8 @@ function updateLocality(value: number | string | null): void {
   padding-top: 4px;
 }
 
-.base-section__fields :deep(.base-field--short .el-form-item__content) {
-  max-width: 188px;
+.base-section__fields :deep(.base-field.is-error) {
+  margin-bottom: 4px;
 }
 
 .base-section__fields :deep(.el-select),
@@ -376,66 +376,14 @@ function updateLocality(value: number | string | null): void {
   font-size: 12px;
 }
 
-/* Fila de documento: reusa la misma columna de etiquetas que el resto del
-   formulario y reparte su contenido entre los dos campos. Cada campo lleva su
-   etiqueta encima, así los dos inputs quedan alineados con los demás. */
-.base-section__document-row {
-  display: grid;
-  grid-template-columns: 136px minmax(0, 1fr);
-  align-items: center;
-  min-width: 0;
-}
-
-.base-section__document-label {
-  padding: 0 8px 0 0;
-  color: var(--registration-ink, #304f6d);
-  font-size: 12px;
-  line-height: 1.2;
-  text-align: right;
-}
-
-.base-section__document-fields {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-  min-width: 0;
-}
-
-.base-section__document-fields :deep(.base-field) {
-  display: block;
-  margin: 0;
-}
-
-.base-section__document-fields :deep(.base-field .el-form-item__label) {
-  display: block;
-  height: auto;
-  margin: 0;
-  padding: 0 0 2px;
-  line-height: 1.2;
-  text-align: left;
-}
-
 @media (max-width: 640px) {
-  .base-section__document-row {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
-  }
-
-  .base-section__document-label {
-    padding-right: 0;
-    text-align: left;
-  }
-
-  .base-section__document-fields {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .base-section__fields :deep(.base-field) {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
   }
 
   .base-section__fields :deep(.base-field .el-form-item__label) {
+    min-height: 0;
     padding-right: 0;
     justify-content: flex-start;
     text-align: left;

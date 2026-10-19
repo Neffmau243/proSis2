@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue'
 import { ElInput } from 'element-plus'
-import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
 import type { CareGroupCode, NutritionalIndicatorsPreview } from '@/services/atenciones'
 import {
   nutritionalBmiSummary,
@@ -20,6 +19,13 @@ const props = defineProps<{
 }>()
 
 const general = computed(() => props.careGroup === 'NINOS_ADOLESCENTES_ADULTOS_MAYORES')
+const groupLabel = computed(() =>
+  props.careGroup === 'GESTANTES'
+    ? 'Valoración nutricional de gestantes'
+    : props.careGroup === 'PUERPERAS'
+      ? 'Valoración nutricional de puérperas'
+      : 'Clasificación nutricional según edad',
+)
 const id = useId()
 const pendingValue = computed(() => (props.loading ? 'Calculando…' : 'No disponible'))
 const rows = computed<NutritionalTableRow[]>(() => {
@@ -52,12 +58,7 @@ const applicability = computed(() => {
     :aria-busy="loading"
     aria-live="polite"
   >
-    <div
-      v-if="general"
-      class="nutrition-results__diagnoses"
-      role="group"
-      aria-label="Clasificación nutricional según edad"
-    >
+    <div class="nutrition-results__diagnoses" role="group" :aria-label="groupLabel">
       <span class="nutrition-results__diagnosis-title">VALORACIÓN</span>
       <div class="nutrition-results__diagnosis-fields">
         <div v-for="row in rows" :key="row.key" class="nutrition-results__diagnosis-row">
@@ -75,15 +76,6 @@ const applicability = computed(() => {
         </div>
       </div>
     </div>
-    <NutritionIndicatorsTable
-      v-else
-      :rows="rows"
-      :label="
-        careGroup === 'GESTANTES'
-          ? 'Valoración nutricional de gestantes'
-          : 'Valoración nutricional de puérperas'
-      "
-    />
     <p v-if="bmiSummary" class="nutrition-results__bmi">{{ bmiSummary }}</p>
     <p v-if="applicability" class="nutrition-results__note">{{ applicability }}</p>
     <p v-if="error" class="nutrition-results__error" role="alert">{{ error }}</p>
@@ -109,7 +101,7 @@ const applicability = computed(() => {
 }
 .nutrition-results__diagnosis-row {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr);
+  grid-template-columns: 96px minmax(0, 1fr);
   gap: var(--admission-space, 8px);
   align-items: center;
 }

@@ -43,8 +43,10 @@ function formatDate(value: string | null): string {
     <div v-else class="admission-history__table-wrap">
       <el-table
         :data="entries"
-        :max-height="compact ? 128 : 180"
+        :height="compact ? '100%' : undefined"
+        :max-height="compact ? 300 : 180"
         table-layout="fixed"
+        :show-overflow-tooltip="compact"
         v-loading="loading"
         size="small"
         class="admission-history__table"
@@ -73,20 +75,20 @@ function formatDate(value: string | null): string {
         <el-table-column label="Sist." width="47" align="center">
           <template #default="{ row }">{{ row.presion_sistolica ?? '—' }}</template>
         </el-table-column>
-        <el-table-column label="IMC" width="50" align="center">
+        <el-table-column label="IMC" :width="compact ? 66 : 50" align="center">
           <template #default="{ row }">
             <el-tooltip :content="nutritionSummary(row)" placement="top">
               <span tabindex="0" :aria-label="nutritionSummary(row)">{{ row.imc ?? '—' }}</span>
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="P/E" width="42" align="center">
+        <el-table-column label="P/E" :width="compact ? 70 : 42" align="center">
           <template #default="{ row }">{{ nutritionalHistoryValue(row, 'pe') }}</template>
         </el-table-column>
-        <el-table-column label="T/E" width="42" align="center">
+        <el-table-column label="T/E" :width="compact ? 70 : 42" align="center">
           <template #default="{ row }">{{ nutritionalHistoryValue(row, 'te') }}</template>
         </el-table-column>
-        <el-table-column label="P/T" width="42" align="center">
+        <el-table-column label="P/T" :width="compact ? 70 : 42" align="center">
           <template #default="{ row }">{{ nutritionalHistoryValue(row, 'pt') }}</template>
         </el-table-column>
         <el-table-column label="Consultorio" min-width="124">
@@ -176,23 +178,58 @@ function formatDate(value: string | null): string {
   white-space: normal;
 }
 
+.admission-history--compact {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: var(--admission-panel, #e8eff7);
+}
 .admission-history--compact :deep(.el-card__body) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  box-sizing: border-box;
   padding: 6px;
+}
+.admission-history--compact .admission-history__table-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.admission-history--compact .admission-history__table {
+  flex: 1;
+  min-height: 80px;
 }
 .admission-history--compact .admission-history__header {
   align-items: center;
-  margin-bottom: 4px;
+  margin: -6px -6px 6px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--admission-border, #b9cbdf);
+  background: var(--admission-heading, #d4e1ef);
 }
 .admission-history--compact .admission-history__title {
   font-size: 13px;
 }
+.admission-history--compact :deep(.el-table__body .cell) {
+  padding-inline: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admission-history--compact .admission-history__description {
+  margin-top: 6px;
+  color: var(--admission-ink, #304f6d);
+  font-size: 11px;
+}
 
 @media (max-width: 680px) {
-  .admission-history :deep(.el-card__body) {
+  .admission-history:not(.admission-history--compact) :deep(.el-card__body) {
     padding: 12px;
   }
 
-  .admission-history__header {
+  .admission-history:not(.admission-history--compact) .admission-history__header {
     flex-direction: column;
     align-items: stretch;
   }

@@ -113,6 +113,17 @@ test('el bloqueo por calibración explica el paso pendiente y abre la pestaña c
   expect(saved).toMatchObject({ width: 210, height: 297, calibrated: false })
 })
 
+test('la vista previa y el resumen separan DIRESA, tipo y número SIS', async () => {
+  const body = openCalibration(base)
+  await vi.waitFor(() =>
+    expect(body.querySelector('[aria-label="Ajustar SIS · Tipo"]')?.textContent?.trim()).toBe('2'),
+  )
+  expect(body.querySelector('[aria-label="Ajustar SIS · DIRESA"]')?.textContent?.trim()).toBe('040')
+  expect(body.querySelector('[aria-label="Ajustar SIS · Número / RN"]')?.textContent?.trim()).toBe('00000001')
+  expect(body.textContent).toContain('040 · 2 · 00000001')
+  expect(body.textContent).not.toContain('2-00000001')
+})
+
 test('una historia clínica larga no bloquea la impresión con posiciones ya calibradas', async () => {
   localStorage.setItem(FUA_LAYOUT_KEY, JSON.stringify({ ...defaultFuaLayout(), calibrated: true }))
   const body = openCalibration({ ...base, historia_clinica: 'DEMO-ETNIA-98032888' })

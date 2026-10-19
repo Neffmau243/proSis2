@@ -27,7 +27,7 @@ test.skipIf(!process.env.FUA_MATRIX_REPORT)(
     // A synthetic calibrated profile: 7 pt fits the longer foreign IDs and
     // SIS contracts with sequence. Physical printer alignment remains manual.
     for (const field of layout.fields) {
-      if (['numero_documento', 'sis_numero_completo'].includes(field.id)) field.font = 7
+      if (['numero_documento', 'sis_numero'].includes(field.id)) field.font = 7
     }
     const fields = layout.fields.filter((field) => field.enabled)
     const parser = new DOMParser()
@@ -47,7 +47,8 @@ test.skipIf(!process.env.FUA_MATRIX_REPORT)(
       expect(printed('gestante'), context).toBe(snapshot.grupo_atencion_codigo === 'GESTANTES' ? 'X' : '')
       expect(printed('puerpera'), context).toBe(snapshot.grupo_atencion_codigo === 'PUERPERAS' ? 'X' : '')
       expect(printed('sis_diresa'), context).toBe(snapshot.sis_diresa || '')
-      expect(printed('sis_numero_completo'), context).toBe(values.sis_numero_completo)
+      expect(printed('sis_tipo'), context).toBe(snapshot.sis_tipo || '')
+      expect(printed('sis_numero'), context).toBe(values.sis_numero)
       // Un solo recuadro de parto: FPP en gestantes y fecha real en puérperas.
       const parto = fuaDeliveryBox(snapshot)?.value ?? null
       expect(printed('parto_dia'), context).toBe(parto?.slice(8, 10) || '')

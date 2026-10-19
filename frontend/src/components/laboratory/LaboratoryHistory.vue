@@ -30,7 +30,7 @@ function rowClass({ row }: { row: Attention }): string {
 <template>
   <section class="lab-panel lab-history" aria-labelledby="lab-history-title">
     <header class="lab-history__header">
-      <h2 id="lab-history-title">Registro de atenciones</h2>
+      <h2 id="lab-history-title" class="lab-panel__title">Registro de atenciones</h2>
       <el-button
         :icon="Refresh"
         size="small"
@@ -50,7 +50,9 @@ function rowClass({ row }: { row: Attention }): string {
       :row-class-name="rowClass"
       size="small"
       border
-      height="200"
+      height="100%"
+      :max-height="300"
+      show-overflow-tooltip
       @row-click="(row: Attention) => (selectedId = row.id)"
       :empty-text="
         !canRead
@@ -62,17 +64,17 @@ function rowClass({ row }: { row: Attention }): string {
               : 'Sin atenciones de laboratorio registradas.'
       "
     >
-      <el-table-column label="N° historia" min-width="54">
+      <el-table-column label="N° historia" min-width="84">
         <template #default="{ row }">{{
           row.historia_clinica_snapshot || patient?.historia_clinica || '—'
         }}</template>
       </el-table-column>
-      <el-table-column label="N° DNI" min-width="58">
+      <el-table-column label="N° DNI" min-width="82">
         <template #default="{ row }">{{
           row.fua_impresion?.numero_documento || patient?.numero_documento || '—'
         }}</template>
       </el-table-column>
-      <el-table-column label="F. atención" min-width="70">
+      <el-table-column label="F. atención" min-width="88">
         <template #default="{ row }"
           ><span :title="row.fecha_atencion">{{ date(row.fecha_atencion) }}</span></template
         >
@@ -121,6 +123,12 @@ function rowClass({ row }: { row: Attention }): string {
 </template>
 
 <style scoped>
+.lab-history {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 160px;
+}
 .lab-history__header {
   display: flex;
   justify-content: space-between;
@@ -130,26 +138,33 @@ function rowClass({ row }: { row: Attention }): string {
   border-bottom: 1px solid var(--admission-border);
   background: var(--admission-heading);
 }
-.lab-history__header h2 {
-  margin: 0;
-  font-size: 13px;
-  color: var(--admission-ink);
-  font-weight: 600;
-}
 .lab-history__header :deep(.el-button) {
   padding: 2px 5px;
   height: 24px;
 }
 .lab-history :deep(.el-table) {
+  flex: 1;
+  min-height: 80px;
   --el-table-border-color: var(--admission-border);
-  --el-table-header-bg-color: var(--el-fill-color-light);
+  --el-table-header-bg-color: var(--admission-heading);
+}
+.lab-history :deep(.el-table__header-wrapper th.el-table__cell) {
+  color: var(--admission-ink);
+  font-weight: 700;
 }
 .lab-history :deep(.el-table .cell) {
   padding-inline: 5px;
   font-size: 12px;
   line-height: 16px;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-variant-numeric: tabular-nums;
+}
+.lab-history :deep(.el-table__header-wrapper .cell) {
+  font-size: 11px;
+  line-height: 1.2;
+  white-space: normal;
 }
 .lab-history :deep(.el-table__cell) {
   padding-block: 3px;

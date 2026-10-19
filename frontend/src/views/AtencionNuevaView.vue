@@ -519,7 +519,7 @@
                 />
               </section>
             </el-form>
-            <NutritionFollowupPanel v-if="nutritionalPatient"
+            <NutritionFollowupPanel v-if="!isAdmission && nutritionalPatient"
               :patient="nutritionalPatient" :groups="gruposRiesgo"
               :result="savedAttention?.valoracion_calculada ?? nutritionIndicators"
               :attention="savedAttention" :can-edit="auth.hasPermission('PACIENTE_EDITAR')"
@@ -562,7 +562,7 @@
             :error="historialError"
             @refresh="loadHistorial"
           />
-          <NutritionFollowupPanel v-if="nutritionalPatient && latestFollowupAttention && !savedAttention"
+          <NutritionFollowupPanel v-if="!isAdmission && nutritionalPatient && latestFollowupAttention && !savedAttention"
             :patient="nutritionalPatient" :groups="gruposRiesgo"
             :result="latestFollowupAttention.valoracion_calculada ?? null"
             :attention="latestFollowupAttention" :can-edit="auth.hasPermission('PACIENTE_EDITAR')"

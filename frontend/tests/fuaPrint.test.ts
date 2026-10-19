@@ -21,6 +21,7 @@ import {
 
 afterEach(() => {
   document.body.innerHTML = ''
+  document.title = ''
 })
 
 const snapshot: FuaPrintSnapshot = {
@@ -155,7 +156,8 @@ test('FUA fields use marks, preserve leading zeros, split dates and never invent
   expect(v.nacimiento_dia).toBe('02')
   expect(v.atencion_anio).toBe('2026')
   expect(v.hora_mm).toBe('05')
-  expect(v.sis_numero_completo).toBe('2-01234567')
+  expect(v.sis_tipo).toBe('2')
+  expect(v.sis_numero).toBe('01234567')
   expect(v.pa).toBe('120/80')
   expect(v.imc).toBe('23.44')
   expect(v.peso_kg).toBe('60')
@@ -274,6 +276,31 @@ test('print output escapes names, uses custom page size and excludes background/
   expect(testPrint).toMatch(/outline/)
 })
 
+test('el nombre sugerido del PDF usa nombres, apellidos y fecha de la atención guardada', () => {
+  const values = {
+    primer_nombre: '  ANA ', otros_nombres: 'MARÍA',
+    apellido_paterno: 'DE LA CRUZ', apellido_materno: 'PEÑA',
+    fecha_atencion: '2026-09-19',
+  }
+  for (const reference of [undefined, '/reference.png']) {
+    const html = fuaPrintHtml(defaultFuaLayout(), values, false, reference)
+    expect(new DOMParser().parseFromString(html, 'text/html').title).toBe(
+      'atencion-ANA MARÍA DE LA CRUZ PEÑA-2026-09-19',
+    )
+  }
+  const title = (data: Record<string, string>, test = false) =>
+    new DOMParser().parseFromString(fuaPrintHtml(defaultFuaLayout(), data, test), 'text/html').title
+  expect(title({ primer_nombre: 'Ana', apellido_paterno: 'Prueba' })).toBe('atencion-Ana Prueba')
+  expect(title({ primer_nombre: 'Ana / : \\ < > | ? *', apellido_paterno: 'Prueba.' })).toBe('atencion-Ana Prueba')
+  expect(title({ primer_nombre: 'Ana & Elena' })).toBe('atencion-Ana & Elena')
+  expect(title({})).toBe('atencion')
+  expect(title({ ...values, fecha_atencion: '2026-09-19T09:05:00' })).toBe(
+    'atencion-ANA MARÍA DE LA CRUZ PEÑA-2026-09-19',
+  )
+  expect(title({ ...values, fecha_atencion: '' })).toBe('atencion-ANA MARÍA DE LA CRUZ PEÑA')
+  expect(title(values, true)).toBe('Impresión FUA')
+})
+
 test('oversized text and fields outside the paper block printing instead of truncating', () => {
   const l = defaultFuaLayout()
   l.fields[0]!.x = 399
@@ -359,7 +386,10 @@ function stubIframe(contentWindow: object | null = {}) {
     configurable: true,
     value: contentWindow === null ? null : { print, focus, addEventListener },
   })
-  vi.spyOn(document, 'createElement').mockReturnValue(frame)
+  const createElement = document.createElement.bind(document)
+  vi.spyOn(document, 'createElement').mockImplementation((tag, options) =>
+    tag === 'iframe' ? frame : createElement(tag, options),
+  )
   return { frame, print, focus, addEventListener }
 }
 
@@ -402,6 +432,42 @@ test('la impresión abre un iframe oculto, lo enfoca y lo imprime', async () => 
   expect(document.body.contains(frame)).toBe(false)
 })
 
+test.each([false, true])('conserva el título del PDF hasta cerrar impresión y lo restaura al terminar (error: %s)', async (fail) => {
+  document.title = 'Admisión de paciente · Sistema de Salud IPRESS'
+  const { frame, print, addEventListener } = stubIframe()
+  const originalTitle = document.title
+  print.mockImplementation(() => {
+    expect(document.title).toBe('atencion-ANA PRUEBA')
+    if (fail) throw new Error('Impresora no disponible')
+  })
+  const pending = printFua({ ...defaultFuaLayout(), calibrated: true }, {
+    primer_nombre: 'ANA', apellido_paterno: 'PRUEBA',
+  })
+  frame.onload?.(new Event('load'))
+  if (fail) await expect(pending).rejects.toThrow('Impresora no disponible')
+  else {
+    await pending
+    // print() can return while the browser is still preparing its preview.
+    expect(document.title).toBe('atencion-ANA PRUEBA')
+    const [, afterprint] = addEventListener.mock.calls[0] as [string, () => void]
+    afterprint()
+  }
+  expect(document.title).toBe(originalTitle)
+  expect(frame.srcdoc).toContain('<title>atencion-ANA PRUEBA</title>')
+})
+
+test('cerrar impresión no reemplaza el título de una página a la que se navegó después', async () => {
+  const { frame, addEventListener } = stubIframe()
+  const pending = printFua({ ...defaultFuaLayout(), calibrated: true }, { primer_nombre: 'ANA' })
+  frame.onload?.(new Event('load'))
+  await pending
+  document.title = 'Historia del paciente'
+  const [, afterprint] = addEventListener.mock.calls[0] as [string, () => void]
+  afterprint()
+  expect(document.title).toBe('Historia del paciente')
+  expect(document.body.contains(frame)).toBe(false)
+})
+
 test('si el navegador no puede imprimir se informa y se limpia el iframe', async () => {
   const { frame } = stubIframe(null)
 
@@ -422,7 +488,8 @@ test('preprinted RENIPRESS stays blank even with an enabled saved field; v2 uses
     sis_componente: 'LEGACY',
   })
   expect(v.codigo_renipress).toBe('')
-  expect(v.sis_numero_completo).toBe('2-01234567-01')
+  expect(v.sis_tipo).toBe('2')
+  expect(v.sis_numero).toBe('01234567-01')
   expect(fuaPrintHtml(defaultFuaLayout(), v)).not.toMatch(/98765432|LEGACY/)
   expect(
     fuaValues({ ...snapshot, codigo_renipress: '98765432', renipress_preimpreso: false })
@@ -430,19 +497,80 @@ test('preprinted RENIPRESS stays blank even with an enabled saved field; v2 uses
   ).toBe('98765432')
 })
 
-test('la impresión separa la DIRESA del tipo y el número de afiliación', () => {
+test('la impresión coloca DIRESA, tipo y número de afiliación en tres casillas independientes', () => {
   const v = fuaValues({ ...snapshot, sis_diresa: '040', sis_tipo: '2', sis_numero: '72769512' })
-  // Casilla propia de DIRESA/DISA: solo los tres dígitos del establecimiento de salud.
+  // La DIRESA proviene de la afiliación del asegurado, no de la sede actual.
   expect(v.sis_diresa).toBe('040')
-  // Casilla de tipo/número: nunca concatena la DIRESA delante.
-  expect(v.sis_numero_completo).toBe('2-72769512')
-  expect(v.sis_numero_completo).not.toContain('040')
-  const fields = defaultFuaLayout().fields
-  const diresa = fields.find((field) => field.id === 'sis_diresa')!
-  const numero = fields.find((field) => field.id === 'sis_numero_completo')!
-  expect([diresa.label, numero.label]).toEqual(['SIS · DIRESA', 'SIS · Tipo / número / RN'])
-  expect(diresa.x).not.toBe(numero.x)
-  const html = fuaPrintHtml(defaultFuaLayout(), v)
-  expect(html).toMatch(/2-72769512/)
-  expect(html).not.toMatch(/040-2-72769512/)
+  expect(v.sis_tipo).toBe('2')
+  expect(v.sis_numero).toBe('72769512')
+  const layout = defaultFuaLayout()
+  const sisFields = ['sis_diresa', 'sis_tipo', 'sis_numero'].map(
+    (id) => layout.fields.find((field) => field.id === id)!,
+  )
+  expect(sisFields.map((field) => field.label)).toEqual([
+    'SIS · DIRESA', 'SIS · Tipo', 'SIS · Número / RN',
+  ])
+  for (let i = 1; i < sisFields.length; i++) {
+    expect(sisFields[i]!.x).toBeGreaterThan(sisFields[i - 1]!.x + sisFields[i - 1]!.width)
+  }
+  for (const background of [undefined, '/reference.png']) {
+    const html = fuaPrintHtml(layout, v, false, background, 10)
+    const doc = new DOMParser().parseFromString(html, 'text/html')
+    const printed = [...doc.body.children].filter((el) => el.getAttribute('style')?.includes('font-size:'))
+    expect(sisFields.map((field) => printed[layout.fields.indexOf(field)]!.textContent)).toEqual([
+      '040', '2', '72769512',
+    ])
+    expect(html).not.toContain('2-72769512')
+  }
+})
+
+test.each([true, false])('migra el campo SIS combinado sin perder las demás posiciones (leyenda: %s)', (withLegend) => {
+  const legacy = { ...defaultFuaLayout(), calibrated: true, offsetX: 1.5 }
+  const diresa = legacy.fields.find((f) => f.id === 'sis_diresa')!
+  diresa.x += 2
+  diresa.y += 3
+  legacy.fields = legacy.fields.filter((f) =>
+    !['sis_tipo', 'sis_numero', ...(!withLegend ? ['identity_note'] : [])].includes(f.id),
+  )
+  legacy.fields[0]!.x = 21
+  legacy.fields.push({
+    id: 'sis_numero_completo', label: 'SIS · Tipo / número / RN',
+    x: 150, y: 82, width: 33, height: 4, font: 7, step: 2, skip: 1, enabled: true,
+  })
+  const migrated = parseFuaLayout(JSON.stringify(legacy))
+  expect(migrated.calibrated).toBe(false)
+  expect(migrated.offsetX).toBe(1.5)
+  for (const original of legacy.fields.filter((f) => f.id !== 'sis_numero_completo')) {
+    expect(migrated.fields.find((f) => f.id === original.id)).toEqual(original)
+  }
+  for (const original of defaultFuaLayout().fields.filter((f) => ['sis_tipo', 'sis_numero'].includes(f.id))) {
+    const field = migrated.fields.find((f) => f.id === original.id)!
+    expect(field.x).toBeCloseTo(original.x + 2)
+    expect(field.y).toBeCloseTo(original.y + 3)
+    expect(field).toMatchObject({
+      width: original.width, font: 7, step: 0, skip: 0,
+    })
+  }
+  expect(migrated.fields.some((f) => f.id === 'sis_numero_completo')).toBe(false)
+  expect(migrated.fields.some((f) => f.id === 'identity_note')).toBe(true)
+  const confirmed = { ...migrated, calibrated: true }
+  expect(parseFuaLayout(JSON.stringify(confirmed))).toEqual(confirmed)
+})
+
+test.each([
+  { version: 2 as const, sis_secuencia: '01', sis_componente: 'LEGACY', suffix: '01' },
+  { version: 1 as const, sis_secuencia: '99', sis_componente: '02', suffix: '02' },
+])('conserva ceros iniciales y el sufijo RN de las copias versión $version', (source) => {
+  const values = fuaValues({ ...snapshot, ...source, sis_tipo: '05', sis_numero: '00000001' })
+  expect(values.sis_tipo).toBe('05')
+  expect(values.sis_numero).toBe(`00000001-${source.suffix}`)
+  const html = fuaPrintHtml(defaultFuaLayout(), values)
+  expect(html).toContain(`00000001-${source.suffix}`)
+  expect(html).not.toContain('05-00000001')
+  expect(layoutProblems(defaultFuaLayout(), values)).toEqual([])
+})
+
+test('sin afiliación, las tres casillas SIS permanecen vacías', () => {
+  const values = fuaValues({ ...snapshot, sis_diresa: null, sis_tipo: null, sis_numero: null })
+  expect([values.sis_diresa, values.sis_tipo, values.sis_numero]).toEqual(['', '', ''])
 })

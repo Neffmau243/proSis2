@@ -7,6 +7,7 @@ import AtencionNuevaView from '@/views/AtencionNuevaView.vue'
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
 import AdmissionHistory from '@/components/admission/AdmissionHistory.vue'
 import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterHeader.vue'
+import NutritionFollowupPanel from '@/components/admission/NutritionFollowupPanel.vue'
 import { aPatient } from '../fixtures/patient'
 
 const { create, get, listByPatient, previewNutritionalIndicators } = vi.hoisted(() => ({
@@ -132,9 +133,12 @@ test('el adulto muestra IMC y diagnóstico en la valoración compacta', async ()
   )
   expect(
     wrapper.findAll('.nutrition-results__diagnosis-row').map((row) => row.get('label').text()),
-  ).toEqual(['P/E', 'T/E', 'P/T'])
-  expect(wrapper.get('.nutrition-results__bmi').text()).toContain('24.691')
-  expect(wrapper.get('.nutrition-results__bmi').text()).toContain('Normal')
+  ).toEqual(['IMC', 'Dx IMC'])
+  expect(
+    wrapper
+      .findAll('.nutrition-results__diagnosis-row')
+      .map((row) => (row.get('input').element as HTMLInputElement).value),
+  ).toEqual(['24.691', 'Normal'])
   expect(wrapper.text()).not.toContain('Datos complementarios de nutrición')
   expect(wrapper.text()).not.toContain('Códigos del registro legado')
   const height = field('Talla (cm)').get('input')
@@ -168,9 +172,13 @@ test('la gestante identifica el IMC pregestacional y su diagnóstico', async () 
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 163)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  const rows = wrapper.findAll('.nutrition-table tr')
-  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC', 'Ganancia de peso'])
-  expect(rows.map((row) => row.get('td').text())).toEqual(['22.491', 'Normal', '10 kg'])
+  const rows = wrapper.findAll('.nutrition-results__diagnosis-row')
+  expect(rows.map((row) => row.get('label').text())).toEqual(['IMC', 'Dx IMC', 'Ganancia de peso'])
+  expect(rows.map((row) => (row.get('input').element as HTMLInputElement).value)).toEqual([
+    '22.491',
+    'Normal',
+    '10 kg',
+  ])
 })
 
 test('la puérpera muestra solo IMC y Dx IMC', async () => {
@@ -196,13 +204,16 @@ test('la puérpera muestra solo IMC y Dx IMC', async () => {
   field('Talla (cm)').getComponent(ElInputNumber).vm.$emit('update:modelValue', 160)
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
-  const rows = wrapper.findAll('.nutrition-table tr')
-  expect(rows.map((row) => row.get('th').text())).toEqual(['IMC', 'Dx IMC'])
-  expect(rows.map((row) => row.get('td').text())).toEqual(['21.484', 'Normal'])
-  expect(wrapper.get('.nutrition-table').text()).not.toContain('Ganancia de peso')
+  const rows = wrapper.findAll('.nutrition-results__diagnosis-row')
+  expect(rows.map((row) => row.get('label').text())).toEqual(['IMC', 'Dx IMC'])
+  expect(rows.map((row) => (row.get('input').element as HTMLInputElement).value)).toEqual([
+    '21.484',
+    'Normal',
+  ])
+  expect(wrapper.get('.nutrition-results').text()).not.toContain('Ganancia de peso')
 })
 
-test('el escolar conserva claramente P/E, T/E y P/T en el panel compacto', async () => {
+test('el escolar muestra IMC/edad y T/E en el panel compacto', async () => {
   const wrapper = await mountAdmission()
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
@@ -224,11 +235,10 @@ test('el escolar conserva claramente P/E, T/E y P/T en el panel compacto', async
   await new Promise((resolve) => setTimeout(resolve, 400))
   await flushPromises()
   const rows = wrapper.findAll('.nutrition-results__diagnosis-row')
-  expect(rows.map((row) => row.get('label').text())).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows.map((row) => row.get('label').text())).toEqual(['IMC/edad', 'T/E'])
   expect(rows.map((row) => (row.get('input').element as HTMLInputElement).value)).toEqual([
-    'No aplica',
+    'Sobrepeso · Z: 1.250',
     'Z: -0.500',
-    'No aplica',
   ])
 })
 
@@ -313,6 +323,7 @@ test(
       wrapper.findAllComponents(ElFormItem).find((item) => item.props('label') === label)!
     expect(wrapper.text()).toContain('Fecha y hora de atención')
     expect(wrapper.getComponent(AdmissionHistory).props('compact')).toBe(true)
+    expect(wrapper.findComponent(NutritionFollowupPanel).exists()).toBe(false)
     expect(wrapper.find('.encounter-header h2').exists()).toBe(false)
     expect(wrapper.get('.encounter-header').text()).not.toContain('Sede de prueba')
     field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
@@ -362,6 +373,7 @@ test(
     expect(create.mock.calls[0]?.[0].fecha_atencion).toMatch(/^\d{4}-\d{2}-\d{2}T/)
     expect(create.mock.calls[0]?.[0]).not.toHaveProperty('condicion')
     expect(wrapper.text()).toContain('Atención guardada')
+    expect(wrapper.findComponent(NutritionFollowupPanel).exists()).toBe(false)
     expect(wrapper.get('input[value="PUERPERAS"]').attributes('disabled')).toBeDefined()
     expect(listByPatient).toHaveBeenCalledTimes(2)
     await wrapper.setProps({ admission: false })
