@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from types import SimpleNamespace
 
@@ -7,6 +7,14 @@ from pydantic import ValidationError
 
 from app.schemas.fua_print import FuaPrintInput, FuaPrintSnapshot
 from app.services.fua_print import build_fua_snapshot
+
+
+def test_snapshot_converts_utc_encounter_time_to_lima_before_selecting_print_date():
+    attention, patient, site, professional = fixtures()
+    attention.fecha_atencion = datetime(2026, 10, 20, 2, 30, tzinfo=UTC)
+    result = build_fua_snapshot(attention, patient, site, professional, None)
+    assert result["fecha_atencion"] == "2026-10-19"
+    assert result["hora_atencion"] == "21:30:00"
 
 
 def fixtures():
@@ -187,8 +195,10 @@ def test_referral_snapshot_retains_origin_for_reprinting():
     a, p, s, professional = fixtures()
     a.modalidad_atencion_codigo = "REFERENCIA"
     supplement = FuaPrintInput(
-        tipo_atencion="REFERENCIA", referencia_renipress="00001234",
-        referencia_nombre=" ipress origen ", referencia_hoja=" ref-0001 ",
+        tipo_atencion="REFERENCIA",
+        referencia_renipress="00001234",
+        referencia_nombre=" ipress origen ",
+        referencia_hoja=" ref-0001 ",
     )
     result = build_fua_snapshot(a, p, s, professional, supplement)
     assert result["tipo_atencion"] == "REFERENCIA"
@@ -203,8 +213,10 @@ def test_referral_snapshot_without_an_attending_clinician_keeps_signature_fields
     a, p, s, _ = fixtures()
     a.modalidad_atencion_codigo = "REFERENCIA"
     supplement = FuaPrintInput(
-        tipo_atencion="REFERENCIA", referencia_renipress="00001234",
-        referencia_nombre="IPRESS ORIGEN", referencia_hoja="REF-0001",
+        tipo_atencion="REFERENCIA",
+        referencia_renipress="00001234",
+        referencia_nombre="IPRESS ORIGEN",
+        referencia_hoja="REF-0001",
     )
     result = build_fua_snapshot(a, p, s, None, supplement)
     assert result["tipo_atencion"] == "REFERENCIA"

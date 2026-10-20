@@ -1,0 +1,86 @@
+
+> ipress-frontend@0.1.0 build
+> run-p type-check "build-only {@}" --
+
+
+> ipress-frontend@0.1.0 type-check
+> vue-tsc --build
+
+
+> ipress-frontend@0.1.0 build-only
+> vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2060 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                      0.87 kB │ gzip:   0.40 kB
+dist/assets/essalud-CNM53ItT.png                    14.85 kB
+dist/assets/fua-v02-referencia-DN3yAe_b.png        116.24 kB
+dist/assets/CambiarContrasenaView-Ca89jihW.css       0.17 kB │ gzip:   0.11 kB
+dist/assets/AuditoriaView-DJ8tXSML.css               0.17 kB │ gzip:   0.14 kB
+dist/assets/ResponsibleDialog-CoEl9Kxh.css           0.19 kB │ gzip:   0.14 kB
+dist/assets/GruposEtariosView-41AHQVUr.css           0.50 kB │ gzip:   0.23 kB
+dist/assets/patientDocument-CGFxVnw2.css             0.80 kB │ gzip:   0.39 kB
+dist/assets/AtencionDetalleView-DSQMkS5f.css         0.96 kB │ gzip:   0.42 kB
+dist/assets/calendarAge-Qjw4r8L1.css                 1.41 kB │ gzip:   0.52 kB
+dist/assets/ConsultoriosView-BqCbXLZ0.css            1.53 kB │ gzip:   0.50 kB
+dist/assets/localitySelection-JwFmpcHq.css           1.70 kB │ gzip:   0.60 kB
+dist/assets/PersonalView-PH9MFQ99.css                1.77 kB │ gzip:   0.51 kB
+dist/assets/DashboardView-Bra12FVt.css               2.71 kB │ gzip:   0.87 kB
+dist/assets/FuaPrintDialog-DSLrosH3.css              3.07 kB │ gzip:   1.01 kB
+dist/assets/LoginView-c5s_m32l.css                   3.60 kB │ gzip:   1.19 kB
+dist/assets/PacienteDetalleView-Dw6WKtBM.css         3.71 kB │ gzip:   0.97 kB
+dist/assets/AppLayout-BQn1zh_q.css                   7.05 kB │ gzip:   1.50 kB
+dist/assets/PacienteNuevoView-Bdc4fPmC.css           8.69 kB │ gzip:   1.53 kB
+dist/assets/LaboratorioView-DFb8pAtB.css             9.80 kB │ gzip:   2.00 kB
+dist/assets/AdmisionView-D0mN4l1v.css               24.91 kB │ gzip:   4.00 kB
+dist/assets/index-CyjdbSHV.css                     360.28 kB │ gzip:  48.04 kB
+dist/assets/topbar-CzCz78BD.js                       0.04 kB │ gzip:   0.06 kB
+dist/assets/_plugin-vue_export-helper-BDNMzG2s.js    0.08 kB │ gzip:   0.09 kB
+dist/assets/password-BV3LcbVR.js                     0.15 kB │ gzip:   0.15 kB
+dist/assets/pregnancy-CapJt-MM.js                    0.17 kB │ gzip:   0.16 kB
+dist/assets/careGroup-DXOfKyb9.js                    0.18 kB │ gzip:   0.18 kB
+dist/assets/usePacienteSeleccionado-B5BQDJTV.js      0.22 kB │ gzip:   0.18 kB
+dist/assets/officeHierarchy-DmZNspXU.js              0.48 kB │ gzip:   0.29 kB
+dist/assets/rolldown-runtime-hePW80VL.js             0.71 kB │ gzip:   0.42 kB
+dist/assets/pacientes-DWCz658M.js                    0.80 kB │ gzip:   0.28 kB
+dist/assets/atenciones-Vs44oj-6.js                   1.06 kB │ gzip:   0.36 kB
+dist/assets/RiskGroupSelect-Cdf_4AOj.js              1.07 kB │ gzip:   0.61 kB
+dist/assets/AuditoriaView-AzZLILA6.js                1.24 kB │ gzip:   0.77 kB
+dist/assets/catalogos-l3a5AB23.js                    1.52 kB │ gzip:   0.60 kB
+dist/assets/CambiarContrasenaView-DBIJ_rAR.js        3.42 kB │ gzip:   1.33 kB
+dist/assets/GruposEtariosView-BSVo09m3.js            4.42 kB │ gzip:   1.69 kB
+dist/assets/LoginView-DHH244Zx.js                    5.01 kB │ gzip:   2.16 kB
+dist/assets/AppLayout-DVKpqtOU.js                    7.13 kB │ gzip:   2.87 kB
+dist/assets/DashboardView-DpeZb9b2.js                7.32 kB │ gzip:   3.12 kB
+dist/assets/localitySelection-CElao-nF.js            8.33 kB │ gzip:   3.24 kB
+dist/assets/calendarAge-Cgq7QnAI.js                  8.66 kB │ gzip:   3.57 kB
+dist/assets/patientDocument-BsCn-v0V.js              9.06 kB │ gzip:   6.00 kB
+dist/assets/PacienteDetalleView-Blf-WDRS.js          9.78 kB │ gzip:   3.37 kB
+dist/assets/ResponsibleDialog-DxaP4Lvs.js            9.79 kB │ gzip:   2.95 kB
+dist/assets/fuaPrint-BFN_-dlP.js                    12.35 kB │ gzip:   5.06 kB
+dist/assets/runtime-dom.esm-bundler-Dq9ul2jo.js     14.84 kB │ gzip:   6.36 kB
+dist/assets/ConsultoriosView-DU93B3Qh.js            21.08 kB │ gzip:   6.09 kB
+dist/assets/PacienteNuevoView-DpUyhr6b.js           21.66 kB │ gzip:   6.05 kB
+dist/assets/AtencionDetalleView-DuHdNtzU.js         22.89 kB │ gzip:   6.93 kB
+dist/assets/PersonalView-Bn2yZVqR.js                24.25 kB │ gzip:   6.46 kB
+dist/assets/FuaPrintDialog-DWr5Z_zA.js              24.53 kB │ gzip:   8.84 kB
+dist/assets/purify.es-B7SQ8EAD.js                   29.07 kB │ gzip:  11.45 kB
+dist/assets/LaboratorioView-C1EsDBj5.js             41.82 kB │ gzip:  13.08 kB
+dist/assets/message-BNPoJ28i.js                     48.74 kB │ gzip:  18.99 kB
+dist/assets/AdmisionView-BalPJJ5V.js                59.10 kB │ gzip:  16.56 kB
+dist/assets/runtime-core.esm-bundler-Bxf39hhW.js    67.86 kB │ gzip:  26.56 kB
+dist/assets/index.es-D34libpW.js                   151.44 kB │ gzip:  48.91 kB
+dist/assets/dist-DcmAZ3oj.js                       170.79 kB │ gzip:  43.36 kB
+dist/assets/html2canvas-Dn6bw578.js                199.49 kB │ gzip:  46.77 kB
+dist/assets/jspdf.es.min-BocuXrtr.js               399.06 kB │ gzip: 129.62 kB
+dist/assets/index-OSBJHAXo.js                      925.82 kB │ gzip: 296.85 kB
+
+✓ built in 3.44s
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

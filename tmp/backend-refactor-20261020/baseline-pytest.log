@@ -1,0 +1,358 @@
+.......................................F.F.............................. [ 11%]
+.................................................F...................... [ 22%]
+..........F....F.....F.................................................. [ 33%]
+........................................................................ [ 44%]
+........................................................................ [ 55%]
+........................................................................ [ 66%]
+........................................................................ [ 77%]
+........................................................................ [ 88%]
+........................................................................ [ 99%]
+....                                                                     [100%]
+================================== FAILURES ===================================
+_____________ test_simple_catalogs_return_seeded_reference_values _____________
+
+clinic_scene = ClinicScene(admin_client=<starlette.testclient.TestClient object at 0x00000220309852E0>, professional_client=<starlett..._id=121, establecimiento_id=45, consultorio_id=87, ubigeo_codigo='900076', codigo_renaes='00900077', suffix='92dd4a55')
+catalog_rows = {'token': '99C12529'}, api_prefix = '/api/v1'
+
+    def test_simple_catalogs_return_seeded_reference_values(
+        clinic_scene, catalog_rows: dict[str, str], api_prefix
+    ) -> None:
+        expected = {
+            "/catalogos/tipos-documento": {"DNI", "CE", "PAS"},
+            "/catalogos/sexos": {"F", "M", "I"},
+            "/catalogos/modalidades-atencion": {"AMBULATORIA", "EMERGENCIA"},
+        }
+        for path, codes in expected.items():
+            response = clinic_scene.admin_client.get(f"{api_prefix}{path}")
+            assert response.status_code == 200, path
+            body = response.json()
+            assert codes <= {item["codigo"] for item in body}, path
+            assert all(set(item) == {"codigo", "nombre", "activo"} for item in body), path
+            assert all(item["activo"] is True for item in body), path
+    
+        specialties = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/especialidades")
+        assert specialties.status_code == 200
+        assert {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"} == set(specialties.json()[0])
+    
+        risk_groups = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/grupos-riesgo")
+        assert risk_groups.status_code == 200
+>       assert {"id", "codigo", "nombre", "activo", "descripcion"} == set(risk_groups.json()[0])
+E       AssertionError: assert {'activo', 'c...id', 'nombre'} == {'activo', 'c...mbre', 'tipo'}
+E         
+E         Extra items in the right set:
+E         'tipo'
+E         Use -v to get more diff
+
+tests\integration\test_mysql_catalogs.py:69: AssertionError
+________________ test_paginated_catalogs_accept_a_search_term _________________
+
+clinic_scene = ClinicScene(admin_client=<starlette.testclient.TestClient object at 0x0000022030932A50>, professional_client=<starlett..._id=123, establecimiento_id=47, consultorio_id=89, ubigeo_codigo='900080', codigo_renaes='00900081', suffix='08265e6e')
+catalog_rows = {'token': '88A4E0EC'}, api_prefix = '/api/v1'
+
+    def test_paginated_catalogs_accept_a_search_term(
+        clinic_scene, catalog_rows: dict[str, str], api_prefix
+    ) -> None:
+        token = catalog_rows["token"]
+        # ``especialidades`` and ``grupos-riesgo`` are complete lists: they are
+        # short enough to render every option at once.
+        list_cases = {
+            "/catalogos/especialidades": (f"Especialidad {token}", {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"}),
+            "/catalogos/grupos-riesgo": (
+                f"Riesgo {token}",
+                {"id", "codigo", "nombre", "activo", "descripcion"},
+            ),
+        }
+        for path, (term, shape) in list_cases.items():
+            listed = clinic_scene.admin_client.get(f"{api_prefix}{path}")
+            assert listed.status_code == 200, listed.text
+            matches = [item for item in listed.json() if term.split()[-1] in str(item)]
+            assert matches, f"{path} no expone '{term}'"
+>           assert set(matches[0]) == shape
+E           AssertionError: assert {'activo', 'c...mbre', 'tipo'} == {'activo', 'c...id', 'nombre'}
+E             
+E             Extra items in the left set:
+E             'tipo'
+E             Use -v to get more diff
+
+tests\integration\test_mysql_catalogs.py:122: AssertionError
+_______ test_single_patient_age_lifecycle_preserves_encounter_snapshots _______
+
+clinic_scene = ClinicScene(admin_client=<starlette.testclient.TestClient object at 0x0000022031291430>, professional_client=<starlett...d=207, establecimiento_id=128, consultorio_id=169, ubigeo_codigo='900240', codigo_renaes='00900241', suffix='540ded34')
+create_patient = <function create_patient.<locals>.factory at 0x00000220312BDB20>
+db_session = <sqlalchemy.orm.session.Session object at 0x000002202F6D8B90>
+api_prefix = '/api/v1'
+
+    def test_single_patient_age_lifecycle_preserves_encounter_snapshots(
+        clinic_scene,
+        create_patient,
+        db_session,
+        api_prefix,
+    ):
+        scene = clinic_scene
+        client = scene.professional_client
+        birth = date(1950, 1, 15)
+        patient = create_patient(
+            client,
+            tipo_documento_codigo="DNI",
+            numero_documento="65000002",
+            fecha_nacimiento=birth.isoformat(),
+            fecha_inscripcion=birth.isoformat(),
+            primer_nombre="PACIENTE",
+            apellido_paterno="CICLO ETARIO",
+            sexo_codigo="M",
+            condicion="NIÑO",
+            establecimiento_registro_id=scene.establecimiento_id,
+            responsables=[
+                {
+                    "parentesco": "MADRE",
+                    "nombre_completo": "MADRE HISTORICA",
+                    "es_principal": True,
+                }
+            ],
+        )
+        stages = [
+            (3, "NINO", "INFANTIL", "CONTROL CRED", "AMBULATORIA", "15.00", "95.00"),
+            (
+                15,
+                "ADOLESCENTE",
+                "ESCOLAR",
+                "CONSULTA ADOLESCENTE",
+                "EMERGENCIA",
+                "50.00",
+                "160.00",
+            ),
+            (25, "JOVEN", "ADULTO", "CONSULTA JOVEN", "AMBULATORIA", "60.00", "165.00"),
+            (40, "ADULTO", "ADULTO", "CONTROL ADULTO", "AMBULATORIA", "70.00", "165.00"),
+            (
+                65,
+                "ADULTO_MAYOR",
+                "ADULTO_MAYOR",
+                "CONTROL ADULTO MAYOR",
+                "EMERGENCIA",
+                "68.00",
+                "165.00",
+            ),
+        ]
+        created = []
+        for years, age_group, reference_group, reason, mode, weight, height in stages:
+            encounter_date = birth.replace(year=birth.year + years)
+            payload = _payload(scene, patient, mode=mode)
+            payload.update(
+                fecha_atencion=datetime.combine(encounter_date, datetime.min.time()).isoformat(),
+                peso_kg=weight,
+                talla_cm=height,
+                observaciones=reason,
+            )
+            response = client.post(f"{api_prefix}/atenciones", json=payload)
+>           assert response.status_code == 201, response.text
+E           AssertionError: {"error":{"code":"PROFESIONAL_NO_ASIGNADO","message":"Seleccione un profesional asignado y vigente en esa fecha.","details":null,"request_id":"db07691481524fe7aba3e3a0d1fab89b"}}
+E           assert 422 == 201
+E            +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+
+tests\integration\test_mysql_nutrition_records.py:488: AssertionError
+___________ test_seed_demo_data_builds_a_repeatable_clinical_scene ____________
+
+_script_sessions = None
+db_session = <sqlalchemy.orm.session.Session object at 0x00000220315A2BA0>
+
+    def test_seed_demo_data_builds_a_repeatable_clinical_scene(
+        _script_sessions: None, db_session: Session
+    ) -> None:
+>       identifiers = seed_demo_data()
+
+tests\integration\test_mysql_scripts.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+app\scripts\seed_demo_data.py:1077: in seed_demo_data
+    identifiers = _seed_demo_encounters(
+app\scripts\seed_demo_data.py:873: in _seed_demo_encounters
+    document_id = _issue_demo_document(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+session = <sqlalchemy.orm.session.Session object at 0x00000220315A1460>
+documents = <app.services.document.DocumentService object at 0x0000022030B66B10>
+
+    def _issue_demo_document(
+        session: Session,
+        documents: DocumentService,
+        *,
+        encounter: DemoEncounter,
+        attention_id: int,
+        destination: Establishment,
+        actor_id: int,
+    ) -> int | None:
+        """Issue the encounter document once, returning its id when it exists."""
+    
+        kind = encounter.document
+        if kind is None:
+            return None
+        roles = ("PROFESIONAL",)
+        if kind == "FUA":
+            existing = session.scalar(select(Fua).where(Fua.atencion_id == attention_id))
+            if existing is not None:
+                return existing.id
+            issued = documents.issue_fua(
+>               FuaIssueInput(
+                    atencion_id=attention_id,
+                    codigo_ciudad="AREQUIPA",
+                    codigo_eess="DEMO-0001",
+                    observaciones="FUA ficticio cargado por seed_demo_data.",
+                ),
+                actor_id=actor_id,
+                actor_roles=roles,
+            )
+E           pydantic_core._pydantic_core.ValidationError: 2 validation errors for FuaIssueInput
+E           codigo_ciudad
+E             Extra inputs are not permitted [type=extra_forbidden, input_value='AREQUIPA', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden
+E           codigo_eess
+E             Extra inputs are not permitted [type=extra_forbidden, input_value='DEMO-0001', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden
+
+app\scripts\seed_demo_data.py:751: ValidationError
+________________________ test_seed_cli_default_branch _________________________
+
+_script_sessions = None
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002202F627320>
+capsys = <_pytest.capture.CaptureFixture object at 0x00000220311F1310>
+
+    def test_seed_cli_default_branch(
+        _script_sessions: None,
+        monkeypatch: pytest.MonkeyPatch,
+        capsys: pytest.CaptureFixture[str],
+    ) -> None:
+        monkeypatch.setattr(sys, "argv", ["seed_demo_data"])
+>       seed_module.main()
+
+tests\integration\test_mysql_scripts.py:316: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+app\scripts\seed_demo_data.py:1169: in main
+    identifiers = seed_demo_data()
+app\scripts\seed_demo_data.py:1077: in seed_demo_data
+    identifiers = _seed_demo_encounters(
+app\scripts\seed_demo_data.py:873: in _seed_demo_encounters
+    document_id = _issue_demo_document(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+session = <sqlalchemy.orm.session.Session object at 0x00000220315A1010>
+documents = <app.services.document.DocumentService object at 0x0000022031220680>
+
+    def _issue_demo_document(
+        session: Session,
+        documents: DocumentService,
+        *,
+        encounter: DemoEncounter,
+        attention_id: int,
+        destination: Establishment,
+        actor_id: int,
+    ) -> int | None:
+        """Issue the encounter document once, returning its id when it exists."""
+    
+        kind = encounter.document
+        if kind is None:
+            return None
+        roles = ("PROFESIONAL",)
+        if kind == "FUA":
+            existing = session.scalar(select(Fua).where(Fua.atencion_id == attention_id))
+            if existing is not None:
+                return existing.id
+            issued = documents.issue_fua(
+>               FuaIssueInput(
+                    atencion_id=attention_id,
+                    codigo_ciudad="AREQUIPA",
+                    codigo_eess="DEMO-0001",
+                    observaciones="FUA ficticio cargado por seed_demo_data.",
+                ),
+                actor_id=actor_id,
+                actor_roles=roles,
+            )
+E           pydantic_core._pydantic_core.ValidationError: 2 validation errors for FuaIssueInput
+E           codigo_ciudad
+E             Extra inputs are not permitted [type=extra_forbidden, input_value='AREQUIPA', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden
+E           codigo_eess
+E             Extra inputs are not permitted [type=extra_forbidden, input_value='DEMO-0001', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.10/v/extra_forbidden
+
+app\scripts\seed_demo_data.py:751: ValidationError
+_______ test_verified_sites_expose_district_from_the_persisted_catalog ________
+
+clinic_scene = ClinicScene(admin_client=<starlette.testclient.TestClient object at 0x0000022030985C40>, professional_client=<starlett...d=238, establecimiento_id=159, consultorio_id=203, ubigeo_codigo='900300', codigo_renaes='00900301', suffix='175edfe3')
+api_prefix = '/api/v1'
+
+    def test_verified_sites_expose_district_from_the_persisted_catalog(clinic_scene, api_prefix):
+        response = clinic_scene.professional_client.get(
+            f"{api_prefix}/catalogos/establecimientos", params={"limit": 100}
+        )
+        assert response.status_code == 200
+        verified = {"1291", "1300", "1301", "1302", "1303", "1304"}
+        sites = [row for row in response.json()["items"] if row["codigo_renaes"] in verified]
+>       assert len(sites) == 6
+E       AssertionError: assert 1 == 6
+E        +  where 1 = len([{'abreviatura': None, 'activo': True, 'codigo_ideess': '1291', 'codigo_renaes': '1291', ...}])
+
+tests\integration\test_mysql_territory_history.py:270: AssertionError
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                                      Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------
+app\api\router.py                            33      1      4      1    95%   66
+app\controllers\catalog.py                   67      5      0      0    93%   53, 58, 63, 105, 187
+app\core\config.py                          122     12     32     11    85%   150, 158, 160, 168, 176, 183, 189-190, 194, 201, 211, 215, 230->232
+app\core\dependencies.py                     56      1     12      1    97%   80
+app\core\security.py                         91      3     30      3    95%   40, 157, 200
+app\domain\age.py                            42      1     10      1    96%   49
+app\domain\clinical.py                       41      0      6      1    98%   23->exit
+app\domain\nutrition.py                     158      7     84      7    94%   69, 125, 136, 161, 194, 223, 302
+app\domain\nutrition_followup.py             37      1     22      1    97%   87
+app\main.py                                  71      1     22      5    94%   57->56, 82->85, 100, 117->126, 142->145
+app\mappers\age_group.py                     27      1     10      2    92%   29->32, 43
+app\mappers\attention.py                     15      1      4      1    89%   103
+app\mappers\catalog.py                       42      5      0      0    88%   49, 70, 114, 164-165
+app\mappers\patient.py                       32      1      2      1    94%   91
+app\repositories\attention.py                81      1     14      3    96%   92->100, 97->99, 256
+app\repositories\catalog.py                 123     24     26      9    75%   54, 57, 60, 80->89, 103-115, 119->128, 137-138, 164->166, 167-168, 203, 219->228, 246-269, 280->282, 283-284
+app\repositories\discovery.py                98      1     36      2    98%   212, 229->238
+app\repositories\document.py                 56      4      6      3    89%   23->25, 29->31, 39, 84, 93, 103
+app\repositories\office.py                   82      3     24      7    91%   44->46, 58->60, 124->126, 143->145, 165, 179, 183
+app\repositories\patient.py                 121      4     24      4    93%   49->51, 115->117, 234->236, 251-258, 273->275
+app\repositories\professional.py             36      2      4      1    92%   33, 51
+app\repositories\user.py                     48      1     10      3    93%   36->38, 63, 98->100
+app\schemas\age_group.py                     54      3     10      3    91%   83, 89, 119
+app\schemas\attention.py                    213      3     26      3    97%   190, 192, 203
+app\schemas\auth.py                          97      2     12      2    96%   70, 91
+app\schemas\discovery.py                     46      2     10      2    93%   68, 72
+app\schemas\document.py                      93      2      4      2    96%   54, 76
+app\schemas\office.py                        79      1      2      1    98%   41
+app\schemas\patient.py                      219      5     16      4    96%   55, 93, 98, 118, 139
+app\schemas\professional.py                  60      3      6      3    91%   30, 32, 34
+app\scripts\bootstrap_database.py            40      3      6      0    93%   84-86
+app\scripts\create_professional_user.py      58     13     16      7    70%   31-41, 51, 66, 74, 79, 85, 115-117, 139
+app\scripts\import_who2007.py                79     79     28      0     0%   7-111
+app\scripts\repair_patient_data.py          133     71     62      2    45%   99, 123-134, 174->165, 185-240, 246, 258-259, 266-309
+app\scripts\reset_demo_database.py           68      1     20      2    97%   45, 133->135
+app\scripts\seed_demo_data.py               271     48     86     22    78%   528, 542, 553, 563, 578, 632-633, 673, 699, 744, 749, 760-801, 881-883, 909-915, 917-918, 962, 978, 988, 1049-1051, 1053, 1087, 1118, 1130, 1144-1146, 1170, 1174-1175
+app\services\age_group.py                    67      4     24      5    90%   71->80, 89, 105, 113, 119
+app\services\attention.py                   255     18    100     16    90%   68, 116, 261-262, 291, 296, 367, 404, 413, 422, 428, 443, 529, 556, 583, 585, 591, 597
+app\services\auth.py                        138     18     24      4    85%   75-82, 89-97, 113-114, 166-168, 210-212, 281-283
+app\services\catalog.py                      67      7      2      0    90%   67, 73, 76, 108-111, 185-188
+app\services\document.py                    145     14     42      8    88%   86, 130-131, 167, 214-215, 274-275, 301, 306, 311, 332, 335, 341
+app\services\fua_print.py                    30      1      8      1    95%   52
+app\services\nutrition_export.py             66      1     18      1    98%   18
+app\services\office.py                      205     32     84     26    79%   98-100, 106, 122, 130, 136-137, 149, 189, 197, 204, 210, 215, 220, 239, 247, 265, 274, 298->exit, 330, 343->345, 347, 353, 358, 365, 385, 389->401, 394-399, 419-420, 438, 450
+app\services\patient.py                     441     37    174     26    89%   61->exit, 93, 203-205, 452-457, 468, 566, 587, 621-622, 692, 698, 720, 722, 780, 817, 820, 823, 832, 855, 860, 871, 878, 883, 914, 946, 971, 979, 1098, 1122-1125, 1154-1160
+app\services\professional.py                118      5     24      3    94%   73-75, 150, 215, 231->exit
+app\services\user.py                        149     24     40      9    83%   93-94, 107-108, 115-116, 143-144, 176-177, 210-212, 225->234, 237-245, 257->266, 267-269, 305, 329
+-------------------------------------------------------------------------------------
+TOTAL                                      6480    477   1336    219    90%
+
+58 files skipped due to complete coverage.
+FAIL Required test coverage of 90.0% not reached. Total coverage: 89.97%
+=========================== short test summary info ===========================
+FAILED tests/integration/test_mysql_catalogs.py::test_simple_catalogs_return_seeded_reference_values
+FAILED tests/integration/test_mysql_catalogs.py::test_paginated_catalogs_accept_a_search_term
+FAILED tests/integration/test_mysql_nutrition_records.py::test_single_patient_age_lifecycle_preserves_encounter_snapshots
+FAILED tests/integration/test_mysql_scripts.py::test_seed_demo_data_builds_a_repeatable_clinical_scene
+FAILED tests/integration/test_mysql_scripts.py::test_seed_cli_default_branch
+FAILED tests/integration/test_mysql_territory_history.py::test_verified_sites_expose_district_from_the_persisted_catalog
+6 failed, 646 passed in 329.28s (0:05:29)

@@ -13,13 +13,11 @@ from typing import Any
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.domain.office import office_context
 from app.models.catalog import DocumentType, Ethnicity, FamilyHistoryPrefix, Insurance, Sex
-from app.models.clinical import Attention
-from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
+from app.models.organization import Establishment, Localidad, Ubigeo
 from app.models.patient import Patient, PatientResponsible, PatientRisk, RiskGroup
-from app.models.security import Professional, User
-from app.repositories.attention_scope import recorded_referral
+from app.repositories.attention_scope import patient_visibility
+from app.repositories.clinical_access import ClinicalAccessRepository
 
 
 class PatientRepository:
@@ -51,6 +49,19 @@ class PatientRepository:
         if for_update:
             statement = statement.with_for_update()
         return self._session.execute(statement).unique().scalar_one_or_none()
+
+    def load_snapshot_relations(self, patient_id: int) -> None:
+        """Populate projection inputs on the same locked patient identity."""
+        self._session.execute(
+            select(Patient)
+            .where(Patient.id == patient_id)
+            .options(
+                selectinload(Patient.insurance),
+                selectinload(Patient.ubigeo_residencia),
+                selectinload(Patient.localidad_catalogo),
+                selectinload(Patient.establecimiento_registro),
+            )
+        ).scalar_one()
 
     def find_by_document(
         self,
@@ -124,18 +135,7 @@ class PatientRepository:
         return self._session.execute(statement).scalar_one_or_none()
 
     def get_active_professional_id_for_user(self, user_id: int) -> int | None:
-        """Resolve the current user's active clinical identity from persistence."""
-
-        statement = (
-            select(User.profesional_id)
-            .join(Professional, Professional.id == User.profesional_id)
-            .where(
-                User.id == user_id,
-                User.activo.is_(True),
-                Professional.activo.is_(True),
-            )
-        )
-        return self._session.scalar(statement)
+        return ClinicalAccessRepository(self._session).professional_id(user_id)
 
     def get_active_establishment_ids_for_professional(
         self,
@@ -143,33 +143,9 @@ class PatientRepository:
         *,
         on_date: date | None = None,
     ) -> set[int]:
-        """Return sites where the professional has a currently valid office assignment."""
-
-        reference_date = on_date or date.today()
-        statement = (
-            select(Office)
-            .join(
-                OfficeProfessional,
-                OfficeProfessional.consultorio_id == Office.id,
-            )
-            .join(Establishment, Establishment.id == Office.establecimiento_id)
-            .where(
-                OfficeProfessional.profesional_id == professional_id,
-                OfficeProfessional.fecha_inicio <= reference_date,
-                or_(
-                    OfficeProfessional.fecha_fin.is_(None),
-                    OfficeProfessional.fecha_fin >= reference_date,
-                ),
-                Office.activo.is_(True),
-                Establishment.activo.is_(True),
-            )
-            .distinct()
+        return ClinicalAccessRepository(self._session).establishment_ids(
+            professional_id, on_date=on_date
         )
-        return {
-            item.establecimiento_id
-            for item in self._session.scalars(statement)
-            if office_context(item).active and item.establecimiento.activo
-        }
 
     def is_patient_in_professional_scope(
         self,
@@ -189,27 +165,10 @@ class PatientRepository:
         browsing by identifier.
         """
 
-        care_relationship = (
-            select(Attention.id)
-            .where(
-                Attention.paciente_id == patient_id,
-                or_(
-                    Attention.profesional_id == professional_id, recorded_referral(professional_id)
-                ),
-                Attention.estado != "ANULADO",
-            )
-            .exists()
-        )
-        scope_conditions = [
-            care_relationship,
-            Patient.profesional_registro_id == professional_id,
-        ]
-        if establishment_ids:
-            scope_conditions.append(Patient.establecimiento_registro_id.in_(establishment_ids))
         statement = select(Patient.id).where(
             Patient.id == patient_id,
             Patient.estado.is_(True),
-            or_(*scope_conditions),
+            patient_visibility(professional_id, establishment_ids),
         )
         return self._session.scalar(statement) is not None
 

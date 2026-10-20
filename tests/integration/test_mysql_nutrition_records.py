@@ -9,6 +9,7 @@ from sqlalchemy import func, select
 
 from app.models.audit import AuditLog
 from app.models.clinical import Attention
+from app.models.organization import OfficeProfessional
 from app.models.patient import PatientResponsible
 from app.models.surveillance import NutritionalEvaluation
 
@@ -432,6 +433,13 @@ def test_single_patient_age_lifecycle_preserves_encounter_snapshots(
     scene = clinic_scene
     client = scene.professional_client
     birth = date(1950, 1, 15)
+    # Historical encounters require an assignment valid on their original dates.
+    assignment = db_session.scalar(select(OfficeProfessional).where(
+        OfficeProfessional.consultorio_id == scene.consultorio_id,
+        OfficeProfessional.profesional_id == scene.profesional_id,
+    ))
+    assignment.fecha_inicio = birth
+    db_session.commit()
     patient = create_patient(
         client,
         tipo_documento_codigo="DNI",

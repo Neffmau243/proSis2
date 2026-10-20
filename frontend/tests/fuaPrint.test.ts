@@ -592,3 +592,50 @@ test('sin afiliación, las tres casillas SIS permanecen vacías', () => {
   const values = fuaValues({ ...snapshot, sis_diresa: null, sis_tipo: null, sis_numero: null })
   expect([values.sis_diresa, values.sis_tipo, values.sis_numero]).toEqual(['', '', ''])
 })
+
+test('REF.Lab distingue el FUA de laboratorio y usa la fecha guardada, en ambas salidas', () => {
+  const values = {
+    primer_nombre: 'ANA',
+    otros_nombres: 'MARÍA',
+    apellido_paterno: 'PRUEBA',
+    fecha_atencion: '2026-10-18T09:15:00',
+  }
+  for (const background of [undefined, '/reference.png']) {
+    const html = fuaPrintHtml(defaultFuaLayout(), values, false, background, 0, 'REF.Lab')
+    expect(new DOMParser().parseFromString(html, 'text/html').title).toBe(
+      'REF.Lab-ANA MARÍA PRUEBA-2026-10-18',
+    )
+  }
+  expect(
+    new DOMParser().parseFromString(fuaPrintHtml(defaultFuaLayout(), values), 'text/html').title,
+  ).toBe('atencion-ANA MARÍA PRUEBA-2026-10-18')
+})
+
+test('REF.Lab se aplica al título del iframe y de la pestaña hasta terminar la impresión', async () => {
+  document.title = 'Laboratorio · Sistema de Salud IPRESS'
+  const { frame, print, addEventListener } = stubIframe()
+  const expected = 'REF.Lab-ANA PRUEBA-2026-10-18'
+  print.mockImplementation(() => {
+    expect(document.title).toBe(expected)
+  })
+  const pending = printFua(
+    { ...defaultFuaLayout(), calibrated: true },
+    {
+      primer_nombre: 'ANA',
+      apellido_paterno: 'PRUEBA',
+      fecha_atencion: '2026-10-18',
+    },
+    false,
+    undefined,
+    0,
+    'REF.Lab',
+  )
+  frame.onload?.(new Event('load'))
+  await pending
+  expect(print).toHaveBeenCalledOnce()
+  expect(frame.srcdoc).toContain(`<title>${expected}</title>`)
+  expect(document.title).toBe(expected)
+  const [, afterprint] = addEventListener.mock.calls[0] as [string, () => void]
+  afterprint()
+  expect(document.title).toBe('Laboratorio · Sistema de Salud IPRESS')
+})

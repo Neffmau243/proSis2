@@ -192,6 +192,15 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-pagination
+            v-if="can('ATENCION_LEER')"
+            layout="total, prev, pager, next"
+            :page-size="attentionLimit"
+            :total="attentionTotal"
+            :current-page="attentionPage"
+            :disabled="atencionesLoading"
+            @current-change="loadAtenciones"
+          />
         </el-tab-pane>
       </el-tabs>
     </el-card>
@@ -236,6 +245,7 @@ import {
 } from '@/services/pacientes'
 import { atenciones, type Attention } from '@/services/atenciones'
 import { careGroupLabel } from '@/utils/careGroup'
+import { usePagination } from '@/composables/usePagination'
 
 const route = useRoute()
 const router = useRouter()
@@ -244,7 +254,7 @@ const patientId = Number(route.params.id)
 
 const patient = ref<Patient | null>(null)
 const loading = ref(false)
-const activeTab = ref('datos')
+const activeTab = ref(route.query.tab === 'atenciones' ? 'atenciones' : 'datos')
 
 const tiposDocumento = ref<CodeCatalogItem[]>([])
 const sexos = ref<CodeCatalogItem[]>([])
@@ -254,6 +264,13 @@ const gruposRiesgo = ref<RiskGroupCatalogItem[]>([])
 
 const atencionesList = ref<Attention[]>([])
 const atencionesLoading = ref(false)
+const {
+  limit: attentionLimit,
+  total: attentionTotal,
+  currentPage: attentionPage,
+  applyPage: applyAttentionPage,
+  goToPage: goToAttentionPage,
+} = usePagination(5)
 
 const responsibleDialog = ref(false)
 const editingResponsible = ref<PatientResponsible | null>(null)
@@ -314,13 +331,20 @@ async function reload(): Promise<void> {
   loadAtenciones()
 }
 
-async function loadAtenciones(): Promise<void> {
+async function loadAtenciones(page = 1): Promise<void> {
   // El ADMIN no tiene ATENCION_LEER: no se debe llamar a un endpoint que
   // el backend rechazará con 403. La pestaña se muestra igualmente vacía.
   if (!can('ATENCION_LEER')) return
   atencionesLoading.value = true
   try {
-    atencionesList.value = await atenciones.listByPatient(patientId)
+    const result = await atenciones.search({
+      paciente_id: patientId,
+      limit: attentionLimit.value,
+      offset: (page - 1) * attentionLimit.value,
+    })
+    atencionesList.value = result.items
+    applyAttentionPage(result)
+    goToAttentionPage(page)
   } catch {
     atencionesList.value = []
   } finally {

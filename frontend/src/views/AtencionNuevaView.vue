@@ -555,7 +555,10 @@
             :entries="historial"
             :loading="historialLoading"
             :error="historialError"
+            :all-loaded="historialAllLoaded"
             @refresh="loadHistorial"
+            @load-all="loadAllHistorial"
+            @show-recent="loadRecentHistorial"
           />
           <NutritionFollowupPanel v-if="!isAdmission && nutritionalPatient && latestFollowupAttention && !savedAttention"
             :patient="nutritionalPatient" :groups="gruposRiesgo"
@@ -572,6 +575,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onBeforeUnmount, reactive, ref, shallowRef, watch } from 'vue'
 import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
+import { useAttentionHistory } from '@/composables/useAttentionHistory'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 
 import AdmissionHistory from '@/components/admission/AdmissionHistory.vue'
@@ -598,7 +602,6 @@ import { useAuthStore } from '@/stores/auth'
 import { usePacienteSeleccionado } from '@/composables/usePacienteSeleccionado'
 import {
   atenciones,
-  type Attention,
   type AttentionCreatePayload,
   type CareGroupCode,
   type PregnancyTypeCode,
@@ -670,11 +673,6 @@ const profesionalesLoading = ref(false)
 const especialidades = ref<SpecialtyCatalogItem[]>([])
 const tiposDocumento = ref<CodeCatalogItem[]>([])
 const gruposRiesgo = ref<RiskGroupCatalogItem[]>([])
-const historial = ref<Attention[]>([])
-const latestFollowupAttention = computed(() => historial.value.find(entry => entry.estado === 'ATENDIDO' && entry.valoracion_calculada?.seguimiento))
-const historialLoading = ref(false)
-const historialError = shallowRef<string | null>(null)
-let historyRequest = 0
 
 const form = reactive({
   paciente_id: null as number | null,
@@ -767,6 +765,17 @@ const historialPatientId = computed(() =>
   isAdmission.value ? (admissionPatient.value?.id ?? null) : form.paciente_id,
 )
 const showHistorial = computed(() => !initialLoading.value && historialPatientId.value !== null)
+
+const {
+  entries: historial,
+  loading: historialLoading,
+  error: historialError,
+  allLoaded: historialAllLoaded,
+  refresh: loadHistorial,
+  showAll: loadAllHistorial,
+  showRecent: loadRecentHistorial,
+} = useAttentionHistory(historialPatientId)
+const latestFollowupAttention = computed(() => historial.value.find(entry => entry.estado === 'ATENDIDO' && entry.valoracion_calculada?.seguimiento))
 
 const nutritionalPatient = computed<Patient | null>(() =>
   isAdmission.value
@@ -971,31 +980,6 @@ async function loadConsultorios(): Promise<void> {
   }
 }
 
-async function loadHistorial(): Promise<void> {
-  const request = ++historyRequest
-  const patientId = historialPatientId.value
-  historialError.value = null
-  if (!patientId) {
-    historial.value = []
-    historialLoading.value = false
-    return
-  }
-  historialLoading.value = true
-  try {
-    const entries = await atenciones.listByPatient(patientId)
-    if (request === historyRequest) historial.value = entries
-  } catch (error) {
-    if (request === historyRequest) {
-      historialError.value =
-        error instanceof Error
-          ? error.message
-          : 'No se pudo cargar el historial. Pulse Refrescar para reintentar.'
-    }
-  } finally {
-    if (request === historyRequest) historialLoading.value = false
-  }
-}
-
 // Al cambiar el establecimiento, se recargan los consultorios de esa sede.
 // Conservamos el seleccionado si justamente fue él quien definió la sede.
 watch(
@@ -1018,7 +1002,6 @@ watch(
     if (selected && !isAdmission.value && !form.establecimiento_id) {
       applyPatientContext(selected)
     }
-    void loadHistorial()
   },
 )
 

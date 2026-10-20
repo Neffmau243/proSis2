@@ -33,8 +33,10 @@ export function laboratoryClinicalHtml(attention: Attention): string {
     ['Fecha', snapshot.fecha_atencion],
     ['Hora', snapshot.hora_atencion],
     ['Modalidad', attention.modalidad_atencion_codigo],
-    ['N.° de referencia', attention.numero_referencia_ingreso],
-    ['N.° de contrarreferencia', attention.numero_contrarreferencia_ingreso],
+    ['IPRESS de origen de la referencia', snapshot.referencia_nombre],
+    ['RENIPRESS de origen', snapshot.referencia_renipress],
+    ['N.° de referencia recibida', attention.numero_referencia_ingreso || snapshot.referencia_hoja],
+    ['N.° de contrarreferencia recibida', attention.numero_contrarreferencia_ingreso],
     [
       'Código SIS',
       [snapshot.sis_diresa, snapshot.sis_tipo, snapshot.sis_numero, snapshot.sis_secuencia]

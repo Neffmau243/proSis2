@@ -1,0 +1,23 @@
+........................................................................ [ 43%]
+........................................................................ [ 86%]
+...................F...                                                  [100%]
+================================== FAILURES ===================================
+_____________ test_establishment_catalog_exposes_its_own_district _____________
+
+clinic_scene = ClinicScene(admin_client=<starlette.testclient.TestClient object at 0x0000014191920FE0>, professional_client=<starlett...d=237, establecimiento_id=158, consultorio_id=202, ubigeo_codigo='900298', codigo_renaes='00900299', suffix='d56a7585')
+api_prefix = '/api/v1'
+
+    def test_establishment_catalog_exposes_its_own_district(clinic_scene, api_prefix):
+        response = clinic_scene.professional_client.get(
+            f"{api_prefix}/catalogos/establecimientos", params={"limit": 100}
+        )
+        assert response.status_code == 200
+>       site = next(
+            row for row in response.json()["items"] if row["id"] == clinic_scene.establecimiento_id
+        )
+E       StopIteration
+
+tests\integration\test_mysql_territory_history.py:237: StopIteration
+=========================== short test summary info ===========================
+FAILED tests/integration/test_mysql_territory_history.py::test_establishment_catalog_exposes_its_own_district
+1 failed, 166 passed in 250.09s (0:04:10)

@@ -15,6 +15,7 @@ from app.schemas.age_group import (
     AgeGroupRangeInput,
     AgeGroupResponse,
 )
+from app.services.age_group_resolver import AgeGroupResolver
 
 
 class AgeGroupService:
@@ -59,7 +60,9 @@ class AgeGroupService:
                     ),
                 )
 
-            self._validate_ranges(list(requested_by_code.values()), command.exigir_cobertura_continua)
+            self._validate_ranges(
+                list(requested_by_code.values()), command.exigir_cobertura_continua
+            )
             before = {group.codigo: self._snapshot(group) for group in groups}
             for code, item in requested_by_code.items():
                 entity = existing_by_code[code]
@@ -84,21 +87,15 @@ class AgeGroupService:
             raise
 
     def resolve(self, age_in_months: int) -> AgeGroup:
-        group = self._repository.find_matching_active(age_in_months)
-        if group is None:
-            raise BusinessRuleError(
-                code="GRUPO_ETARIO_NO_CONFIGURADO",
-                message="No existe un grupo etario activo para la edad calculada",
-            )
-        return group
+        return AgeGroupResolver(self._repository).resolve(age_in_months)
 
     @staticmethod
-    def _validate_ranges(
-        groups: list[AgeGroupRangeInput], require_continuity: bool
-    ) -> None:
+    def _validate_ranges(groups: list[AgeGroupRangeInput], require_continuity: bool) -> None:
         active = sorted(
             (group for group in groups if group.activo),
-            key=lambda group: group.edad_minima_meses if group.edad_minima_meses is not None else -1,
+            key=lambda group: (
+                group.edad_minima_meses if group.edad_minima_meses is not None else -1
+            ),
         )
         open_ended = [group for group in active if group.edad_maxima_meses is None]
         if len(open_ended) > 1:
@@ -125,10 +122,7 @@ class AgeGroupService:
                         code="RANGOS_ETARIOS_SUPERPUESTOS",
                         message=f"Los grupos {previous.codigo} y {group.codigo} se superponen",
                     )
-                if (
-                    require_continuity
-                    and group.edad_minima_meses != previous.edad_maxima_meses + 1
-                ):
+                if require_continuity and group.edad_minima_meses != previous.edad_maxima_meses + 1:
                     raise BusinessRuleError(
                         code="HUECO_RANGOS_ETARIOS",
                         message=f"Existe un hueco entre {previous.codigo} y {group.codigo}",

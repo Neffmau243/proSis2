@@ -102,3 +102,52 @@ def _age_display(entity: Attention) -> str | None:
     if patient is None or patient.fecha_nacimiento > entity.fecha_atencion.date():
         return f"{entity.edad_anios} años" if entity.edad_anios is not None else None
     return calendar_age(patient.fecha_nacimiento, entity.fecha_atencion).display
+
+
+def attention_from_command(
+    command, patient, age, age_group_code, indicators, assessment, actor_id
+) -> Attention:
+    """Map validated values; no reads, writes or clinical decisions happen here."""
+    return Attention(
+        paciente_id=patient.id,
+        numero_referencia_ingreso=command.numero_referencia_ingreso or None,
+        numero_contrarreferencia_ingreso=command.numero_contrarreferencia_ingreso or None,
+        establecimiento_id=command.establecimiento_id,
+        profesional_id=command.profesional_id,
+        especialidad_codigo=command.especialidad_codigo,
+        consultorio_id=command.consultorio_id,
+        modalidad_atencion_codigo=command.modalidad_atencion_codigo.value,
+        grupo_etario_codigo=age_group_code,
+        grupo_atencion_codigo=command.grupo_atencion_codigo.value,
+        fecha_atencion=command.fecha_atencion,
+        fecha_atendido=command.fecha_atendido,
+        historia_clinica_snapshot=patient.historia_clinica,
+        edad_anios=age.years,
+        peso_kg=command.peso_kg,
+        talla_cm=command.talla_cm,
+        perimetro_abdominal_cm=command.perimetro_abdominal_cm,
+        tipo_embarazo_codigo=(
+            command.tipo_embarazo_codigo.value if command.tipo_embarazo_codigo is not None else None
+        ),
+        peso_antes_embarazo_kg=command.peso_antes_embarazo_kg,
+        fecha_probable_parto=command.fecha_probable_parto,
+        fecha_parto=command.fecha_parto,
+        presion_sistolica=command.presion_sistolica,
+        presion_diastolica=command.presion_diastolica,
+        temperatura_c=command.temperatura_c,
+        imc=indicators.imc,
+        pe=format_indicator(indicators.pe),
+        te=format_indicator(indicators.te),
+        pt=format_indicator(indicators.pt),
+        referencia_nutricional=indicators.referencia,
+        valoracion_calculada=assessment.model_dump(mode="json"),
+        hora_inicio=command.hora_inicio,
+        hora_fin=command.hora_fin,
+        admision=command.admision,
+        observaciones=command.observaciones,
+        created_by_usuario_id=actor_id,
+    )
+
+
+def format_indicator(value):
+    return f"{value:.3f}" if value is not None else None

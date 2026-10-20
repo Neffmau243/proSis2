@@ -199,26 +199,33 @@ function changeDocumentType(value: string): void {
           </p>
         </div>
         <div class="lab-patient__field">
-          <label for="lab-reference-number">N.° referencia</label>
+          <label for="lab-reference-number" title="Número de la hoja con la que llega el paciente"
+            >N.° referencia recibida</label
+          >
           <el-input
             id="lab-reference-number"
             :model-value="reference"
             :readonly="disabled || saving || !patient"
             maxlength="50"
-            aria-label="N.° de referencia"
+            aria-label="N.° de referencia recibida"
+            aria-describedby="lab-received-documents-help"
             @update:model-value="emit('reference', $event)"
           />
         </div>
         <div class="lab-patient__field">
-          <label for="lab-counter-reference">N.° contrarreferencia</label>
+          <label for="lab-counter-reference">N.° contrarreferencia recibida</label>
           <el-input
             id="lab-counter-reference"
             :model-value="counterReference"
             :readonly="disabled || saving || !patient"
             maxlength="50"
-            aria-label="N.° de contrarreferencia"
+            aria-label="N.° de contrarreferencia recibida"
+            aria-describedby="lab-received-documents-help"
             @update:model-value="emit('counterReference', $event)"
           />
+          <small id="lab-received-documents-help"
+            >Documentos recibidos. Registrar sus números no emite una hoja nueva.</small
+          >
         </div>
         <div class="lab-patient__field">
           <span>Fecha nacimiento</span>
@@ -384,6 +391,12 @@ function changeDocumentType(value: string): void {
   font-size: 12px;
   line-height: 1.3;
   text-align: right;
+}
+.lab-patient__field > small {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--el-text-color-regular);
 }
 .lab-patient__document {
   grid-template-columns: 122px minmax(0, 1fr) 28px;

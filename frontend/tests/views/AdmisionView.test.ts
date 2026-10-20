@@ -10,7 +10,7 @@ import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterH
 import NutritionFollowupPanel from '@/components/admission/NutritionFollowupPanel.vue'
 import { aPatient } from '../fixtures/patient'
 
-const { create, get, listByPatient, previewNutritionalIndicators } = vi.hoisted(() => ({
+const { create, get, listByPatient, search, previewNutritionalIndicators } = vi.hoisted(() => ({
   previewNutritionalIndicators: vi.fn(async () => ({
     estado: 'DATOS_INCOMPLETOS',
     mensaje: 'Ingrese peso y talla',
@@ -21,10 +21,11 @@ const { create, get, listByPatient, previewNutritionalIndicators } = vi.hoisted(
   create: vi.fn(),
   get: vi.fn(),
   listByPatient: vi.fn(async () => []),
+  search: vi.fn(),
 }))
 vi.mock('@/services/pacientes', () => ({ pacientes: { get } }))
 vi.mock('@/services/atenciones', () => ({
-  atenciones: { create, listByPatient, previewNutritionalIndicators },
+  atenciones: { create, listByPatient, search, previewNutritionalIndicators },
 }))
 vi.mock('@/services/catalogos', () => ({
   catalogos: {
@@ -313,6 +314,26 @@ async function mountAdmission() {
   await flushPromises()
   return wrapper
 }
+
+test('el botón de historial trae todas dentro de admisión y permite volver a cinco', async () => {
+  search.mockResolvedValue({
+    items: Array.from({ length: 7 }, (_, index) => ({ id: 7 - index, paciente_id: 100 })),
+    total: 7, limit: 100, offset: 0, has_more: false,
+  })
+  const wrapper = await mountAdmission()
+  const history = wrapper.getComponent(AdmissionHistory)
+  expect(search).not.toHaveBeenCalled()
+  expect(history.props('allLoaded')).toBe(false)
+  history.vm.$emit('loadAll')
+  await flushPromises()
+  expect(search).toHaveBeenCalledExactlyOnceWith({ paciente_id: 100, limit: 100, offset: 0 })
+  expect(history.props('entries')).toHaveLength(7)
+  expect(history.props('allLoaded')).toBe(true)
+  history.vm.$emit('showRecent')
+  await flushPromises()
+  expect(listByPatient).toHaveBeenCalledTimes(2)
+  expect(history.props('allLoaded')).toBe(false)
+})
 
 test('referencia exige los tres campos y los envía con la modalidad al guardar', async () => {
   const wrapper = await mountAdmission()

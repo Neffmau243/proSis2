@@ -34,6 +34,20 @@ def test_referral_mode_accepts_complete_origin_and_preserves_leading_zeroes():
     assert command.fua_datos.referencia_renipress == "00001234"
     assert command.fua_datos.referencia_nombre == "IPRESS ORIGEN"
     assert command.fua_datos.referencia_hoja == "REF-0001"
+    assert command.numero_referencia_ingreso == "REF-0001"
+
+
+def test_referral_rejects_two_different_incoming_sheet_numbers():
+    with pytest.raises(ValidationError, match="debe coincidir"):
+        admission(numero_referencia_ingreso="OTRA-HOJA")
+
+
+def test_referral_accepts_same_external_number_and_preserves_leading_zeroes():
+    command = admission(
+        numero_referencia_ingreso=" 001565 ",
+        fua_datos={**REFERRAL, "referencia_hoja": "001565"},
+    )
+    assert command.numero_referencia_ingreso == command.fua_datos.referencia_hoja == "001565"
 
 
 def test_referral_does_not_require_office_specialty_or_attending_professional():

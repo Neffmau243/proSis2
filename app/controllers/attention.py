@@ -99,7 +99,9 @@ def get_attention(
     )
 
 
-@router.get("", response_model=list[AttentionResponse])
+@router.get(
+    "", response_model=list[AttentionResponse], summary="Últimas cinco atenciones del paciente"
+)
 def list_patient_attentions(
     principal: AttentionReader,
     db: DatabaseSession,

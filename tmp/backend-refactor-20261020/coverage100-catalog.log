@@ -1,0 +1,44 @@
+..........F.......................                                       [100%]
+================================== FAILURES ===================================
+____ test_disappearing_professional_after_specialty_replacement_rolls_back ____
+
+    def test_disappearing_professional_after_specialty_replacement_rolls_back():
+        session,repository=Mock(),Mock()
+        service=ProfessionalService(session)
+        service._repository=repository
+        repository.get_by_id.side_effect=[professional(),None]
+        repository.required_specialties_for_nonexpired_assignments.return_value=set()
+        command=ProfessionalSpecialtiesUpdate(especialidades=[{"especialidad_codigo":"MED","es_principal":True}])
+        with pytest.raises(NotFoundError): service.replace_specialties(7,command,actor_id=7)
+>       entity=repository.add_specialty.call_args.args[0]
+E       AttributeError: 'NoneType' object has no attribute 'args'
+
+tests\unit\test_catalog_configuration_boundaries.py:77: AttributeError
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                               Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------------
+app\api\router.py                     33      1      4      1    95%   66
+app\controllers\catalog.py            67      1      0      0    99%   53
+app\domain\clinical.py                41      0      6      1    98%   23->exit
+app\main.py                           71      1     22      5    94%   57->56, 82->85, 100, 117->126, 142->145
+app\repositories\attention.py         79      1     10      2    97%   101->103, 261
+app\repositories\catalog.py          123      2     26      6    95%   54, 80->89, 104->113, 119->128, 203, 219->228, 247->258
+app\repositories\discovery.py         84      1     34      2    97%   125, 142->145
+app\repositories\document.py          56      4      6      3    89%   24->26, 30->32, 42, 80, 89, 99
+app\repositories\office.py            82      3     24      7    91%   44->46, 58->60, 124->126, 143->145, 165, 179, 183
+app\repositories\patient.py          114      4     22      4    93%   47->49, 126->128, 193->195, 210-217, 232->234
+app\repositories\professional.py      36      2      4      1    92%   33, 51
+app\repositories\user.py              48      1     10      3    93%   36->38, 63, 98->100
+app\services\catalog.py               67      1      2      0    99%   67
+app\services\patient.py              253      0     50      1    99%   59->exit
+app\services\professional.py         118      1     24      1    99%   215
+------------------------------------------------------------------------------
+TOTAL                               6667     23   1312     37    99%
+
+101 files skipped due to complete coverage.
+Required test coverage of 90.0% reached. Total coverage: 99.22%
+=========================== short test summary info ===========================
+FAILED tests/unit/test_catalog_configuration_boundaries.py::test_disappearing_professional_after_specialty_replacement_rolls_back
+1 failed, 33 passed in 6.53s

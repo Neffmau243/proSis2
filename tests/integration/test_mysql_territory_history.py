@@ -231,7 +231,8 @@ def test_doctor_saves_hierarchy_and_later_edits_cannot_rewrite_history_or_fua(
 
 def test_establishment_catalog_exposes_its_own_district(clinic_scene, api_prefix):
     response = clinic_scene.professional_client.get(
-        f"{api_prefix}/catalogos/establecimientos", params={"limit": 100}
+        f"{api_prefix}/catalogos/establecimientos",
+        params={"q": clinic_scene.codigo_renaes, "limit": 100},
     )
     assert response.status_code == 200
     site = next(
@@ -261,12 +262,20 @@ def test_migration_keeps_the_original_sis_gap(db_session):
 
 
 def test_verified_sites_expose_district_from_the_persisted_catalog(clinic_scene, api_prefix):
-    response = clinic_scene.professional_client.get(
-        f"{api_prefix}/catalogos/establecimientos", params={"limit": 100}
-    )
-    assert response.status_code == 200
+    rows = []
+    offset = 0
+    while True:
+        response = clinic_scene.professional_client.get(
+            f"{api_prefix}/catalogos/establecimientos", params={"limit": 100, "offset": offset}
+        )
+        assert response.status_code == 200
+        page = response.json()
+        rows.extend(page["items"])
+        if not page["has_more"]:
+            break
+        offset += page["limit"]
     verified = {"1291", "1300", "1301", "1302", "1303", "1304"}
-    sites = [row for row in response.json()["items"] if row["codigo_renaes"] in verified]
+    sites = [row for row in rows if row["codigo_renaes"] in verified]
     assert len(sites) == 6
     for site in sites:
         assert site["ubigeo_codigo"] == "040102"

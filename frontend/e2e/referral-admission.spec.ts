@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
+import { downloadFuaPdf } from './fuaPdfDownload'
 
 // Only run through tests/e2e/run_referral_e2e.py: it owns a disposable MySQL
 // database and a loopback API serving the production SPA build.
@@ -167,12 +168,11 @@ test('Referencia conserva el tamaño y llega desde admisión hasta las casillas 
   ])
     await expect(page.getByLabel(`Ajustar ${label}`, { exact: true })).toHaveText(text!)
 
-  await page.getByRole('button', { name: 'Ver FUA / guardar PDF', exact: true }).click()
+  const { download, content: review } = await downloadFuaPdf(page)
+  await download.saveAs(join(evidence, 'fua-referencia-revision.pdf'))
   const prints = () =>
     page.evaluate(() => (window as unknown as { __referralPrints: string[] }).__referralPrints)
-  await expect.poll(async () => (await prints()).length).toBe(1)
-  const review = (await prints())[0]!
-  expect(review).toContain('FUA de referencia')
+  expect(review).toContain('PRELLENADO PARCIAL')
   for (const value of Object.values(origin)) expect(review).toContain(value)
   expect(review).not.toContain('PROFESIONAL E2E')
   await page
@@ -180,8 +180,8 @@ test('Referencia conserva el tamaño y llega desde admisión hasta las casillas 
     .filter({ hasText: 'Comprobé tamaño y alineación' })
     .click()
   await page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa', exact: true }).click()
-  await expect.poll(async () => (await prints()).length).toBe(2)
-  const preprinted = (await prints())[1]!
+  await expect.poll(async () => (await prints()).length).toBe(1)
+  const preprinted = (await prints())[0]!
   expect(preprinted).not.toContain('<img')
   for (const value of Object.values(origin)) expect(preprinted).toContain(value)
 
@@ -189,10 +189,7 @@ test('Referencia conserva el tamaño y llega desde admisión hasta las casillas 
   await output.setViewportSize({ width: 820, height: 1350 })
   // Keep the server origin so the review image resolves exactly as in srcdoc.
   await output.goto('/')
-  for (const [name, html] of [
-    ['fua-referencia-revision', review],
-    ['fua-referencia-solo-datos', preprinted],
-  ]) {
+  for (const [name, html] of [['fua-referencia-solo-datos', preprinted]]) {
     await writeFile(join(evidence, `${name}.html`), html!)
     await output.setContent(html!, { waitUntil: 'load' })
     await output.evaluate(() => document.fonts.ready)
@@ -201,8 +198,6 @@ test('Referencia conserva el tamaño y llega desde admisión hasta las casillas 
       preferCSSPageSize: true,
       printBackground: true,
     })
-    if (name === 'fua-referencia-revision')
-      await output.screenshot({ path: join(evidence, `${name}.png`), fullPage: true })
   }
   await output.close()
   expect(errors).toEqual([])

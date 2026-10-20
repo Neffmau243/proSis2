@@ -259,6 +259,7 @@ export const atenciones = {
     })
     return data
   },
+  /** Últimas cinco atenciones visibles; el historial completo usa search con paginación. */
   async listByPatient(patientId: number): Promise<Attention[]> {
     const { data } = await http.get<Attention[]>('/atenciones', {
       params: { paciente_id: patientId },

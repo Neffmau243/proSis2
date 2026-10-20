@@ -11,7 +11,8 @@ from app.models.catalog import ServiceOffering
 from app.models.clinical import Attention
 from app.models.documents import Certificate, CertificateService, DocumentSequence, Fua, Referral
 from app.models.organization import Establishment
-from app.models.security import Professional, User
+from app.models.security import Professional
+from app.repositories.clinical_access import ClinicalAccessRepository
 
 
 class DocumentRepository:
@@ -32,31 +33,26 @@ class DocumentRepository:
 
     def get_active_establishment(self, establishment_id: int) -> Establishment | None:
         return self._session.scalar(
-            select(Establishment).where(Establishment.id == establishment_id, Establishment.activo.is_(True))
+            select(Establishment).where(
+                Establishment.id == establishment_id, Establishment.activo.is_(True)
+            )
         )
 
     def get_active_professional(self, professional_id: int) -> Professional | None:
         return self._session.scalar(
-            select(Professional).where(Professional.id == professional_id, Professional.activo.is_(True))
+            select(Professional).where(
+                Professional.id == professional_id, Professional.activo.is_(True)
+            )
         )
 
     def get_active_professional_id_for_user(self, user_id: int) -> int | None:
-        """Resolve the persisted professional identity behind an active account."""
-
-        statement = (
-            select(User.profesional_id)
-            .join(Professional, Professional.id == User.profesional_id)
-            .where(
-                User.id == user_id,
-                User.activo.is_(True),
-                Professional.activo.is_(True),
-            )
-        )
-        return self._session.scalar(statement)
+        return ClinicalAccessRepository(self._session).professional_id(user_id)
 
     def get_active_service(self, code: str) -> ServiceOffering | None:
         return self._session.scalar(
-            select(ServiceOffering).where(ServiceOffering.codigo == code, ServiceOffering.activo.is_(True))
+            select(ServiceOffering).where(
+                ServiceOffering.codigo == code, ServiceOffering.activo.is_(True)
+            )
         )
 
     def reserve_sequence_number(self, *, kind: str, establishment_id: int, period: str) -> int:

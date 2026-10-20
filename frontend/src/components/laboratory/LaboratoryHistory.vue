@@ -14,7 +14,7 @@ const props = defineProps<{
   canRead: boolean
   hasOffice: boolean
 }>()
-const emit = defineEmits<{ refresh: []; page: [value: number] }>()
+const emit = defineEmits<{ refresh: []; page: [value: number]; open: [attention: Attention] }>()
 const selectedId = shallowRef<number | null>(null)
 const selected = computed(
   () => props.entries.find((row) => row.id === selectedId.value) ?? props.entries[0],
@@ -99,6 +99,14 @@ function rowClass({ row }: { row: Attention }): string {
           row.fua_impresion?.otros_nombres ?? patient?.otros_nombres ?? '—'
         }}</template>
       </el-table-column>
+      <el-table-column label="Ref. recibida" min-width="100">
+        <template #default="{ row }">{{
+          row.numero_referencia_ingreso || row.fua_impresion?.referencia_hoja || '—'
+        }}</template>
+      </el-table-column>
+      <el-table-column label="Contrarref. recibida" min-width="110">
+        <template #default="{ row }">{{ row.numero_contrarreferencia_ingreso || '—' }}</template>
+      </el-table-column>
     </el-table>
     <footer class="lab-history__footer">
       <span v-if="selected" class="lab-history__status"
@@ -109,6 +117,14 @@ function rowClass({ row }: { row: Attention }): string {
           >Ver #{{ selected.id }}</RouterLink
         ></span
       >
+      <el-button
+        v-if="selected"
+        size="small"
+        :disabled="loading || !canRead"
+        @click="emit('open', selected)"
+      >
+        Consultar / reimprimir #{{ selected.id }}
+      </el-button>
       <el-pagination
         v-if="total > 10"
         size="small"

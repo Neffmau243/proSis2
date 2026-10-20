@@ -6,15 +6,13 @@ from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from typing import Any, TypeVar
 
-from sqlalchemy import exists, false, func, or_, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.domain.office import office_context
 from app.models.clinical import Attention
-from app.models.organization import Office, OfficeProfessional
 from app.models.patient import Patient, PatientRisk
-from app.models.security import Professional, User
-from app.repositories.attention_scope import recorded_referral
+from app.repositories.attention_scope import attention_visibility, patient_visibility
+from app.repositories.clinical_access import ClinicalAccessRepository
 from app.schemas.discovery import AttentionSearchCriteria, PatientSearchCriteria
 
 EntityT = TypeVar("EntityT")
@@ -33,42 +31,10 @@ class PatientDiscoveryRepository:
         self._session = session
 
     def active_professional_id_for_user(self, user_id: int) -> int | None:
-        statement = (
-            select(User.profesional_id)
-            .join(Professional, Professional.id == User.profesional_id)
-            .where(
-                User.id == user_id,
-                User.activo.is_(True),
-                Professional.activo.is_(True),
-            )
-        )
-        return self._session.scalar(statement)
+        return ClinicalAccessRepository(self._session).professional_id(user_id)
 
     def active_establishment_ids_for_professional(self, professional_id: int) -> list[int]:
-        """Return establishments from the professional's current assignments."""
-
-        today = date.today()
-        statement = (
-            select(Office)
-            .join(OfficeProfessional, OfficeProfessional.consultorio_id == Office.id)
-            .where(
-                OfficeProfessional.profesional_id == professional_id,
-                Office.activo.is_(True),
-                OfficeProfessional.fecha_inicio <= today,
-                or_(
-                    OfficeProfessional.fecha_fin.is_(None),
-                    OfficeProfessional.fecha_fin >= today,
-                ),
-            )
-            .distinct()
-        )
-        return sorted(
-            {
-                item.establecimiento_id
-                for item in self._session.scalars(statement)
-                if office_context(item).active and item.establecimiento.activo
-            }
-        )
+        return sorted(ClinicalAccessRepository(self._session).establishment_ids(professional_id))
 
     def search(
         self,
@@ -103,28 +69,7 @@ class PatientDiscoveryRepository:
                 )
             )
         if professional_id is not None:
-            # A professional may discover a patient registered at one of
-            # their active workplaces, one with a prior non-cancelled
-            # attention of their own, or one they registered/transferred
-            # themselves.  EXISTS keeps the result/count stable even when a
-            # patient has many historical attentions.
-            own_attention = exists(
-                select(Attention.id).where(
-                    Attention.paciente_id == Patient.id,
-                    or_(
-                        Attention.profesional_id == professional_id,
-                        recorded_referral(professional_id),
-                    ),
-                    Attention.estado != "ANULADO",
-                )
-            )
-            allowed_establishment = (
-                Patient.establecimiento_registro_id.in_(establishment_ids or [])
-                if establishment_ids
-                else false()
-            )
-            own_registration = Patient.profesional_registro_id == professional_id
-            conditions.append(or_(allowed_establishment, own_attention, own_registration))
+            conditions.append(patient_visibility(professional_id, establishment_ids))
 
         statement = select(Patient).options(
             selectinload(Patient.ubigeo_residencia),
@@ -161,42 +106,10 @@ class AttentionDiscoveryRepository:
         self._session = session
 
     def active_professional_id_for_user(self, user_id: int) -> int | None:
-        statement = (
-            select(User.profesional_id)
-            .join(Professional, Professional.id == User.profesional_id)
-            .where(
-                User.id == user_id,
-                User.activo.is_(True),
-                Professional.activo.is_(True),
-            )
-        )
-        return self._session.scalar(statement)
+        return ClinicalAccessRepository(self._session).professional_id(user_id)
 
     def active_establishment_ids_for_professional(self, professional_id: int) -> list[int]:
-        """Return active sites that can contribute to a clinical history."""
-
-        today = date.today()
-        statement = (
-            select(Office)
-            .join(OfficeProfessional, OfficeProfessional.consultorio_id == Office.id)
-            .where(
-                OfficeProfessional.profesional_id == professional_id,
-                Office.activo.is_(True),
-                OfficeProfessional.fecha_inicio <= today,
-                or_(
-                    OfficeProfessional.fecha_fin.is_(None),
-                    OfficeProfessional.fecha_fin >= today,
-                ),
-            )
-            .distinct()
-        )
-        return sorted(
-            {
-                item.establecimiento_id
-                for item in self._session.scalars(statement)
-                if office_context(item).active and item.establecimiento.activo
-            }
-        )
+        return sorted(ClinicalAccessRepository(self._session).establishment_ids(professional_id))
 
     def search(
         self,
@@ -227,13 +140,7 @@ class AttentionDiscoveryRepository:
         if criteria.estado is not None:
             conditions.append(Attention.estado == criteria.estado.value)
         if professional_id is not None:
-            visibility = [
-                Attention.profesional_id == professional_id,
-                recorded_referral(professional_id),
-            ]
-            if establishment_ids:
-                visibility.append(Attention.establecimiento_id.in_(establishment_ids))
-            conditions.append(or_(*visibility))
+            conditions.append(attention_visibility(professional_id, establishment_ids))
 
         statement = (
             select(Attention)

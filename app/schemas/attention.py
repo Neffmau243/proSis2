@@ -144,6 +144,17 @@ class AttentionCreate(BaseModel):
                     "La modalidad REFERENCIA requiere RENIPRESS, nombre de IPRESS de origen "
                     "y número de hoja de referencia en fua_datos."
                 )
+            if (
+                self.numero_referencia_ingreso
+                and self.numero_referencia_ingreso.upper() != referral.referencia_hoja.upper()
+            ):
+                raise ValueError(
+                    "El número de referencia recibida debe coincidir "
+                    "con la hoja de referencia del FUA."
+                )
+            self.numero_referencia_ingreso = (
+                self.numero_referencia_ingreso or referral.referencia_hoja
+            )
         elif referral is not None and referral.tipo_atencion == "REFERENCIA":
             raise ValueError("Los datos de referencia requieren la modalidad REFERENCIA.")
         # Shared obstetric data: the plurality and the weight before the pregnancy

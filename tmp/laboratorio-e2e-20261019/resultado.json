@@ -1,0 +1,23 @@
+{
+  "url": "http://localhost:8000/laboratorio",
+  "patientId": 14,
+  "attentionId": 43,
+  "attentionDate": "2026-10-18",
+  "reference": "E2E-LAB-191026-01",
+  "expectedTitle": "REF.Lab-AURELIA PRUEBA LUCERO FICTICIA-2026-10-18",
+  "browserTitleDuringPrint": "REF.Lab-AURELIA PRUEBA LUCERO FICTICIA-2026-10-18",
+  "reprintTitle": "Nombre al guardar PDF: REF.Lab-AURELIA PRUEBA LUCERO FICTICIA-2026-10-18",
+  "historyRowsBefore": 5,
+  "historyRowsAfterSave": 6,
+  "historyRowsAfterReprint": 6,
+  "checks": [
+    "Bloquea guardado e impresión sin paciente",
+    "Selecciona paciente ficticio y exige origen para REFERENCIA",
+    "Exige número de hoja recibida",
+    "Guarda una atención, fecha 18/10/2026 y contador de turno 0→1",
+    "Impresión real del navegador toma REF.Lab, paciente y fecha guardada",
+    "Recarga, busca, consulta y reimprime copia adicional con fecha histórica sin duplicar filas del historial"
+  ],
+  "physicalPrinting": false,
+  "automatedUnitTestsPassed": 51
+}

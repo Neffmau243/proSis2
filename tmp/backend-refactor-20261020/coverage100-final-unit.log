@@ -1,0 +1,15 @@
+................................                                         [100%]
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                          Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------
+app\domain\clinical.py           41      0      6      1    98%   23->exit
+app\repositories\patient.py     114      0     22      2    99%   47->49, 126->128
+app\services\patient.py         253      0     50      1    99%   59->exit
+-------------------------------------------------------------------------
+TOTAL                          6667      0   1312      4    99%
+
+113 files skipped due to complete coverage.
+Required test coverage of 90.0% reached. Total coverage: 99.95%
+32 passed in 12.28s

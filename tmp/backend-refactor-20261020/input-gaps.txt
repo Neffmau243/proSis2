@@ -1,0 +1,152 @@
+
+app\core\config.py  85.06493506493507%
+148: normalized = value.strip() | 149: if not normalized.startswith("mysql"): | 150: raise ValueError("DATABASE_URL debe usar un dialecto MySQL.") | 151: return normalized
+149: if not normalized.startswith("mysql"): | 150: raise ValueError("DATABASE_URL debe usar un dialecto MySQL.") | 151: return normalized | 152: 
+156: normalized = value.strip() | 157: if not normalized.startswith("/"): | 158: raise ValueError("API_V1_PREFIX debe comenzar con '/'.") | 159: if normalized != "/" and normalized.endswith("/"):
+157: if not normalized.startswith("/"): | 158: raise ValueError("API_V1_PREFIX debe comenzar con '/'.") | 159: if normalized != "/" and normalized.endswith("/"): | 160: normalized = normalized.rstrip("/")
+158: raise ValueError("API_V1_PREFIX debe comenzar con '/'.") | 159: if normalized != "/" and normalized.endswith("/"): | 160: normalized = normalized.rstrip("/") | 161: return normalized
+159: if normalized != "/" and normalized.endswith("/"): | 160: normalized = normalized.rstrip("/") | 161: return normalized | 162: 
+166: normalized = value.upper().strip() | 167: if normalized not in {"HS256", "HS384", "HS512"}: | 168: raise ValueError("JWT_ALGORITHM debe ser HS256, HS384 o HS512.") | 169: return normalized
+167: if normalized not in {"HS256", "HS384", "HS512"}: | 168: raise ValueError("JWT_ALGORITHM debe ser HS256, HS384 o HS512.") | 169: return normalized | 170: 
+174: normalized = value.strip() | 175: if not normalized: | 176: raise ValueError("JWT_ISSUER y JWT_AUDIENCE no pueden estar vacíos.") | 177: return normalized
+175: if not normalized: | 176: raise ValueError("JWT_ISSUER y JWT_AUDIENCE no pueden estar vacíos.") | 177: return normalized | 178: 
+181: def parse_list_setting(cls, value: Any) -> list[str]: | 182: if value is None or value == "": | 183: return [] | 184: if isinstance(value, str):
+182: if value is None or value == "": | 183: return [] | 184: if isinstance(value, str): | 185: raw = value.strip()
+188: value = json.loads(raw) | 189: except json.JSONDecodeError as exc: | 190: raise ValueError("La configuración de lista no contiene JSON válido.") from exc | 191: else:
+189: except json.JSONDecodeError as exc: | 190: raise ValueError("La configuración de lista no contiene JSON válido.") from exc | 191: else: | 192: value = raw.split(",")
+192: value = raw.split(",") | 193: if not isinstance(value, (list, tuple, set)): | 194: raise ValueError("La configuración debe ser una lista o texto separado por comas.") | 195: return [str(item).strip() for item in value if str(item).strip()]
+193: if not isinstance(value, (list, tuple, set)): | 194: raise ValueError("La configuración debe ser una lista o texto separado por comas.") | 195: return [str(item).strip() for item in value if str(item).strip()] | 196: 
+199: secret = self.secret_key.get_secret_value() | 200: if len(secret) < 32: | 201: raise ValueError("SECRET_KEY debe tener al menos 32 caracteres.") | 202: normalized_secret = secret.strip().casefold()
+200: if len(secret) < 32: | 201: raise ValueError("SECRET_KEY debe tener al menos 32 caracteres.") | 202: normalized_secret = secret.strip().casefold() | 203: if self.environment.strip().casefold() in _PRODUCTION_ENVIRONMENTS and (
+209: ) | 210: if self.login_lock_max_seconds < self.login_lock_base_seconds: | 211: raise ValueError( | 212: "LOGIN_LOCK_MAX_SECONDS debe ser mayor o igual a LOGIN_LOCK_BASE_SECONDS."
+210: if self.login_lock_max_seconds < self.login_lock_base_seconds: | 211: raise ValueError( | 212: "LOGIN_LOCK_MAX_SECONDS debe ser mayor o igual a LOGIN_LOCK_BASE_SECONDS." | 213: )
+213: ) | 214: if "*" in self.cors_origins and self.cors_allow_credentials: | 215: raise ValueError( | 216: "CORS_ORIGINS no puede contener '*' cuando CORS_ALLOW_CREDENTIALS=true."
+214: if "*" in self.cors_origins and self.cors_allow_credentials: | 215: raise ValueError( | 216: "CORS_ORIGINS no puede contener '*' cuando CORS_ALLOW_CREDENTIALS=true." | 217: )
+229: credentials = user | 230: if password: | 231: credentials = f"{user}:{quote_plus(password)}" | 232: database = quote_plus(self.mysql_database)
+BRANCHES [[149, 150], [157, 158], [159, 160], [167, 168], [175, 176], [182, 183], [193, 194], [200, 201], [210, 211], [214, 215], [230, 232]]
+
+app\core\dependencies.py  97.05882352941177%
+78: normalized = frozenset(value.strip() for value in values if value and value.strip()) | 79: if not normalized: | 80: raise ValueError(f"Debe especificarse al menos un {label}.") | 81: return normalized
+79: if not normalized: | 80: raise ValueError(f"Debe especificarse al menos un {label}.") | 81: return normalized | 82: 
+BRANCHES [[79, 80]]
+
+app\core\security.py  95.04132231404958%
+38: def _normalize_claim_values(values: Iterable[str] | str | None) -> list[str]: | 39: if values is None: | 40: return [] | 41: if isinstance(values, str):
+39: if values is None: | 40: return [] | 41: if isinstance(values, str): | 42: values = [values]
+155: payload["username"] = username | 156: if extra_claims: | 157: payload.update(extra_claims) | 158: 
+156: if extra_claims: | 157: payload.update(extra_claims) | 158:  | 159: return jwt.encode(
+198: expires_at = payload.get("exp") | 199: if isinstance(expires_at, bool) or not isinstance(expires_at, (int, float)): | 200: raise TokenValidationError("La expiración del token no es válida.") | 201: 
+199: if isinstance(expires_at, bool) or not isinstance(expires_at, (int, float)): | 200: raise TokenValidationError("La expiración del token no es válida.") | 201:  | 202: credential_version = payload.get("credential_version", 0)
+BRANCHES [[39, 40], [156, 157], [199, 200]]
+
+app\domain\age.py  96.15384615384616%
+47: reference = as_date(reference_date) | 48: if reference < birth_date: | 49: raise ValueError("La fecha de referencia no puede ser anterior al nacimiento") | 50: 
+48: if reference < birth_date: | 49: raise ValueError("La fecha de referencia no puede ser anterior al nacimiento") | 50:  | 51: years = reference.year - birth_date.year
+BRANCHES [[48, 49]]
+
+app\domain\clinical.py  97.87234042553192%
+22:  | 23: def validate(self, values: VitalSignPayload, *, age_in_months: int) -> None: ... | 24:  | 25: 
+BRANCHES [[23, -23]]
+
+app\domain\nutrition.py  94.21487603305785%
+67: return "Talla alta" if score > 2 else "Normal" | 68: if indicator != "pt": | 69: raise ValueError("Indicador desconocido") | 70: if score < -3:
+68: if indicator != "pt": | 69: raise ValueError("Indicador desconocido") | 70: if score < -3: | 71: return "Emaciación severa"
+123: age_days = (measured_on - birth_date).days | 124: if age_days < 0: | 125: return NutritionalIndicators( | 126: imc=imc,
+124: if age_days < 0: | 125: return NutritionalIndicators( | 126: imc=imc, | 127: pe=None,
+134: normalized_sex = {"M": "m", "F": "f"}.get((sex_code or "").upper()) | 135: if normalized_sex is None: | 136: return NutritionalIndicators( | 137: imc=imc,
+135: if normalized_sex is None: | 136: return NutritionalIndicators( | 137: imc=imc, | 138: pe=None,
+159: ) | 160: if any(score is None for score in scores) or result.get("errors"): | 161: return NutritionalIndicators( | 162: imc=imc,
+160: if any(score is None for score in scores) or result.get("errors"): | 161: return NutritionalIndicators( | 162: imc=imc, | 163: pe=None,
+192: def _as_decimal(value: object) -> Decimal | None: | 193: if not isinstance(value, (int, float)) or not isfinite(value): | 194: return None | 195: return Decimal(str(value)).quantize(_THREE_DECIMALS, ROUND_HALF_UP)
+193: if not isinstance(value, (int, float)) or not isfinite(value): | 194: return None | 195: return Decimal(str(value)).quantize(_THREE_DECIMALS, ROUND_HALF_UP) | 196: 
+221: def classify_bmi_age(value: Decimal | None) -> str | None: | 222: if value is None: | 223: return None | 224: if value < -3:
+222: if value is None: | 223: return None | 224: if value < -3: | 225: return "Delgadez severa"
+300: base["referencia"] = "OMS 2007 (61 a 228 meses)" | 301: if sex not in {"M", "F"}: | 302: base["estado"] = "SIN_REFERENCIA_SEXO" | 303: elif bmi is None:
+301: if sex not in {"M", "F"}: | 302: base["estado"] = "SIN_REFERENCIA_SEXO" | 303: elif bmi is None: | 304: base["estado"] = "DATOS_INCOMPLETOS"
+BRANCHES [[68, 69], [124, 125], [135, 136], [160, 161], [193, 194], [222, 223], [301, 302]]
+
+app\domain\nutrition_followup.py  96.61016949152543%
+85: reasons.append("Peso sin incremento o con descenso entre controles") | 86: if dh <= 0: | 87: reasons.append( | 88: "Talla sin incremento o con descenso: verificar técnica de medición"
+86: if dh <= 0: | 87: reasons.append( | 88: "Talla sin incremento o con descenso: verificar técnica de medición" | 89: )
+BRANCHES [[86, 87]]
+
+app\mappers\age_group.py  91.89189189189189%
+28: parts: list[str] = [] | 29: if boundary.anios or boundary.meses == 0: | 30: unit = "año" if boundary.anios == 1 else "años" | 31: parts.append(f"{boundary.anios} {unit}")
+41: ) -> str: | 42: if minimum is None: | 43: return "Sin rango configurado" | 44: minimum_text = _format_boundary(minimum)
+42: if minimum is None: | 43: return "Sin rango configurado" | 44: minimum_text = _format_boundary(minimum) | 45: if maximum is None:
+BRANCHES [[29, 32], [42, 43]]
+
+app\mappers\attention.py  91.30434782608695%
+101: patient = entity.paciente | 102: if patient is None or patient.fecha_nacimiento > entity.fecha_atencion.date(): | 103: return f"{entity.edad_anios} años" if entity.edad_anios is not None else None | 104: return calendar_age(patient.fecha_nacimiento, entity.fecha_atencion).display
+102: if patient is None or patient.fecha_nacimiento > entity.fecha_atencion.date(): | 103: return f"{entity.edad_anios} años" if entity.edad_anios is not None else None | 104: return calendar_age(patient.fecha_nacimiento, entity.fecha_atencion).display | 105: 
+BRANCHES [[102, 103]]
+
+app\mappers\patient.py  94.11764705882354%
+89: values = payload.model_dump(exclude_unset=True) | 90: if "parentesco" in values and payload.parentesco is not None: | 91: values["parentesco"] = payload.parentesco.value | 92: return values
+90: if "parentesco" in values and payload.parentesco is not None: | 91: values["parentesco"] = payload.parentesco.value | 92: return values | 93: 
+BRANCHES [[90, 91]]
+
+app\schemas\age_group.py  90.625%
+81: ) | 82: if self.activo and self.edad_minima_meses is None: | 83: raise ValueError("Todo grupo etario activo requiere edad_minima o edad_minima_meses") | 84: if (
+82: if self.activo and self.edad_minima_meses is None: | 83: raise ValueError("Todo grupo etario activo requiere edad_minima o edad_minima_meses") | 84: if ( | 85: self.edad_minima_meses is not None
+83: raise ValueError("Todo grupo etario activo requiere edad_minima o edad_minima_meses") | 84: if ( | 85: self.edad_minima_meses is not None | 86: and self.edad_maxima_meses is not None
+88: ): | 89: raise ValueError("edad_maxima_meses debe ser mayor o igual al mínimo") | 90: return self | 91: 
+117: codes = [group.codigo for group in self.grupos] | 118: if len(codes) != len(set(codes)): | 119: raise ValueError("No se puede configurar dos veces el mismo grupo etario") | 120: return self
+118: if len(codes) != len(set(codes)): | 119: raise ValueError("No se puede configurar dos veces el mismo grupo etario") | 120: return self | 121: 
+BRANCHES [[82, 83], [84, 89], [118, 119]]
+
+app\schemas\attention.py  97.48953974895397%
+184: ) | 185: if ( | 186: self.hora_inicio is not None | 187: and self.hora_fin is not None
+189: ): | 190: raise ValueError("hora_fin no puede ser anterior a hora_inicio") | 191: if self.fecha_atendido is not None and self.fecha_atendido < self.fecha_atencion: | 192: raise ValueError("fecha_atendido no puede ser anterior a fecha_atencion")
+190: raise ValueError("hora_fin no puede ser anterior a hora_inicio") | 191: if self.fecha_atendido is not None and self.fecha_atendido < self.fecha_atencion: | 192: raise ValueError("fecha_atendido no puede ser anterior a fecha_atencion") | 193: return self
+191: if self.fecha_atendido is not None and self.fecha_atendido < self.fecha_atencion: | 192: raise ValueError("fecha_atendido no puede ser anterior a fecha_atencion") | 193: return self | 194: 
+201: def require_reason(cls, value: Any) -> Any: | 202: if not isinstance(value, str) or not value.strip(): | 203: raise ValueError("La anulación requiere una justificación") | 204: return value.strip()
+202: if not isinstance(value, str) or not value.strip(): | 203: raise ValueError("La anulación requiere una justificación") | 204: return value.strip() | 205: 
+BRANCHES [[185, 190], [191, 192], [202, 203]]
+
+app\schemas\auth.py  96.3302752293578%
+67: return value.strip() | 68: if isinstance(value, list): | 69: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 70: return value
+69: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 70: return value | 71:  | 72: @field_validator("roles")
+88: def normalize_roles(cls, value: Any) -> Any: | 89: if isinstance(value, list): | 90: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 91: return value
+90: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 91: return value | 92:  | 93: @field_validator("roles")
+BRANCHES [[68, 70], [89, 91]]
+
+app\schemas\discovery.py  92.85714285714286%
+66: if self.fecha_hora_desde is not None and self.fecha_hora_hasta is not None: | 67: if self.fecha_hora_desde.tzinfo is not None or self.fecha_hora_hasta.tzinfo is not None: | 68: raise ValueError("El intervalo de turno usa hora local de Lima sin offset") | 69: if self.fecha_hora_hasta <= self.fecha_hora_desde:
+67: if self.fecha_hora_desde.tzinfo is not None or self.fecha_hora_hasta.tzinfo is not None: | 68: raise ValueError("El intervalo de turno usa hora local de Lima sin offset") | 69: if self.fecha_hora_hasta <= self.fecha_hora_desde: | 70: raise ValueError("El fin del turno debe ser posterior al inicio")
+70: raise ValueError("El fin del turno debe ser posterior al inicio") | 71: if self.desde is not None and self.hasta is not None and self.hasta < self.desde: | 72: raise ValueError("hasta no puede ser anterior a desde") | 73: return self
+71: if self.desde is not None and self.hasta is not None and self.hasta < self.desde: | 72: raise ValueError("hasta no puede ser anterior a desde") | 73: return self
+BRANCHES [[67, 68], [71, 72]]
+
+app\schemas\document.py  95.87628865979381%
+51: def normalize_services(cls, value: Any) -> Any: | 52: if isinstance(value, list): | 53: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 54: return value
+53: return [item.strip().upper() if isinstance(item, str) else item for item in value] | 54: return value | 55:  | 56: 
+74: def starts_pending(self) -> "ReferralCreateInput": | 75: if self.estado != ReferralStatus.PENDING: | 76: raise ValueError("Una referencia nueva debe iniciar en estado PENDIENTE") | 77: return self
+75: if self.estado != ReferralStatus.PENDING: | 76: raise ValueError("Una referencia nueva debe iniciar en estado PENDIENTE") | 77: return self | 78: 
+BRANCHES [[52, 54], [75, 76]]
+
+app\schemas\office.py  97.53086419753086%
+39: def validate_dates(self) -> OfficeAssignmentCreate: | 40: if self.fecha_fin is not None and self.fecha_fin < self.fecha_inicio: | 41: raise ValueError("fecha_fin no puede ser anterior a fecha_inicio") | 42: return self
+40: if self.fecha_fin is not None and self.fecha_fin < self.fecha_inicio: | 41: raise ValueError("fecha_fin no puede ser anterior a fecha_inicio") | 42: return self | 43: 
+BRANCHES [[40, 41]]
+
+app\schemas\patient.py  96.17021276595744%
+52: def strip_external_whitespace(cls, value: Any) -> Any: | 53: if isinstance(value, str): | 54: return value.strip() | 55: return value
+54: return value.strip() | 55: return value | 56:  | 57: @field_validator("tipo_documento_codigo", mode="after")
+90: def strip_external_whitespace(cls, value: Any) -> Any: | 91: if isinstance(value, str): | 92: return value.strip() | 93: return value
+92: return value.strip() | 93: return value | 94:  | 95: @field_validator("tipo_documento_codigo", mode="after")
+97: def normalize_document_type(cls, value: str | None) -> str | None: | 98: return value.upper() if value is not None else None | 99:  | 100: 
+115: def strip_external_whitespace(cls, value: Any) -> Any: | 116: if isinstance(value, str): | 117: return value.strip() | 118: return value
+117: return value.strip() | 118: return value | 119:  | 120: 
+136: def strip_external_whitespace(cls, value: Any) -> Any: | 137: if isinstance(value, str): | 138: return value.strip() | 139: return value
+138: return value.strip() | 139: return value | 140:  | 141: 
+BRANCHES [[53, 55], [91, 93], [116, 118], [137, 139]]
+
+app\schemas\professional.py  90.9090909090909%
+28: codes = [item.especialidad_codigo for item in self.especialidades] | 29: if len(codes) != len(set(codes)): | 30: raise ValueError("No se puede repetir una especialidad.") | 31: if sum(item.es_principal for item in self.especialidades) > 1:
+29: if len(codes) != len(set(codes)): | 30: raise ValueError("No se puede repetir una especialidad.") | 31: if sum(item.es_principal for item in self.especialidades) > 1: | 32: raise ValueError("Solo una especialidad puede ser principal.")
+30: raise ValueError("No se puede repetir una especialidad.") | 31: if sum(item.es_principal for item in self.especialidades) > 1: | 32: raise ValueError("Solo una especialidad puede ser principal.") | 33: if self.especialidades and not any(item.es_principal for item in self.especialidades):
+31: if sum(item.es_principal for item in self.especialidades) > 1: | 32: raise ValueError("Solo una especialidad puede ser principal.") | 33: if self.especialidades and not any(item.es_principal for item in self.especialidades): | 34: raise ValueError("Cuando hay especialidades, una debe marcarse como principal.")
+32: raise ValueError("Solo una especialidad puede ser principal.") | 33: if self.especialidades and not any(item.es_principal for item in self.especialidades): | 34: raise ValueError("Cuando hay especialidades, una debe marcarse como principal.") | 35: return self
+33: if self.especialidades and not any(item.es_principal for item in self.especialidades): | 34: raise ValueError("Cuando hay especialidades, una debe marcarse como principal.") | 35: return self | 36: 
+BRANCHES [[29, 30], [31, 32], [33, 34]]

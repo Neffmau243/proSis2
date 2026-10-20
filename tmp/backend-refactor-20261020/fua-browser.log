@@ -1,0 +1,21 @@
+
+> ipress-frontend@0.1.0 test:e2e
+> playwright test fua-print.spec.ts --workers=1
+
+[WebServer] (node:10432) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:16908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:22212) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 e2e\fua-print.spec.ts:49:1 › la calibración en milímetros habilita la impresión real y produce el FUA del paciente (5.9s)
+  ok 2 e2e\fua-print.spec.ts:110:1 › el archivo PDF se descarga con nombre completo y fecha de la atención (4.2s)
+  ok 3 e2e\fua-print.spec.ts:120:1 › el PDF de revisión contiene la referencia oficial y datos, sin exigir prueba física (4.3s)
+  ok 4 e2e\fua-print.spec.ts:144:1 › una calibración anterior imprime DIRESA, tipo y número SIS en tres casillas (5.2s)
+  ok 5 e2e\fua-print.spec.ts:197:1 › un perfil histórico usa la misma referencia en vista previa y PDF conservando sus posiciones (8.2s)
+  ok 6 e2e\fua-print.spec.ts:228:1 › importar posiciones conserva la geometría y exige comprobar la impresora de destino (4.0s)
+
+  6 passed (1.8m)

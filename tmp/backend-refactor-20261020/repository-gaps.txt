@@ -1,0 +1,70 @@
+
+app\repositories\attention.py  96.62921348314607%
+100: ) | 101: if professional_id is not None: | 102: statement = statement.where(attention_visibility(professional_id, establishment_ids)) | 103: return self._session.scalar(
+259: ) | 260: if active_certificate is not None: | 261: return True | 262: # A closed or explicitly cancelled referral no longer has an active
+260: if active_certificate is not None: | 261: return True | 262: # A closed or explicitly cancelled referral no longer has an active | 263: # operational effect. Any other persisted state is treated
+BRANCHES [[101, 103], [260, 261]]
+
+app\repositories\catalog.py  94.63087248322148%
+53: def list_ethnicities(self) -> list[Ethnicity]: | 54: return self._list_active(Ethnicity, Ethnicity.nombre) | 55:  | 56: def list_insurances(self) -> list[Insurance]:
+79: conditions = [FamilyHistoryPrefix.activo.is_(True)] | 80: if query: | 81: pattern = self._contains_pattern(query) | 82: conditions.append(
+103: conditions = [ServiceOffering.activo.is_(True)] | 104: if query: | 105: pattern = self._contains_pattern(query) | 106: conditions.append(
+118: conditions = [Cie10.activo.is_(True)] | 119: if query: | 120: pattern = self._contains_pattern(query) | 121: conditions.append(
+201: office = self._session.get(Office, office_id) | 202: if office is None or not office_context(office).active: | 203: return CatalogPage(items=[], total=0) | 204: context = office_context(office)
+202: if office is None or not office_context(office).active: | 203: return CatalogPage(items=[], total=0) | 204: context = office_context(office) | 205: day = on_date or date.today()
+218: ) | 219: if context.required_specialty: | 220: conditions.append( | 221: exists(
+246: conditions: list[Any] = [] | 247: if query: | 248: pattern = self._contains_pattern(query) | 249: conditions.append(
+BRANCHES [[80, 89], [104, 113], [119, 128], [202, 203], [219, 228], [247, 258]]
+
+app\repositories\discovery.py  97.45762711864407%
+123: conditions.append(Attention.paciente_id == criteria.paciente_id) | 124: if criteria.establecimiento_id is not None: | 125: conditions.append(Attention.establecimiento_id == criteria.establecimiento_id) | 126: if criteria.profesional_id is not None:
+124: if criteria.establecimiento_id is not None: | 125: conditions.append(Attention.establecimiento_id == criteria.establecimiento_id) | 126: if criteria.profesional_id is not None: | 127: conditions.append(Attention.profesional_id == criteria.profesional_id)
+141: conditions.append(Attention.estado == criteria.estado.value) | 142: if professional_id is not None: | 143: conditions.append(attention_visibility(professional_id, establishment_ids)) | 144: 
+BRANCHES [[124, 125], [142, 145]]
+
+app\repositories\document.py  88.70967741935483%
+23: statement = select(Attention).where(Attention.id == attention_id) | 24: if lock: | 25: statement = statement.with_for_update() | 26: return self._session.scalar(statement)
+29: statement = select(Fua).where(Fua.atencion_id == attention_id) | 30: if lock: | 31: statement = statement.with_for_update() | 32: return self._session.scalar(statement)
+41: def get_active_professional(self, professional_id: int) -> Professional | None: | 42: return self._session.scalar( | 43: select(Professional).where( | 44: Professional.id == professional_id, Professional.activo.is_(True)
+78: ) | 79: if sequence is None:  # Defensive: impossible after INSERT ... ON DUPLICATE KEY. | 80: raise RuntimeError("No se pudo reservar la serie documental.") | 81: current = sequence.siguiente_numero
+79: if sequence is None:  # Defensive: impossible after INSERT ... ON DUPLICATE KEY. | 80: raise RuntimeError("No se pudo reservar la serie documental.") | 81: current = sequence.siguiente_numero | 82: sequence.siguiente_numero += 1
+88: def get_fua(self, document_id: int) -> Fua | None: | 89: return self._session.get(Fua, document_id) | 90:  | 91: def get_certificate(self, document_id: int) -> Certificate | None:
+98: def get_referral(self, document_id: int) -> Referral | None: | 99: return self._session.get(Referral, document_id) | 100:  | 101: def add_audit(
+BRANCHES [[24, 26], [30, 32], [79, 80]]
+
+app\repositories\office.py  90.56603773584905%
+43: statement = select(Office) | 44: if establishment_id is not None: | 45: statement = statement.where(Office.establecimiento_id == establishment_id) | 46: if not include_inactive:
+57: ) | 58: if lock: | 59: statement = statement.with_for_update() | 60: return self._session.scalar(statement)
+123: ) | 124: if lock: | 125: statement = statement.with_for_update() | 126: return self._session.scalar(statement)
+142: ) | 143: if lock: | 144: statement = statement.with_for_update() | 145: return self._session.scalar(statement)
+163: ) | 164: if end_date is not None: | 165: statement = statement.where(OfficeProfessional.fecha_inicio <= end_date) | 166: return self._session.scalar(statement) is not None
+164: if end_date is not None: | 165: statement = statement.where(OfficeProfessional.fecha_inicio <= end_date) | 166: return self._session.scalar(statement) is not None | 167: 
+175: return True | 176: if current_id in visited: | 177: # Existing corrupt parent data must not be extended with a new | 178: # relationship. Treat it as a cycle from the caller's view.
+178: # relationship. Treat it as a cycle from the caller's view. | 179: return True | 180: visited.add(current_id) | 181: current = self.get_by_id(current_id, lock=True)
+181: current = self.get_by_id(current_id, lock=True) | 182: if current is None: | 183: return False | 184: current_id = current.consultorio_padre_id
+182: if current is None: | 183: return False | 184: current_id = current.consultorio_padre_id | 185: return False
+BRANCHES [[44, 46], [58, 60], [124, 126], [143, 145], [164, 165], [176, 179], [182, 183]]
+
+app\repositories\patient.py  92.6470588235294%
+46: ) | 47: if not include_inactive: | 48: statement = statement.where(Patient.estado.is_(True)) | 49: if for_update:
+125: ) | 126: if ubigeo_code is not None: | 127: statement = statement.where(Localidad.ubigeo_codigo == ubigeo_code) | 128: return self._session.execute(statement).scalar_one_or_none()
+192: ) | 193: if for_update: | 194: statement = statement.with_for_update() | 195: return self._session.execute(statement).scalar_one_or_none()
+209: ) -> PatientResponsible | None: | 210: statement = select(PatientResponsible).where( | 211: PatientResponsible.paciente_id == patient_id, | 212: PatientResponsible.activo.is_(True),
+214: ) | 215: if exclude_responsible_id is not None: | 216: statement = statement.where(PatientResponsible.id != exclude_responsible_id) | 217: return self._session.execute(statement).scalar_one_or_none()
+215: if exclude_responsible_id is not None: | 216: statement = statement.where(PatientResponsible.id != exclude_responsible_id) | 217: return self._session.execute(statement).scalar_one_or_none() | 218: 
+216: statement = statement.where(PatientResponsible.id != exclude_responsible_id) | 217: return self._session.execute(statement).scalar_one_or_none() | 218:  | 219: def get_risk(
+231: ) | 232: if for_update: | 233: statement = statement.with_for_update() | 234: return self._session.execute(statement).scalar_one_or_none()
+BRANCHES [[47, 49], [126, 128], [193, 195], [215, 216], [215, 217], [232, 234]]
+
+app\repositories\professional.py  92.5%
+31: statement = select(Professional).options(selectinload(Professional.especialidades)) | 32: if not include_inactive: | 33: statement = statement.where(Professional.activo.is_(True)) | 34: statement = statement.order_by(Professional.nombre_completo, Professional.id)
+32: if not include_inactive: | 33: statement = statement.where(Professional.activo.is_(True)) | 34: statement = statement.order_by(Professional.nombre_completo, Professional.id) | 35: return list(self._session.execute(statement).unique().scalars())
+50: def add_specialty(self, specialty: ProfessionalSpecialty) -> None: | 51: self._session.add(specialty) | 52:  | 53: def replace_specialties(
+BRANCHES [[32, 33]]
+
+app\repositories\user.py  93.10344827586206%
+35: ) | 36: if lock: | 37: statement = statement.with_for_update() | 38: return self._session.scalar(statement)
+61: def find_roles_by_codes(self, codes: set[str]) -> list[Role]: | 62: if not codes: | 63: return [] | 64: return list(self._session.scalars(select(Role).where(Role.codigo.in_(codes))))
+62: if not codes: | 63: return [] | 64: return list(self._session.scalars(select(Role).where(Role.codigo.in_(codes)))) | 65: 
+97: ) | 98: if lock: | 99: statement = statement.with_for_update() | 100: return self._session.scalar(statement)
+BRANCHES [[36, 38], [62, 63], [98, 100]]

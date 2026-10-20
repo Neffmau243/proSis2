@@ -1,4 +1,5 @@
 <script setup lang="ts">
+withDefaults(defineProps<{ showSheet?: boolean }>(), { showSheet: true })
 const renipress = defineModel<string>('renipress', { required: true })
 const name = defineModel<string>('name', { required: true })
 const sheet = defineModel<string>('sheet', { required: true })
@@ -6,11 +7,7 @@ const sheet = defineModel<string>('sheet', { required: true })
 
 <template>
   <div class="referral-fields">
-    <el-form-item
-      class="admission-context-field"
-      label="RENIPRESS"
-      prop="referencia_renipress"
-    >
+    <el-form-item class="admission-context-field" label="RENIPRESS" prop="referencia_renipress">
       <el-input
         v-model="renipress"
         maxlength="8"
@@ -22,7 +19,12 @@ const sheet = defineModel<string>('sheet', { required: true })
     <el-form-item class="admission-context-field" label="IPRESS" prop="referencia_nombre">
       <el-input v-model="name" maxlength="200" aria-label="Nombre de la IPRESS de origen" />
     </el-form-item>
-    <el-form-item class="admission-context-field" label="N.º de hoja" prop="referencia_hoja">
+    <el-form-item
+      v-if="showSheet"
+      class="admission-context-field"
+      label="N.º de hoja"
+      prop="referencia_hoja"
+    >
       <el-input v-model="sheet" maxlength="50" aria-label="N.º de hoja de referencia" />
     </el-form-item>
   </div>

@@ -1,0 +1,50 @@
+{
+  "openapi_unchanged": true,
+  "public_service_signatures_unchanged": true,
+  "export_independent": true,
+  "unchanged_clinical_sources": [
+    "app\\domain\\__init__.py",
+    "app\\domain\\age.py",
+    "app\\domain\\authorization.py",
+    "app\\domain\\family_history.py",
+    "app\\domain\\growth_reference.py",
+    "app\\domain\\nutrition.py",
+    "app\\domain\\nutrition_followup.py",
+    "app\\domain\\office.py",
+    "app\\domain\\patient_condition.py",
+    "app\\domain\\patient_document.py",
+    "app\\domain\\patient_insurance.py",
+    "app/services/fua_print.py",
+    "app/services/nutrition_context.py"
+  ],
+  "unchanged_domain_ast": [
+    "app\\domain\\__init__.py",
+    "app\\domain\\age.py",
+    "app\\domain\\authorization.py",
+    "app\\domain\\clinical.py",
+    "app\\domain\\family_history.py",
+    "app\\domain\\growth_reference.py",
+    "app\\domain\\nutrition.py",
+    "app\\domain\\nutrition_followup.py",
+    "app\\domain\\office.py",
+    "app\\domain\\patient_condition.py",
+    "app\\domain\\patient_document.py",
+    "app\\domain\\patient_insurance.py"
+  ],
+  "size": {
+    "PatientService": {
+      "before_lines": 1060,
+      "after_lines": 625,
+      "before_methods": 42,
+      "after_methods": 21
+    },
+    "AttentionService": {
+      "before_lines": 738,
+      "after_lines": 430,
+      "before_methods": 22,
+      "after_methods": 23,
+      "before_create_lines": 170,
+      "after_create_lines": 105
+    }
+  }
+}

@@ -4,6 +4,8 @@ import {
   nutritionalHistoryValue,
   nutritionalRows,
   nutritionalTableRows,
+  nutritionalLimits,
+  nutritionalStatus,
 } from '@/utils/nutritionalDisplay'
 import type { NutritionalIndicatorsPreview } from '@/services/atenciones'
 
@@ -18,6 +20,27 @@ const result: NutritionalIndicatorsPreview = {
   grupo_referencia: 'ADULTO',
   diagnostico_imc: 'Normal',
 }
+
+test('la explicación de resultados conserva los límites y distingue falta de datos', () => {
+  expect(nutritionalLimits(null)).toBe('')
+  expect(nutritionalStatus(null)).toContain('Ingrese peso y talla')
+  for (const [group, text] of [
+    ['ADULTO', 'fuera de las tablas'],
+    ['ADULTO_MAYOR', 'fuera de las tablas'],
+    ['GESTANTE', 'Gestantes'],
+    ['PUERPERA', 'Puérperas'],
+    ['ESCOLAR', 'Desde los 5 años'],
+    ['INFANTIL', 'Menores de 5 años'],
+  ] as const) {
+    expect(nutritionalLimits({ ...result, grupo_referencia: group })).toContain(text)
+  }
+  expect(nutritionalStatus({ ...result, mensaje: 'Aviso del servidor' })).toContain(
+    'Aviso del servidor',
+  )
+  expect(nutritionalStatus({ ...result, imc: null, diagnostico_imc: null })).not.toContain(
+    'Resultado disponible',
+  )
+})
 
 test.each(['INFANTIL', 'ESCOLAR', 'ADULTO', 'ADULTO_MAYOR', 'GESTANTE', 'PUERPERA'] as const)(
   'los campos P/E, T/E y P/T permanecen fijos para %s',

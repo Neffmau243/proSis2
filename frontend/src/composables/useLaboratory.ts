@@ -1,5 +1,5 @@
 import { computed, reactive, ref, shallowRef, watch } from 'vue'
-import { atenciones, type Attention } from '@/services/atenciones'
+import { atenciones, type Attention, type AttentionCreatePayload } from '@/services/atenciones'
 import { pacientes, type Patient } from '@/services/pacientes'
 import {
   catalogos,
@@ -12,6 +12,7 @@ import {
 import { useSavedAdmission } from '@/composables/useSavedAdmission'
 import type { PageResponse } from '@/types/api'
 import { laboratoryShift } from '@/utils/laboratoryShift'
+import { emptyFuaInput } from '@/utils/fuaPrint'
 
 async function allPages<T>(fetchPage: (offset: number) => Promise<PageResponse<T>>): Promise<T[]> {
   const items: T[] = []
@@ -68,7 +69,9 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     professionalId: null as number | null,
     serviceCode: null as string | null,
     date: localDateTime(),
-    mode: 'AMBULATORIA' as 'AMBULATORIA' | 'EMERGENCIA',
+    mode: 'AMBULATORIA' as AttentionCreatePayload['modalidad_atencion_codigo'],
+    originRenipress: '',
+    originName: '',
     notes: '',
     reference: '',
     counterReference: '',
@@ -166,6 +169,9 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
       form.notes = ''
       form.reference = ''
       form.counterReference = ''
+      form.originRenipress = ''
+      form.originName = ''
+      form.mode = 'AMBULATORIA'
     }
     patient.value = value
     patients.value = value ? [value] : []
@@ -254,6 +260,12 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
       return 'Indique una fecha y hora válidas.'
     if (form.date.slice(0, 10) < patient.value.fecha_nacimiento)
       return 'La atención no puede ser anterior al nacimiento.'
+    if (form.mode === 'REFERENCIA') {
+      if (!/^[0-9]{8}$/.test(form.originRenipress.trim()))
+        return 'Indique los 8 dígitos del RENIPRESS de la IPRESS de origen.'
+      if (!form.originName.trim()) return 'Indique el nombre de la IPRESS de origen.'
+      if (!form.reference.trim()) return 'Indique el N.º de referencia recibida.'
+    }
     return ''
   })
 
@@ -274,6 +286,16 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
         observaciones: form.notes.trim() || null,
         numero_referencia_ingreso: form.reference.trim() || null,
         numero_contrarreferencia_ingreso: form.counterReference.trim() || null,
+        fua_datos:
+          form.mode === 'REFERENCIA'
+            ? {
+                ...emptyFuaInput(),
+                tipo_atencion: 'REFERENCIA',
+                referencia_renipress: form.originRenipress.trim(),
+                referencia_nombre: form.originName.trim(),
+                referencia_hoja: form.reference.trim(),
+              }
+            : null,
       })
       // Bloquear un segundo POST incluso si falla la actualización del historial.
       saved.remember(result)
@@ -296,6 +318,9 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     form.notes = ''
     form.reference = ''
     form.counterReference = ''
+    form.originRenipress = ''
+    form.originName = ''
+    form.mode = 'AMBULATORIA'
     error.value = ''
   }
 

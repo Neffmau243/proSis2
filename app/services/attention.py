@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections.abc import Callable, Iterable
-from dataclasses import asdict
 from datetime import date
 from decimal import Decimal
 
@@ -17,13 +16,11 @@ from app.domain.clinical import (
     VitalSignPayload,
 )
 from app.domain.nutrition import NutritionalIndicators, calculate_nutritional_indicators
-from app.domain.nutrition_followup import assess_followup
-from app.domain.office import office_context
 from app.domain.patient_condition import condition_for_attention
-from app.exceptions import AuthorizationError, BusinessRuleError, ConflictError, NotFoundError
-from app.mappers.attention import attention_to_response
+from app.exceptions import BusinessRuleError, ConflictError, NotFoundError
+from app.mappers.attention import attention_from_command, attention_to_response
 from app.models.clinical import Attention
-from app.models.surveillance import NutritionalEvaluation
+from app.repositories.age_group import AgeGroupRepository
 from app.repositories.attention import AttentionRepository
 from app.repositories.patient import PatientRepository
 from app.schemas.attention import (
@@ -32,12 +29,12 @@ from app.schemas.attention import (
     AttentionResponse,
     NutritionalIndicatorsPreviewInput,
     NutritionalIndicatorsResponse,
-    NutritionalSnapshotInput,
 )
-from app.schemas.nutrition_record import ADULT_FIELDS, CHILD_FIELDS, PREGNANT_FIELDS
-from app.services.age_group import AgeGroupService
-from app.services.fua_print import build_fua_snapshot
-from app.services.nutrition_context import nutrition_context
+from app.services.age_group_resolver import AgeGroupResolver
+from app.services.attention_context import AttentionContextLoader
+from app.services.attention_validation import AttentionContextValidator
+from app.services.clinical_access import ClinicalAccessService
+from app.services.nutrition_assessment import NutritionAssessmentService
 
 
 class AttentionService:
@@ -52,7 +49,7 @@ class AttentionService:
         self._session = session
         self._attentions = AttentionRepository(session)
         self._patients = PatientRepository(session)
-        self._age_groups = AgeGroupService(session)
+        self._age_groups = AgeGroupResolver(AgeGroupRepository(session))
         self._clinical_protocol = clinical_protocol or ConfigurableClinicalProtocol()
         self._today_provider = today_provider
 
@@ -155,81 +152,16 @@ class AttentionService:
                 height_cm=command.talla_cm,
             )
 
-            entity = Attention(
-                paciente_id=patient.id,
-                numero_referencia_ingreso=command.numero_referencia_ingreso or None,
-                numero_contrarreferencia_ingreso=command.numero_contrarreferencia_ingreso or None,
-                establecimiento_id=command.establecimiento_id,
-                profesional_id=command.profesional_id,
-                especialidad_codigo=command.especialidad_codigo,
-                consultorio_id=command.consultorio_id,
-                modalidad_atencion_codigo=command.modalidad_atencion_codigo.value,
-                grupo_etario_codigo=age_group.codigo,
-                grupo_atencion_codigo=command.grupo_atencion_codigo.value,
-                fecha_atencion=command.fecha_atencion,
-                fecha_atendido=command.fecha_atendido,
-                historia_clinica_snapshot=patient.historia_clinica,
-                edad_anios=age.years,
-                peso_kg=command.peso_kg,
-                talla_cm=command.talla_cm,
-                perimetro_abdominal_cm=command.perimetro_abdominal_cm,
-                tipo_embarazo_codigo=(
-                    command.tipo_embarazo_codigo.value
-                    if command.tipo_embarazo_codigo is not None
-                    else None
-                ),
-                peso_antes_embarazo_kg=command.peso_antes_embarazo_kg,
-                fecha_probable_parto=command.fecha_probable_parto,
-                fecha_parto=command.fecha_parto,
-                presion_sistolica=command.presion_sistolica,
-                presion_diastolica=command.presion_diastolica,
-                temperatura_c=command.temperatura_c,
-                imc=indicators.imc,
-                pe=self._format_indicator(indicators.pe),
-                te=self._format_indicator(indicators.te),
-                pt=self._format_indicator(indicators.pt),
-                referencia_nutricional=indicators.referencia,
-                valoracion_calculada=self._assessment(
-                    indicators, patient, attention_date, command.peso_kg, command.talla_cm, scope
-                ).model_dump(mode="json"),
-                hora_inicio=command.hora_inicio,
-                hora_fin=command.hora_fin,
-                admision=command.admision,
-                observaciones=command.observaciones,
-                created_by_usuario_id=actor_id,
+            assessment = self._assessment(
+                indicators, patient, attention_date, command.peso_kg, command.talla_cm, scope
             )
-            entity.contexto_clinico = nutrition_context(
-                patient,
-                self._attentions.get_active_establishment(command.establecimiento_id),
-                age,
-                condition,
-                office=(
-                    self._attentions.get_active_office(command.consultorio_id)
-                    if command.consultorio_id is not None
-                    else None
-                ),
-                professional=(
-                    self._attentions.get_active_professional(command.profesional_id)
-                    if command.profesional_id is not None
-                    else None
-                ),
-                specialty=(
-                    self._attentions.get_active_specialty(command.especialidad_codigo)
-                    if command.especialidad_codigo
-                    else None
-                ),
+            entity = attention_from_command(
+                command, patient, age, age_group.codigo, indicators, assessment, actor_id
             )
-            entity.fua_impresion = build_fua_snapshot(
-                entity,
-                patient,
-                self._attentions.get_active_establishment(command.establecimiento_id),
-                (
-                    self._attentions.get_active_professional(command.profesional_id)
-                    if command.profesional_id is not None
-                    else None
-                ),
-                command.fua_datos,
+            context = AttentionContextLoader(self._attentions, self._patients).load(
+                patient, command
             )
+            context.apply(entity, command, age, condition)
             self._attentions.add(entity)
             self._attentions.flush()
             self._add_details(entity, command)
@@ -315,28 +247,7 @@ class AttentionService:
         )
 
     def _assessment(self, indicators, patient, measured_on, weight, height, scope):
-        age_months = completed_months(patient.fecha_nacimiento, measured_on)
-        previous = None
-        if age_months < 60 and indicators.grupo_referencia == "INFANTIL":
-            previous = self._attentions.previous_growth_control(
-                patient.id,
-                measured_on,
-                birth_date=patient.fecha_nacimiento,
-                professional_id=scope[0] if scope is not None else None,
-                establishment_ids=scope[1] if scope is not None else None,
-            )
-        return NutritionalIndicatorsResponse(
-            **asdict(indicators),
-            **indicators.classifications,
-            seguimiento=assess_followup(
-                indicators,
-                measured_on=measured_on,
-                age_months=age_months,
-                weight=weight,
-                height=height,
-                previous=previous,
-            ),
-        )
+        return self._nutrition.assessment(indicators, patient, measured_on, weight, height, scope)
 
     def cancel(
         self,
@@ -395,69 +306,7 @@ class AttentionService:
             raise
 
     def _validate_clinical_context(self, command: AttentionCreate) -> None:
-        if self._attentions.get_active_establishment(command.establecimiento_id) is None:
-            raise NotFoundError(
-                code="ESTABLECIMIENTO_NO_ACTIVO",
-                message="El establecimiento no existe o está inactivo.",
-            )
-        if self._attentions.get_active_mode(command.modalidad_atencion_codigo.value) is None:
-            raise NotFoundError(
-                code="MODALIDAD_NO_ACTIVA", message="La modalidad de atención no está activa."
-            )
-        if (
-            command.modalidad_atencion_codigo.value == "REFERENCIA"
-            and command.consultorio_id is None
-        ):
-            return
-        if self._attentions.get_active_professional(command.profesional_id) is None:
-            raise NotFoundError(
-                code="PROFESIONAL_NO_ACTIVO", message="El profesional no existe o está inactivo."
-            )
-        office = self._attentions.get_active_office(command.consultorio_id)
-        if office is None:
-            raise NotFoundError(
-                code="CONSULTORIO_NO_ACTIVO", message="El consultorio no existe o está inactivo."
-            )
-        if office.establecimiento_id != command.establecimiento_id:
-            raise BusinessRuleError(
-                code="CONSULTORIO_OTRA_SEDE",
-                message="El consultorio debe pertenecer al establecimiento de la atención.",
-            )
-        context = office_context(office)
-        if not context.active:
-            raise BusinessRuleError(
-                code="JERARQUIA_CONSULTORIO_NO_ACTIVA",
-                message="El consultorio o alguno de sus padres está inactivo.",
-            )
-        required_specialty = context.required_specialty
-        selected_specialty = command.especialidad_codigo
-        if (context.area_code is not None and selected_specialty not in context.service_codes) or (
-            getattr(office, "servicios_codigos", None) == []
-        ):
-            raise BusinessRuleError(
-                code="ESPECIALIDAD_INCOMPATIBLE",
-                message="Seleccione un servicio o especialidad habilitado en este consultorio.",
-            )
-        if selected_specialty is not None:
-            if self._attentions.get_active_specialty(selected_specialty) is None:
-                raise NotFoundError(
-                    code="ESPECIALIDAD_NO_ACTIVA",
-                    message="La especialidad no existe o está inactiva.",
-                )
-        if not self._attentions.professional_is_assigned(
-            office, command.profesional_id, command.fecha_atencion.date()
-        ):
-            raise BusinessRuleError(
-                code="PROFESIONAL_NO_ASIGNADO",
-                message="Seleccione un profesional asignado y vigente en esa fecha.",
-            )
-        if required_specialty and not self._attentions.professional_has_specialty(
-            command.profesional_id, required_specialty
-        ):
-            raise BusinessRuleError(
-                code="PROFESIONAL_SIN_ESPECIALIDAD",
-                message="El profesional no tiene la especialidad base requerida.",
-            )
+        AttentionContextValidator(self._attentions).validate(command)
 
     def _ensure_actor_is_linked_professional(
         self,
@@ -465,27 +314,7 @@ class AttentionService:
         actor_id: int,
         actor_roles: Iterable[str],
     ) -> int:
-        """Require a valid clinical identity before registering an attention.
-
-        Administrative accounts deliberately cannot use this internal path,
-        even if a router is accidentally widened later.  The user who records
-        the attention remains in the audit trail, while the selected
-        professional represents who attended the patient.
-        """
-
-        normalized_roles = {role.upper() for role in actor_roles}
-        if "PROFESIONAL" not in normalized_roles:
-            raise AuthorizationError(
-                code="ROL_CLINICO_REQUERIDO",
-                message="Solo un usuario PROFESIONAL vinculado puede operar atenciones.",
-            )
-        linked_professional_id = self._attentions.get_active_professional_id_for_user(actor_id)
-        if linked_professional_id is None:
-            raise AuthorizationError(
-                code="USUARIO_PROFESIONAL_SIN_VINCULO",
-                message="El usuario clínico no está vinculado a un profesional activo.",
-            )
-        return linked_professional_id
+        return self._access.linked_professional(actor_id=actor_id, actor_roles=actor_roles)
 
     def _ensure_actor_can_cancel_attention(
         self,
@@ -495,19 +324,12 @@ class AttentionService:
         professional_id: int | None,
         recorded_by_id: int | None = None,
     ) -> None:
-        """Keep cancellation restricted to the clinician who attended."""
-
-        linked_professional_id = self._ensure_actor_is_linked_professional(
+        self._access.ensure_cancellation(
             actor_id=actor_id,
             actor_roles=actor_roles,
+            professional_id=professional_id,
+            recorded_by_id=recorded_by_id,
         )
-        if professional_id is None and recorded_by_id == actor_id:
-            return
-        if linked_professional_id != professional_id:
-            raise AuthorizationError(
-                code="PROFESIONAL_DISTINTO_AL_USUARIO",
-                message="Solo puede anular atenciones de su propio profesional.",
-            )
 
     def _ensure_attention_in_scope(
         self,
@@ -516,31 +338,8 @@ class AttentionService:
         actor_id: int | None,
         actor_roles: Iterable[str] | None,
     ) -> None:
-        """Apply object-level access when called from an authenticated route.
-
-        ``actor_roles=None`` keeps the framework-independent service usable by
-        internal maintenance code and existing unit doubles.  Public routes
-        always pass the persisted principal and therefore cannot bypass this
-        check.
-        """
-
         scope = self._resolve_clinical_scope(actor_id=actor_id, actor_roles=actor_roles)
-        if scope is None:
-            return
-        professional_id, establishment_ids = scope
-        if (
-            entity.profesional_id == professional_id
-            or entity.establecimiento_id in establishment_ids
-            or (
-                entity.profesional_id is None
-                and getattr(entity, "created_by_usuario_id", None) == actor_id
-            )
-        ):
-            return
-        raise AuthorizationError(
-            code="ATENCION_FUERA_DE_AMBITO",
-            message="La atención no pertenece a su ámbito asistencial.",
-        )
+        self._access.ensure_attention(entity, scope, actor_id=actor_id)
 
     def _ensure_patient_in_scope(
         self,
@@ -549,21 +348,8 @@ class AttentionService:
         actor_id: int | None,
         actor_roles: Iterable[str] | None,
     ) -> tuple[int, set[int]] | None:
-        """Return the professional/site scope used by attention-history reads."""
-
         scope = self._resolve_clinical_scope(actor_id=actor_id, actor_roles=actor_roles)
-        if scope is None:
-            return None
-        professional_id, establishment_ids = scope
-        if not self._patients.is_patient_in_professional_scope(
-            patient_id=patient_id,
-            professional_id=professional_id,
-            establishment_ids=establishment_ids,
-        ):
-            raise AuthorizationError(
-                code="PACIENTE_FUERA_DE_AMBITO",
-                message="El paciente no pertenece a su ámbito asistencial.",
-            )
+        self._access.ensure_patient(patient_id, scope)
         return scope
 
     def _resolve_clinical_scope(
@@ -572,36 +358,7 @@ class AttentionService:
         actor_id: int | None,
         actor_roles: Iterable[str] | None,
     ) -> tuple[int, set[int]] | None:
-        """Resolve the authenticated clinician and their active assigned sites.
-
-        ``None`` is reserved for internal framework-independent callers. All
-        public clinical routes provide actor data, so a generic ADMIN account
-        cannot reach this path without a PROFESIONAL role and database link.
-        """
-
-        if actor_roles is None:
-            return None
-        if actor_id is None:
-            raise AuthorizationError(
-                code="ACTOR_CLINICO_REQUERIDO",
-                message="Se requiere una identidad clínica autenticada.",
-            )
-        normalized_roles = {role.upper() for role in actor_roles}
-        if "PROFESIONAL" not in normalized_roles:
-            raise AuthorizationError(
-                code="ROL_CLINICO_REQUERIDO",
-                message="Solo un usuario PROFESIONAL vinculado puede operar atenciones.",
-            )
-        professional_id = self._attentions.get_active_professional_id_for_user(actor_id)
-        if professional_id is None:
-            raise AuthorizationError(
-                code="USUARIO_PROFESIONAL_SIN_VINCULO",
-                message="El usuario clínico no está vinculado a un profesional activo.",
-            )
-        establishment_ids = self._patients.get_active_establishment_ids_for_professional(
-            professional_id
-        )
-        return professional_id, establishment_ids
+        return self._access.attention_scope(actor_id=actor_id, actor_roles=actor_roles)
 
     def _validate_attention_dates(self, command: AttentionCreate, attention_date: date) -> None:
         today = self._today_provider()
@@ -630,14 +387,7 @@ class AttentionService:
         )
 
     def _validate_measurements(self, values: VitalSignPayload, age_in_months: int) -> None:
-        """Preview and persistence must apply the same configured protocol."""
-        try:
-            self._clinical_protocol.validate(
-                values,
-                age_in_months=age_in_months,
-            )
-        except ValueError as exc:
-            raise BusinessRuleError(code="SIGNOS_VITALES_INVALIDOS", message=str(exc)) from exc
+        self._nutrition.validate_measurements(values, age_in_months)
 
     def _add_details(self, entity: Attention, command: AttentionCreate) -> None:
         service_details: list[tuple[int, str, Decimal]] = []
@@ -671,82 +421,13 @@ class AttentionService:
         age: CalendarAge,
         indicators: NutritionalIndicators,
     ) -> None:
-        snapshot = command.valoracion_nutricional
-        if snapshot is None and indicators.estado != "CALCULADO":
-            return
-        if snapshot is None:
-            snapshot = NutritionalSnapshotInput()
-        captured = snapshot.model_dump(
-            exclude={
-                "tipo",
-                "diagnostico_peso_edad",
-                "diagnostico_talla_edad",
-                "diagnostico_peso_talla",
-            }
-        )
-        kind = {"GESTANTES": "GESTANTE", "PUERPERAS": "PUERPERA"}.get(
-            command.grupo_atencion_codigo.value, "NINO" if age.years < 18 else "ADULTO"
-        )
-        self._attentions.add_nutritional_evaluation(
-            NutritionalEvaluation(
-                paciente_id=entity.paciente_id,
-                atencion_id=entity.id,
-                establecimiento_id=entity.establecimiento_id,
-                tipo=kind,
-                fecha=entity.fecha_atencion,
-                peso_kg=entity.peso_kg,
-                talla_cm=entity.talla_cm,
-                **captured,
-                edad_anios=age.years,
-                edad_meses=age.months,
-                edad_dias=age.days,
-                perimetro_abdominal_cm=entity.perimetro_abdominal_cm,
-                imc=indicators.imc,
-                whz=indicators.pt,
-                haz=indicators.te,
-                waz=indicators.pe,
-                **indicators.classifications,
-                estado_exportacion="PENDIENTE",
-                enviado=False,
-            )
-        )
+        self._nutrition.add_nutritional_snapshot(entity, command, age, indicators)
 
     @staticmethod
     def _validate_nutrition_record(
         command: AttentionCreate, birth_date: date, age: CalendarAge
     ) -> None:
-        record = command.valoracion_nutricional
-        if record is None:
-            return
-        group = command.grupo_atencion_codigo.value
-        child = group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES" and age.years < 18
-        adult = group == "NINOS_ADOLESCENTES_ADULTOS_MAYORES" and age.years >= 18
-        invalid = []
-        for applies, fields in (
-            (child, CHILD_FIELDS),
-            (adult, ADULT_FIELDS),
-            (group == "GESTANTES", PREGNANT_FIELDS),
-        ):
-            if not applies:
-                invalid.extend(name for name in fields if getattr(record, name) is not None)
-        if child and record.pending_legacy is not None:
-            invalid.append("pending_legacy")
-        if invalid:
-            raise BusinessRuleError(
-                code="CAMPOS_NUTRICION_NO_APLICAN",
-                message="Estos campos no corresponden al grupo y edad: " + ", ".join(invalid),
-            )
-        if record.fecha_hemoglobina is not None and not (
-            birth_date <= record.fecha_hemoglobina <= command.fecha_atencion.date()
-        ):
-            raise BusinessRuleError(
-                code="FECHA_HEMOGLOBINA_INVALIDA",
-                message="La fecha del resultado debe estar entre el nacimiento y la atención.",
-            )
-
-    @staticmethod
-    def _format_indicator(value: Decimal | None) -> str | None:
-        return f"{value:.3f}" if value is not None else None
+        NutritionAssessmentService.validate_nutrition_record(command, birth_date, age)
 
     @staticmethod
     def _with_cancellation_reason(existing: str | None, reason: str) -> str:
@@ -778,3 +459,11 @@ class AttentionService:
                 entity, "numero_contrarreferencia_ingreso", None
             ),
         }
+
+    @property
+    def _access(self) -> ClinicalAccessService:
+        return ClinicalAccessService(self._attentions, self._patients)
+
+    @property
+    def _nutrition(self) -> NutritionAssessmentService:
+        return NutritionAssessmentService(self._attentions, self._clinical_protocol)

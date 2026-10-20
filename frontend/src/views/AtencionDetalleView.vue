@@ -87,6 +87,12 @@
         <el-descriptions-item label="Historia clínica">{{
           attention?.historia_clinica_snapshot || '—'
         }}</el-descriptions-item>
+        <el-descriptions-item label="N.º de referencia recibida">{{
+          attention?.numero_referencia_ingreso || attention?.fua_impresion?.referencia_hoja || '—'
+        }}</el-descriptions-item>
+        <el-descriptions-item label="N.º de contrarreferencia recibida">{{
+          attention?.numero_contrarreferencia_ingreso || '—'
+        }}</el-descriptions-item>
         <el-descriptions-item label="Historia familiar a la atención">{{
           attention?.contexto_clinico?.historia_familiar ?? 'Sin copia histórica'
         }}</el-descriptions-item>

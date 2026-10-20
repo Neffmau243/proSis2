@@ -1,0 +1,239 @@
+
+app\scripts\bootstrap_database.py  93.47826086956522%
+83:  | 84: database_name = create_database_if_missing() | 85: upgrade_to_head() | 86: print(f"Base de datos '{database_name}' inicializada mediante Alembic.")
+84: database_name = create_database_if_missing() | 85: upgrade_to_head() | 86: print(f"Base de datos '{database_name}' inicializada mediante Alembic.") | 87: 
+85: upgrade_to_head() | 86: print(f"Base de datos '{database_name}' inicializada mediante Alembic.") | 87:  | 88: 
+BRANCHES []
+
+app\scripts\reset_demo_database.py  96.5909090909091%
+43: application_url = make_url(configured_settings.sqlalchemy_database_url) | 44: if not application_url.drivername.startswith("mysql"): | 45: raise ValueError("El reinicio solo admite una URL de conexión MySQL.") | 46: database_name = _database_name(configured_settings, application_url)
+44: if not application_url.drivername.startswith("mysql"): | 45: raise ValueError("El reinicio solo admite una URL de conexión MySQL.") | 46: database_name = _database_name(configured_settings, application_url) | 47: 
+132: print(f"PROFESIONAL demo: {DEMO_PROFESSIONAL_USERNAME} / {DEMO_PROFESSIONAL_PASSWORD}") | 133: elif args.generate_password: | 134: print(f"Contraseña temporal del ADMIN: {password}") | 135: print("Semillas de demostración creadas:")
+BRANCHES [[44, 45], [133, 135]]
+
+app\scripts\seed_demo_data.py  86.83473389355743%
+526: ) | 527: if locality is None: | 528: raise RuntimeError( | 529: f"Falta la localidad {nombre!r} del distrito {ubigeo_codigo}; "
+527: if locality is None: | 528: raise RuntimeError( | 529: f"Falta la localidad {nombre!r} del distrito {ubigeo_codigo}; " | 530: "ejecute las migraciones antes de la semilla."
+540: ) | 541: if establishment is None: | 542: raise RuntimeError( | 543: f"Falta la sede {renaes}; ejecute las migraciones antes de la semilla."
+541: if establishment is None: | 542: raise RuntimeError( | 543: f"Falta la sede {renaes}; ejecute las migraciones antes de la semilla." | 544: )
+551: professional_role = session.scalar(select(Role).where(Role.codigo == "PROFESIONAL")) | 552: if professional_role is None: | 553: raise RuntimeError("No existe el rol PROFESIONAL. Ejecute las migraciones primero.") | 554: 
+552: if professional_role is None: | 553: raise RuntimeError("No existe el rol PROFESIONAL. Ejecute las migraciones primero.") | 554:  | 555: user = session.scalar(
+561: ) | 562: if linked_user is not None: | 563: raise RuntimeError( | 564: "El profesional demo ya está vinculado a otro usuario; "
+562: if linked_user is not None: | 563: raise RuntimeError( | 564: "El profesional demo ya está vinculado a otro usuario; " | 565: "no se puede crear medico.demo de forma segura."
+576:  | 577: if user.profesional_id != professional.id: | 578: raise RuntimeError( | 579: "El usuario medico.demo ya está vinculado a otro profesional; "
+577: if user.profesional_id != professional.id: | 578: raise RuntimeError( | 579: "El usuario medico.demo ya está vinculado a otro profesional; " | 580: "no se puede reutilizar como cuenta demo."
+628: session.flush() | 629: elif patient.localidad_id != locality.id: | 630: # Repara semillas antiguas que dejaban la localidad sin enlazar o | 631: # guardaban el nombre del distrito o su código de ubigeo.
+631: # guardaban el nombre del distrito o su código de ubigeo. | 632: patient.localidad = locality.nombre | 633: patient.localidad_id = locality.id | 634: patients[demo.document_number] = patient
+632: patient.localidad = locality.nombre | 633: patient.localidad_id = locality.id | 634: patients[demo.document_number] = patient | 635: 
+671: ubigeo = session.get(Ubigeo, ubigeo_codigo) | 672: if ubigeo is None: | 673: raise RuntimeError( | 674: f"Falta el ubigeo {ubigeo_codigo}; ejecute las migraciones antes de la semilla."
+672: if ubigeo is None: | 673: raise RuntimeError( | 674: f"Falta el ubigeo {ubigeo_codigo}; ejecute las migraciones antes de la semilla." | 675: )
+697: insurance = session.scalar(select(Insurance).where(Insurance.codigo == demo["seguro"])) | 698: if localidad is None or establishment is None or insurance is None: | 699: raise RuntimeError( | 700: f"Faltan catálogos para el paciente de ejemplo {demo['documento']}; "
+698: if localidad is None or establishment is None or insurance is None: | 699: raise RuntimeError( | 700: f"Faltan catálogos para el paciente de ejemplo {demo['documento']}; " | 701: "ejecute las migraciones antes de la semilla."
+774: return issued.id | 775: if kind == "REFERENCIA": | 776: existing = session.scalar( | 777: select(Referral).where(
+798: return issued.id | 799: raise RuntimeError(f"Tipo de documento demo no soportado: {kind}") | 800:  | 801: 
+905: group = session.get(AgeGroup, code) | 906: if group is None: | 907: group = AgeGroup( | 908: codigo=code,
+906: if group is None: | 907: group = AgeGroup( | 908: codigo=code, | 909: nombre=name,
+912: ) | 913: session.add(group) | 914: elif group.edad_minima_meses is None and group.edad_maxima_meses is None: | 915: group.edad_minima_meses = minimum
+913: session.add(group) | 914: elif group.edad_minima_meses is None and group.edad_maxima_meses is None: | 915: group.edad_minima_meses = minimum | 916: group.edad_maxima_meses = maximum
+914: elif group.edad_minima_meses is None and group.edad_maxima_meses is None: | 915: group.edad_minima_meses = minimum | 916: group.edad_maxima_meses = maximum | 917: 
+915: group.edad_minima_meses = minimum | 916: group.edad_maxima_meses = maximum | 917:  | 918: _get_or_create(
+958: district = session.get(Ubigeo, code) | 959: if district is None: | 960: raise RuntimeError( | 961: f"Falta el ubigeo {code}; ejecute las migraciones antes de la semilla."
+959: if district is None: | 960: raise RuntimeError( | 961: f"Falta el ubigeo {code}; ejecute las migraciones antes de la semilla." | 962: )
+974: ) | 975: if office is None: | 976: raise RuntimeError( | 977: "Falta el consultorio de medicina; ejecute las migraciones antes de la semilla."
+975: if office is None: | 976: raise RuntimeError( | 977: "Falta el consultorio de medicina; ejecute las migraciones antes de la semilla." | 978: )
+984: ) | 985: if professional is None: | 986: raise RuntimeError( | 987: "Falta un profesional de medicina; ejecute las migraciones antes de la semilla."
+985: if professional is None: | 986: raise RuntimeError( | 987: "Falta un profesional de medicina; ejecute las migraciones antes de la semilla." | 988: )
+1045: ): | 1046: if demo_patient.localidad_id != demo_localidad.id: | 1047: demo_patient.ubigeo_residencia_codigo = districts["040102"] | 1048: demo_patient.localidad = demo_localidad.nombre
+1046: if demo_patient.localidad_id != demo_localidad.id: | 1047: demo_patient.ubigeo_residencia_codigo = districts["040102"] | 1048: demo_patient.localidad = demo_localidad.nombre | 1049: demo_patient.localidad_id = demo_localidad.id
+1047: demo_patient.ubigeo_residencia_codigo = districts["040102"] | 1048: demo_patient.localidad = demo_localidad.nombre | 1049: demo_patient.localidad_id = demo_localidad.id | 1050: if demo_patient.direccion is None:
+1048: demo_patient.localidad = demo_localidad.nombre | 1049: demo_patient.localidad_id = demo_localidad.id | 1050: if demo_patient.direccion is None: | 1051: demo_patient.direccion = address
+1049: demo_patient.localidad_id = demo_localidad.id | 1050: if demo_patient.direccion is None: | 1051: demo_patient.direccion = address | 1052: _get_or_create(
+1050: if demo_patient.direccion is None: | 1051: demo_patient.direccion = address | 1052: _get_or_create( | 1053: session,
+1098: } | 1099: except Exception: | 1100: session.rollback() | 1101: raise
+1099: except Exception: | 1100: session.rollback() | 1101: raise | 1102: finally:
+1100: session.rollback() | 1101: raise | 1102: finally: | 1103: session.close()
+1114: environment = get_settings().environment.strip().casefold() | 1115: if environment != "development": | 1116: raise RuntimeError( | 1117: "Las semillas de demostración solo pueden ejecutarse con ENVIRONMENT=development."
+1115: if environment != "development": | 1116: raise RuntimeError( | 1117: "Las semillas de demostración solo pueden ejecutarse con ENVIRONMENT=development." | 1118: )
+1126: ) | 1127: if professional is None: | 1128: raise RuntimeError( | 1129: "No hay profesionales sembrados; ejecute las migraciones antes de la semilla."
+1127: if professional is None: | 1128: raise RuntimeError( | 1129: "No hay profesionales sembrados; ejecute las migraciones antes de la semilla." | 1130: )
+1141: return identifiers | 1142: except Exception: | 1143: session.rollback() | 1144: raise
+1142: except Exception: | 1143: session.rollback() | 1144: raise | 1145: finally:
+1143: session.rollback() | 1144: raise | 1145: finally: | 1146: session.close()
+BRANCHES [[527, 528], [541, 542], [552, 553], [562, 563], [577, 578], [629, 632], [672, 673], [698, 699], [775, 799], [906, 907], [914, 915], [959, 960], [975, 976], [985, 986], [1046, 1047], [1050, 1051], [1115, 1116], [1127, 1128]]
+
+app\services\age_group.py  90.80459770114942%
+73: self._session.flush() | 74: if self._audit is not None: | 75: self._audit( | 76: actor_id=actor_id,
+89: def resolve(self, age_in_months: int) -> AgeGroup: | 90: return AgeGroupResolver(self._repository).resolve(age_in_months) | 91:  | 92: @staticmethod
+100: open_ended = [group for group in active if group.edad_maxima_meses is None] | 101: if len(open_ended) > 1: | 102: raise BusinessRuleError( | 103: code="MULTIPLES_GRUPOS_SIN_MAXIMO",
+101: if len(open_ended) > 1: | 102: raise BusinessRuleError( | 103: code="MULTIPLES_GRUPOS_SIN_MAXIMO", | 104: message="Solo puede haber un grupo etario activo sin edad máxima",
+108: for group in active: | 109: if group.edad_minima_meses is None: | 110: raise BusinessRuleError( | 111: code="GRUPO_ETARIO_SIN_MINIMO",
+109: if group.edad_minima_meses is None: | 110: raise BusinessRuleError( | 111: code="GRUPO_ETARIO_SIN_MINIMO", | 112: message=f"El grupo {group.codigo} no tiene edad mínima",
+114: if previous is not None: | 115: if previous.edad_maxima_meses is None: | 116: raise BusinessRuleError( | 117: code="RANGOS_ETARIOS_SUPERPUESTOS",
+115: if previous.edad_maxima_meses is None: | 116: raise BusinessRuleError( | 117: code="RANGOS_ETARIOS_SUPERPUESTOS", | 118: message="Un grupo sin edad máxima debe ser el último rango activo",
+BRANCHES [[74, 83], [101, 102], [109, 110], [115, 116]]
+
+app\services\age_group_resolver.py  84.61538461538461%
+13: group = self._repository.find_matching_active(age_in_months) | 14: if group is None: | 15: raise BusinessRuleError( | 16: code="GRUPO_ETARIO_NO_CONFIGURADO",
+14: if group is None: | 15: raise BusinessRuleError( | 16: code="GRUPO_ETARIO_NO_CONFIGURADO", | 17: message="No existe un grupo etario activo para la edad calculada",
+BRANCHES [[14, 15]]
+
+app\services\attention.py  94.1747572815534%
+63: entity = self._attentions.get_by_id(attention_id) | 64: if entity is None: | 65: raise NotFoundError( | 66: code="ATENCION_NO_ENCONTRADA", message="No existe la atención solicitada."
+64: if entity is None: | 65: raise NotFoundError( | 66: code="ATENCION_NO_ENCONTRADA", message="No existe la atención solicitada." | 67: )
+111: patient = self._patients.get_by_id(command.paciente_id, for_update=True) | 112: if patient is None: | 113: raise NotFoundError( | 114: code="PACIENTE_NO_ENCONTRADO", message="El paciente no existe o está inactivo."
+112: if patient is None: | 113: raise NotFoundError( | 114: code="PACIENTE_NO_ENCONTRADO", message="El paciente no existe o está inactivo." | 115: )
+192: except IntegrityError as exc: | 193: self._session.rollback() | 194: raise ConflictError( | 195: code="ATENCION_EN_CONFLICTO",
+193: self._session.rollback() | 194: raise ConflictError( | 195: code="ATENCION_EN_CONFLICTO", | 196: message="No se pudo registrar la atención por una restricción de datos.",
+221: patient = self._patients.get_by_id(command.paciente_id) | 222: if patient is None: | 223: raise NotFoundError( | 224: code="PACIENTE_NO_ENCONTRADO", message="El paciente no existe o está inactivo."
+222: if patient is None: | 223: raise NotFoundError( | 224: code="PACIENTE_NO_ENCONTRADO", message="El paciente no existe o está inactivo." | 225: )
+226: measured_on = command.fecha_atencion.date() | 227: if patient.fecha_nacimiento > measured_on: | 228: raise BusinessRuleError( | 229: code="FECHA_ATENCION_ANTERIOR_NACIMIENTO",
+227: if patient.fecha_nacimiento > measured_on: | 228: raise BusinessRuleError( | 229: code="FECHA_ATENCION_ANTERIOR_NACIMIENTO", | 230: message="La fecha de atención no puede ser anterior al nacimiento.",
+276: ) | 277: if entity.estado != "ATENDIDO": | 278: raise BusinessRuleError( | 279: code="TRANSICION_ESTADO_NO_PERMITIDA",
+277: if entity.estado != "ATENDIDO": | 278: raise BusinessRuleError( | 279: code="TRANSICION_ESTADO_NO_PERMITIDA", | 280: message="El estado actual de la atención no permite anularla.",
+BRANCHES [[64, 65], [112, 113], [222, 223], [227, 228], [277, 278]]
+
+app\services\attention_context.py  95.1219512195122%
+55: site = self._attentions.get_snapshot_establishment(command.establecimiento_id) | 56: if site is None: | 57: raise NotFoundError( | 58: code="ESTABLECIMIENTO_NO_ACTIVO",
+56: if site is None: | 57: raise NotFoundError( | 58: code="ESTABLECIMIENTO_NO_ACTIVO", | 59: message="El establecimiento no existe o está inactivo.",
+BRANCHES [[56, 57]]
+
+app\services\attention_origin.py  92.5925925925926%
+29: record = self._attentions.get_origin(attention_id) | 30: if record is None: | 31: raise NotFoundError( | 32: code="ATENCION_NO_ENCONTRADA", message="No existe la atención solicitada."
+30: if record is None: | 31: raise NotFoundError( | 32: code="ATENCION_NO_ENCONTRADA", message="No existe la atención solicitada." | 33: )
+BRANCHES [[30, 31]]
+
+app\services\catalog.py  98.55072463768116%
+66: def ethnicities(self) -> list[CodeCatalogItem]: | 67: return [ | 68: CodeCatalogItem(codigo=item.codigo, nombre=item.nombre, activo=item.activo) | 69: for item in self._repository.list_ethnicities()
+BRANCHES []
+
+app\services\document.py  90.80459770114942%
+85: establishment = self._documents.get_active_establishment(attention.establecimiento_id) | 86: if establishment is None:  # Defensive: _require_emittable_attention already checked it. | 87: raise NotFoundError( | 88: code="ESTABLECIMIENTO_NO_ACTIVO",
+86: if establishment is None:  # Defensive: _require_emittable_attention already checked it. | 87: raise NotFoundError( | 88: code="ESTABLECIMIENTO_NO_ACTIVO", | 89: message="La sede de la atención no está activa.",
+130: except IntegrityError as exc: | 131: self._session.rollback() | 132: raise ConflictError( | 133: code="FUA_YA_EMITIDO",
+131: self._session.rollback() | 132: raise ConflictError( | 133: code="FUA_YA_EMITIDO", | 134: message="No se pudo emitir el FUA porque la atención ya tiene uno.",
+163: ) | 164: if ( | 165: command.profesional_id is not None | 166: and self._documents.get_active_professional(command.profesional_id) is None
+167: ): | 168: raise NotFoundError( | 169: code="PROFESIONAL_NO_ACTIVO", | 170: message="El profesional del certificado no está activo.",
+214: except IntegrityError as exc: | 215: self._session.rollback() | 216: raise ConflictError( | 217: code="CERTIFICADO_EN_CONFLICTO",
+215: self._session.rollback() | 216: raise ConflictError( | 217: code="CERTIFICADO_EN_CONFLICTO", | 218: message="No se pudo emitir el certificado por una restricción de identidad.",
+274: except IntegrityError as exc: | 275: self._session.rollback() | 276: raise ConflictError( | 277: code="REFERENCIA_EN_CONFLICTO",
+275: self._session.rollback() | 276: raise ConflictError( | 277: code="REFERENCIA_EN_CONFLICTO", | 278: message="No se pudo crear la referencia por una restricción de identidad.",
+300: ) | 301: if attention.estado == "ANULADO": | 302: raise BusinessRuleError( | 303: code="ATENCION_ANULADA",
+301: if attention.estado == "ANULADO": | 302: raise BusinessRuleError( | 303: code="ATENCION_ANULADA", | 304: message="No se pueden emitir documentos para una atención anulada.",
+305: ) | 306: if attention.estado != "ATENDIDO": | 307: raise BusinessRuleError( | 308: code="TRANSICION_ESTADO_NO_PERMITIDA",
+306: if attention.estado != "ATENDIDO": | 307: raise BusinessRuleError( | 308: code="TRANSICION_ESTADO_NO_PERMITIDA", | 309: message="El estado actual de la atención no permite emitir documentos.",
+310: ) | 311: if self._documents.get_active_establishment(attention.establecimiento_id) is None: | 312: raise NotFoundError( | 313: code="ESTABLECIMIENTO_NO_ACTIVO", message="La sede de la atención no está activa."
+311: if self._documents.get_active_establishment(attention.establecimiento_id) is None: | 312: raise NotFoundError( | 313: code="ESTABLECIMIENTO_NO_ACTIVO", message="La sede de la atención no está activa." | 314: )
+BRANCHES [[86, 87], [164, 168], [301, 302], [306, 307], [311, 312]]
+
+app\services\fua_print.py  94.73684210526316%
+50: moment = attention.fecha_atencion | 51: if moment.tzinfo is not None: | 52: moment = moment.astimezone(ZoneInfo("America/Lima")) | 53: nutrition = getattr(attention, "valoracion_calculada", None) or {}
+51: if moment.tzinfo is not None: | 52: moment = moment.astimezone(ZoneInfo("America/Lima")) | 53: nutrition = getattr(attention, "valoracion_calculada", None) or {} | 54: snapshot = FuaPrintSnapshot(
+BRANCHES [[51, 52]]
+
+app\services\nutrition_export.py  97.5%
+32: entity = self._attentions.get_by_id(attention_id, lock=True) | 33: if entity is None: | 34: raise NotFoundError(code="ATENCION_NO_ENCONTRADA", message="No existe la atención.") | 35: scope = self._access.attention_scope(actor_id=actor_id, actor_roles=actor_roles)
+33: if entity is None: | 34: raise NotFoundError(code="ATENCION_NO_ENCONTRADA", message="No existe la atención.") | 35: scope = self._access.attention_scope(actor_id=actor_id, actor_roles=actor_roles) | 36: self._access.ensure_attention(entity, scope, actor_id=actor_id)
+BRANCHES [[33, 34]]
+
+app\services\patient.py  91.08910891089108%
+58:  | 59: def record( | 60: self, | 61: *,
+89: # patient business rule. | 90: if table_name != "pacientes": | 91: raise ValueError("El adaptador de pacientes solo audita la tabla pacientes") | 92: self._repository.add_audit_entry(
+90: if table_name != "pacientes": | 91: raise ValueError("El adaptador de pacientes solo audita la tabla pacientes") | 92: self._repository.add_audit_entry( | 93: actor_id=actor_id,
+201:  | 202: for risk_command in command.riesgos: | 203: risk_values = risk_create_to_entity_kwargs(risk_command, patient_id=patient.id) | 204: risk_values.update(
+202: for risk_command in command.riesgos: | 203: risk_values = risk_create_to_entity_kwargs(risk_command, patient_id=patient.id) | 204: risk_values.update( | 205: self._risk_rules.risk_origin(patient, risk_command, actor_id, actor_roles)
+203: risk_values = risk_create_to_entity_kwargs(risk_command, patient_id=patient.id) | 204: risk_values.update( | 205: self._risk_rules.risk_origin(patient, risk_command, actor_id, actor_roles) | 206: )
+206: ) | 207: self._repository.create_risk(risk_values) | 208:  | 209: self._repository.flush()
+456: effective_principal = values.get("es_principal", responsible.es_principal) | 457: if effective_active and effective_principal: | 458: other = self._repository.find_other_active_principal( | 459: patient.id,
+457: if effective_active and effective_principal: | 458: other = self._repository.find_other_active_principal( | 459: patient.id, | 460: exclude_responsible_id=responsible.id,
+461: ) | 462: if other is not None: | 463: raise BusinessRuleError( | 464: code="RESPONSABLE_PRINCIPAL_DUPLICADO",
+462: if other is not None: | 463: raise BusinessRuleError( | 464: code="RESPONSABLE_PRINCIPAL_DUPLICADO", | 465: message="Solo puede existir un responsable principal activo por paciente.",
+472: ] | 473: if effective_active: | 474: remaining_active.append(responsible) | 475: self._responsible_rules.ensure_minor_has_active_responsible(
+473: if effective_active: | 474: remaining_active.append(responsible) | 475: self._responsible_rules.ensure_minor_has_active_responsible( | 476: birth_date=patient.fecha_nacimiento,
+570: values = risk_update_to_entity_kwargs(command) | 571: if not values: | 572: raise ValidationDomainError( | 573: code="ACTUALIZACION_SIN_CAMBIOS",
+571: if not values: | 572: raise ValidationDomainError( | 573: code="ACTUALIZACION_SIN_CAMBIOS", | 574: message="Debe enviar al menos un campo modificable para actualizar el riesgo.",
+591: ) | 592: if effective_end is None: | 593: values["motivo_cierre"] = None | 594: else:
+592: if effective_end is None: | 593: values["motivo_cierre"] = None | 594: else: | 595: values["fecha_proximo_control"] = None
+626: except IntegrityError as exc: | 627: self._session.rollback() | 628: raise self._translate_integrity_error(exc) from exc | 629: except Exception:
+627: self._session.rollback() | 628: raise self._translate_integrity_error(exc) from exc | 629: except Exception: | 630: self._session.rollback()
+700: def _translate_integrity_error(error: IntegrityError) -> ConflictError: | 701: message = str(error.orig).lower() if error.orig is not None else str(error).lower() | 702: if "uq_pacientes_documento" in message or "tipo_documento_codigo" in message: | 703: return ConflictError(
+701: message = str(error.orig).lower() if error.orig is not None else str(error).lower() | 702: if "uq_pacientes_documento" in message or "tipo_documento_codigo" in message: | 703: return ConflictError( | 704: code="DOCUMENTO_PACIENTE_DUPLICADO",
+702: if "uq_pacientes_documento" in message or "tipo_documento_codigo" in message: | 703: return ConflictError( | 704: code="DOCUMENTO_PACIENTE_DUPLICADO", | 705: message="Ya existe un paciente registrado con ese tipo y número de documento.",
+706: ) | 707: return ConflictError( | 708: code="CONFLICTO_PERSISTENCIA_PACIENTE", | 709: message=(
+BRANCHES [[59, -59], [90, 91], [202, 203], [457, 458], [462, 463], [462, 468], [473, 474], [571, 572], [592, 593], [702, 703], [702, 707]]
+
+app\services\patient_data.py  90.36144578313252%
+37: self.raise_unavailable_catalog("sexo", sex_code) | 38: if insurance_id is not None and self._repository.get_active_insurance(insurance_id) is None: | 39: self.raise_unavailable_catalog("seguro", insurance_id) | 40: if ubigeo_code is not None and self._repository.get_ubigeo(ubigeo_code) is None:
+38: if insurance_id is not None and self._repository.get_active_insurance(insurance_id) is None: | 39: self.raise_unavailable_catalog("seguro", insurance_id) | 40: if ubigeo_code is not None and self._repository.get_ubigeo(ubigeo_code) is None: | 41: self.raise_unavailable_catalog("ubigeo", ubigeo_code)
+39: self.raise_unavailable_catalog("seguro", insurance_id) | 40: if ubigeo_code is not None and self._repository.get_ubigeo(ubigeo_code) is None: | 41: self.raise_unavailable_catalog("ubigeo", ubigeo_code) | 42: if (
+40: if ubigeo_code is not None and self._repository.get_ubigeo(ubigeo_code) is None: | 41: self.raise_unavailable_catalog("ubigeo", ubigeo_code) | 42: if ( | 43: establishment_id is not None
+97: return | 98: if ubigeo_code is None: | 99: raise ValidationDomainError( | 100: code="LOCALIDAD_SIN_DISTRITO",
+98: if ubigeo_code is None: | 99: raise ValidationDomainError( | 100: code="LOCALIDAD_SIN_DISTRITO", | 101: message="Seleccione un distrito antes de registrar la localidad.",
+134: if "sexo_codigo" in values and values["sexo_codigo"] is not None: | 135: if self._repository.get_active_sex(values["sexo_codigo"]) is None: | 136: self.raise_unavailable_catalog("sexo", values["sexo_codigo"]) | 137: if "seguro_id" in values and values["seguro_id"] is not None:
+135: if self._repository.get_active_sex(values["sexo_codigo"]) is None: | 136: self.raise_unavailable_catalog("sexo", values["sexo_codigo"]) | 137: if "seguro_id" in values and values["seguro_id"] is not None: | 138: if self._repository.get_active_insurance(values["seguro_id"]) is None:
+137: if "seguro_id" in values and values["seguro_id"] is not None: | 138: if self._repository.get_active_insurance(values["seguro_id"]) is None: | 139: self.raise_unavailable_catalog("seguro", values["seguro_id"]) | 140: if "ubigeo_residencia_codigo" in values and values["ubigeo_residencia_codigo"] is not None:
+138: if self._repository.get_active_insurance(values["seguro_id"]) is None: | 139: self.raise_unavailable_catalog("seguro", values["seguro_id"]) | 140: if "ubigeo_residencia_codigo" in values and values["ubigeo_residencia_codigo"] is not None: | 141: if self._repository.get_ubigeo(values["ubigeo_residencia_codigo"]) is None:
+140: if "ubigeo_residencia_codigo" in values and values["ubigeo_residencia_codigo"] is not None: | 141: if self._repository.get_ubigeo(values["ubigeo_residencia_codigo"]) is None: | 142: self.raise_unavailable_catalog("ubigeo", values["ubigeo_residencia_codigo"]) | 143: if (
+141: if self._repository.get_ubigeo(values["ubigeo_residencia_codigo"]) is None: | 142: self.raise_unavailable_catalog("ubigeo", values["ubigeo_residencia_codigo"]) | 143: if ( | 144: "establecimiento_registro_id" in values
+146: ): | 147: if ( | 148: self._repository.get_active_establishment(values["establecimiento_registro_id"]) | 149: is None
+150: ): | 151: self.raise_unavailable_catalog( | 152: "establecimiento", values["establecimiento_registro_id"] | 153: )
+195: ) | 196: if registration_date is not None and registration_date > today: | 197: raise ValidationDomainError( | 198: code="FECHA_INSCRIPCION_FUTURA",
+196: if registration_date is not None and registration_date > today: | 197: raise ValidationDomainError( | 198: code="FECHA_INSCRIPCION_FUTURA", | 199: message="La fecha de inscripción no puede estar en el futuro.",
+BRANCHES [[38, 39], [40, 41], [98, 99], [135, 136], [138, 139], [141, 142], [147, 151], [196, 197]]
+
+app\services\patient_risk.py  92.07920792079207%
+30: self.require_active_risk_group(command.grupo_riesgo_id) | 31: if command.atencion_origen_id is not None: | 32: raise ValidationDomainError( | 33: code="ORIGEN_RIESGO_INVALIDO",
+31: if command.atencion_origen_id is not None: | 32: raise ValidationDomainError( | 33: code="ORIGEN_RIESGO_INVALIDO", | 34: message=(
+62: ) | 63: if next_control is not None and next_control < start: | 64: raise ValidationDomainError( | 65: code="CONTROL_ANTERIOR_AL_INICIO",
+63: if next_control is not None and next_control < start: | 64: raise ValidationDomainError( | 65: code="CONTROL_ANTERIOR_AL_INICIO", | 66: message="El próximo control no puede ser anterior al inicio del seguimiento.",
+85: ) | 86: if command.fecha_inicio < patient.fecha_nacimiento: | 87: raise ValidationDomainError( | 88: code="INICIO_ANTERIOR_NACIMIENTO",
+86: if command.fecha_inicio < patient.fecha_nacimiento: | 87: raise ValidationDomainError( | 88: code="INICIO_ANTERIOR_NACIMIENTO", | 89: message="El seguimiento no puede comenzar antes del nacimiento.",
+90: ) | 91: if ( | 92: code == "NUT_CRECIMIENTO" | 93: and completed_months(patient.fecha_nacimiento, command.fecha_inicio) >= 60
+94: ): | 95: raise ValidationDomainError( | 96: code="SEGUIMIENTO_CRECIMIENTO_NO_APLICA", | 97: message=(
+BRANCHES [[31, 32], [63, 64], [86, 87], [91, 95]]
+
+app\services\professional.py  94.36619718309859%
+72: ) from exc | 73: except Exception: | 74: self._session.rollback() | 75: raise
+73: except Exception: | 74: self._session.rollback() | 75: raise | 76: 
+74: self._session.rollback() | 75: raise | 76:  | 77: def update(
+148: persisted = self._repository.get_by_id(professional.id) | 149: if persisted is None:  # defensive: locked row must still be present | 150: raise NotFoundError(code="PROFESIONAL_NO_ENCONTRADO", message="No existe el profesional solicitado.") | 151: self._record_audit(
+149: if persisted is None:  # defensive: locked row must still be present | 150: raise NotFoundError(code="PROFESIONAL_NO_ENCONTRADO", message="No existe el profesional solicitado.") | 151: self._record_audit( | 152: actor_id=actor_id,
+213: ) -> None: | 214: for specialty in specialties: | 215: self._repository.add_specialty( | 216: ProfessionalSpecialty(
+214: for specialty in specialties: | 215: self._repository.add_specialty( | 216: ProfessionalSpecialty( | 217: profesional_id=professional_id,
+230: ) -> None: | 231: if self._audit is not None: | 232: self._audit( | 233: actor_id=actor_id,
+BRANCHES [[149, 150], [214, 215], [231, -223]]
+
+app\services\user.py  82.53968253968254%
+91: entity = self._users.find_by_id(user_id, lock=True) | 92: if entity is None: | 93: self._session.rollback() | 94: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.")
+92: if entity is None: | 93: self._session.rollback() | 94: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 95: before = self._snapshot(entity)
+93: self._session.rollback() | 94: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 95: before = self._snapshot(entity) | 96: roles = self._resolve_roles(command.roles)
+106: ) | 107: self._users.replace_roles(entity, roles) | 108: return self._commit_and_map(entity, actor_id=actor_id, action="UPDATE", before=before) | 109: 
+107: self._users.replace_roles(entity, roles) | 108: return self._commit_and_map(entity, actor_id=actor_id, action="UPDATE", before=before) | 109:  | 110: def deactivate(self, user_id: int, *, actor_id: int, actor_roles: Iterable[str]) -> UserResponse:
+113: entity = self._users.find_by_id(user_id, lock=True) | 114: if entity is None: | 115: self._session.rollback() | 116: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.")
+114: if entity is None: | 115: self._session.rollback() | 116: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 117: if entity.id == actor_id:
+115: self._session.rollback() | 116: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 117: if entity.id == actor_id: | 118: self._session.rollback()
+141: entity = self._users.find_by_id(actor_id, lock=True) | 142: if entity is None or not entity.activo: | 143: self._session.rollback() | 144: raise AuthenticationError("No se pudo validar la cuenta para cambiar la contraseña.")
+142: if entity is None or not entity.activo: | 143: self._session.rollback() | 144: raise AuthenticationError("No se pudo validar la cuenta para cambiar la contraseña.") | 145: if not verify_password(command.current_password, entity.password_hash):
+143: self._session.rollback() | 144: raise AuthenticationError("No se pudo validar la cuenta para cambiar la contraseña.") | 145: if not verify_password(command.current_password, entity.password_hash): | 146: self._session.rollback()
+174: entity = self._users.find_by_id(user_id, lock=True) | 175: if entity is None: | 176: self._session.rollback() | 177: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.")
+175: if entity is None: | 176: self._session.rollback() | 177: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 178: if not entity.activo:
+176: self._session.rollback() | 177: raise NotFoundError(code="USUARIO_NO_ENCONTRADO", message="No existe el usuario solicitado.") | 178: if not entity.activo: | 179: self._session.rollback()
+208: found = {role.codigo for role in roles} | 209: if found != codes: | 210: self._session.rollback() | 211: missing = ", ".join(sorted(codes - found))
+209: if found != codes: | 210: self._session.rollback() | 211: missing = ", ".join(sorted(codes - found)) | 212: raise NotFoundError(code="ROL_NO_ENCONTRADO", message=f"No existen los roles: {missing}")
+210: self._session.rollback() | 211: missing = ", ".join(sorted(codes - found)) | 212: raise NotFoundError(code="ROL_NO_ENCONTRADO", message=f"No existen los roles: {missing}") | 213: return roles
+211: missing = ", ".join(sorted(codes - found)) | 212: raise NotFoundError(code="ROL_NO_ENCONTRADO", message=f"No existen los roles: {missing}") | 213: return roles | 214: 
+224: self._session.flush() | 225: if self._audit is not None: | 226: self._audit( | 227: actor_id=actor_id,
+236: return user_to_response(persisted or entity) | 237: except IntegrityError as exc: | 238: self._session.rollback() | 239: raise ConflictError(
+237: except IntegrityError as exc: | 238: self._session.rollback() | 239: raise ConflictError( | 240: code="USUARIO_EN_CONFLICTO",
+238: self._session.rollback() | 239: raise ConflictError( | 240: code="USUARIO_EN_CONFLICTO", | 241: message="No se pudo guardar el usuario por una restricción de identidad.",
+242: ) from exc | 243: except Exception: | 244: self._session.rollback() | 245: raise
+243: except Exception: | 244: self._session.rollback() | 245: raise | 246: 
+244: self._session.rollback() | 245: raise | 246:  | 247: def _commit_security_change(
+256: self._session.flush() | 257: if self._audit is not None: | 258: self._audit( | 259: actor_id=actor_id,
+266: self._session.commit() | 267: except Exception: | 268: self._session.rollback() | 269: raise
+267: except Exception: | 268: self._session.rollback() | 269: raise | 270: 
+268: self._session.rollback() | 269: raise | 270:  | 271: def _replace_password(self, entity: User, new_password: str) -> None:
+303: def _require_admin(actor_roles: Iterable[str]) -> None: | 304: if "ADMIN" not in {role.upper() for role in actor_roles}: | 305: raise AuthorizationError("Solo ADMIN puede gestionar usuarios y roles.") | 306: 
+304: if "ADMIN" not in {role.upper() for role in actor_roles}: | 305: raise AuthorizationError("Solo ADMIN puede gestionar usuarios y roles.") | 306:  | 307: def _validate_professional_role(
+327: ) | 328: if self._users.get_active_professional(profesional_id) is None: | 329: raise NotFoundError( | 330: code="PROFESIONAL_NO_ACTIVO",
+328: if self._users.get_active_professional(profesional_id) is None: | 329: raise NotFoundError( | 330: code="PROFESIONAL_NO_ACTIVO", | 331: message="El profesional asociado no existe o está inactivo.",
+BRANCHES [[92, 93], [114, 115], [142, 143], [175, 176], [209, 210], [225, 234], [257, 266], [304, 305], [328, 329]]

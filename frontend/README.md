@@ -57,6 +57,12 @@ paciente.
 6. Consultar el detalle, emitir documentos o anular cuando las reglas lo permitan.
 
 La ficha `/pacientes/:id` conserva datos, responsables, riesgos e historial.
+El historial carga cinco atenciones por página, empezando por las más recientes.
+Admisión muestra las últimas cinco por defecto. **Traer todas** carga el historial
+completo del paciente en la misma tabla; **Ver últimas 5** vuelve a la vista corta.
+**Refrescar** conserva la vista elegida. Al cambiar de paciente se vuelve a las
+últimas cinco. **Abrir historial en la ficha** permite consultar las anteriores
+por páginas desde la pestaña de atenciones.
 No hay pantalla independiente de edición de datos maestros: los enlaces antiguos
 `/pacientes/:id/editar` redirigen a `/admision?patientId=:id`.
 

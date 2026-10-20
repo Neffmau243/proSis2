@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import type { Attention } from '@/services/atenciones'
 import { nutritionalRows, nutritionalStatus, nutritionalHistoryValue } from '@/utils/nutritionalDisplay'
 
@@ -11,12 +12,15 @@ function nutritionSummary(row: Attention): string {
 defineProps<{
   entries: Attention[]
   loading: boolean
+  allLoaded?: boolean
   error?: string | null
   compact?: boolean
 }>()
 
 const emit = defineEmits<{
   refresh: []
+  loadAll: []
+  showRecent: []
 }>()
 
 function formatDate(value: string | null): string {
@@ -34,9 +38,20 @@ function formatDate(value: string | null): string {
   >
     <header class="admission-history__header">
       <div>
-        <h3 class="admission-history__title">Historial de atenciones del paciente</h3>
+        <h3 class="admission-history__title">
+          {{ allLoaded ? 'Historial completo de atenciones del paciente' : 'Últimas 5 atenciones del paciente' }}
+        </h3>
       </div>
-      <el-button size="small" :loading="loading" @click="emit('refresh')">Refrescar</el-button>
+      <div class="admission-history__actions">
+        <el-button
+          size="small"
+          :disabled="loading"
+          @click="allLoaded ? emit('showRecent') : emit('loadAll')"
+        >
+          {{ allLoaded ? 'Ver últimas 5' : 'Traer todas' }}
+        </el-button>
+        <el-button size="small" :loading="loading" @click="emit('refresh')">Refrescar</el-button>
+      </div>
     </header>
 
     <el-alert v-if="error" :title="error" type="error" :closable="false" />
@@ -112,6 +127,16 @@ function formatDate(value: string | null): string {
         «No aplica»: fuera de la referencia por edad o grupo de atención; no es un fallo del cálculo.
         «—»: sin resultado guardado. En IMC puede consultar el detalle de la valoración.
       </p>
+      <RouterLink
+        v-if="entries.length"
+        :to="{
+          name: 'paciente-detalle',
+          params: { id: entries[0]?.paciente_id },
+          query: { tab: 'atenciones' },
+        }"
+      >
+        Abrir historial en la ficha
+      </RouterLink>
     </div>
   </el-card>
 </template>
@@ -132,7 +157,18 @@ function formatDate(value: string | null): string {
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
   margin-bottom: 8px;
+}
+
+.admission-history__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.admission-history__actions :deep(.el-button + .el-button) {
+  margin-left: 0;
 }
 
 .admission-history__title {

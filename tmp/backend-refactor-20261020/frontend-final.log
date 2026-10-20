@@ -1,0 +1,120 @@
+
+> ipress-frontend@0.1.0 test:coverage
+> vitest run --coverage --maxWorkers=2
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+      Coverage enabled with v8
+
+
+ Test Files  54 passed | 1 skipped (55)
+      Tests  399 passed | 1 skipped (400)
+   Start at  07:33:14
+   Duration  121.96s (tests 62%, import 16%, environment 13%, transform 8%, worker 1%)
+
+    Isolate  55 workers spawned · ~702ms startup each (spawn + environment, per file)
+             at least ~18.61s faster with isolate: false — reuses workers across files instead of one per file
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   78.92 |    74.05 |   73.28 |   80.13 |                   
+ src               |       0 |      100 |       0 |       0 |                   
+  App.vue          |       0 |      100 |       0 |       0 | 2-15              
+ src/components    |       0 |        0 |       0 |       0 |                   
+  ...aceholder.vue |       0 |        0 |       0 |       0 | 2-6               
+  ...heckboxes.vue |       0 |        0 |       0 |       0 | 7-18              
+ ...ents/admission |   77.03 |     73.2 |   73.06 |   78.03 |                   
+  ...mentTypes.vue |   86.66 |    57.14 |   85.71 |   84.61 | 20,30             
+  ...terHeader.vue |   83.33 |    66.66 |      50 |   83.33 | 22                
+  ...alActions.vue |   86.66 |    95.23 |   84.61 |      80 | 44,70             
+  ...onHistory.vue |   33.33 |    31.25 |      24 |   32.25 | 7-8,27-29,71-120  
+  ...Relations.vue |   85.24 |       84 |   80.64 |      90 | 43,66-67,156-163  
+  ...isSummary.vue |       0 |        0 |       0 |       0 | 6-23              
+  ...ntSummary.vue |   83.72 |    77.21 |   73.23 |   84.16 | ...46,327,393-415 
+  FuaDataForm.vue  |       0 |        0 |       0 |       0 | 5-52              
+  ...intDialog.vue |   85.88 |    77.73 |   84.41 |   88.02 | ...45,453,469,533 
+  ...etPreview.vue |     100 |    93.33 |     100 |     100 | 54                
+  ...portPanel.vue |   55.81 |    78.57 |   77.77 |   57.89 | 27-46             
+  ...owupPanel.vue |   90.47 |    80.76 |   81.81 |   88.88 | 33,81             
+  ...torsTable.vue |     100 |       50 |     100 |     100 | 12                
+  ...rdSummary.vue |     100 |    85.71 |     100 |     100 | 24,46             
+ ...omponents/auth |   95.65 |      100 |   91.66 |      95 |                   
+  ...ccessForm.vue |   95.45 |      100 |   91.66 |   94.73 | 80                
+ .../configuracion |   83.87 |    79.35 |   84.61 |   86.47 |                   
+  ...riosPanel.vue |   78.49 |    69.48 |   78.57 |   81.56 | ...66,585,594,608 
+  ...ormDialog.vue |   82.92 |    85.71 |      80 |   88.57 | 67,119,137,148    
+  OfficesTable.vue |   88.88 |    84.84 |   88.88 |    91.3 | 19-20             
+  ...nalsPanel.vue |   87.93 |    83.05 |   87.17 |   89.54 | ...68,378,393,401 
+  UsersPanel.vue   |    87.5 |    83.67 |   89.28 |      90 | ...01,432,447,455 
+ ...nts/laboratory |   41.94 |    46.38 |   42.22 |   43.34 |                   
+  ...ryActions.vue |       0 |        0 |       0 |       0 | 18-61             
+  ...terHeader.vue |       0 |        0 |       0 |       0 | 5-35              
+  ...terReview.vue |   86.66 |       84 |    82.6 |   89.28 | 31,74,77          
+  ...ryHistory.vue |   92.59 |    81.13 |      90 |    92.3 | 41-56             
+  ...ientPanel.vue |   89.15 |    89.55 |   82.97 |   89.04 | ...12,224,233,329 
+  ...alContext.vue |       0 |        0 |       0 |       0 | 6-27              
+  ...Workspace.vue |       0 |        0 |       0 |       0 | 20-343            
+ ...onents/patient |   41.22 |    32.69 |   34.92 |   43.85 |                   
+  ...bleDialog.vue |   13.79 |     5.35 |       0 |   16.32 | 10-58,119-163     
+  RiskDialog.vue   |   55.93 |    46.66 |   53.57 |   58.49 | ...43-154,189-227 
+  ...oupSelect.vue |    92.3 |       50 |    87.5 |    90.9 | 29                
+ ...nents/patients |   77.69 |    77.29 |   74.63 |   78.15 |                   
+  ...ySelector.vue |   92.59 |    82.92 |     100 |    90.9 | 33-34,57-58       
+  ...seSection.vue |   72.58 |    86.27 |   68.51 |   72.13 | ...35-238,255,282 
+  ...ySections.vue |   56.96 |    63.07 |   59.45 |      60 | ...39,197,203,226 
+  ...odeFields.vue |    87.5 |    45.45 |      50 |    87.5 | 45                
+  ...SisFields.vue |   92.59 |    65.21 |      90 |    92.3 | 28,93             
+ src/composables   |   97.75 |    89.37 |     100 |   98.59 |                   
+  ...entDetails.ts |     100 |       75 |     100 |     100 | 40-46             
+  ...ientEditor.ts |     100 |    94.11 |     100 |     100 | 63                
+  ...ionHistory.ts |   97.82 |    83.33 |     100 |     100 | 37-43             
+  ...ssionDraft.ts |    87.5 |       50 |     100 |     100 | 9                 
+  ...alibration.ts |     100 |    93.75 |     100 |     100 | 49                
+  useLaboratory.ts |   97.15 |    86.42 |     100 |      99 | 260,262           
+  ...toryReview.ts |     100 |     91.3 |     100 |     100 | 41-42             
+  ...orsPreview.ts |     100 |    88.88 |     100 |     100 | 63,77             
+  ...oteCatalog.ts |     100 |    92.85 |     100 |     100 | 25                
+  ...onDefaults.ts |   91.66 |    92.92 |     100 |   90.16 | 93-98,150         
+ src/layouts       |   92.56 |    87.34 |   91.66 |   94.84 |                   
+  AppLayout.vue    |    92.5 |    87.34 |   91.66 |   94.79 | 3,256-260,303-304 
+ src/router        |   84.21 |    96.55 |   68.42 |   84.21 |                   
+  index.ts         |   84.21 |    96.55 |   68.42 |   84.21 | 43-49,72,127-146  
+ src/services      |   94.44 |    93.33 |      92 |   94.18 |                   
+  atenciones.ts    |   73.91 |      100 |   72.72 |   73.91 | 247-254,274-275   
+  catalogos.ts     |   94.28 |    85.18 |   90.47 |   93.75 | 159,195           
+  consultorios.ts  |    90.9 |      100 |    87.5 |      90 | 69-70             
+  http.ts          |     100 |       96 |     100 |     100 | 68                
+ src/utils         |   97.39 |    93.25 |    99.2 |   98.18 |                   
+  familyHistory.ts |     100 |    91.66 |     100 |     100 | 19                
+  fuaDraft.ts      |     100 |    85.71 |     100 |     100 | 19-21,33,38       
+  fuaPdf.ts        |   96.66 |    85.71 |     100 |     100 | 18-23             
+  fuaPrint.ts      |   96.01 |    92.85 |   97.72 |   96.92 | ...02,327,590-592 
+  ...atoryPrint.ts |   97.05 |       90 |     100 |     100 | 68                
+  ...ySelection.ts |     100 |    93.75 |     100 |     100 | 25                
+  ...ionCapture.ts |   96.42 |    96.15 |     100 |   96.29 | 223               
+  ...nalDisplay.ts |     100 |    93.81 |     100 |     100 | ...30,141,149,159 
+  ...ntDocument.ts |     100 |    92.85 |     100 |     100 | 3                 
+  patientDraft.ts  |    92.5 |     93.1 |     100 |   94.73 | 74,80             
+  patientSis.ts    |     100 |     93.1 |     100 |     100 | 46-47             
+ src/views         |   67.69 |    69.02 |   64.84 |   69.44 |                   
+  AdmisionView.vue |       0 |      100 |     100 |       0 | 2-8               
+  ...talleView.vue |   40.62 |     59.3 |   40.67 |   44.33 | ...19,531-540,552 
+  ...NuevaView.vue |   82.13 |    75.72 |   83.42 |   83.74 | ...1135,1170-1172 
+  ...sListView.vue |       0 |        0 |       0 |       0 | 2-197             
+  ...toriaView.vue |       0 |      100 |     100 |       0 | 2                 
+  ...boardView.vue |   76.55 |    68.81 |   89.13 |   79.33 | ...52-273,282-283 
+  ...ariosView.vue |       0 |        0 |       0 |       0 | 2-153             
+  ...torioView.vue |       0 |      100 |     100 |       0 | 4-8               
+  ...talleView.vue |   76.81 |    79.83 |   72.85 |   79.68 | ...49,356-370,400 
+  ...NuevoView.vue |   95.37 |    94.44 |   90.24 |   96.96 | 178,185,336       
+  PersonalView.vue |   83.87 |    76.47 |      70 |   87.03 | ...9,88-89,99,113 
+-------------------|---------|----------|---------|---------|-------------------
+
+=============================== Coverage summary ===============================
+Statements   : 78.92% ( 3884/4921 )
+Branches     : 74.05% ( 3183/4298 )
+Functions    : 73.28% ( 1432/1954 )
+Lines        : 80.13% ( 3482/4345 )
+================================================================================

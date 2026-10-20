@@ -4,21 +4,110 @@ import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 import { useLaboratory } from '@/composables/useLaboratory'
 import { aPatient } from './fixtures/patient'
 
-const api = vi.hoisted(() => ({ create: vi.fn(), search: vi.fn(), patients: vi.fn() }))
+const api = vi.hoisted(() => ({
+  create: vi.fn(),
+  search: vi.fn(),
+  patients: vi.fn(),
+  get: vi.fn(),
+  types: vi.fn(),
+  sexes: vi.fn(),
+  insurance: vi.fn(),
+  sites: vi.fn(),
+  rooms: vi.fn(),
+  staff: vi.fn(),
+}))
 vi.mock('@/services/atenciones', () => ({ atenciones: { create: api.create, search: api.search } }))
-vi.mock('@/services/pacientes', () => ({ pacientes: { search: api.patients } }))
+vi.mock('@/services/pacientes', () => ({ pacientes: { search: api.patients, get: api.get } }))
 vi.mock('@/services/catalogos', () => ({
   catalogos: {
-    profesionales: async () => ({
-      items: [{ id: 4, nombre_completo: 'Profesional asignado' }],
-      has_more: false,
-    }),
+    profesionales: api.staff,
+    tiposDocumento: api.types,
+    sexos: api.sexes,
+    seguros: api.insurance,
+    establecimientos: api.sites,
+    consultorios: api.rooms,
   },
 }))
 const scopes: ReturnType<typeof effectScope>[] = []
 beforeEach(() => {
   vi.resetAllMocks()
   api.search.mockResolvedValue({ items: [], total: 0 })
+  api.staff.mockResolvedValue({
+    items: [{ id: 4, nombre_completo: 'Profesional asignado' }],
+    has_more: false,
+  })
+})
+
+test('inicializar carga todas las páginas, filtra laboratorios activos y recupera el paciente solicitado', async () => {
+  const state = setup()
+  const lab = { id: 9, establecimiento_id: 2, codigo: 'LAB', nombre: 'Laboratorio', activo: true }
+  api.types.mockResolvedValue([{ codigo: 'DNI' }])
+  api.sexes.mockResolvedValue([{ codigo: 'F' }])
+  api.insurance.mockResolvedValue([{ id: 1 }])
+  api.sites
+    .mockResolvedValueOnce({ items: [{ id: 2 }], has_more: true })
+    .mockResolvedValueOnce({ items: [], has_more: false })
+  api.rooms.mockResolvedValue({
+    items: [
+      lab,
+      { ...lab, id: 10, activo: false },
+      { ...lab, id: 11, codigo: 'MED', nombre: 'Medicina' },
+    ],
+    has_more: false,
+  })
+  api.get.mockResolvedValue(aPatient({ id: 22, establecimiento_registro_id: 2 }))
+  await state.initialize(22)
+  await flushPromises()
+  expect(state.offices.value.map((item) => item.id)).toEqual([9])
+  expect(state.form.officeId).toBe(9)
+  expect(state.patient.value?.id).toBe(22)
+  expect(state.documents.value).toEqual([{ codigo: 'DNI' }])
+  expect(state.establishment.value?.id).toBe(2)
+  expect(api.sites).toHaveBeenCalledTimes(2)
+  expect(state.loading.value).toBe(false)
+})
+
+test('un catálogo caído bloquea el guardado y una búsqueda fallida permite reintentar', async () => {
+  const state = setup()
+  api.types.mockRejectedValue(new Error('Catálogo sin conexión'))
+  await state.initialize()
+  expect(state.catalogError.value).toBe('Catálogo sin conexión')
+  expect(state.loading.value).toBe(false)
+  expect(await state.save()).toBe(false)
+  expect(api.create).not.toHaveBeenCalled()
+  await state.searchPatients('a')
+  expect(api.patients).not.toHaveBeenCalled()
+  api.patients.mockRejectedValueOnce('fallo de red')
+  await state.searchPatients('Ana')
+  expect(state.searchError.value).toContain('Intente nuevamente')
+  expect(state.searching.value).toBe(false)
+  api.patients.mockResolvedValue({ items: [aPatient({ id: 25 })], has_more: true })
+  await state.searchPatients('Ana')
+  expect(state.patients.value[0]?.id).toBe(25)
+  expect(state.searchHint.value).toContain('más coincidencias')
+  expect(state.searchError.value).toBe('')
+})
+
+test('al cambiar de consultorio descarta un profesional que dejó de estar asignado', async () => {
+  const state = setup()
+  await flushPromises()
+  api.staff.mockResolvedValue({
+    items: [{ id: 6, nombre_completo: 'Nueva asignación' }],
+    has_more: false,
+  })
+  state.form.officeId = 99
+  await flushPromises()
+  expect(state.professionals.value.map((item) => item.id)).toEqual([6])
+  expect(state.form.professionalId).toBeNull()
+  api.staff.mockRejectedValue(new Error('Asignaciones sin conexión'))
+  state.form.officeId = 8
+  await flushPromises()
+  expect(state.professionals.value).toEqual([])
+  expect(state.professionalsLoading.value).toBe(false)
+  expect(state.catalogError.value).toBe('Asignaciones sin conexión')
+  state.form.officeId = null
+  await flushPromises()
+  expect(state.form.professionalId).toBeNull()
 })
 afterEach(() => scopes.splice(0).forEach((scope) => scope.stop()))
 
@@ -86,6 +175,68 @@ test('un fallo de guardado permite reintentar sin mostrar una atención guardada
   expect(state.error.value).toBe('Profesional no disponible')
   expect(state.attentionCreated.value).toBe(false)
   expect(state.saving.value).toBe(false)
+})
+
+test('referencia requiere origen completo y usa el mismo número recibido en el FUA', async () => {
+  const state = setup()
+  state.form.mode = 'REFERENCIA'
+  state.form.reference = ' 001565 '
+  expect(await state.save()).toBe(false)
+  expect(state.error.value).toContain('RENIPRESS')
+  state.form.originRenipress = '00001234'
+  expect(await state.save()).toBe(false)
+  expect(state.error.value).toContain('nombre de la IPRESS')
+  state.form.originName = ' IPRESS ORIGEN '
+  state.form.reference = ''
+  expect(await state.save()).toBe(false)
+  expect(state.error.value).toContain('referencia recibida')
+  expect(api.create).not.toHaveBeenCalled()
+  state.form.reference = ' 001565 '
+  api.create.mockResolvedValue({
+    id: 99,
+    paciente_id: 11,
+    fua_impresion: { tipo_atencion: 'REFERENCIA', referencia_hoja: '001565' },
+  })
+  expect(await state.save()).toBe(true)
+  expect(api.create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      modalidad_atencion_codigo: 'REFERENCIA',
+      numero_referencia_ingreso: '001565',
+      fua_datos: expect.objectContaining({
+        tipo_atencion: 'REFERENCIA',
+        referencia_hoja: '001565',
+        referencia_renipress: '00001234',
+        referencia_nombre: 'IPRESS ORIGEN',
+      }),
+    }),
+  )
+  expect(state.fuaSnapshot.value?.referencia_hoja).toBe('001565')
+  state.newAttention()
+  expect(state.form).toMatchObject({
+    mode: 'AMBULATORIA',
+    reference: '',
+    originRenipress: '',
+    originName: '',
+  })
+})
+
+test('un número recibido no reclasifica la atención y otro paciente no hereda su origen', async () => {
+  const state = setup()
+  state.form.reference = '001565'
+  state.form.originRenipress = '00001234'
+  state.form.originName = 'ORIGEN ANTERIOR'
+  api.create.mockResolvedValue({ id: 99, paciente_id: 11, fua_impresion: {} })
+  expect(await state.save()).toBe(true)
+  expect(api.create).toHaveBeenCalledWith(
+    expect.objectContaining({ modalidad_atencion_codigo: 'AMBULATORIA', fua_datos: null }),
+  )
+  state.selectPatient(aPatient({ id: 12 }))
+  expect(state.form).toMatchObject({
+    mode: 'AMBULATORIA',
+    reference: '',
+    originRenipress: '',
+    originName: '',
+  })
 })
 
 test('sin permiso o con paciente dado de baja nunca envía el registro', async () => {

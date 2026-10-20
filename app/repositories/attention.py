@@ -14,15 +14,30 @@ from app.models.audit import AuditLog
 from app.models.catalog import AttentionMode, Cie10, ServiceOffering, Specialty
 from app.models.clinical import Attention, AttentionDiagnosis, AttentionService
 from app.models.documents import Certificate, Fua, Referral
-from app.models.organization import Establishment, Office, OfficeProfessional
-from app.models.security import Professional, ProfessionalSpecialty, User
+from app.models.organization import Establishment, MicroNetwork, Network, Office, OfficeProfessional
+from app.models.security import Professional, ProfessionalSpecialty
 from app.models.surveillance import NutritionalEvaluation
-from app.repositories.attention_scope import recorded_referral
+from app.repositories.attention_scope import attention_visibility
+from app.repositories.clinical_access import ClinicalAccessRepository
 
 
 class AttentionRepository:
     def __init__(self, session: Session) -> None:
         self._session = session
+
+    def get_origin(self, attention_id: int):
+        """Read origin and authorization fields without loading the clinical aggregate."""
+        return self._session.execute(
+            select(
+                Attention.paciente_id,
+                Attention.fecha_atencion,
+                Attention.estado,
+                Attention.valoracion_calculada,
+                Attention.profesional_id,
+                Attention.establecimiento_id,
+                Attention.created_by_usuario_id,
+            ).where(Attention.id == attention_id)
+        ).one_or_none()
 
     def get_by_id(self, attention_id: int, *, lock: bool = False) -> Attention | None:
         statement = (
@@ -47,6 +62,7 @@ class AttentionRepository:
         professional_id: int | None = None,
         establishment_ids: set[int] | None = None,
     ) -> list[Attention]:
+        """Read only the five most recent encounters visible to this caller."""
         statement = (
             select(Attention)
             .options(
@@ -57,16 +73,11 @@ class AttentionRepository:
                 selectinload(Attention.evaluaciones_nutricionales),
             )
             .where(Attention.paciente_id == patient_id)
-            .order_by(Attention.fecha_atencion.desc())
+            .order_by(Attention.fecha_atencion.desc(), Attention.id.desc())
+            .limit(5)
         )
         if professional_id is not None:
-            visibility = [
-                Attention.profesional_id == professional_id,
-                recorded_referral(professional_id),
-            ]
-            if establishment_ids:
-                visibility.append(Attention.establecimiento_id.in_(establishment_ids))
-            statement = statement.where(or_(*visibility))
+            statement = statement.where(attention_visibility(professional_id, establishment_ids))
         return list(self._session.execute(statement).unique().scalars())
 
     def previous_growth_control(
@@ -88,13 +99,7 @@ class AttentionRepository:
             Attention.talla_cm > 0,
         )
         if professional_id is not None:
-            visibility = [
-                Attention.profesional_id == professional_id,
-                recorded_referral(professional_id),
-            ]
-            if establishment_ids:
-                visibility.append(Attention.establecimiento_id.in_(establishment_ids))
-            statement = statement.where(or_(*visibility))
+            statement = statement.where(attention_visibility(professional_id, establishment_ids))
         return self._session.scalar(
             statement.order_by(Attention.fecha_atencion.desc(), Attention.id.desc()).limit(1)
         )
@@ -107,6 +112,19 @@ class AttentionRepository:
             )
         )
 
+    def get_snapshot_establishment(self, establishment_id: int) -> Establishment | None:
+        """Load the geographical projection before constructing either snapshot."""
+        return self._session.scalar(
+            select(Establishment)
+            .where(Establishment.id == establishment_id, Establishment.activo.is_(True))
+            .options(
+                selectinload(Establishment.ubigeo),
+                selectinload(Establishment.microred)
+                .selectinload(MicroNetwork.red)
+                .selectinload(Network.disa),
+            )
+        )
+
     def get_active_professional(self, professional_id: int) -> Professional | None:
         return self._session.scalar(
             select(Professional).where(
@@ -116,18 +134,7 @@ class AttentionRepository:
         )
 
     def get_active_professional_id_for_user(self, user_id: int) -> int | None:
-        """Return the active professional identity linked to an active user."""
-
-        statement = (
-            select(User.profesional_id)
-            .join(Professional, Professional.id == User.profesional_id)
-            .where(
-                User.id == user_id,
-                User.activo.is_(True),
-                Professional.activo.is_(True),
-            )
-        )
-        return self._session.scalar(statement)
+        return ClinicalAccessRepository(self._session).professional_id(user_id)
 
     def get_active_office(self, office_id: int) -> Office | None:
         return self._session.scalar(

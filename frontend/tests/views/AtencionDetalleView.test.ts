@@ -194,3 +194,12 @@ test('una atención sin copia FUA no ofrece imprimir y lo advierte', async () =>
   ).toBe(false)
   expect(wrapper.text()).toContain('No se reconstruye con datos actuales del paciente')
 })
+
+test('consulta los números recibidos conservando ceros sin reconstruirlos desde el paciente', async () => {
+  getAttention.mockResolvedValue(attention({ numero_referencia_ingreso: '001565', numero_contrarreferencia_ingreso: '00007' }))
+  const wrapper = await mountView()
+  expect(wrapper.text()).toContain('N.º de referencia recibida')
+  expect(wrapper.text()).toContain('001565')
+  expect(wrapper.text()).toContain('N.º de contrarreferencia recibida')
+  expect(wrapper.text()).toContain('00007')
+})

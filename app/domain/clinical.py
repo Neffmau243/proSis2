@@ -20,7 +20,10 @@ class VitalSignPayload:
 class ClinicalProtocolValidator(Protocol):
     """Puerto para una norma clínica versionable por la IPRESS."""
 
-    def validate(self, values: VitalSignPayload, *, age_in_months: int) -> None: ...
+    # Typing-only declaration: implementations supply the executable validation.
+    def validate(  # pragma: no branch
+        self, values: VitalSignPayload, *, age_in_months: int
+    ) -> None: ...
 
 
 @dataclass(frozen=True, slots=True)

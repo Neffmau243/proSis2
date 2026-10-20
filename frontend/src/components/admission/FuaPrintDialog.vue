@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import fuaOfficialReferenceUrl from '@/assets/fua-v02-referencia.png'
 import type { FuaPrintSnapshot } from '@/types/fua'
+import { prepareFuaPdf } from '@/utils/fuaPdf'
 import FuaSheetPreview from '@/components/admission/FuaSheetPreview.vue'
 import { useFuaCalibration } from '@/composables/useFuaCalibration'
 import NutritionIndicatorsTable from '@/components/admission/NutritionIndicatorsTable.vue'
@@ -15,12 +16,15 @@ import {
   fuaUsesAbdominalPerimeter,
   layoutProblems,
   printFua,
+  fuaDocumentTitle,
+  type FuaDocumentKind,
 } from '@/utils/fuaPrint'
 
 const visible = defineModel<boolean>({ required: true })
 const props = defineProps<{
   snapshot: FuaPrintSnapshot
   additionalCopy?: boolean
+  documentKind?: FuaDocumentKind
 }>()
 const {
   layout,
@@ -40,10 +44,14 @@ const selectedId = ref('ipress_nombre')
 const selected = computed(() => layout.value.fields.find((field) => field.id === selectedId.value)!)
 const acknowledged = ref(false)
 const printing = ref(false)
+const pdfDownload = ref<{ url: string; filename: string } | null>(null)
+const pdfLink = ref<HTMLAnchorElement | null>(null)
+let pdfGeneration = 0
 const localError = ref('')
 const tab = ref('datos')
 const snapshot = computed(() => props.snapshot)
 const values = computed(() => fuaValues(snapshot.value))
+const documentTitle = computed(() => fuaDocumentTitle(values.value, false, props.documentKind))
 const nutritionGroup = computed<NutritionalReferenceGroup>(() => {
   if (snapshot.value.grupo_referencia) return snapshot.value.grupo_referencia
   if (snapshot.value.grupo_atencion_codigo === 'GESTANTES') return 'GESTANTE'
@@ -127,12 +135,20 @@ const fieldControls = [
 watch(
   () => [visible.value, props.snapshot] as const,
   ([open]) => {
+    clearPdf()
     if (!open) return
     acknowledged.value = false
     localError.value = ''
   },
   { immediate: true },
 )
+function clearPdf(): void {
+  pdfGeneration++
+  if (pdfDownload.value) URL.revokeObjectURL(pdfDownload.value.url)
+  pdfDownload.value = null
+}
+onBeforeUnmount(clearPdf)
+watch([layout, () => props.documentKind], clearPdf, { deep: true })
 function saveLayout(): void {
   if (save())
     ElMessage.success('Calibración guardada en este navegador, para todas las cuentas y pacientes.')
@@ -148,20 +164,41 @@ function useA4(): void {
   layout.value.height = 297
   changeGeometry()
 }
-async function print(test: boolean, withReference = false): Promise<void> {
-  if (printing.value || (!test && !(withReference ? canReview.value : canPrint.value))) return
+async function print(test: boolean): Promise<void> {
+  if (printing.value || (!test && !canPrint.value)) return
   localError.value = ''
   printing.value = true
   try {
-    await printFua(
-      layout.value,
-      withReference ? referenceValues.value : values.value,
-      test,
-      withReference ? fuaOfficialReferenceUrl : undefined,
-      10,
-    )
+    await printFua(layout.value, values.value, test, undefined, 10, props.documentKind)
   } catch (error) {
     localError.value = error instanceof Error ? error.message : 'No se pudo imprimir.'
+  } finally {
+    printing.value = false
+  }
+}
+async function downloadPdf(): Promise<void> {
+  if (printing.value || !canReview.value) return
+  localError.value = ''
+  clearPdf()
+  const generation = pdfGeneration
+  printing.value = true
+  try {
+    const file = await prepareFuaPdf(
+      layout.value,
+      referenceValues.value,
+      fuaOfficialReferenceUrl,
+      props.documentKind,
+    )
+    // The dialog may have closed while loading the PDF library or the form image.
+    if (!visible.value || generation !== pdfGeneration) return
+    pdfDownload.value = {
+      url: URL.createObjectURL(new Blob([file.data], { type: 'application/pdf' })),
+      filename: file.filename,
+    }
+    await nextTick()
+    pdfLink.value?.click()
+  } catch (error) {
+    localError.value = error instanceof Error ? error.message : 'No se pudo generar el PDF.'
   } finally {
     printing.value = false
   }
@@ -180,10 +217,20 @@ async function print(test: boolean, withReference = false): Promise<void> {
     destroy-on-close
   >
     <p class="fua-intro">
-      Use «Ver FUA / guardar PDF» para ver los datos sobre el formulario en la vista de impresión.
+      Use «Descargar FUA PDF» para guardar los datos sobre el formulario en un archivo con nombre.
       «Imprimir sobre FUA preimpresa» envía solo datos y marcas al papel que ya tiene el formulario.
       Se usa la copia conservada al guardar la atención; reimprimir no crea otra consulta ni
       reemplaza el número del papel preimpreso. Este sistema no envía datos al SIS.
+    </p>
+    <p class="fua-document-title">
+      Nombre al guardar PDF: <strong>{{ documentTitle }}.pdf</strong>
+    </p>
+    <p v-if="pdfDownload" class="fua-document-title" role="status">
+      PDF listo:
+      <a ref="pdfLink" :href="pdfDownload.url" :download="pdfDownload.filename">
+        {{ pdfDownload.filename }}
+      </a>
+      · Si la descarga no empezó, pulse el enlace.
     </p>
     <el-alert v-if="localError" :title="localError" type="error" :closable="false" />
     <el-alert v-if="storageError" :title="storageError" type="error" :closable="false" />
@@ -486,13 +533,8 @@ async function print(test: boolean, withReference = false): Promise<void> {
         <el-button :loading="printing" :disabled="!canPrint" @click="print(false)"
           >Imprimir sobre FUA preimpresa</el-button
         >
-        <el-button
-          type="primary"
-          :loading="printing"
-          :disabled="!canReview"
-          @click="print(false, true)"
-        >
-          Ver FUA / guardar PDF
+        <el-button type="primary" :loading="printing" :disabled="!canReview" @click="downloadPdf">
+          Descargar FUA PDF
         </el-button>
       </div>
     </template>
@@ -500,6 +542,11 @@ async function print(test: boolean, withReference = false): Promise<void> {
 </template>
 
 <style scoped>
+.fua-document-title {
+  margin: 8px 0;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
 .fua-intro {
   margin-top: 0;
 }

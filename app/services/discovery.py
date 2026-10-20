@@ -7,7 +7,6 @@ from typing import TypeVar
 
 from sqlalchemy.orm import Session
 
-from app.exceptions import AuthorizationError
 from app.mappers.attention import attention_to_response
 from app.mappers.patient import patient_to_response
 from app.repositories.discovery import (
@@ -19,7 +18,7 @@ from app.schemas.attention import AttentionResponse
 from app.schemas.common import PageResponse
 from app.schemas.discovery import AttentionSearchCriteria, PatientSearchCriteria
 from app.schemas.patient import PatientResponse
-
+from app.services.clinical_access import ClinicalAccessService
 
 SourceT = TypeVar("SourceT")
 ResultT = TypeVar("ResultT")
@@ -32,33 +31,11 @@ def _professional_scope(
     active_professional_id_for_user: int | None,
     allow_administrator: bool = True,
 ) -> int | None:
-    """Resolve the only two clinical visibility modes supported today.
-
-    Administrative patient-registration search can be institution-wide. A
-    clinical user must be linked to an active professional and is constrained
-    by that server-side identity; an ID from a query parameter can never
-    expand it. Attention history calls disable the administrative branch.
-    """
-
-    normalized_roles = {role.upper() for role in actor_roles}
-    if "ADMIN" in normalized_roles:
-        if allow_administrator:
-            return None
-        raise AuthorizationError(
-            code="ROL_CLINICO_REQUERIDO",
-            message="Solo un usuario PROFESIONAL vinculado puede consultar atenciones.",
-        )
-    if "PROFESIONAL" not in normalized_roles:
-        raise AuthorizationError(
-            code="ROL_SIN_AMBITO_CLINICO",
-            message="El rol actual no tiene ámbito de consulta clínica.",
-        )
-    if active_professional_id_for_user is None:
-        raise AuthorizationError(
-            code="USUARIO_PROFESIONAL_SIN_VINCULO",
-            message="El usuario clínico no está vinculado a un profesional activo.",
-        )
-    return active_professional_id_for_user
+    return ClinicalAccessService.search_professional(
+        actor_roles=actor_roles,
+        professional_id=active_professional_id_for_user,
+        allow_administrator=allow_administrator,
+    )
 
 
 class PatientDiscoveryService:

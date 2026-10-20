@@ -375,9 +375,10 @@ en la revisión de arquitectura.
 una fila nueva vinculada al paciente, con fecha, profesional, sede,
 consultorio, signos vitales, edad e historia clínica de ese acto. No existe un
 endpoint que sobrescriba una atención: solo puede anularse de forma lógica y
-con justificación. El historial se consulta con `GET /atenciones/busqueda` o
-`GET /atenciones?paciente_id=...`, limitado al ámbito asistencial del
-profesional.
+con justificación. `GET /atenciones?paciente_id=...` devuelve únicamente las
+últimas cinco atenciones, ordenadas por fecha e ID descendentes. El historial
+completo se consulta por páginas con `GET /atenciones/busqueda`, siempre
+limitado al ámbito asistencial del profesional.
 
 Los indicadores nutricionales derivados los calcula el servidor
 (`app/domain/nutrition.py`) y el cliente nunca los envía: el IMC sale de peso y

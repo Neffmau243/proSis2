@@ -1,0 +1,13 @@
+
+> ipress-frontend@0.1.0 test
+> vitest run tests/fuaCalibration.test.ts tests/officeHierarchy.test.ts tests/nutritionalDisplay.test.ts tests/laboratoryPrint.test.ts tests/laboratory.test.ts tests/fuaPdf.test.ts
+
+
+ RUN  v5.0.1 C:/Users/forth/OneDrive/Desktop/proySis/frontend
+
+
+ Test Files  6 passed (6)
+      Tests  38 passed (38)
+   Start at  07:29:01
+   Duration  3.88s (environment 69%, tests 17%, transform 7%, import 3%, worker 2%, setup 2%)
+

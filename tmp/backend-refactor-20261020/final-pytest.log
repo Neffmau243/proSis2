@@ -1,0 +1,74 @@
+........................................................................ [ 10%]
+........................................................................ [ 21%]
+........................................................................ [ 32%]
+........................................................................ [ 42%]
+........................................................................ [ 53%]
+........................................................................ [ 64%]
+........................................................................ [ 75%]
+........................................................................ [ 85%]
+........................................................................ [ 96%]
+.......................                                                  [100%]
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                                      Stmts   Miss Branch BrPart  Cover   Missing
+-------------------------------------------------------------------------------------
+app\api\router.py                            33      1      4      1    95%   66
+app\controllers\catalog.py                   67      1      0      0    99%   53
+app\core\config.py                          122     12     32     11    85%   150, 158, 160, 168, 176, 183, 189-190, 194, 201, 211, 215, 230->232
+app\core\dependencies.py                     56      1     12      1    97%   80
+app\core\security.py                         91      3     30      3    95%   40, 157, 200
+app\domain\age.py                            42      1     10      1    96%   49
+app\domain\clinical.py                       41      0      6      1    98%   23->exit
+app\domain\nutrition.py                     158      7     84      7    94%   69, 125, 136, 161, 194, 223, 302
+app\domain\nutrition_followup.py             37      1     22      1    97%   87
+app\main.py                                  71      1     22      5    94%   57->56, 82->85, 100, 117->126, 142->145
+app\mappers\age_group.py                     27      1     10      2    92%   29->32, 43
+app\mappers\attention.py                     19      1      4      1    91%   103
+app\mappers\patient.py                       32      1      2      1    94%   91
+app\repositories\attention.py                79      1     10      2    97%   101->103, 261
+app\repositories\catalog.py                 123      2     26      6    95%   54, 80->89, 104->113, 119->128, 203, 219->228, 247->258
+app\repositories\discovery.py                84      1     34      2    97%   125, 142->145
+app\repositories\document.py                 56      4      6      3    89%   24->26, 30->32, 42, 80, 89, 99
+app\repositories\office.py                   82      3     24      7    91%   44->46, 58->60, 124->126, 143->145, 165, 179, 183
+app\repositories\patient.py                 114      4     22      4    93%   47->49, 126->128, 193->195, 210-217, 232->234
+app\repositories\professional.py             36      2      4      1    92%   33, 51
+app\repositories\user.py                     48      1     10      3    93%   36->38, 63, 98->100
+app\schemas\age_group.py                     54      3     10      3    91%   83, 89, 119
+app\schemas\attention.py                    213      3     26      3    97%   190, 192, 203
+app\schemas\auth.py                          97      2     12      2    96%   70, 91
+app\schemas\discovery.py                     46      2     10      2    93%   68, 72
+app\schemas\document.py                      93      2      4      2    96%   54, 76
+app\schemas\office.py                        79      1      2      1    98%   41
+app\schemas\patient.py                      219      5     16      4    96%   55, 93, 98, 118, 139
+app\schemas\professional.py                  60      3      6      3    91%   30, 32, 34
+app\scripts\bootstrap_database.py            40      3      6      0    93%   84-86
+app\scripts\create_professional_user.py      58     13     16      7    70%   31-41, 51, 66, 74, 79, 85, 115-117, 139
+app\scripts\import_who2007.py                79     79     28      0     0%   7-111
+app\scripts\repair_patient_data.py          133     71     62      2    45%   99, 123-134, 174->165, 185-240, 246, 258-259, 266-309
+app\scripts\reset_demo_database.py           68      1     20      2    97%   45, 133->135
+app\scripts\seed_demo_data.py               271     29     86     18    87%   528, 542, 553, 563, 578, 632-633, 673, 699, 799, 907-913, 915-916, 960, 976, 986, 1047-1049, 1051, 1099-1101, 1116, 1128, 1142-1144
+app\services\age_group.py                    65      4     22      4    91%   74->83, 90, 102, 110, 116
+app\services\age_group_resolver.py           11      1      2      1    85%   15
+app\services\attention.py                   172      7     34      5    94%   65, 113, 193-194, 223, 228, 278
+app\services\attention_context.py            37      1      4      1    95%   57
+app\services\attention_origin.py             25      1      2      1    93%   31
+app\services\attention_validation.py         36      5     24      5    83%   24, 33, 42, 48, 63
+app\services\auth.py                        138     18     24      4    85%   75-82, 89-97, 113-114, 166-168, 210-212, 281-283
+app\services\catalog.py                      67      1      2      0    99%   67
+app\services\document.py                    140     11     34      5    91%   87, 131-132, 168, 215-216, 275-276, 302, 307, 312
+app\services\fua_print.py                    30      1      8      1    95%   52
+app\services\nutrition_export.py             66      1     14      1    98%   34
+app\services\office.py                      205     32     84     26    79%   98-100, 106, 122, 130, 136-137, 149, 189, 197, 204, 210, 215, 220, 239, 247, 265, 274, 298->exit, 330, 343->345, 347, 353, 358, 365, 385, 389->401, 394-399, 419-420, 438, 450
+app\services\patient.py                     253     16     50      7    91%   59->exit, 91, 203-207, 458-463, 474, 572, 593, 627-628, 701-707
+app\services\patient_data.py                104      8     62      8    90%   39, 41, 99, 136, 139, 142, 151, 197
+app\services\patient_responsible.py          51      7     18      5    83%   44, 49, 60, 67, 72, 101-104
+app\services\patient_risk.py                 69      4     32      4    92%   32, 64, 87, 95
+app\services\professional.py                118      5     24      3    94%   73-75, 150, 215, 231->exit
+app\services\user.py                        149     24     40      9    83%   93-94, 107-108, 115-116, 143-144, 176-177, 210-212, 225->234, 237-245, 257->266, 267-269, 305, 329
+-------------------------------------------------------------------------------------
+TOTAL                                      6667    413   1312    202    91%
+
+63 files skipped due to complete coverage.
+Required test coverage of 90.0% reached. Total coverage: 91.36%
+671 passed in 311.59s (0:05:11)

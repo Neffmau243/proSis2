@@ -1,0 +1,146 @@
+{
+  "attentionId": 1,
+  "patientId": 1,
+  "metrics": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "before": {
+        "height": 171.453125,
+        "measurementsTop": 243,
+        "columns": "312.578px 343.844px",
+        "overflow": false
+      },
+      "after": {
+        "height": 163.078125,
+        "measurementsTop": 235,
+        "columns": "312.578px 343.844px",
+        "overflow": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 900
+      },
+      "before": {
+        "height": 171.453125,
+        "measurementsTop": 243,
+        "columns": "424px",
+        "overflow": false
+      },
+      "after": {
+        "height": 163.078125,
+        "measurementsTop": 235,
+        "columns": "424px",
+        "overflow": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "height": 212.453125,
+        "measurementsTop": 1588,
+        "columns": "362px",
+        "overflow": false
+      },
+      "after": {
+        "height": 211.078125,
+        "measurementsTop": 1586,
+        "columns": "362px",
+        "overflow": false
+      }
+    }
+  ],
+  "snapshot": {
+    "personal_atiende": "IPRESS",
+    "lugar_atencion": "INTRAMURAL",
+    "tipo_atencion": "REFERENCIA",
+    "codigo_aisped": null,
+    "codigo_renipress": "99000001",
+    "sis_diresa": "040",
+    "sis_tipo": "2",
+    "sis_numero": "00000001",
+    "sis_componente": null,
+    "etnia_codigo": "58",
+    "referencia_renipress": "00001234",
+    "referencia_nombre": "C.S. ORIGEN DE PRUEBA E2E",
+    "referencia_hoja": "REF-000042",
+    "contexto_territorial": {
+      "ubigeo_residencia_codigo": null,
+      "departamento": null,
+      "provincia": null,
+      "distrito": null,
+      "localidad_id": null,
+      "localidad_codigo_catalogo": null,
+      "localidad_codigo_sis": null,
+      "localidad": null,
+      "direccion": null,
+      "establecimiento_registro_id": 7,
+      "establecimiento_registro_nombre": "IPRESS DESTINO E2E",
+      "establecimiento_id": 7,
+      "establecimiento_nombre": "IPRESS DESTINO E2E",
+      "establecimiento_ubigeo_codigo": "999991",
+      "establecimiento_departamento": "PRUEBA",
+      "establecimiento_provincia": "PRUEBA",
+      "establecimiento_distrito": "PRUEBA",
+      "consultorio_id": null,
+      "consultorio_codigo": null,
+      "consultorio_nombre": null,
+      "consultorio_ruta": null,
+      "consultorio_padre_id": null,
+      "consultorio_ancestros_ids": [],
+      "area_codigo": null,
+      "especialidad_codigo": null,
+      "especialidad_nombre": null,
+      "profesional_id": null,
+      "profesional_nombre": null
+    },
+    "version": 2,
+    "sis_secuencia": null,
+    "renipress_preimpreso": true,
+    "ipress_nombre": "IPRESS DESTINO E2E",
+    "profesional_nombre": null,
+    "profesional_documento": null,
+    "profesional_colegiatura": null,
+    "tipo_documento": "DNI",
+    "tdi": "2",
+    "numero_documento": "00000001",
+    "apellido_paterno": "PRUEBA",
+    "apellido_materno": "FICTICIA",
+    "primer_nombre": "ANA",
+    "otros_nombres": null,
+    "sexo_codigo": "F",
+    "fecha_nacimiento": "1990-01-02",
+    "historia_clinica": "E2E-REF-001",
+    "fecha_atencion": "2026-10-20",
+    "hora_atencion": "07:26:22",
+    "peso_kg": null,
+    "talla_cm": null,
+    "presion_sistolica": null,
+    "presion_diastolica": null,
+    "imc": null,
+    "grupo_referencia": "ADULTO",
+    "estado_nutricional": "DATOS_INCOMPLETOS",
+    "pe": null,
+    "te": null,
+    "pt": null,
+    "diagnostico_peso_edad": null,
+    "diagnostico_talla_edad": null,
+    "diagnostico_peso_talla": null,
+    "diagnostico_imc": null,
+    "imc_pregestacional": null,
+    "ganancia_peso_kg": null,
+    "perimetro_abdominal_cm": null,
+    "grupo_atencion_codigo": "NINOS_ADOLESCENTES_ADULTOS_MAYORES",
+    "fecha_probable_parto": null,
+    "fecha_parto": null
+  },
+  "errors": [],
+  "mysql_verified": true
+}

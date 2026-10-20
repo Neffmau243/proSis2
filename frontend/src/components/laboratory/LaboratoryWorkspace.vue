@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onMounted, shallowRef } from 'vue'
+import { computed, defineAsyncComponent, onMounted, shallowRef, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import LaboratoryPatientPanel from './LaboratoryPatientPanel.vue'
 import LaboratoryHistory from './LaboratoryHistory.vue'
 import LaboratoryActions from './LaboratoryActions.vue'
 import LaboratoryEncounterHeader from './LaboratoryEncounterHeader.vue'
+import LaboratoryReferralContext from './LaboratoryReferralContext.vue'
+import LaboratoryEncounterReview from './LaboratoryEncounterReview.vue'
 import { useLaboratory } from '@/composables/useLaboratory'
+import { useLaboratoryReview } from '@/composables/useLaboratoryReview'
 import { usePacienteSeleccionado } from '@/composables/usePacienteSeleccionado'
 import { useAuthStore } from '@/stores/auth'
 import { printLaboratoryClinical } from '@/utils/laboratoryPrint'
 import type { Patient } from '@/services/pacientes'
+import type { Attention } from '@/services/atenciones'
 import { officeLabel } from '@/utils/officeHierarchy'
-import { isSisInsurance } from '@/utils/patientInsurance'
 
 const FuaPrintDialog = defineAsyncComponent(
   () => import('@/components/admission/FuaPrintDialog.vue'),
@@ -88,12 +91,24 @@ function updatePatient(value: Patient): void {
   ElMessage.success('Datos del paciente actualizados.')
 }
 const printing = shallowRef(false)
-const sisPrintReady = computed(() =>
-  Boolean(
-    fuaSnapshot.value &&
-    isSisInsurance(insurances.value.find((item) => item.id === patient.value?.seguro_id)),
-  ),
-)
+function canPrintSis(attention: Attention | null): boolean {
+  return Boolean(attention?.fua_impresion?.sis_tipo && attention.fua_impresion.sis_numero)
+}
+const sisPrintReady = computed(() => canPrintSis(savedAttention.value))
+const review = useLaboratoryReview({
+  patientId: () => patient.value?.id ?? null,
+  officeId: () => form.officeId,
+  canRead: () => canRead.value,
+})
+const {
+  opened: reviewOpened,
+  attention: reviewedAttention,
+  loading: reviewLoading,
+  error: reviewError,
+} = review
+const reviewedSisReady = computed(() => canPrintSis(reviewedAttention.value))
+const printAttention = shallowRef<Attention | null>(null)
+const printSnapshot = computed(() => printAttention.value?.fua_impresion ?? null)
 const additionalCopy = shallowRef(false)
 const printError = shallowRef('')
 async function submit(): Promise<void> {
@@ -103,22 +118,33 @@ async function submit(): Promise<void> {
   }
   if (await save()) ElMessage.success('Atención de laboratorio guardada.')
 }
-function openFua(additional = false): void {
+function openFua(additional = false, attention: Attention | null = savedAttention.value): void {
+  if (!attention || !canPrintSis(attention)) return
+  printAttention.value = attention
   additionalCopy.value = additional
   fuaDialog.value = true
 }
-async function printHci(): Promise<void> {
-  if (!savedAttention.value || !fuaSnapshot.value || printing.value) return
+async function printHci(attention: Attention | null = savedAttention.value): Promise<void> {
+  if (!attention?.fua_impresion || printing.value) return
   printing.value = true
   printError.value = ''
   try {
-    await printLaboratoryClinical(savedAttention.value)
+    await printLaboratoryClinical(attention)
   } catch (cause) {
     printError.value = cause instanceof Error ? cause.message : 'No se pudo imprimir la HCI.'
   } finally {
     printing.value = false
   }
 }
+watch(
+  [() => patient.value?.id, () => form.officeId],
+  () => {
+    printAttention.value = null
+    fuaDialog.value = false
+    printError.value = ''
+  },
+  { flush: 'sync' },
+)
 const initialPatientId = Number(route.query.paciente_id) || selectedPatient.seleccionado.value?.id
 onMounted(() => void initialize(initialPatientId))
 </script>
@@ -173,18 +199,13 @@ onMounted(() => void initialize(initialPatientId))
           @submit.prevent="submit"
         >
           <section class="lab-panel lab-office" aria-labelledby="lab-office-title">
-            <div class="lab-attention-mode">
-              <span id="lab-mode-label">Modalidad de atención</span>
-              <el-radio-group
-                v-model="form.mode"
-                class="lab-modes"
-                aria-labelledby="lab-mode-label"
-                :disabled="encounterLocked"
-              >
-                <el-radio value="AMBULATORIA">Ambulatoria</el-radio>
-                <el-radio value="EMERGENCIA">Emergencia</el-radio>
-              </el-radio-group>
-            </div>
+            <LaboratoryReferralContext
+              v-model:mode="form.mode"
+              v-model:renipress="form.originRenipress"
+              v-model:name="form.originName"
+              v-model:sheet="form.reference"
+              :disabled="encounterLocked"
+            />
             <header class="lab-panel__header">
               <h2 id="lab-office-title" class="lab-panel__title">Consultorio</h2>
             </header>
@@ -288,7 +309,7 @@ onMounted(() => void initialize(initialPatientId))
           @save="submit"
           @print="openFua()"
           @additional="openFua(true)"
-          @hci="printHci"
+          @hci="printHci()"
           @exit="router.push({ name: 'inicio' })"
         />
         <LaboratoryHistory
@@ -302,14 +323,27 @@ onMounted(() => void initialize(initialPatientId))
           :has-office="Boolean(office)"
           @refresh="refreshHistory"
           @page="page = $event"
+          @open="review.open"
         />
       </div>
     </div>
+    <LaboratoryEncounterReview
+      v-model="reviewOpened"
+      :attention="reviewedAttention"
+      :loading="reviewLoading"
+      :error="reviewError"
+      :printing="printing"
+      :sis-ready="reviewedSisReady"
+      @print="openFua(false, reviewedAttention)"
+      @additional="openFua(true, reviewedAttention)"
+      @hci="printHci(reviewedAttention)"
+    />
     <FuaPrintDialog
-      v-if="fuaSnapshot && fuaDialog"
+      v-if="printSnapshot && fuaDialog"
       v-model="fuaDialog"
-      :snapshot="fuaSnapshot"
+      :snapshot="printSnapshot"
       :additional-copy="additionalCopy"
+      document-kind="REF.Lab"
     />
   </div>
 </template>

@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.exceptions import AuthorizationError, BusinessRuleError, ConflictError, NotFoundError
+from app.exceptions import BusinessRuleError, ConflictError, NotFoundError
 from app.mappers.document import certificate_to_response, fua_to_response, referral_to_response
 from app.models.documents import Certificate, CertificateService, Fua, Referral
 from app.repositories.document import DocumentRepository
@@ -23,6 +23,7 @@ from app.schemas.document import (
     ReferralCreateInput,
     ReferralResponse,
 )
+from app.services.clinical_access import ClinicalAccessService
 
 
 @dataclass(frozen=True, slots=True)
@@ -320,33 +321,11 @@ class DocumentService:
         actor_id: int,
         actor_roles: Iterable[str] | None,
     ) -> None:
-        """Require the linked clinician to issue documents for own encounters.
-
-        The policy intentionally denies generic administrative accounts here
-        as a defense in depth measure. Public controllers already enforce the
-        permission map, and this object-level check keeps a future router
-        change from turning ADMIN into a clinical signer.
-        """
-
-        if actor_roles is None:
-            return
-        normalized_roles = {role.upper() for role in actor_roles}
-        if "PROFESIONAL" not in normalized_roles:
-            raise AuthorizationError(
-                code="ROL_CLINICO_REQUERIDO",
-                message="Solo un usuario PROFESIONAL vinculado puede emitir documentos clínicos.",
-            )
-        professional_id = self._documents.get_active_professional_id_for_user(actor_id)
-        if professional_id is None:
-            raise AuthorizationError(
-                code="USUARIO_PROFESIONAL_SIN_VINCULO",
-                message="El usuario clínico no está vinculado a un profesional activo.",
-            )
-        if professional_id != attention_professional_id:
-            raise AuthorizationError(
-                code="PROFESIONAL_DISTINTO_AL_USUARIO",
-                message="Solo puede emitir documentos de sus propias atenciones.",
-            )
+        self._access.ensure_document_emitter(
+            attention_professional_id,
+            actor_id=actor_id,
+            actor_roles=actor_roles,
+        )
 
     def _next_number(self, kind: str, establishment_id: int, period: str) -> str:
         sequence = self._documents.reserve_sequence_number(
@@ -369,3 +348,7 @@ class DocumentService:
                 ),
             )
         return raw.zfill(8)
+
+    @property
+    def _access(self) -> ClinicalAccessService:
+        return ClinicalAccessService(self._documents)

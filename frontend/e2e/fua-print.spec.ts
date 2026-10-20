@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { downloadFuaPdf } from './fuaPdfDownload'
 
 /**
  * Verifica en un Chromium real lo que Vitest simula: la calibración en
@@ -22,7 +23,9 @@ async function stubPrinting(page: import('@playwright/test').Page) {
       ;(top?.__fuaPrints ?? prints).push(window.document.documentElement.outerHTML)
       // Chromium can read the filename asynchronously, after print() returns.
       window.setTimeout(() => {
-        ;(window.top as unknown as { __fuaPrintTitles: string[] }).__fuaPrintTitles.push(window.top!.document.title)
+        ;(window.top as unknown as { __fuaPrintTitles: string[] }).__fuaPrintTitles.push(
+          window.top!.document.title,
+        )
       }, 0)
     }
   })
@@ -104,110 +107,91 @@ test('la calibración en milímetros habilita la impresión real y produce el FU
   await expect(page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa' })).toBeEnabled()
 })
 
-test('el PDF sugiere atencion seguido del nombre completo y fecha de la atención', async ({ page }) => {
-  await stubPrinting(page)
+test('el archivo PDF se descarga con nombre completo y fecha de la atención', async ({ page }) => {
   await page.goto(HARNESS)
   const originalTitle = await page.title()
   await checkbox(page, 'Revisé los faltantes').click()
-  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
-  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
-  const [doc] = await prints(page)
-  const title = await page.evaluate((html) => new DOMParser().parseFromString(html!, 'text/html').title, doc)
-  expect(title).toBe('atencion-ANA MARÍA PACIENTE SINTÉTICO-2026-09-19')
-  await expect.poll(() => page.evaluate(() => (window as unknown as { __fuaPrintTitles: string[] }).__fuaPrintTitles)).toEqual([title])
-  await expect(page).toHaveTitle(title)
-  await page.evaluate(() => {
-    document.querySelector<HTMLIFrameElement>('iframe[title="Salida de impresión FUA"]')!
-      .contentWindow!.dispatchEvent(new Event('afterprint'))
-  })
+  const { download } = await downloadFuaPdf(page)
+  expect(download.suggestedFilename()).toBe('atencion-ANA MARÍA PACIENTE SINTÉTICO-2026-09-19.pdf')
+  await expect(page.locator('iframe[title="Salida de impresión FUA"]')).toHaveCount(0)
   await expect(page).toHaveTitle(originalTitle)
 })
 
 test('el PDF de revisión contiene la referencia oficial y datos, sin exigir prueba física', async ({
   page,
 }) => {
-  await stubPrinting(page)
   await openCalibration(page)
   await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
   await checkbox(page, 'Revisé los faltantes').click()
   await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
   await expect(page.getByRole('button', { name: 'Imprimir sobre FUA preimpresa' })).toBeDisabled()
-  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
-  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
-  const [doc] = await prints(page)
-  expect(doc).toContain('fua-v02-referencia.png')
-  expect(doc).toContain('PRUEBA-001')
-  expect(doc).toContain('PRELLENADO PARCIAL')
-  expect(doc).toContain('00000001')
-  const previewSrc = await page.locator('.fua-background').getAttribute('src')
-  expect(doc).toContain(`src="${previewSrc}"`)
-  await expect(page.getByRole('button', { name: 'Ver FUA / guardar PDF' })).toHaveClass(
+  const { download, content } = await downloadFuaPdf(page)
+  expect(content).toContain('PRUEBA-001')
+  expect(content).toContain('PRELLENADO PARCIAL')
+  expect(content).toContain('00000001')
+  await download.saveAs('../tmp/fua-revision-descargada.pdf')
+  await expect(page.getByRole('button', { name: 'Descargar FUA PDF' })).toHaveClass(
     /el-button--primary/,
   )
-  // Image loading is part of the print path, and desktop/mobile use the same sheet.
+  // Desktop/mobile share the same form and download path.
   await expect(page.locator('.fua-background')).toBeVisible()
   await page.screenshot({ path: '../docs/audits/fua-v02-desktop-20261014.png', fullPage: true })
   await page.setViewportSize({ width: 390, height: 844 })
-  await expect(page.getByRole('button', { name: 'Ver FUA / guardar PDF' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Descargar FUA PDF' })).toBeVisible()
   await page.screenshot({ path: '../docs/audits/fua-v02-mobile-20261014.png', fullPage: true })
-  // The form is an image element: it must print even with background graphics off.
-  await page.setViewportSize({ width: 1000, height: 1400 })
-  await page.setContent(doc!)
-  await expect
-    .poll(() =>
-      page.locator('img').evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0),
-    )
-    .toBe(true)
-  await page.pdf({
-    path: '../docs/audits/fua-v02-revision-sintetica-20261014.pdf',
-    preferCSSPageSize: true,
-    printBackground: false,
-  })
-  await page.screenshot({ path: '../docs/audits/fua-v02-hoja-20261014.png', fullPage: true })
 })
 
-test('una calibración anterior imprime DIRESA, tipo y número SIS en tres casillas', async ({ page }) => {
+test('una calibración anterior imprime DIRESA, tipo y número SIS en tres casillas', async ({
+  page,
+}) => {
   await stubPrinting(page)
   await openCalibration(page)
   await page.getByRole('button', { name: 'Guardar calibración' }).click()
   await page.evaluate((key) => {
     const layout = JSON.parse(localStorage.getItem(key)!)
     layout.calibrated = true
-    layout.fields = layout.fields.filter((field: { id: string }) => !['sis_tipo', 'sis_numero'].includes(field.id))
+    layout.fields = layout.fields.filter(
+      (field: { id: string }) => !['sis_tipo', 'sis_numero'].includes(field.id),
+    )
     layout.fields.push({
-      id: 'sis_numero_completo', label: 'SIS · Tipo / número / RN',
-      x: 63.75, y: 81.34, width: 32.45, height: 4, font: 8, step: 0, skip: 0, enabled: true,
+      id: 'sis_numero_completo',
+      label: 'SIS · Tipo / número / RN',
+      x: 63.75,
+      y: 81.34,
+      width: 32.45,
+      height: 4,
+      font: 8,
+      step: 0,
+      skip: 0,
+      enabled: true,
     })
     localStorage.setItem(key, JSON.stringify(layout))
   }, LAYOUT_KEY)
   await page.reload()
   await page.getByRole('tab', { name: 'Vista previa y calibración' }).click()
-  await expect(page.getByRole('button', { name: 'Ajustar SIS · DIRESA', exact: true })).toHaveText('001')
-  await expect(page.getByRole('button', { name: 'Ajustar SIS · Tipo', exact: true })).toHaveText('2')
-  await expect(page.getByRole('button', { name: 'Ajustar SIS · Número / RN', exact: true })).toHaveText('00000001')
+  await expect(page.getByRole('button', { name: 'Ajustar SIS · DIRESA', exact: true })).toHaveText(
+    '001',
+  )
+  await expect(page.getByRole('button', { name: 'Ajustar SIS · Tipo', exact: true })).toHaveText(
+    '2',
+  )
+  await expect(
+    page.getByRole('button', { name: 'Ajustar SIS · Número / RN', exact: true }),
+  ).toHaveText('00000001')
   await expect(checkbox(page, 'Comprobé tamaño y alineación').locator('input')).not.toBeChecked()
   await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
   await checkbox(page, 'Revisé los faltantes').click()
-  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
-  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
-  const [doc] = await prints(page)
-  const boxes = await page.evaluate(({ raw, key }) => {
-    const output = new DOMParser().parseFromString(raw!, 'text/html')
+  const { content } = await downloadFuaPdf(page)
+  const boxes = await page.evaluate((key) => {
     const fields = JSON.parse(localStorage.getItem(key)!).fields as { id: string }[]
-    const printed = [...output.body.querySelectorAll<HTMLDivElement>('div')].slice(1)
     return ['sis_diresa', 'sis_tipo', 'sis_numero'].map((id) => {
-      const el = printed[fields.findIndex((field) => field.id === id)]!
-      return { text: el.textContent, x: parseFloat(el.style.left), width: parseFloat(el.style.width) }
+      return fields.find((field) => field.id === id)! as { id: string; x: number; width: number }
     })
-  }, { raw: doc, key: LAYOUT_KEY })
-  expect(boxes.map((box) => box.text)).toEqual(['001', '2', '00000001'])
+  }, LAYOUT_KEY)
+  for (const value of ['001', '2', '00000001']) expect(content).toContain(`(${value}) Tj`)
   expect(boxes[1]!.x).toBeGreaterThan(boxes[0]!.x + boxes[0]!.width)
   expect(boxes[2]!.x).toBeGreaterThan(boxes[1]!.x + boxes[1]!.width)
-  expect(doc).not.toContain('2-00000001')
-  await page.setViewportSize({ width: 1000, height: 1400 })
-  await page.setContent(doc!)
-  await expect.poll(() => page.locator('img').evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true)
-  await page.screenshot({ path: '../tmp/fua-sis-casillas-20261019.png', fullPage: true })
+  expect(content).not.toContain('2-00000001')
 })
 
 test('un perfil histórico usa la misma referencia en vista previa y PDF conservando sus posiciones', async ({
@@ -237,12 +221,8 @@ test('un perfil histórico usa la misma referencia en vista previa y PDF conserv
   expect(normalized.fields).toEqual(legacy.fields)
   await page.getByRole('tab', { name: 'Datos de la FUA' }).click()
   await checkbox(page, 'Revisé los faltantes').click()
-  await page.getByRole('button', { name: 'Ver FUA / guardar PDF' }).click()
-  await expect.poll(() => prints(page).then((docs) => docs.length)).toBe(1)
-  const [doc] = await prints(page)
-  expect(doc).toContain('fua-v02-referencia.png')
-  expect(doc).not.toContain('fua-referencia.webp')
-  expect(doc).toContain('left:120mm')
+  const { content } = await downloadFuaPdf(page)
+  expect(content).toMatch(/340\.15748\d* [\d.]+ Td\n\(PRUEBA-001\)/)
 })
 
 test('importar posiciones conserva la geometría y exige comprobar la impresora de destino', async ({

@@ -750,8 +750,6 @@ def _issue_demo_document(
         issued = documents.issue_fua(
             FuaIssueInput(
                 atencion_id=attention_id,
-                codigo_ciudad="AREQUIPA",
-                codigo_eess="DEMO-0001",
                 observaciones="FUA ficticio cargado por seed_demo_data.",
             ),
             actor_id=actor_id,

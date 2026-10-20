@@ -4,8 +4,10 @@ import ElementPlus from 'element-plus'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
 import { defaultFuaLayout, emptyFuaInput, FUA_LAYOUT_KEY } from '@/utils/fuaPrint'
 import type { FuaPrintSnapshot } from '@/types/fua'
+import { prepareFuaPdf } from '@/utils/fuaPdf'
 
 vi.mock('@/assets/fua-v02-referencia.png', () => ({ default: '/fua-v02-referencia.png' }))
+vi.mock('@/utils/fuaPdf', () => ({ prepareFuaPdf: vi.fn() }))
 
 const base: FuaPrintSnapshot = {
   ...emptyFuaInput(),
@@ -48,10 +50,29 @@ const base: FuaPrintSnapshot = {
 
 const mounted: { unmount: () => void }[] = []
 
+test('el nombre PDF de laboratorio conserva paciente y fecha de la copia guardada', async () => {
+  const wrapper = mount(FuaPrintDialog, {
+    props: { modelValue: true, snapshot: base, documentKind: 'REF.Lab', additionalCopy: true },
+    global: { plugins: [ElementPlus] },
+    attachTo: document.body,
+  })
+  mounted.push(wrapper)
+  await vi.waitFor(() =>
+    expect(document.body.textContent).toContain('REF.Lab-ANA PRUEBA-2026-10-01'),
+  )
+  await wrapper.setProps({ snapshot: { ...base, fecha_atencion: '2026-10-02' } })
+  expect(document.body.textContent).toContain('REF.Lab-ANA PRUEBA-2026-10-02')
+  await wrapper.setProps({ documentKind: 'atencion' })
+  expect(document.body.textContent).toContain('atencion-ANA PRUEBA-2026-10-02')
+})
+
 test('el resumen permite verificar los tres datos de referencia guardados', async () => {
   const body = openSummary({
-    ...base, tipo_atencion: 'REFERENCIA', referencia_renipress: '00001234',
-    referencia_nombre: 'IPRESS ORIGEN', referencia_hoja: 'REF-0001',
+    ...base,
+    tipo_atencion: 'REFERENCIA',
+    referencia_renipress: '00001234',
+    referencia_nombre: 'IPRESS ORIGEN',
+    referencia_hoja: 'REF-0001',
   })
   await vi.waitFor(() => expect(body.textContent).toContain('Código RENIPRESS de origen'))
   expect(body.textContent).toContain('00001234')
@@ -130,7 +151,9 @@ test('la vista previa y el resumen separan DIRESA, tipo y número SIS', async ()
     expect(body.querySelector('[aria-label="Ajustar SIS · Tipo"]')?.textContent?.trim()).toBe('2'),
   )
   expect(body.querySelector('[aria-label="Ajustar SIS · DIRESA"]')?.textContent?.trim()).toBe('040')
-  expect(body.querySelector('[aria-label="Ajustar SIS · Número / RN"]')?.textContent?.trim()).toBe('00000001')
+  expect(body.querySelector('[aria-label="Ajustar SIS · Número / RN"]')?.textContent?.trim()).toBe(
+    '00000001',
+  )
   expect(body.textContent).toContain('040 · 2 · 00000001')
   expect(body.textContent).not.toContain('2-00000001')
 })
@@ -257,11 +280,10 @@ test('un adolescente conserva el grupo escolar con indicadores parcialmente apli
   })
   await vi.waitFor(() => expect(body.textContent).toContain('Valoración nutricional conservada'))
   const rows = [...body.querySelectorAll('.nutrition-table tr')]
-  expect(rows.map((row) => row.querySelector('th')?.textContent)).toEqual(['P/E', 'T/E', 'P/T'])
+  expect(rows.map((row) => row.querySelector('th')?.textContent)).toEqual(['IMC/edad', 'T/E'])
   expect(rows.map((row) => row.querySelector('td')?.textContent)).toEqual([
-    'No aplica',
+    'No disponible',
     'Z: -0.500',
-    'No aplica',
   ])
 })
 
@@ -352,23 +374,47 @@ test('confirmar calibración se guarda automáticamente y cambiar paciente o cam
   )
 })
 
-test('la revisión con referencia permite comprobar el PDF antes de confirmar la prueba física', async () => {
+test('descarga el PDF con nombre explícito, sin impresión nativa ni exigir calibración física', async () => {
+  vi.mocked(prepareFuaPdf).mockResolvedValue({
+    data: new ArrayBuffer(100),
+    filename: 'REF.Lab-ANA PRUEBA-2026-10-01.pdf',
+  })
+  vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:fua-test')
+  const revoke = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {})
+  const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
   const body = openCalibration(base)
-  await vi.waitFor(() => expect(findButton(body, 'Ver FUA / guardar PDF')?.disabled).toBe(false))
+  await vi.waitFor(() => expect(findButton(body, 'Descargar FUA PDF')?.disabled).toBe(false))
   expect(findButton(body, 'Imprimir sobre FUA preimpresa')?.disabled).toBe(true)
-  expect(findButton(body, 'Ver FUA / guardar PDF')?.classList.contains('el-button--primary')).toBe(
-    true,
-  )
+  expect(findButton(body, 'Descargar FUA PDF')?.classList.contains('el-button--primary')).toBe(true)
   expect(
     findButton(body, 'Imprimir sobre FUA preimpresa')?.classList.contains('el-button--primary'),
   ).toBe(false)
-  findButton(body, 'Ver FUA / guardar PDF')!.click()
-  await vi.waitFor(() =>
-    expect(document.querySelector('iframe')?.getAttribute('srcdoc')).toContain('<img'),
+  findButton(body, 'Descargar FUA PDF')!.click()
+  await vi.waitFor(() => expect(click).toHaveBeenCalledOnce())
+  expect(prepareFuaPdf).toHaveBeenCalledWith(
+    expect.any(Object),
+    expect.objectContaining({
+      numero_documento: base.numero_documento,
+    }),
+    '/fua-v02-referencia.png',
+    undefined,
   )
-  const srcdoc = document.querySelector('iframe')?.getAttribute('srcdoc') ?? ''
-  expect(srcdoc).toContain('PRELLENADO PARCIAL')
-  expect(srcdoc).toContain(base.numero_documento)
+  const link = body.querySelector<HTMLAnchorElement>('a[download]')!
+  expect(link.download).toBe('REF.Lab-ANA PRUEBA-2026-10-01.pdf')
+  expect(link.href).toBe('blob:fua-test')
+  expect(body.querySelector('iframe')).toBeNull()
+  mounted.pop()!.unmount()
+  expect(revoke).toHaveBeenCalledWith('blob:fua-test')
+})
+
+test('si falla el formulario no ofrece descargar un PDF vacío y permite reintentar', async () => {
+  vi.mocked(prepareFuaPdf).mockRejectedValue(new Error('No se pudo cargar el formulario FUA.'))
+  const body = openSummary(base)
+  await vi.waitFor(() => expect(findButton(body, 'Descargar FUA PDF')?.disabled).toBe(false))
+  findButton(body, 'Descargar FUA PDF')!.click()
+  await vi.waitFor(() => expect(body.textContent).toContain('No se pudo cargar el formulario FUA.'))
+  expect(body.querySelector('a[download]')).toBeNull()
+  expect(findButton(body, 'Descargar FUA PDF')?.disabled).toBe(false)
 })
 
 test('un fallo al leer la calibración sigue visible al abrir el diálogo', async () => {

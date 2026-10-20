@@ -331,7 +331,9 @@ export function parseFuaLayout(raw: string): FuaLayout {
   if (legacySis) {
     const diresa = v.fields.find((f) => f.id === 'sis_diresa')!
     const baseline = template.fields.find((f) => f.id === 'sis_diresa')!
-    for (const original of template.fields.filter((f) => ['sis_tipo', 'sis_numero'].includes(f.id))) {
+    for (const original of template.fields.filter((f) =>
+      ['sis_tipo', 'sis_numero'].includes(f.id),
+    )) {
       sourceFields.push({
         ...legacySis,
         id: original.id,
@@ -398,10 +400,7 @@ export function fuaValues(s: FuaPrintSnapshot): Record<string, string> {
   v.puerpera = mark(s.grupo_atencion_codigo === 'PUERPERAS')
   // DIRESA, type and affiliation number each have their own printed box.
   // Keep the optional RN suffix with the number, as in historical copies.
-  v.sis_numero = [
-    s.sis_numero,
-    s.version === 2 ? s.sis_secuencia : s.sis_componente,
-  ]
+  v.sis_numero = [s.sis_numero, s.version === 2 ? s.sis_secuencia : s.sis_componente]
     .filter(Boolean)
     .join('-')
   // Even a previously saved calibration must not overprint a preprinted RENIPRESS.
@@ -493,8 +492,14 @@ const escapeHtml = (s: string) =>
       })[c]!,
   )
 
+export type FuaDocumentKind = 'atencion' | 'REF.Lab'
+
 /** The browser uses the print document title as the suggested PDF filename. */
-function fuaDocumentTitle(values: Record<string, string>, test: boolean): string {
+export function fuaDocumentTitle(
+  values: Record<string, string>,
+  test = false,
+  documentKind: FuaDocumentKind = 'atencion',
+): string {
   if (test) return 'Impresión FUA'
   const patientName = ['primer_nombre', 'otros_nombres', 'apellido_paterno', 'apellido_materno']
     .map((key) => values[key] || '')
@@ -507,7 +512,7 @@ function fuaDocumentTitle(values: Record<string, string>, test: boolean): string
     .replace(/[. ]+$/g, '')
   const attentionDate = values.fecha_atencion?.slice(0, 10) || ''
   const dateSuffix = /^\d{4}-\d{2}-\d{2}$/.test(attentionDate) ? attentionDate : ''
-  return ['atencion', patientName, dateSuffix].filter(Boolean).join('-')
+  return [documentKind, patientName, dateSuffix].filter(Boolean).join('-')
 }
 
 export function fuaPrintHtml(
@@ -516,6 +521,7 @@ export function fuaPrintHtml(
   test = false,
   backgroundUrl?: string,
   backgroundInset = 0,
+  documentKind: FuaDocumentKind = 'atencion',
 ): string {
   const safe = parseFuaLayout(JSON.stringify(layout))
   if (!bounded(backgroundInset, 0, 50)) throw new Error('Margen de referencia inválido.')
@@ -543,7 +549,7 @@ export function fuaPrintHtml(
   const notice = background
     ? '<div style="position:absolute;left:10mm;top:2mm;font:8pt Arial,sans-serif">VISTA DE REVISIÓN · PRELLENADO PARCIAL · USO LOCAL</div>'
     : ''
-  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${escapeHtml(fuaDocumentTitle(values, test))}</title><style>
+  return `<!doctype html><html lang="es"><head><meta charset="utf-8"><title>${escapeHtml(fuaDocumentTitle(values, test, documentKind))}</title><style>
     @page{size:${safe.width}mm ${safe.height}mm;margin:0}
     html,body{margin:0;padding:0;width:${safe.width}mm;height:${safe.height}mm}
     body{position:relative;color:#000;background:#fff;font-family:Courier New,monospace;line-height:1.2;white-space:nowrap}
@@ -556,6 +562,7 @@ export async function printFua(
   test = false,
   backgroundUrl?: string,
   backgroundInset = 0,
+  documentKind: FuaDocumentKind = 'atencion',
 ): Promise<void> {
   if (!test && ((!backgroundUrl && !layout.calibrated) || layoutProblems(layout, values).length))
     throw new Error('Revise la calibración antes de imprimir.')
@@ -567,7 +574,7 @@ export async function printFua(
     frame.onload = () => resolve()
     frame.onerror = () => reject(new Error('No se pudo preparar la impresión.'))
   })
-  frame.srcdoc = fuaPrintHtml(layout, values, test, backgroundUrl, backgroundInset)
+  frame.srcdoc = fuaPrintHtml(layout, values, test, backgroundUrl, backgroundInset, documentKind)
   document.body.appendChild(frame)
   let restoreTitle: (() => void) | undefined
   let cleanupTimer: number | undefined
@@ -593,7 +600,7 @@ export async function printFua(
     // Chromium may take the suggested filename from the parent tab when
     // printing an iframe. It can read that title after print() has returned.
     const previousTitle = document.title
-    const printTitle = fuaDocumentTitle(values, test)
+    const printTitle = fuaDocumentTitle(values, test, documentKind)
     restoreTitle = () => {
       // A route change may already have set the title of another page.
       if (document.title === printTitle) document.title = previousTitle

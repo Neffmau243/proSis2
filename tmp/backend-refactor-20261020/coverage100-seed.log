@@ -1,0 +1,51 @@
+F.....................                                                   [100%]
+================================== FAILURES ===================================
+_____________ test_bootstrap_entry_point_creates_before_migrating _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000019F67D74F20>
+capsys = <_pytest.capture.CaptureFixture object at 0x0000019F67D75010>
+
+    def test_bootstrap_entry_point_creates_before_migrating(monkeypatch,capsys):
+        events=[]
+        monkeypatch.setattr(bootstrap,"create_database_if_missing",lambda:events.append("create") or "ipress_test")
+        monkeypatch.setattr(bootstrap,"upgrade_to_head",lambda:events.append("migrate"))
+>       bootstrap.main()
+E       AttributeError: module 'app.scripts.bootstrap_database' has no attribute 'main'
+
+tests\unit\test_seed_recovery.py:20: AttributeError
+=============================== tests coverage ================================
+______________ coverage: platform win32, python 3.12.10-final-0 _______________
+
+Name                                 Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------------
+app\api\router.py                       33      1      4      1    95%   66
+app\controllers\catalog.py              67      1      0      0    99%   53
+app\domain\clinical.py                  41      0      6      1    98%   23->exit
+app\main.py                             71      1     22      5    94%   57->56, 82->85, 100, 117->126, 142->145
+app\mappers\age_group.py                27      1     10      2    92%   29->32, 43
+app\mappers\attention.py                19      1      4      1    91%   103
+app\repositories\attention.py           79      1     10      2    97%   101->103, 261
+app\repositories\catalog.py            123      2     26      6    95%   54, 80->89, 104->113, 119->128, 203, 219->228, 247->258
+app\repositories\discovery.py           84      1     34      2    97%   125, 142->145
+app\repositories\document.py            56      4      6      3    89%   24->26, 30->32, 42, 80, 89, 99
+app\repositories\office.py              82      3     24      7    91%   44->46, 58->60, 124->126, 143->145, 165, 179, 183
+app\repositories\patient.py            114      4     22      4    93%   47->49, 126->128, 193->195, 210-217, 232->234
+app\repositories\professional.py        36      2      4      1    92%   33, 51
+app\repositories\user.py                48      1     10      3    93%   36->38, 63, 98->100
+app\scripts\bootstrap_database.py       40      3      6      0    93%   84-86
+app\services\age_group.py               65      4     22      4    91%   74->83, 90, 102, 110, 116
+app\services\age_group_resolver.py      11      1      2      1    85%   15
+app\services\catalog.py                 67      1      2      0    99%   67
+app\services\fua_print.py               30      1      8      1    95%   52
+app\services\patient.py                253     16     50      7    91%   59->exit, 91, 203-207, 458-463, 474, 572, 593, 627-628, 701-707
+app\services\patient_data.py           104      8     62      8    90%   39, 41, 99, 136, 139, 142, 151, 197
+app\services\patient_risk.py            69      4     32      4    92%   32, 64, 87, 95
+app\services\professional.py           118      5     24      3    94%   73-75, 150, 215, 231->exit
+--------------------------------------------------------------------------------
+TOTAL                                 6667     66   1312     66    98%
+
+93 files skipped due to complete coverage.
+Required test coverage of 90.0% reached. Total coverage: 98.27%
+=========================== short test summary info ===========================
+FAILED tests/unit/test_seed_recovery.py::test_bootstrap_entry_point_creates_before_migrating
+1 failed, 21 passed in 7.64s
