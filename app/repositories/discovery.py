@@ -14,6 +14,7 @@ from app.models.clinical import Attention
 from app.models.organization import Office, OfficeProfessional
 from app.models.patient import Patient, PatientRisk
 from app.models.security import Professional, User
+from app.repositories.attention_scope import recorded_referral
 from app.schemas.discovery import AttentionSearchCriteria, PatientSearchCriteria
 
 EntityT = TypeVar("EntityT")
@@ -110,7 +111,10 @@ class PatientDiscoveryRepository:
             own_attention = exists(
                 select(Attention.id).where(
                     Attention.paciente_id == Patient.id,
-                    Attention.profesional_id == professional_id,
+                    or_(
+                        Attention.profesional_id == professional_id,
+                        recorded_referral(professional_id),
+                    ),
                     Attention.estado != "ANULADO",
                 )
             )
@@ -223,7 +227,10 @@ class AttentionDiscoveryRepository:
         if criteria.estado is not None:
             conditions.append(Attention.estado == criteria.estado.value)
         if professional_id is not None:
-            visibility = [Attention.profesional_id == professional_id]
+            visibility = [
+                Attention.profesional_id == professional_id,
+                recorded_referral(professional_id),
+            ]
             if establishment_ids:
                 visibility.append(Attention.establecimiento_id.in_(establishment_ids))
             conditions.append(or_(*visibility))

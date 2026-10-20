@@ -183,6 +183,37 @@ def test_valid_reference_and_normalization():
     assert result.etnia_codigo is None
 
 
+def test_referral_snapshot_retains_origin_for_reprinting():
+    a, p, s, professional = fixtures()
+    a.modalidad_atencion_codigo = "REFERENCIA"
+    supplement = FuaPrintInput(
+        tipo_atencion="REFERENCIA", referencia_renipress="00001234",
+        referencia_nombre=" ipress origen ", referencia_hoja=" ref-0001 ",
+    )
+    result = build_fua_snapshot(a, p, s, professional, supplement)
+    assert result["tipo_atencion"] == "REFERENCIA"
+    assert result["referencia_renipress"] == "00001234"
+    assert result["referencia_nombre"] == "IPRESS ORIGEN"
+    assert result["referencia_hoja"] == "REF-0001"
+    supplement.referencia_nombre = "CAMBIO POSTERIOR"
+    assert result["referencia_nombre"] == "IPRESS ORIGEN"
+
+
+def test_referral_snapshot_without_an_attending_clinician_keeps_signature_fields_blank():
+    a, p, s, _ = fixtures()
+    a.modalidad_atencion_codigo = "REFERENCIA"
+    supplement = FuaPrintInput(
+        tipo_atencion="REFERENCIA", referencia_renipress="00001234",
+        referencia_nombre="IPRESS ORIGEN", referencia_hoja="REF-0001",
+    )
+    result = build_fua_snapshot(a, p, s, None, supplement)
+    assert result["tipo_atencion"] == "REFERENCIA"
+    assert result["referencia_hoja"] == "REF-0001"
+    assert result["profesional_nombre"] is None
+    assert result["profesional_documento"] is None
+    assert result["profesional_colegiatura"] is None
+
+
 def test_patient_site_and_modality_override_old_client_supplements():
     a, p, s, professional = fixtures()
     a.modalidad_atencion_codigo = "EMERGENCIA"

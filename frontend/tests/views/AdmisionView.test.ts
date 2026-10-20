@@ -314,6 +314,67 @@ async function mountAdmission() {
   return wrapper
 }
 
+test('referencia exige los tres campos y los envía con la modalidad al guardar', async () => {
+  const wrapper = await mountAdmission()
+  expect(wrapper.find('.referral-fields').exists()).toBe(false)
+  await wrapper.get('input[value="REFERENCIA"]').setValue(true)
+  expect(wrapper.find('.referral-fields').exists()).toBe(true)
+  expect(wrapper.get('#encounter-context-title').text()).toBe('Referencia realizada por')
+  expect(wrapper.findAllComponents(ElFormItem).some(item => item.props('prop') === 'consultorio_id')).toBe(false)
+  expect(wrapper.findAllComponents(ElFormItem).some(item => item.props('prop') === 'profesional_id')).toBe(false)
+  expect(wrapper.get('.clinical-section--context').findAll('.referral-fields input')).toHaveLength(3)
+  const save = wrapper.findAll('button').find(button => button.text() === 'Guardar atención')!
+  await save.trigger('click')
+  await flushPromises()
+  expect(create).not.toHaveBeenCalled()
+  await vi.waitFor(() => expect(wrapper.text()).toContain('Indique el RENIPRESS de origen.'))
+  await wrapper.get('input[aria-label="Código RENIPRESS de origen"]').setValue('123')
+  await wrapper.get('input[aria-label="Nombre de la IPRESS de origen"]').setValue('Ipress origen')
+  await wrapper.get('input[aria-label="N.º de hoja de referencia"]').setValue('ref-0001')
+  await save.trigger('click')
+  await flushPromises()
+  expect(create).not.toHaveBeenCalled()
+  await vi.waitFor(() => expect(wrapper.text()).toContain('El RENIPRESS debe tener 8 dígitos.'))
+  await wrapper.get('input[aria-label="Código RENIPRESS de origen"]').setValue('00001234')
+  create.mockImplementation(async payload => ({ ...payload, id: 502, fua_impresion: null }))
+  await save.trigger('click')
+  await flushPromises()
+  expect(create).toHaveBeenCalledOnce()
+  expect(create.mock.calls[0]?.[0]).toMatchObject({
+    modalidad_atencion_codigo: 'REFERENCIA',
+    consultorio_id: null, profesional_id: null, especialidad_codigo: null,
+    fua_datos: {
+      tipo_atencion: 'REFERENCIA', referencia_renipress: '00001234',
+      referencia_nombre: 'IPRESS ORIGEN', referencia_hoja: 'REF-0001',
+    },
+  })
+})
+
+test.each(['AMBULATORIA', 'EMERGENCIA'])(
+  'cambiar de referencia a %s limpia el origen y permite guardar sin esos datos', async mode => {
+    const wrapper = await mountAdmission()
+    const field = (label: string) =>
+      wrapper.findAllComponents(ElFormItem).find(item => item.props('label') === label)!
+    field('Consultorio').getComponent(ElSelect).vm.$emit('update:modelValue', 3)
+    await flushPromises()
+    field('Profesional').getComponent(ElSelect).vm.$emit('update:modelValue', 2)
+    await wrapper.get('input[value="REFERENCIA"]').setValue(true)
+    for (const input of wrapper.findAll('.referral-fields input')) await input.setValue('dato anterior')
+    await wrapper.get(`input[value="${mode}"]`).setValue(true)
+    expect(wrapper.find('.referral-fields').exists()).toBe(false)
+    await wrapper.get('input[value="REFERENCIA"]').setValue(true)
+    for (const input of wrapper.findAll('.referral-fields input')) {
+      expect((input.element as HTMLInputElement).value).toBe('')
+    }
+    await wrapper.get(`input[value="${mode}"]`).setValue(true)
+    create.mockImplementation(async payload => ({ ...payload, id: 503, fua_impresion: null }))
+    await wrapper.findAll('button').find(button => button.text() === 'Guardar atención')!.trigger('click')
+    await flushPromises()
+    expect(create).toHaveBeenCalledOnce()
+    expect(create.mock.calls[0]?.[0]).toMatchObject({ modalidad_atencion_codigo: mode, fua_datos: null })
+  },
+)
+
 test(
   'el formulario mantiene fecha, selección exclusiva y payload al guardar la atención',
   { timeout: 30_000 },

@@ -16,7 +16,7 @@ def build_fua_snapshot(
     attention: Attention,
     patient: Patient,
     establishment: Establishment,
-    professional: Professional,
+    professional: Professional | None,
     supplement: FuaPrintInput | None,
 ) -> dict[str, object]:
     values = FuaPrintInput().model_dump()
@@ -33,7 +33,7 @@ def build_fua_snapshot(
     values["personal_atiende"] = getattr(establishment, "fua_personal_atiende", None) or "IPRESS"
     values["lugar_atencion"] = getattr(establishment, "fua_lugar_atencion", None) or "INTRAMURAL"
     values["codigo_aisped"] = getattr(establishment, "fua_codigo_aisped", None)
-    # Legacy clients may supply referral data, never patient identity or site defaults.
+    # Validated referral origin belongs to this encounter, never to patient/site defaults.
     if supplement and values["tipo_atencion"] == "REFERENCIA":
         values.update(
             {
@@ -62,9 +62,9 @@ def build_fua_snapshot(
         sis_secuencia=getattr(patient, "sis_secuencia", None) if has_sis else None,
         renipress_preimpreso=getattr(establishment, "fua_renipress_preimpreso", True),
         ipress_nombre=establishment.nombre,
-        profesional_nombre=professional.nombre_completo,
-        profesional_documento=professional.numero_documento,
-        profesional_colegiatura=professional.colegiatura,
+        profesional_nombre=getattr(professional, "nombre_completo", ""),
+        profesional_documento=getattr(professional, "numero_documento", None),
+        profesional_colegiatura=getattr(professional, "colegiatura", None),
         tipo_documento=patient.tipo_documento_codigo,
         tdi={"DNI": "2", "CE": "3"}.get(patient.tipo_documento_codigo),
         numero_documento=patient.numero_documento,

@@ -33,11 +33,11 @@ export interface Attention {
   paciente_id: number
   establecimiento_id: number
   establecimiento_nombre?: string | null
-  profesional_id: number
+  profesional_id: number | null
   profesional_nombre?: string | null
   especialidad_codigo: string | null
   especialidad_nombre?: string | null
-  consultorio_id: number
+  consultorio_id: number | null
   consultorio_nombre: string | null
   consultorio_ruta?: string | null
   modalidad_atencion_codigo: string
@@ -101,10 +101,10 @@ export interface AttentionCreatePayload {
   fua_datos?: FuaPrintInput | null
   paciente_id: number
   establecimiento_id: number
-  profesional_id: number
+  profesional_id: number | null
   especialidad_codigo?: string | null
-  consultorio_id: number
-  modalidad_atencion_codigo: 'AMBULATORIA' | 'EMERGENCIA'
+  consultorio_id: number | null
+  modalidad_atencion_codigo: 'AMBULATORIA' | 'REFERENCIA' | 'EMERGENCIA'
   grupo_atencion_codigo?: CareGroupCode
   fecha_atencion: string
   fecha_atendido?: string | null

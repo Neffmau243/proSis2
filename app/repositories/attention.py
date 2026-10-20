@@ -17,6 +17,7 @@ from app.models.documents import Certificate, Fua, Referral
 from app.models.organization import Establishment, Office, OfficeProfessional
 from app.models.security import Professional, ProfessionalSpecialty, User
 from app.models.surveillance import NutritionalEvaluation
+from app.repositories.attention_scope import recorded_referral
 
 
 class AttentionRepository:
@@ -59,7 +60,10 @@ class AttentionRepository:
             .order_by(Attention.fecha_atencion.desc())
         )
         if professional_id is not None:
-            visibility = [Attention.profesional_id == professional_id]
+            visibility = [
+                Attention.profesional_id == professional_id,
+                recorded_referral(professional_id),
+            ]
             if establishment_ids:
                 visibility.append(Attention.establecimiento_id.in_(establishment_ids))
             statement = statement.where(or_(*visibility))
@@ -84,7 +88,10 @@ class AttentionRepository:
             Attention.talla_cm > 0,
         )
         if professional_id is not None:
-            visibility = [Attention.profesional_id == professional_id]
+            visibility = [
+                Attention.profesional_id == professional_id,
+                recorded_referral(professional_id),
+            ]
             if establishment_ids:
                 visibility.append(Attention.establecimiento_id.in_(establishment_ids))
             statement = statement.where(or_(*visibility))

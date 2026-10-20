@@ -19,6 +19,7 @@ from app.models.clinical import Attention
 from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
 from app.models.patient import Patient, PatientResponsible, PatientRisk, RiskGroup
 from app.models.security import Professional, User
+from app.repositories.attention_scope import recorded_referral
 
 
 class PatientRepository:
@@ -192,7 +193,9 @@ class PatientRepository:
             select(Attention.id)
             .where(
                 Attention.paciente_id == patient_id,
-                Attention.profesional_id == professional_id,
+                or_(
+                    Attention.profesional_id == professional_id, recorded_referral(professional_id)
+                ),
                 Attention.estado != "ANULADO",
             )
             .exists()

@@ -213,6 +213,20 @@ async function print(test: boolean, withReference = false): Promise<void> {
             <dt>Atención en la FUA</dt>
             <dd>{{ snapshot.tipo_atencion || 'Sin registrar' }} · según la modalidad guardada</dd>
           </div>
+          <template v-if="snapshot.tipo_atencion === 'REFERENCIA'">
+            <div>
+              <dt>Código RENIPRESS de origen</dt>
+              <dd>{{ snapshot.referencia_renipress }}</dd>
+            </div>
+            <div>
+              <dt>Nombre de la IPRESS de origen</dt>
+              <dd>{{ snapshot.referencia_nombre }}</dd>
+            </div>
+            <div>
+              <dt>N.º de hoja de referencia</dt>
+              <dd>{{ snapshot.referencia_hoja }}</dd>
+            </div>
+          </template>
           <div>
             <dt>IPRESS de la atención</dt>
             <dd>{{ snapshot.ipress_nombre || 'Sin registrar' }}</dd>

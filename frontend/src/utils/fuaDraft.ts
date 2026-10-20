@@ -15,7 +15,10 @@ export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, suppl
   const height = encounter.talla_cm
   return {
     ...supplement, version: 1,
-    tipo_atencion: supplement.tipo_atencion || encounter.modalidad_atencion_codigo,
+    tipo_atencion: encounter.modalidad_atencion_codigo,
+    referencia_renipress: encounter.modalidad_atencion_codigo === 'REFERENCIA' ? supplement.referencia_renipress : null,
+    referencia_nombre: encounter.modalidad_atencion_codigo === 'REFERENCIA' ? supplement.referencia_nombre : null,
+    referencia_hoja: encounter.modalidad_atencion_codigo === 'REFERENCIA' ? supplement.referencia_hoja : null,
     codigo_renipress: supplement.codigo_renipress || (/^\d{8}$/.test(renaes) ? renaes : null),
     ipress_nombre: establishment?.nombre || '', profesional_nombre: professional?.nombre_completo || '',
     profesional_colegiatura: professional?.colegiatura || null, profesional_documento: null,

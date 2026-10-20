@@ -61,6 +61,24 @@ const snapshot: FuaPrintSnapshot = {
   historia_clinica: 'HC-0001',
 }
 
+test('referencia imprime una sola X y sus tres datos de origen en las casillas FUA', () => {
+  const values = fuaValues({
+    ...snapshot, referencia_renipress: '00001234',
+    referencia_nombre: 'IPRESS ORIGEN', referencia_hoja: 'REF-0001',
+  })
+  expect(values.atencion_referencia).toBe('X')
+  expect(values.atencion_ambulatoria).toBe('')
+  expect(values.atencion_emergencia).toBe('')
+  const layout = defaultFuaLayout()
+  const fields = layout.fields.filter(field => field.enabled)
+  const doc = new DOMParser().parseFromString(fuaPrintHtml(layout, values), 'text/html')
+  for (const [key, value] of Object.entries({
+    referencia_renipress: '00001234', referencia_nombre: 'IPRESS ORIGEN', referencia_hoja: 'REF-0001',
+  })) {
+    expect(doc.body.children[fields.findIndex(field => field.id === key)]?.textContent).toBe(value)
+  }
+})
+
 test('local document labels print without invented TDI; inconsistent identity still blocks', () => {
   expect(fuaIdentityProblem(snapshot)).toBeNull()
   expect(fuaIdentityProblem({ ...snapshot, tipo_documento: 'CE', tdi: '3' })).toBeNull()

@@ -65,7 +65,7 @@ class Attention(Base):
         ),
         nullable=False,
     )
-    profesional_id: Mapped[int] = mapped_column(
+    profesional_id: Mapped[int | None] = mapped_column(
         mysql.BIGINT(unsigned=True),
         ForeignKey(
             "profesionales.id",
@@ -73,7 +73,7 @@ class Attention(Base):
             ondelete="RESTRICT",
             onupdate="CASCADE",
         ),
-        nullable=False,
+        nullable=True,
     )
     especialidad_codigo: Mapped[str | None] = mapped_column(
         String(20),
@@ -85,7 +85,7 @@ class Attention(Base):
         ),
         nullable=True,
     )
-    consultorio_id: Mapped[int] = mapped_column(
+    consultorio_id: Mapped[int | None] = mapped_column(
         mysql.BIGINT(unsigned=True),
         ForeignKey(
             "consultorios.id",
@@ -93,7 +93,7 @@ class Attention(Base):
             ondelete="RESTRICT",
             onupdate="CASCADE",
         ),
-        nullable=False,
+        nullable=True,
     )
     modalidad_atencion_codigo: Mapped[str] = mapped_column(
         String(20),
@@ -190,9 +190,9 @@ class Attention(Base):
 
     paciente: Mapped["Patient"] = relationship(back_populates="atenciones")
     establecimiento: Mapped["Establishment"] = relationship(back_populates="atenciones")
-    profesional: Mapped["Professional"] = relationship(back_populates="atenciones")
+    profesional: Mapped["Professional | None"] = relationship(back_populates="atenciones")
     especialidad: Mapped["Specialty | None"] = relationship(back_populates="atenciones")
-    consultorio: Mapped["Office"] = relationship(back_populates="atenciones")
+    consultorio: Mapped["Office | None"] = relationship(back_populates="atenciones")
     modalidad_atencion: Mapped["AttentionMode"] = relationship(
         back_populates="atenciones"
     )

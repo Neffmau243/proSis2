@@ -219,10 +219,13 @@ test('el RENIPRESS solo se toma de un código RENAES de ocho dígitos', () => {
   expect(shortRenaes.codigo_renipress).toBeNull()
 })
 
-test('lo que el formulario escribe en el FUA gana sobre lo deducido', () => {
+test('la modalidad guardada prevalece sobre el suplemento del FUA', () => {
   const supplement: FuaPrintInput = {
     ...emptyFuaInput(),
     tipo_atencion: 'REFERENCIA',
+    referencia_renipress: '00001234',
+    referencia_nombre: 'IPRESS ORIGEN',
+    referencia_hoja: '0001',
     codigo_renipress: '99999999',
   }
   const draft = buildFuaDraft(
@@ -241,7 +244,10 @@ test('lo que el formulario escribe en el FUA gana sobre lo deducido', () => {
     undefined,
   )
 
-  expect(draft.tipo_atencion).toBe('REFERENCIA')
+  expect(draft.tipo_atencion).toBe('AMBULATORIA')
+  expect(draft.referencia_renipress).toBeNull()
+  expect(draft.referencia_nombre).toBeNull()
+  expect(draft.referencia_hoja).toBeNull()
   expect(draft.codigo_renipress).toBe('99999999')
 })
 

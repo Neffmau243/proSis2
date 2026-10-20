@@ -48,6 +48,17 @@ const base: FuaPrintSnapshot = {
 
 const mounted: { unmount: () => void }[] = []
 
+test('el resumen permite verificar los tres datos de referencia guardados', async () => {
+  const body = openSummary({
+    ...base, tipo_atencion: 'REFERENCIA', referencia_renipress: '00001234',
+    referencia_nombre: 'IPRESS ORIGEN', referencia_hoja: 'REF-0001',
+  })
+  await vi.waitFor(() => expect(body.textContent).toContain('Código RENIPRESS de origen'))
+  expect(body.textContent).toContain('00001234')
+  expect(body.textContent).toContain('IPRESS ORIGEN')
+  expect(body.textContent).toContain('REF-0001')
+})
+
 function openSummary(snapshot: FuaPrintSnapshot) {
   const wrapper = mount(FuaPrintDialog, {
     props: { modelValue: true, snapshot },

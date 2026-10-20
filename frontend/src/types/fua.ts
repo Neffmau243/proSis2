@@ -22,7 +22,7 @@ export interface FuaPrintSnapshot extends FuaPrintInput {
   sis_secuencia?: string | null
   renipress_preimpreso?: boolean
   ipress_nombre: string
-  profesional_nombre: string
+  profesional_nombre: string | null
   profesional_documento: string | null
   profesional_colegiatura: string | null
   tipo_documento: string

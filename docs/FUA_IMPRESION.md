@@ -45,6 +45,45 @@ este ajuste visual no requiere otra migración ni inventa datos para pacientes.
 
 ## Flujo
 
+### Prueba E2E de Referencia
+
+Después de compilar `frontend/` con `npm run build`, ejecutar desde la raíz:
+
+```powershell
+.\.venv\Scripts\python.exe tests/e2e/run_referral_e2e.py --output tmp/referral-e2e
+```
+
+El script crea una base MySQL `ipress_test_referral_e2e_*`, una API de loopback
+y un paciente ficticio; elimina la base y cierra la API al terminar. Requiere
+Chromium de Playwright o una ruta en `PLAYWRIGHT_CHROMIUM_EXECUTABLE`.
+Comprueba el alto del bloque y la distribución en 1280, 1024 y 390 px, el
+guardado sin asignación solo para Referencia, la lectura del FUA persistido,
+sus tres casillas de origen y la marca exclusiva de Referencia. Conserva
+capturas, el informe JSON y dos PDF: revisión con plantilla y salida de solo
+datos para papel preimpreso. La prueba digital no calibra una impresora física.
+
+La **Modalidad de atención** ofrece Ambulatoria, Referencia y Emergencia.
+Al elegir Referencia, sus tres campos reemplazan visualmente a Consultorio,
+Servicio/especialidad y Profesional. La referencia se registra sin exigir
+esa asignación: los tres valores quedan NULL y la copia FUA no inventa un
+profesional responsable. Ambulatoria y Emergencia siguen exigiendo consultorio
+y profesional. La migración `20261019_0039_referral_assign` permite guardar
+la ausencia; la validación del backend la admite únicamente para Referencia
+y conserva las asignaciones históricas.
+Referencia muestra y exige **Código RENIPRESS de origen** (8 dígitos),
+**Nombre de la IPRESS de origen** y **N.º de hoja de referencia**. Al cambiar
+a otra modalidad se limpian esos campos. El backend valida la misma condición:
+una referencia incompleta o datos de referencia en otra modalidad se rechazan.
+
+La migración `20261019_0038_referral_mode` habilita `REFERENCIA` en
+`modalidades_atencion`. La modalidad se guarda en
+`atenciones.modalidad_atencion_codigo`; los tres datos de origen se reciben
+en `fua_datos` y se guardan en el JSON existente `atenciones.fua_impresion`
+(`referencia_renipress`, `referencia_nombre`, `referencia_hoja`), en la misma
+transacción de la atención. Esta copia histórica determina las casillas y
+datos de las reimpresiones. No se usan las referencias de salida ni los
+identificadores independientes de recepción de laboratorio para este bloque.
+
 1. En **Datos del paciente**, debajo de **Seguro**, revise o complete las tres
    casillas de afiliación SIS, la **Secuencia/RN** y la **Etnia declarada**.
    La secuencia no es el régimen del seguro y se guarda tal cual; la etnia se

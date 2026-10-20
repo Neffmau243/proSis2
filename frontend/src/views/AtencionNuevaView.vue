@@ -53,24 +53,13 @@
                 class="clinical-section clinical-section--context"
                 aria-labelledby="encounter-context-title"
               >
-                <div class="attention-mode-control">
-                  <el-form-item label="Modalidad de atención" prop="modalidad_atencion_codigo">
-                    <el-radio-group
-                      class="attention-mode-selector"
-                      v-model="form.modalidad_atencion_codigo"
-                      aria-label="Modalidad de atención"
-                    >
-                      <el-radio value="AMBULATORIA"> Ambulatoria </el-radio>
-                      <el-radio value="EMERGENCIA"> Emergencia </el-radio>
-                    </el-radio-group>
-                  </el-form-item>
-                </div>
+                <AdmissionAttentionMode v-model="form.modalidad_atencion_codigo" />
                 <div class="clinical-section__heading">
                   <div>
                     <h3 id="encounter-context-title" class="clinical-section__title">
-                      Consultorio
+                      {{ isReferral ? 'Referencia realizada por' : 'Consultorio' }}
                     </h3>
-                    <p v-if="!isAdmission" class="clinical-section__description">
+                    <p v-if="!isAdmission && !isReferral" class="clinical-section__description">
                       {{
                         isAdmission
                           ? 'Seleccione consultorio, especialidad y profesional para la atención.'
@@ -79,7 +68,13 @@
                     </p>
                   </div>
                 </div>
-                <el-row :gutter="isAdmission ? 12 : 16">
+                <AdmissionReferralFields
+                  v-if="isReferral"
+                  v-model:renipress="form.referencia_renipress"
+                  v-model:name="form.referencia_nombre"
+                  v-model:sheet="form.referencia_hoja"
+                />
+                <el-row v-if="!isAdmission || !isReferral" :gutter="isAdmission ? 12 : 16">
                   <template v-if="isAdmission">
                     <el-col :span="24">
                       <el-form-item
@@ -195,7 +190,7 @@
                         </el-select>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col v-if="!isReferral" :span="8">
                       <el-form-item label="Consultorio" prop="consultorio_id">
                         <el-select
                           v-model="form.consultorio_id"
@@ -219,7 +214,7 @@
                         </el-select>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col v-if="!isReferral" :span="8">
                       <el-form-item label="Profesional" prop="profesional_id">
                         <el-select
                           v-model="form.profesional_id"
@@ -240,7 +235,7 @@
                         </el-select>
                       </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col v-if="!isReferral" :span="8">
                       <el-form-item label="Servicio / especialidad">
                         <el-select
                           v-model="form.especialidad_codigo"
@@ -581,6 +576,8 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 
 import AdmissionHistory from '@/components/admission/AdmissionHistory.vue'
 import AdmissionEncounterHeader from '@/components/admission/AdmissionEncounterHeader.vue'
+import AdmissionAttentionMode from '@/components/admission/AdmissionAttentionMode.vue'
+import AdmissionReferralFields from '@/components/admission/AdmissionReferralFields.vue'
 import AdmissionFinalActions from '@/components/admission/AdmissionFinalActions.vue'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
 import NutritionAssessmentResults from '@/components/admission/NutritionAssessmentResults.vue'
@@ -609,6 +606,7 @@ import {
 import { formatCalendarAge, calculateCalendarAge } from '@/utils/calendarAge'
 import { useNutritionalIndicatorsPreview } from '@/composables/useNutritionalIndicatorsPreview'
 import { PREGNANCY_TYPES } from '@/utils/pregnancy'
+import { emptyFuaInput } from '@/utils/fuaPrint'
 
 const props = withDefaults(
   defineProps<{
@@ -684,7 +682,10 @@ const form = reactive({
   consultorio_id: null as number | null,
   profesional_id: null as number | null,
   especialidad_codigo: null as string | null,
-  modalidad_atencion_codigo: 'AMBULATORIA' as 'AMBULATORIA' | 'EMERGENCIA',
+  modalidad_atencion_codigo: 'AMBULATORIA' as AttentionCreatePayload['modalidad_atencion_codigo'],
+  referencia_renipress: '',
+  referencia_nombre: '',
+  referencia_hoja: '',
   fecha_atencion: '',
   fecha_atendido: null as string | null,
   tipo_embarazo_codigo: null as PregnancyTypeCode | null,
@@ -701,6 +702,7 @@ const form = reactive({
   hora_fin: null as string | null,
   admision: '',
 })
+const isReferral = computed(() => form.modalidad_atencion_codigo === 'REFERENCIA')
 
 const { savedAttention, fuaDialog, fuaSnapshot, attentionCreated, remember } = useSavedAdmission(
   () => form.paciente_id,
@@ -715,6 +717,21 @@ const isPuerperal = computed(() => selectedCareGroup.value === 'PUERPERAS')
 const isObstetric = computed(() => isPregnant.value || isPuerperal.value)
 
 const rules: FormRules = {
+  referencia_renipress: [
+    { required: true, message: 'Indique el RENIPRESS de origen.', trigger: 'blur' },
+    { pattern: /^[0-9]{8}$/, message: 'El RENIPRESS debe tener 8 dígitos.', trigger: 'blur' },
+  ],
+  referencia_nombre: [
+    { required: true, whitespace: true, message: 'Indique la IPRESS de origen.', trigger: 'blur' },
+  ],
+  referencia_hoja: [
+    {
+      required: true,
+      whitespace: true,
+      message: 'Indique el número de hoja de referencia.',
+      trigger: 'blur',
+    },
+  ],
   paciente_id: [{ required: true, message: 'Seleccione el paciente.', trigger: 'change' }],
   establecimiento_id: [
     { required: true, message: 'Seleccione el establecimiento.', trigger: 'change' },
@@ -726,6 +743,21 @@ const rules: FormRules = {
   ],
   fecha_atencion: [{ required: true, message: 'Indique la fecha de atención.', trigger: 'change' }],
 }
+
+function clearReferral(): void {
+  form.referencia_renipress = ''
+  form.referencia_nombre = ''
+  form.referencia_hoja = ''
+  formRef.value?.clearValidate(['referencia_renipress', 'referencia_nombre', 'referencia_hoja'])
+}
+watch(
+  () => form.modalidad_atencion_codigo,
+  (mode) => {
+    if (mode !== 'REFERENCIA') clearReferral()
+  },
+  { flush: 'sync' },
+)
+watch(() => form.paciente_id, clearReferral, { flush: 'sync' })
 
 /** El paciente de la admisión nunca debe quedar fuera del formulario. */
 const showForm = computed(() => !isAdmission.value || admissionPatient.value !== null)
@@ -1032,10 +1064,20 @@ async function submit(): Promise<void> {
     const payload: AttentionCreatePayload = {
       paciente_id: form.paciente_id!,
       establecimiento_id: form.establecimiento_id!,
-      consultorio_id: form.consultorio_id!,
-      profesional_id: form.profesional_id!,
-      especialidad_codigo: form.especialidad_codigo,
+      consultorio_id: isReferral.value ? null : form.consultorio_id!,
+      profesional_id: isReferral.value ? null : form.profesional_id!,
+      especialidad_codigo: isReferral.value ? null : form.especialidad_codigo,
       modalidad_atencion_codigo: form.modalidad_atencion_codigo,
+      fua_datos:
+        form.modalidad_atencion_codigo === 'REFERENCIA'
+          ? {
+              ...emptyFuaInput(),
+              tipo_atencion: 'REFERENCIA',
+              referencia_renipress: form.referencia_renipress.trim(),
+              referencia_nombre: form.referencia_nombre.trim().toUpperCase(),
+              referencia_hoja: form.referencia_hoja.trim().toUpperCase(),
+            }
+          : null,
       grupo_atencion_codigo: selectedCareGroup.value,
       fecha_atencion: form.fecha_atencion,
       fecha_atendido: form.fecha_atendido,

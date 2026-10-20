@@ -60,7 +60,7 @@ class FuaPrintSnapshot(FuaPrintInput):
     sis_secuencia: Annotated[str, Field(pattern=r"^[0-9]{1,2}$")] | None = None
     renipress_preimpreso: bool = True
     ipress_nombre: str
-    profesional_nombre: str
+    profesional_nombre: str | None = None
     profesional_documento: str | None = None
     profesional_colegiatura: str | None = None
     tipo_documento: str

@@ -15,6 +15,7 @@ from app.schemas.nutrition_record import NutritionRecordInput, NutritionRecordRe
 
 class AttentionModeCode(str, Enum):
     AMBULATORY = "AMBULATORIA"
+    REFERRAL = "REFERENCIA"
     EMERGENCY = "EMERGENCIA"
 
 
@@ -84,9 +85,9 @@ class AttentionCreate(BaseModel):
     numero_referencia_ingreso: Annotated[str, Field(max_length=50)] | None = None
     numero_contrarreferencia_ingreso: Annotated[str, Field(max_length=50)] | None = None
     establecimiento_id: Annotated[int, Field(gt=0)]
-    profesional_id: Annotated[int, Field(gt=0)]
+    profesional_id: Annotated[int, Field(gt=0)] | None = None
     especialidad_codigo: Annotated[str, Field(max_length=20)] | None = None
-    consultorio_id: Annotated[int, Field(gt=0)]
+    consultorio_id: Annotated[int, Field(gt=0)] | None = None
     modalidad_atencion_codigo: AttentionModeCode
     grupo_atencion_codigo: CareGroupCode = CareGroupCode.GENERAL
     fecha_atencion: datetime
@@ -132,6 +133,19 @@ class AttentionCreate(BaseModel):
 
     @model_validator(mode="after")
     def validate_times(self) -> AttentionCreate:
+        assignment = (self.consultorio_id, self.profesional_id, self.especialidad_codigo)
+        if self.modalidad_atencion_codigo != AttentionModeCode.REFERRAL or any(assignment):
+            if self.consultorio_id is None or self.profesional_id is None:
+                raise ValueError("Seleccione consultorio y profesional para la atención.")
+        referral = self.fua_datos
+        if self.modalidad_atencion_codigo == AttentionModeCode.REFERRAL:
+            if referral is None or referral.tipo_atencion != "REFERENCIA":
+                raise ValueError(
+                    "La modalidad REFERENCIA requiere RENIPRESS, nombre de IPRESS de origen "
+                    "y número de hoja de referencia en fua_datos."
+                )
+        elif referral is not None and referral.tipo_atencion == "REFERENCIA":
+            raise ValueError("Los datos de referencia requieren la modalidad REFERENCIA.")
         # Shared obstetric data: the plurality and the weight before the pregnancy
         # are meaningful for both a pregnant person and a puerperal one.
         shared = (self.tipo_embarazo_codigo, self.peso_antes_embarazo_kg)
@@ -254,11 +268,11 @@ class AttentionResponse(BaseModel):
     paciente_id: int
     establecimiento_id: int
     establecimiento_nombre: str | None = None
-    profesional_id: int
+    profesional_id: int | None
     profesional_nombre: str | None = None
     especialidad_codigo: str | None
     especialidad_nombre: str | None = None
-    consultorio_id: int
+    consultorio_id: int | None
     consultorio_nombre: str | None
     consultorio_ruta: str | None = None
     modalidad_atencion_codigo: str

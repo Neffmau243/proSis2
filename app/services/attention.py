@@ -203,8 +203,16 @@ class AttentionService:
                 self._attentions.get_active_establishment(command.establecimiento_id),
                 age,
                 condition,
-                office=self._attentions.get_active_office(command.consultorio_id),
-                professional=self._attentions.get_active_professional(command.profesional_id),
+                office=(
+                    self._attentions.get_active_office(command.consultorio_id)
+                    if command.consultorio_id is not None
+                    else None
+                ),
+                professional=(
+                    self._attentions.get_active_professional(command.profesional_id)
+                    if command.profesional_id is not None
+                    else None
+                ),
                 specialty=(
                     self._attentions.get_active_specialty(command.especialidad_codigo)
                     if command.especialidad_codigo
@@ -215,7 +223,11 @@ class AttentionService:
                 entity,
                 patient,
                 self._attentions.get_active_establishment(command.establecimiento_id),
-                self._attentions.get_active_professional(command.profesional_id),
+                (
+                    self._attentions.get_active_professional(command.profesional_id)
+                    if command.profesional_id is not None
+                    else None
+                ),
                 command.fua_datos,
             )
             self._attentions.add(entity)
@@ -345,6 +357,7 @@ class AttentionService:
                 actor_id=actor_id,
                 actor_roles=actor_roles,
                 professional_id=entity.profesional_id,
+                recorded_by_id=getattr(entity, "created_by_usuario_id", None),
             )
             if entity.estado == "ANULADO":
                 raise ConflictError(
@@ -387,6 +400,15 @@ class AttentionService:
                 code="ESTABLECIMIENTO_NO_ACTIVO",
                 message="El establecimiento no existe o está inactivo.",
             )
+        if self._attentions.get_active_mode(command.modalidad_atencion_codigo.value) is None:
+            raise NotFoundError(
+                code="MODALIDAD_NO_ACTIVA", message="La modalidad de atención no está activa."
+            )
+        if (
+            command.modalidad_atencion_codigo.value == "REFERENCIA"
+            and command.consultorio_id is None
+        ):
+            return
         if self._attentions.get_active_professional(command.profesional_id) is None:
             raise NotFoundError(
                 code="PROFESIONAL_NO_ACTIVO", message="El profesional no existe o está inactivo."
@@ -400,10 +422,6 @@ class AttentionService:
             raise BusinessRuleError(
                 code="CONSULTORIO_OTRA_SEDE",
                 message="El consultorio debe pertenecer al establecimiento de la atención.",
-            )
-        if self._attentions.get_active_mode(command.modalidad_atencion_codigo.value) is None:
-            raise NotFoundError(
-                code="MODALIDAD_NO_ACTIVA", message="La modalidad de atención no está activa."
             )
         context = office_context(office)
         if not context.active:
@@ -474,7 +492,8 @@ class AttentionService:
         *,
         actor_id: int,
         actor_roles: Iterable[str],
-        professional_id: int,
+        professional_id: int | None,
+        recorded_by_id: int | None = None,
     ) -> None:
         """Keep cancellation restricted to the clinician who attended."""
 
@@ -482,6 +501,8 @@ class AttentionService:
             actor_id=actor_id,
             actor_roles=actor_roles,
         )
+        if professional_id is None and recorded_by_id == actor_id:
+            return
         if linked_professional_id != professional_id:
             raise AuthorizationError(
                 code="PROFESIONAL_DISTINTO_AL_USUARIO",
@@ -510,6 +531,10 @@ class AttentionService:
         if (
             entity.profesional_id == professional_id
             or entity.establecimiento_id in establishment_ids
+            or (
+                entity.profesional_id is None
+                and getattr(entity, "created_by_usuario_id", None) == actor_id
+            )
         ):
             return
         raise AuthorizationError(
