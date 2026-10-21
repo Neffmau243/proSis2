@@ -19,6 +19,7 @@ defineProps<{
   establishments: EstablishmentCatalogItem[]
   loading: boolean
   areas: SpecialtyCatalogItem[]
+  specialties: SpecialtyCatalogItem[]
   parents: OfficeResponse[]
   services: CodeCatalogItem[]
 }>()
@@ -97,7 +98,7 @@ defineExpose({
           @update:model-value="
             emit('change', {
               area_codigo: $event,
-              especialidad_codigo: $event,
+              especialidad_codigo: null,
               servicios_codigos: null,
               consultorio_padre_id: null,
             })
@@ -113,6 +114,10 @@ defineExpose({
           />
         </el-select>
       </el-form-item>
+      <p v-if="form.especialidad_codigo && form.especialidad_codigo !== form.area_codigo" class="hint" role="status">
+        Requisito adicional guardado: {{ specialties.find((item) => item.codigo === form.especialidad_codigo)?.nombre || form.especialidad_codigo }}.
+        Puedes revisarlo en Configuración adicional de atención.
+      </p>
       <el-form-item label="Consultorio padre" prop="consultorio_padre_id">
         <el-select
           :model-value="form.consultorio_padre_id"
@@ -131,7 +136,29 @@ defineExpose({
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="Servicios / especialidades">
+      <details class="additional-settings">
+        <summary>Configuración adicional de atención</summary>
+        <p class="hint">Los consultorios nuevos usan los servicios de su área. Ajusta estas opciones solo si necesitas restringirlos.</p>
+      <el-form-item label="Especialidad requerida" prop="especialidad_codigo">
+        <el-select
+          :model-value="form.especialidad_codigo"
+          @update:model-value="emit('change', { especialidad_codigo: $event || null })"
+          clearable
+          filterable
+          placeholder="Sin requisito adicional"
+        >
+          <el-option
+            v-for="item in specialties"
+            :key="item.codigo"
+            :label="item.nombre"
+            :value="item.codigo"
+          />
+        </el-select>
+        <p class="hint">
+          Conserva un requisito específico si ya lo utilizas. Para el flujo habitual basta con el área. Si el padre tiene un requisito, se hereda.
+        </p>
+      </el-form-item>
+      <el-form-item label="Servicios de atención">
         <el-checkbox
           :model-value="form.servicios_codigos === null"
           @update:model-value="
@@ -163,6 +190,7 @@ defineExpose({
           aquí.
         </p>
       </el-form-item>
+      </details>
     </el-form>
     <template #footer>
       <el-button @click="visible = false">Cancelar</el-button>
@@ -177,6 +205,13 @@ defineExpose({
 }
 .el-select {
   width: 100%;
+}
+.additional-settings {
+  margin: 8px 0 16px;
+}
+.additional-settings summary {
+  cursor: pointer;
+  margin-bottom: 16px;
 }
 .hint {
   color: var(--el-text-color-regular);

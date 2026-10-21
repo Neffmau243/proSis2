@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, reactive, ref, shallowRef, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage, ElMessageBox, type FormInstance, type FormRules } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 import {
   catalogos,
@@ -13,14 +13,22 @@ import {
   consultorios,
   type OfficeAssignmentResponse,
   type OfficeResponse,
+  type OfficeAssignmentCreatePayload,
 } from '@/services/consultorios'
 
 import OfficesTable from './OfficesTable.vue'
 import OfficeFormDialog from './OfficeFormDialog.vue'
+import OfficeAssignmentDialog from './OfficeAssignmentDialog.vue'
+import StaffCatalogsPanel from './StaffCatalogsPanel.vue'
+import { useAuthStore } from '@/stores/auth'
 import { descendantIds } from '@/utils/officeHierarchy'
 import type { OfficeForm } from './officeForm'
+import { isStaffSpecialty } from '@/utils/staffSpecialties'
 
 const router = useRouter()
+const auth = useAuthStore()
+const activeTab = shallowRef('consultorios')
+const canManageStaffCatalogs = computed(() => auth.hasPermission('PROFESIONAL_GESTIONAR'))
 
 // --- Catálogos de apoyo (nombres y selects) ---
 const establishments = ref<EstablishmentCatalogItem[]>([])
@@ -29,6 +37,7 @@ const especialidades = ref<SpecialtyCatalogItem[]>([])
 const parentOptions = ref<OfficeResponse[]>([])
 const professionalOptions = ref<ProfessionalCatalogItem[]>([])
 const professionalsLoading = ref(false)
+const professionalSearchError = ref<string | null>(null)
 /** Nombres conocidos de profesionales, para resolver las asignaciones listadas. */
 const professionalDirectory = ref<Record<number, string>>({})
 
@@ -50,16 +59,26 @@ async function searchEstablishments(query: string): Promise<void> {
   }
 }
 
+let professionalSearchRequest = 0
 async function searchProfesionales(query: string): Promise<void> {
+  const request = ++professionalSearchRequest
   professionalsLoading.value = true
+  professionalSearchError.value = null
   try {
     const page = await catalogos.profesionales(query || undefined, 25, 0)
+    if (request !== professionalSearchRequest) return
     professionalOptions.value = page.items
     for (const item of page.items) {
       professionalDirectory.value[item.id] = item.nombre_completo
     }
+  } catch (error) {
+    if (request === professionalSearchRequest)
+      professionalSearchError.value =
+        error instanceof Error
+          ? error.message
+          : 'No se pudieron buscar profesionales. Intente escribir de nuevo.'
   } finally {
-    professionalsLoading.value = false
+    if (request === professionalSearchRequest) professionalsLoading.value = false
   }
 }
 
@@ -72,6 +91,11 @@ const specialtyNames = computed(() =>
 const areaOptions = computed(() =>
   especialidades.value.filter(
     (item) => item.es_area || item.codigo === form.area_codigo || item.es_area === undefined,
+  ),
+)
+const qualificationOptions = computed(() =>
+  especialidades.value.filter(
+    (item) => (!item.es_area && isStaffSpecialty(item)) || item.codigo === form.especialidad_codigo,
   ),
 )
 const availableParents = computed(() => {
@@ -188,6 +212,14 @@ function openCreate(): void {
   loadParentOptions()
 }
 
+function openCreateChild(parent: OfficeResponse): void {
+  openCreate()
+  form.establecimiento_id = parent.establecimiento_id
+  form.area_codigo = parent.area_codigo || parent.especialidad_codigo
+  form.consultorio_padre_id = parent.id
+  loadParentOptions()
+}
+
 function openEdit(row: OfficeResponse): void {
   editingId.value = row.id
   form.establecimiento_id = row.establecimiento_id
@@ -272,26 +304,28 @@ const assignmentsLoading = ref(false)
 const assignmentsError = ref<string | null>(null)
 const assignFormVisible = ref(false)
 const savingAssignment = ref(false)
-const assignRef = ref<FormInstance>()
-const assignForm = reactive({
-  profesional_id: null as number | null,
-  fecha_inicio: '',
-  fecha_fin: '',
-  es_responsable: false,
+const assignError = ref<string | null>(null)
+const assignmentSearch = ref('')
+const filteredAssignments = computed(() => {
+  const query = assignmentSearch.value.trim().toLocaleLowerCase('es')
+  return assignments.value.filter((item) =>
+    profesionalNombre(item.profesional_id).toLocaleLowerCase('es').includes(query),
+  )
 })
-
-const assignRules: FormRules = {
-  profesional_id: [{ required: true, message: 'Seleccione el profesional.', trigger: 'change' }],
-  fecha_inicio: [{ required: true, message: 'Indique la fecha de inicio.', trigger: 'change' }],
-}
 
 const assignmentsTitle = computed(() =>
   officeTarget.value ? `Profesionales · ${officeTarget.value.nombre}` : 'Profesionales',
 )
+const assignmentRequirementName = computed(() => {
+  const office = officeTarget.value
+  const required = office?.especialidad_requerida_codigo ?? office?.especialidad_codigo
+  return required && required !== office?.area_codigo ? specialtyNames.value[required] || required : ''
+})
 
 function openAssignments(row: OfficeResponse): void {
   officeTarget.value = row
   assignmentsError.value = null
+  assignmentSearch.value = ''
   assignFormVisible.value = false
   assignmentsVisible.value = true
   loadAssignments()
@@ -313,41 +347,22 @@ async function loadAssignments(): Promise<void> {
 }
 
 function openAssignForm(): void {
-  assignForm.profesional_id = null
-  assignForm.fecha_inicio = ''
-  assignForm.fecha_fin = ''
-  assignForm.es_responsable = false
-  assignRef.value?.clearValidate()
+  assignError.value = null
+  professionalSearchError.value = null
   assignFormVisible.value = true
 }
 
-async function submitAssignment(): Promise<void> {
-  if (!officeTarget.value) return
-  const valid = await assignRef.value?.validate().catch(() => false)
-  if (!valid) return
-
-  const professionalId = assignForm.profesional_id
-  const fechaInicio = assignForm.fecha_inicio
-  if (professionalId === null || !fechaInicio) return
-  if (assignForm.fecha_fin && assignForm.fecha_fin < fechaInicio) {
-    assignmentsError.value = 'La fecha de fin no puede ser anterior a la fecha de inicio.'
-    return
-  }
-
+async function submitAssignment(payload: OfficeAssignmentCreatePayload): Promise<void> {
+  if (!officeTarget.value || savingAssignment.value) return
   savingAssignment.value = true
-  assignmentsError.value = null
+  assignError.value = null
   try {
-    await consultorios.assign(officeTarget.value.id, {
-      profesional_id: professionalId,
-      fecha_inicio: fechaInicio,
-      fecha_fin: assignForm.fecha_fin === '' ? null : assignForm.fecha_fin,
-      es_responsable: assignForm.es_responsable,
-    })
+    await consultorios.assign(officeTarget.value.id, { ...payload, vincular_area: true })
     ElMessage.success('Profesional asignado.')
     assignFormVisible.value = false
     await loadAssignments()
   } catch (error) {
-    assignmentsError.value =
+    assignError.value =
       error instanceof Error ? error.message : 'No se pudo asignar el profesional.'
   } finally {
     savingAssignment.value = false
@@ -399,6 +414,16 @@ async function submitClose(): Promise<void> {
   }
 }
 
+async function refreshSpecialtyCatalog(): Promise<void> {
+  try {
+    especialidades.value = await catalogos.especialidades()
+    await load()
+  } catch {
+    errorMessage.value =
+      'Los cambios se guardaron. Recargue la página para actualizar los selectores.'
+  }
+}
+
 onMounted(async () => {
   await Promise.all([
     load(),
@@ -436,42 +461,57 @@ onMounted(async () => {
       class="form-alert"
     />
 
-    <el-card>
-      <div class="toolbar">
-        <div class="toolbar-filters">
-          <el-select
-            v-model="filtroEstablecimiento"
-            clearable
-            filterable
-            remote
-            :remote-method="searchEstablishments"
-            :loading="establishmentsLoading"
-            placeholder="Filtrar por establecimiento"
-            aria-label="Filtrar por establecimiento"
-            class="establishment-filter"
-          >
-            <el-option
-              v-for="item in establishments"
-              :key="item.id"
-              :label="item.nombre"
-              :value="item.id"
-            />
-          </el-select>
-          <el-switch v-model="incluirInactivos" active-text="Incluir inactivos" />
-        </div>
-        <el-button type="primary" @click="openCreate">Nuevo consultorio</el-button>
-      </div>
+    <el-tabs v-model="activeTab">
+      <el-tab-pane label="Consultorios" name="consultorios">
+        <el-card>
+          <div class="toolbar">
+            <div class="toolbar-filters">
+              <el-select
+                v-model="filtroEstablecimiento"
+                clearable
+                filterable
+                remote
+                :remote-method="searchEstablishments"
+                :loading="establishmentsLoading"
+                placeholder="Filtrar por establecimiento"
+                aria-label="Filtrar por establecimiento"
+                class="establishment-filter"
+              >
+                <el-option
+                  v-for="item in establishments"
+                  :key="item.id"
+                  :label="item.nombre"
+                  :value="item.id"
+                />
+              </el-select>
+              <el-switch v-model="incluirInactivos" active-text="Incluir inactivos" />
+            </div>
+            <el-button type="primary" @click="openCreate">Nuevo consultorio</el-button>
+          </div>
 
-      <OfficesTable
-        :rows="rows"
-        :loading="loading"
-        :establishment-names="establishmentNames"
-        :specialty-names="specialtyNames"
-        @edit="openEdit"
-        @assignments="openAssignments"
-        @deactivate="deactivate"
-      />
-    </el-card>
+          <OfficesTable
+            :rows="rows"
+            :loading="loading"
+            :establishment-names="establishmentNames"
+            :specialty-names="specialtyNames"
+            @edit="openEdit"
+            @assignments="openAssignments"
+            @deactivate="deactivate"
+            @create-child="openCreateChild"
+          />
+        </el-card>
+      </el-tab-pane>
+      <el-tab-pane
+        v-if="canManageStaffCatalogs"
+        label="Áreas de atención"
+        name="catalogos"
+        lazy
+      >
+        <el-card>
+          <StaffCatalogsPanel kind="especialidad" areas-only @created="refreshSpecialtyCatalog" />
+        </el-card>
+      </el-tab-pane>
+    </el-tabs>
 
     <OfficeFormDialog
       ref="formRef"
@@ -484,6 +524,7 @@ onMounted(async () => {
       :establishments="establishments"
       :loading="establishmentsLoading"
       :areas="areaOptions"
+      :specialties="qualificationOptions"
       :parents="availableParents"
       :services="availableServices"
       @change="changeForm"
@@ -492,7 +533,16 @@ onMounted(async () => {
     />
 
     <!-- Asignaciones del consultorio -->
-    <el-dialog v-model="assignmentsVisible" :title="assignmentsTitle" width="min(820px, 94vw)">
+    <el-dialog
+      v-model="assignmentsVisible"
+      :title="assignmentsTitle"
+      width="min(820px, 94vw)"
+      top="6vh"
+      :close-on-click-modal="!assignFormVisible"
+      :close-on-press-escape="!assignFormVisible"
+      :show-close="!assignFormVisible"
+      @closed="assignFormVisible = false"
+    >
       <el-alert
         v-if="assignmentsError"
         :title="assignmentsError"
@@ -500,21 +550,29 @@ onMounted(async () => {
         :closable="false"
         class="form-alert"
       />
-      <p class="dialog-hint">
-        La asignación vincula al profesional con el consultorio para la atención clínica. La tabla
-        se muestra aunque esté vacía: significa que todavía no hay asignaciones históricas, no un
-        error.
-      </p>
+      <p class="dialog-hint">Consulta los profesionales asignados y sus fechas de vigencia.</p>
 
       <div class="toolbar">
-        <el-button type="primary" @click="openAssignForm">Asignar profesional</el-button>
-        <el-button @click="loadAssignments">Recargar</el-button>
+        <el-input
+          v-model="assignmentSearch"
+          placeholder="Buscar profesional asignado"
+          aria-label="Buscar profesional asignado"
+          clearable
+          class="assignment-search"
+        />
+        <div class="assignment-actions">
+          <el-button type="primary" @click="openAssignForm">Asignar profesional</el-button>
+          <el-button :loading="assignmentsLoading" @click="loadAssignments">Recargar</el-button>
+        </div>
       </div>
 
       <el-table
         v-loading="assignmentsLoading"
-        :data="assignments"
-        empty-text="Sin asignaciones registradas"
+        :data="filteredAssignments"
+        :empty-text="
+          assignmentSearch ? 'Sin coincidencias para esta búsqueda' : 'Sin asignaciones registradas'
+        "
+        max-height="45vh"
       >
         <el-table-column label="Profesional" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">{{ profesionalNombre(row.profesional_id) }}</template>
@@ -545,63 +603,18 @@ onMounted(async () => {
         </el-table-column>
       </el-table>
 
-      <el-form
-        v-if="assignFormVisible"
-        ref="assignRef"
-        :model="assignForm"
-        :rules="assignRules"
-        label-width="150px"
-        class="assign-form"
-      >
-        <el-form-item label="Profesional" prop="profesional_id">
-          <el-select
-            v-model="assignForm.profesional_id"
-            filterable
-            remote
-            :remote-method="searchProfesionales"
-            :loading="professionalsLoading"
-            placeholder="Busque por nombre o colegiatura"
-            style="width: 100%"
-          >
-            <el-option
-              v-for="item in professionalOptions"
-              :key="item.id"
-              :label="item.nombre_completo"
-              :value="item.id"
-            />
-          </el-select>
-          <div class="hint">El consultorio exige que el profesional tenga su especialidad.</div>
-        </el-form-item>
-        <el-form-item label="Fecha de inicio" prop="fecha_inicio">
-          <el-date-picker
-            v-model="assignForm.fecha_inicio"
-            type="date"
-            value-format="YYYY-MM-DD"
-            style="width: 100%"
-          />
-        </el-form-item>
-        <el-form-item label="Fecha de fin" prop="fecha_fin">
-          <el-date-picker
-            v-model="assignForm.fecha_fin"
-            type="date"
-            value-format="YYYY-MM-DD"
-            clearable
-            placeholder="Opcional"
-            style="width: 100%"
-          />
-        </el-form-item>
-        <el-form-item label="Responsable">
-          <el-checkbox v-model="assignForm.es_responsable">
-            Es responsable del consultorio
-          </el-checkbox>
-        </el-form-item>
-        <div class="form-actions">
-          <el-button type="primary" :loading="savingAssignment" @click="submitAssignment">
-            Guardar asignación
-          </el-button>
-          <el-button @click="assignFormVisible = false">Cancelar</el-button>
-        </div>
-      </el-form>
+      <OfficeAssignmentDialog
+        v-model="assignFormVisible"
+        :office-name="officeTarget?.nombre || ''"
+        :area-name="officeTarget?.area_nombre || specialtyNames[officeTarget?.area_codigo || ''] || ''"
+        :requirement-name="assignmentRequirementName"
+        :professionals="professionalOptions"
+        :loading="professionalsLoading"
+        :saving="savingAssignment"
+        :error="assignError || professionalSearchError"
+        @search="searchProfesionales"
+        @submit="submitAssignment"
+      />
     </el-dialog>
 
     <!-- Cierre de asignación -->
@@ -706,20 +719,20 @@ onMounted(async () => {
   color: var(--el-text-color-secondary);
 }
 
-.assign-form {
-  margin-top: 16px;
+.assignment-search {
+  max-width: 320px;
 }
-
-.form-actions {
+.assignment-actions {
   display: flex;
-  gap: 8px;
-  margin-left: 150px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-
+.assignment-actions :deep(.el-button + .el-button) {
+  margin-left: 0;
+}
 @media (max-width: 600px) {
-  .form-actions {
-    margin-left: 0;
-    flex-wrap: wrap;
+  .assignment-search {
+    max-width: none;
   }
 }
 </style>

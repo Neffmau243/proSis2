@@ -3,9 +3,13 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import ElementPlus, { ElMessage, ElMessageBox } from 'element-plus'
 import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 import { createMemoryHistory, createRouter } from 'vue-router'
+import { createPinia, setActivePinia } from 'pinia'
+import { useAuthStore } from '@/stores/auth'
 
 import type { OfficeAssignmentResponse, OfficeResponse } from '@/services/consultorios'
 import ConsultoriosView from '@/views/ConsultoriosView.vue'
+import OfficeAssignmentDialog from '@/components/configuracion/OfficeAssignmentDialog.vue'
+import StaffCatalogsPanel from '@/components/configuracion/StaffCatalogsPanel.vue'
 
 const { list, create, update, deactivate, listAssignments, assign, closeAssignment } = vi.hoisted(
   () => ({
@@ -63,14 +67,17 @@ function anAssignment(overrides: Partial<OfficeAssignmentResponse> = {}): Office
 
 const mounted: { unmount: () => void }[] = []
 
-async function mountView() {
+async function mountView(permissions = ['CONSULTORIO_GESTIONAR', 'PROFESIONAL_GESTIONAR']) {
   const stub = { template: '<div />' }
   const router = createRouter({
     history: createMemoryHistory(),
     routes: [{ path: '/', component: stub }],
   })
+  const pinia = createPinia()
+  setActivePinia(pinia)
+  useAuthStore().permisos = permissions
   const wrapper = mount(ConsultoriosView, {
-    global: { plugins: [router, ElementPlus], components: ElementPlusIconsVue },
+    global: { plugins: [router, pinia, ElementPlus], components: ElementPlusIconsVue },
   })
   mounted.push(wrapper)
   await flushPromises()
@@ -79,15 +86,17 @@ async function mountView() {
 }
 
 function button(wrapper: VueWrapper, label: string) {
-  const found = wrapper.findAll('button').find((item) => item.text().includes(label))
+  const found = wrapper
+    .findAllComponents({ name: 'ElButton' })
+    .find((item) => item.text().includes(label))
   if (!found) throw new Error(`No se encontró el botón "${label}"`)
   return found
 }
 
 function fieldItem(wrapper: VueWrapper, label: string) {
   const item = wrapper
-    .findAll('.el-form-item')
-    .find((element) => element.find('.el-form-item__label').text().startsWith(label))
+    .findAllComponents({ name: 'ElFormItem' })
+    .find((element) => String(element.props('label')).startsWith(label))
   if (!item) throw new Error(`No se encontró el campo "${label}"`)
   return item
 }
@@ -155,6 +164,46 @@ test('carga la lista y resuelve el establecimiento y la especialidad', async () 
   expect(wrapper.text()).toContain('Cardiología')
 })
 
+test('administra áreas y especialidades aquí y refresca los selectores del consultorio', async () => {
+  const wrapper = await mountView()
+  expect(wrapper.findComponent(StaffCatalogsPanel).exists()).toBe(false)
+  await wrapper
+    .findAll('[role="tab"]')
+    .find((tab) => tab.text() === 'Áreas y especialidades')!
+    .trigger('click')
+  await flushPromises()
+  const panel = wrapper.findComponent(StaffCatalogsPanel)
+  expect(panel.props('kind')).toBe('especialidad')
+  catalogos.especialidades.mockResolvedValue([
+    { codigo: 'AREA-NUEVA', nombre: 'REHABILITACIÓN', es_area: true, activo: true, grupo: null },
+    { codigo: 'ESP-NUEVA', nombre: 'TERAPIA', es_area: false, activo: true, grupo: null },
+  ])
+  panel.vm.$emit('created')
+  await flushPromises()
+  await wrapper
+    .findAll('[role="tab"]')
+    .find((tab) => tab.text() === 'Consultorios')!
+    .trigger('click')
+  await button(wrapper, 'Nuevo consultorio').trigger('click')
+  await flushPromises()
+  const areaOptions = fieldItem(wrapper, 'Área asistencial').findAllComponents({ name: 'ElOption' })
+  expect(areaOptions.map((option) => option.props('label'))).toContain('REHABILITACIÓN')
+  expect(
+    fieldItem(wrapper, 'Especialidad requerida')
+      .findAllComponents({ name: 'ElOption' })
+      .map((option) => option.props('label')),
+  ).toContain('TERAPIA')
+})
+
+test('sin permiso de gestión de personal conserva consultorios y oculta su catálogo', async () => {
+  const wrapper = await mountView(['CONSULTORIO_GESTIONAR'])
+  expect(wrapper.text()).toContain('Consultorio A')
+  expect(wrapper.findAll('[role="tab"]').map((tab) => tab.text())).not.toContain(
+    'Áreas y especialidades',
+  )
+  expect(wrapper.findComponent(StaffCatalogsPanel).exists()).toBe(false)
+})
+
 test('incluir inactivos recarga la lista con el filtro', async () => {
   const wrapper = await mountView()
   wrapper.findComponent({ name: 'ElSwitch' }).vm.$emit('update:modelValue', true)
@@ -170,6 +219,7 @@ test('el alta envía el contrato del consultorio y refresca', async () => {
 
   await selectField(wrapper, 'Establecimiento', 1)
   await selectField(wrapper, 'Área asistencial', 'CARD')
+  await selectField(wrapper, 'Especialidad requerida', 'CARD')
   await setField(wrapper, 'Código', 'CONS-02')
   await setField(wrapper, 'Nombre', 'Consultorio B')
   await button(wrapper, 'Guardar').trigger('click')
@@ -216,6 +266,103 @@ test('asignar profesional envía el payload y recarga las asignaciones', async (
   })
   // Un GET inicial al abrir el diálogo y otro tras asignar.
   expect(listAssignments).toHaveBeenCalledTimes(2)
+})
+
+test('una lista larga se puede buscar y cancelar el submodal conserva la lista', async () => {
+  const professionals = Array.from({ length: 80 }, (_, index) => ({
+    id: index + 5,
+    nombre_completo: index ? `Profesional ${index}` : 'Luis Torres',
+    colegiatura: null,
+    activo: true,
+  }))
+  catalogos.profesionales.mockResolvedValue(page(professionals))
+  listAssignments.mockResolvedValue(
+    professionals.map((item) => anAssignment({ profesional_id: item.id })),
+  )
+  const wrapper = await mountView()
+  await button(wrapper, 'Asignaciones').trigger('click')
+  await flushPromises()
+  const search = wrapper.find('input[aria-label="Buscar profesional asignado"]')
+  await search.setValue('Luis')
+  expect(wrapper.findAllComponents({ name: 'ElTable' }).at(-1)!.props('data')).toHaveLength(1)
+  await button(wrapper, 'Asignar profesional').trigger('click')
+  await flushPromises()
+  const child = wrapper.findComponent(OfficeAssignmentDialog)
+  expect(child.props('modelValue')).toBe(true)
+  expect(child.findComponent({ name: 'ElDialog' }).props('appendToBody')).toBe(true)
+  await selectField(wrapper, 'Profesional', 5)
+  await setDate(wrapper, 'Fecha de inicio', '2026-02-01')
+  await button(child, 'Cancelar').trigger('click')
+  await flushPromises()
+  expect(child.props('modelValue')).toBe(false)
+  expect((search.element as HTMLInputElement).value).toBe('Luis')
+  expect(listAssignments).toHaveBeenCalledTimes(1)
+  expect(assign).not.toHaveBeenCalled()
+  await button(wrapper, 'Asignar profesional').trigger('click')
+  await flushPromises()
+  expect(
+    fieldItem(wrapper, 'Profesional').findComponent({ name: 'ElSelect' }).props('modelValue'),
+  ).toBeNull()
+})
+
+test('el rechazo se muestra dentro del submodal sin perder los datos', async () => {
+  assign.mockRejectedValue(new Error('El profesional no tiene la especialidad requerida.'))
+  const wrapper = await mountView()
+  await button(wrapper, 'Asignaciones').trigger('click')
+  await flushPromises()
+  await button(wrapper, 'Asignar profesional').trigger('click')
+  await flushPromises()
+  await selectField(wrapper, 'Profesional', 5)
+  await setDate(wrapper, 'Fecha de inicio', '2026-02-01')
+  await button(wrapper, 'Guardar asignación').trigger('click')
+  await flushPromises()
+  const child = wrapper.findComponent(OfficeAssignmentDialog)
+  expect(child.props('modelValue')).toBe(true)
+  expect(child.findComponent({ name: 'ElAlert' }).text()).toContain(
+    'El profesional no tiene la especialidad requerida.',
+  )
+  expect(
+    fieldItem(wrapper, 'Profesional').findComponent({ name: 'ElSelect' }).props('modelValue'),
+  ).toBe(5)
+  expect(listAssignments).toHaveBeenCalledTimes(1)
+})
+
+test('el submodal impide cierres y duplicados mientras guarda y vuelve a la lista', async () => {
+  let complete!: (value: OfficeAssignmentResponse) => void
+  assign.mockImplementationOnce(
+    () =>
+      new Promise((resolve) => {
+        complete = resolve
+      }),
+  )
+  const wrapper = await mountView()
+  await button(wrapper, 'Asignaciones').trigger('click')
+  await flushPromises()
+  await button(wrapper, 'Asignar profesional').trigger('click')
+  await flushPromises()
+  await selectField(wrapper, 'Profesional', 5)
+  await setDate(wrapper, 'Fecha de inicio', '2026-02-01')
+  await button(wrapper, 'Guardar asignación').trigger('click')
+  await flushPromises()
+  const child = wrapper.findComponent(OfficeAssignmentDialog)
+  child.findComponent({ name: 'ElDialog' }).vm.$emit('update:modelValue', false)
+  child.vm.$emit('submit', {
+    profesional_id: 5,
+    fecha_inicio: '2026-02-01',
+    fecha_fin: null,
+    es_responsable: false,
+  })
+  await flushPromises()
+  expect(child.props('modelValue')).toBe(true)
+  expect(assign).toHaveBeenCalledTimes(1)
+  complete(anAssignment())
+  await flushPromises()
+  expect(child.props('modelValue')).toBe(false)
+  expect(listAssignments).toHaveBeenCalledTimes(2)
+  const listDialog = wrapper
+    .findAllComponents({ name: 'ElDialog' })
+    .find((dialog) => String(dialog.props('title')).startsWith('Profesionales ·'))!
+  expect(listDialog.props('modelValue')).toBe(true)
 })
 
 test('cerrar asignación envía la fecha de fin y recarga', async () => {

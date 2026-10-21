@@ -9,6 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.domain.office import AREA_SERVICES, default_services, office_context
+from app.domain.staff_catalog import is_care_area, is_staff_specialty_code
 from app.exceptions import BusinessRuleError, ConflictError, NotFoundError
 from app.mappers.office import office_assignment_to_response, office_to_response
 from app.models.organization import Office, OfficeProfessional
@@ -241,8 +242,9 @@ class OfficeService:
     def _validate_configuration(self, office: Office) -> None:
         context = office_context(office)
         area = office.area_codigo
+        area_entity = self._repository.get_active_specialty(area) if area else None
         if area is not None and (
-            area not in AREA_SERVICES or self._repository.get_active_specialty(area) is None
+            area_entity is None or not (area in AREA_SERVICES or is_care_area(area_entity))
         ):
             raise BusinessRuleError(
                 code="AREA_CONSULTORIO_INVALIDA",
@@ -268,8 +270,12 @@ class OfficeService:
                 )
         if (
             context.required_specialty
-            and context.area_code in AREA_SERVICES
             and context.required_specialty not in default_services(context.area_code)
+            and (
+                context.required_specialty in AREA_SERVICES
+                or is_care_area(self._repository.get_active_specialty(context.required_specialty))
+                or not is_staff_specialty_code(context.required_specialty)
+            )
         ):
             raise BusinessRuleError(
                 code="ESPECIALIDAD_CONSULTORIO_INCOMPATIBLE",
@@ -354,18 +360,28 @@ class OfficeAssignmentService:
                     code="JERARQUIA_CONSULTORIO_NO_ACTIVA",
                     message="El consultorio o alguno de sus padres está inactivo.",
                 )
-            if self._repository.get_active_professional(command.profesional_id) is None:
+            if self._repository.get_active_professional(
+                command.profesional_id, lock=command.vincular_area
+            ) is None:
                 raise NotFoundError(
                     code="PROFESIONAL_NO_ACTIVO",
                     message="El profesional no existe o está inactivo.",
                 )
+            area_to_link = None
             if context.required_specialty and not self._repository.professional_has_specialty(
                 command.profesional_id, context.required_specialty
             ):
-                raise BusinessRuleError(
-                    code="PROFESIONAL_SIN_ESPECIALIDAD",
-                    message="El profesional no tiene la especialidad requerida por el consultorio.",
-                )
+                if (
+                    command.vincular_area
+                    and context.required_specialty == context.area_code
+                    and is_care_area(self._repository.get_active_specialty(context.area_code))
+                ):
+                    area_to_link = context.area_code
+                else:
+                    raise BusinessRuleError(
+                        code="PROFESIONAL_SIN_ESPECIALIDAD",
+                        message="El profesional no tiene el área o requisito del consultorio.",
+                    )
             if (
                 self._repository.get_assignment(
                     office_id, command.profesional_id, command.fecha_inicio, lock=True
@@ -398,6 +414,10 @@ class OfficeAssignmentService:
                         )
                     prior.fecha_fin = command.fecha_inicio - timedelta(days=1)
 
+            if area_to_link:
+                self._repository.link_professional_area(
+                    command.profesional_id, area_to_link, actor_id=actor_id
+                )
             entity = OfficeProfessional(
                 consultorio_id=office_id,
                 profesional_id=command.profesional_id,

@@ -13,6 +13,7 @@ const emit = defineEmits<{
   edit: [row: OfficeResponse]
   assignments: [row: OfficeResponse]
   deactivate: [row: OfficeResponse]
+  createChild: [row: OfficeResponse]
 }>()
 function serviceNames(row: OfficeResponse): string {
   if (row.servicios_habilitados)
@@ -61,7 +62,7 @@ function parentName(row: OfficeResponse): string {
         row.area_nombre || specialtyNames[row.especialidad_codigo] || 'Sin área'
       }}</template>
     </el-table-column>
-    <el-table-column label="Servicios / especialidades" min-width="260">
+    <el-table-column label="Servicios de atención" min-width="260">
       <template #default="{ row }">
         {{ serviceNames(row) }}
       </template>
@@ -86,6 +87,7 @@ function parentName(row: OfficeResponse): string {
         <div class="actions-cell">
           <el-button link type="primary" @click="emit('edit', row)">Editar</el-button>
           <el-button link type="primary" @click="emit('assignments', row)">Asignaciones</el-button>
+          <el-button link type="primary" :disabled="!row.activo || row.activo_efectivo === false" @click="emit('createChild', row)">Nuevo subconsultorio</el-button>
           <el-button link type="primary" :disabled="!row.activo" @click="emit('deactivate', row)"
             >Dar de baja</el-button
           >

@@ -233,6 +233,20 @@ def assignment_scene():
     return service, repository, session, current
 
 
+def test_custom_qualification_is_separate_from_area_services(scene):
+    service, repository, _, current, _ = scene
+    current.especialidad_codigo = "ESP-CARDIOLOGIA"
+    service._validate_configuration(current)
+    assert current.area_codigo == MED
+    assert current.servicios_codigos is None
+    # An unrelated base area or its legacy service is still incompatible.
+    for code in (NUT, "ESP_NUTRICION:001"):
+        current.especialidad_codigo = code
+        with pytest.raises(BusinessRuleError) as error:
+            service._validate_configuration(current)
+        assert error.value.code == "ESPECIALIDAD_CONSULTORIO_INCOMPATIBLE"
+
+
 @pytest.mark.parametrize(
     "problem,code",
     [
