@@ -4,10 +4,74 @@ from datetime import date, datetime, time
 from uuid import uuid4
 
 import pytest
+from sqlalchemy import select
+
+from app.models.audit import AuditLog
+from app.models.security import ProfessionalSpecialty
+from app.repositories.office import OfficeRepository
 
 pytestmark = pytest.mark.integration
 AREA = "ESPECIALIDADES:005"
 SERVICE = "ESP_NUTRICION:001"
+
+
+def test_area_link_and_audit_roll_back_with_failed_assignment(
+    clinic_scene, api_prefix, db_session, monkeypatch
+):
+    admin = clinic_scene.admin_client
+    tag = uuid4().hex[:6]
+    area = admin.post(
+        f"{api_prefix}/configuracion/catalogos-personal/especialidades",
+        json={"nombre": f"Área transacción {tag}", "es_area": True},
+    ).json()
+    professional = admin.post(
+        f"{api_prefix}/configuracion/profesionales",
+        json={"nombre_completo": f"Profesional transacción {tag}"},
+    ).json()
+    office = admin.post(
+        f"{api_prefix}/configuracion/consultorios",
+        json={
+            "establecimiento_id": clinic_scene.establecimiento_id,
+            "codigo": f"TX-{tag}",
+            "nombre": "Consultorio transacción",
+            "area_codigo": area["codigo"],
+        },
+    ).json()
+
+    def fail_audit(*args, **kwargs):
+        raise RuntimeError("Fallo simulado después de guardar el vínculo y la asignación")
+
+    monkeypatch.setattr(OfficeRepository, "audit", fail_audit)
+    with pytest.raises(RuntimeError, match="Fallo simulado"):
+        admin.post(
+            f"{api_prefix}/configuracion/consultorios/{office['id']}/profesionales",
+            json={
+                "profesional_id": professional["id"],
+                "fecha_inicio": date.today().isoformat(),
+                "vincular_area": True,
+            },
+        )
+    assert (
+        db_session.scalar(
+            select(ProfessionalSpecialty).where(
+                ProfessionalSpecialty.profesional_id == professional["id"]
+            )
+        )
+        is None
+    )
+    assert (
+        db_session.scalar(
+            select(AuditLog).where(
+                AuditLog.tabla_nombre == "profesional_especialidades",
+                AuditLog.registro_id == professional["id"],
+            )
+        )
+        is None
+    )
+    assert (
+        admin.get(f"{api_prefix}/configuracion/consultorios/{office['id']}/profesionales").json()
+        == []
+    )
 
 
 def test_new_profession_specialty_professional_office_and_encounter(

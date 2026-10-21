@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.dependencies import AuthenticatedPrincipal, require_permissions
 from app.domain.authorization import Permissions
+from app.exceptions import AuthorizationError
 from app.schemas.office import (
     OfficeAssignmentClose,
     OfficeAssignmentCreate,
@@ -105,6 +106,8 @@ def assign_professional(
     principal: OfficeAdministrator,
     db: DatabaseSession,
 ) -> OfficeAssignmentResponse:
+    if payload.vincular_area and Permissions.PROFESSIONAL_MANAGE not in principal.permissions:
+        raise AuthorizationError("Necesita permiso de gestión de personal para vincular el área.")
     return OfficeAssignmentService(db).assign(office_id, payload, actor_id=principal.user_id)
 
 

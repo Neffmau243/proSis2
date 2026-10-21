@@ -363,6 +363,27 @@ def test_failed_assignment_rolls_back_area_link_in_same_transaction(assignment_s
     session.commit.assert_not_called()
 
 
+def test_linking_an_area_requires_staff_management_permission():
+    from app.controllers.office import assign_professional
+    from app.core.dependencies import AuthenticatedPrincipal
+    from app.domain.authorization import Permissions
+    from app.exceptions import AuthorizationError
+
+    principal = AuthenticatedPrincipal(
+        user_id=7,
+        username="gestor",
+        roles=frozenset(),
+        permissions=frozenset({Permissions.OFFICE_MANAGE}),
+    )
+    with pytest.raises(AuthorizationError):
+        assign_professional(
+            1,
+            OfficeAssignmentCreate(profesional_id=7, fecha_inicio=START, vincular_area=True),
+            principal,
+            Mock(),
+        )
+
+
 @pytest.mark.parametrize(
     "problem,code",
     [

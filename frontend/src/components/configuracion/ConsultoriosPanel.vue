@@ -23,7 +23,6 @@ import StaffCatalogsPanel from './StaffCatalogsPanel.vue'
 import { useAuthStore } from '@/stores/auth'
 import { descendantIds } from '@/utils/officeHierarchy'
 import type { OfficeForm } from './officeForm'
-import { isStaffSpecialty } from '@/utils/staffSpecialties'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -91,11 +90,6 @@ const specialtyNames = computed(() =>
 const areaOptions = computed(() =>
   especialidades.value.filter(
     (item) => item.es_area || item.codigo === form.area_codigo || item.es_area === undefined,
-  ),
-)
-const qualificationOptions = computed(() =>
-  especialidades.value.filter(
-    (item) => (!item.es_area && isStaffSpecialty(item)) || item.codigo === form.especialidad_codigo,
   ),
 )
 const availableParents = computed(() => {
@@ -359,7 +353,10 @@ async function submitAssignment(payload: OfficeAssignmentCreatePayload): Promise
   savingAssignment.value = true
   assignError.value = null
   try {
-    await consultorios.assign(officeTarget.value.id, { ...payload, vincular_area: true })
+    await consultorios.assign(officeTarget.value.id, {
+      ...payload,
+      vincular_area: canManageStaffCatalogs.value,
+    })
     ElMessage.success('Profesional asignado.')
     assignFormVisible.value = false
     await loadAssignments()
@@ -521,7 +518,7 @@ onMounted(async () => {
       :establishments="establishments"
       :loading="establishmentsLoading"
       :areas="areaOptions"
-      :specialties="qualificationOptions"
+      :specialty-names="specialtyNames"
       :parents="availableParents"
       :services="availableServices"
       @change="changeForm"
@@ -607,6 +604,7 @@ onMounted(async () => {
           officeTarget?.area_nombre || specialtyNames[officeTarget?.area_codigo || ''] || ''
         "
         :requirement-name="assignmentRequirementName"
+        :link-area="canManageStaffCatalogs"
         :professionals="professionalOptions"
         :loading="professionalsLoading"
         :saving="savingAssignment"

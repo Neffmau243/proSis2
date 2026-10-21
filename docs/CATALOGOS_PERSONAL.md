@@ -1,5 +1,11 @@
 # Profesiones y especialidades de Personal
 
+> Actualización del 21/10/2026: Consultorios ofrece el flujo habitual **Áreas de
+> atención → Nueva área**, sin selector de tipo. Las especialidades anteriores
+> se conservan en una vista secundaria. La asignación puede completar también
+> el vínculo con el área, sin volver a Personal. Véase
+> [Áreas nuevas y asignación de profesionales](SIMPLIFICACION_AREAS_CONSULTORIOS_20261021.md).
+
 La pantalla `/configuracion/personal` incluye la pestaña **Profesiones y especialidades**
 para las cuentas con permiso `PROFESIONAL_GESTIONAR` (actualmente ADMIN). También puede
 abrirse directamente con `?tab=catalogos`.

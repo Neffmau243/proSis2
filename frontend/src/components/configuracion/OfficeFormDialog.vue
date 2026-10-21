@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import type {
   CodeCatalogItem,
@@ -10,7 +10,7 @@ import type { OfficeResponse } from '@/services/consultorios'
 import type { OfficeForm } from './officeForm'
 
 const visible = defineModel<boolean>({ required: true })
-defineProps<{
+const props = defineProps<{
   form: OfficeForm
   title: string
   error: string | null
@@ -19,10 +19,15 @@ defineProps<{
   establishments: EstablishmentCatalogItem[]
   loading: boolean
   areas: SpecialtyCatalogItem[]
-  specialties: SpecialtyCatalogItem[]
+  specialtyNames: Record<string, string>
   parents: OfficeResponse[]
   services: CodeCatalogItem[]
 }>()
+const additionalRequirement = computed(() => {
+  const parent = props.parents.find((item) => item.id === props.form.consultorio_padre_id)
+  const code = props.form.especialidad_codigo || parent?.especialidad_requerida_codigo
+  return code && code !== props.form.area_codigo ? props.specialtyNames[code] || code : ''
+})
 const emit = defineEmits<{
   change: [value: Partial<OfficeForm>]
   search: [query: string]
@@ -114,16 +119,9 @@ defineExpose({
           />
         </el-select>
       </el-form-item>
-      <p
-        v-if="form.especialidad_codigo && form.especialidad_codigo !== form.area_codigo"
-        class="hint"
-        role="status"
-      >
-        Requisito adicional guardado:
-        {{
-          specialties.find((item) => item.codigo === form.especialidad_codigo)?.nombre ||
-          form.especialidad_codigo
-        }}. Puedes revisarlo en Configuración adicional de atención.
+      <p v-if="additionalRequirement" class="hint" role="status">
+        Este consultorio conserva un requisito de su configuración anterior:
+        {{ additionalRequirement }}.
       </p>
       <el-form-item label="Consultorio padre" prop="consultorio_padre_id">
         <el-select
@@ -144,32 +142,12 @@ defineExpose({
         </el-select>
       </el-form-item>
       <details class="additional-settings">
-        <summary>Configuración adicional de atención</summary>
+        <summary>Servicios de atención</summary>
         <p class="hint">
-          Los consultorios nuevos usan los servicios de su área. Ajusta estas opciones solo si
-          necesitas restringirlos.
+          Se usan los servicios del área o del consultorio padre. Puedes limitar cuáles se atienden
+          aquí.
         </p>
-        <el-form-item label="Especialidad requerida" prop="especialidad_codigo">
-          <el-select
-            :model-value="form.especialidad_codigo"
-            @update:model-value="emit('change', { especialidad_codigo: $event || null })"
-            clearable
-            filterable
-            placeholder="Sin requisito adicional"
-          >
-            <el-option
-              v-for="item in specialties"
-              :key="item.codigo"
-              :label="item.nombre"
-              :value="item.codigo"
-            />
-          </el-select>
-          <p class="hint">
-            Conserva un requisito específico si ya lo utilizas. Para el flujo habitual basta con el
-            área. Si el padre tiene un requisito, se hereda.
-          </p>
-        </el-form-item>
-        <el-form-item label="Servicios de atención">
+        <el-form-item label="Servicios habilitados">
           <el-checkbox
             :model-value="form.servicios_codigos === null"
             @update:model-value="

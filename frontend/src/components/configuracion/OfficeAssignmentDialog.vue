@@ -9,6 +9,7 @@ const props = defineProps<{
   officeName: string
   areaName?: string
   requirementName?: string
+  linkArea?: boolean
   professionals: ProfessionalCatalogItem[]
   loading: boolean
   saving: boolean
@@ -115,11 +116,14 @@ async function submit(): Promise<void> {
         <p v-if="requirementName" class="assignment-hint">
           Este consultorio requiere {{ requirementName }}. El profesional debe tenerlo registrado.
         </p>
-        <p v-else class="assignment-hint">
+        <p v-else-if="linkArea" class="assignment-hint">
           Al asignar, se vincula también al profesional con el área{{
             areaName ? ` ${areaName}` : ''
           }}
           si aún no la tiene.
+        </p>
+        <p v-else class="assignment-hint">
+          El profesional debe tener el área del consultorio registrada en su ficha.
         </p>
       </el-form-item>
       <el-form-item label="Fecha de inicio" prop="fecha_inicio">

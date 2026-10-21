@@ -164,7 +164,7 @@ test('carga la lista y resuelve el establecimiento y la especialidad', async () 
   expect(wrapper.text()).toContain('Cardiología')
 })
 
-test('administra áreas y especialidades aquí y refresca los selectores del consultorio', async () => {
+test('refresca las áreas sin ofrecer un selector de especialidad en el consultorio', async () => {
   const wrapper = await mountView()
   expect(wrapper.findComponent(StaffCatalogsPanel).exists()).toBe(false)
   await wrapper
@@ -190,10 +190,9 @@ test('administra áreas y especialidades aquí y refresca los selectores del con
   const areaOptions = fieldItem(wrapper, 'Área asistencial').findAllComponents({ name: 'ElOption' })
   expect(areaOptions.map((option) => option.props('label'))).toContain('REHABILITACIÓN')
   expect(
-    fieldItem(wrapper, 'Especialidad requerida')
-      .findAllComponents({ name: 'ElOption' })
-      .map((option) => option.props('label')),
-  ).toContain('TERAPIA')
+    wrapper.findAllComponents({ name: 'ElFormItem' }).map((item) => item.props('label')),
+  ).not.toContain('Especialidad requerida')
+  expect(wrapper.find('[placeholder="Sin requisito adicional"]').exists()).toBe(false)
 })
 
 test('sin permiso de gestión de personal conserva consultorios y oculta su catálogo', async () => {
@@ -220,7 +219,6 @@ test('el alta envía el contrato del consultorio y refresca', async () => {
 
   await selectField(wrapper, 'Establecimiento', 1)
   await selectField(wrapper, 'Área asistencial', 'CARD')
-  await selectField(wrapper, 'Especialidad requerida', 'CARD')
   await setField(wrapper, 'Código', 'CONS-02')
   await setField(wrapper, 'Nombre', 'Consultorio B')
   await button(wrapper, 'Guardar').trigger('click')
@@ -231,11 +229,38 @@ test('el alta envía el contrato del consultorio y refresca', async () => {
     codigo: 'CONS-02',
     nombre: 'Consultorio B',
     consultorio_padre_id: null,
-    especialidad_codigo: 'CARD',
+    especialidad_codigo: null,
     area_codigo: 'CARD',
     servicios_codigos: null,
   })
   expect(list).toHaveBeenLastCalledWith({ establecimientoId: undefined, incluirInactivos: false })
+})
+
+test('editar conserva las referencias anteriores sin mostrar el selector de especialidad', async () => {
+  list.mockResolvedValue([anOffice({ area_codigo: 'MED', especialidad_codigo: 'CARD' })])
+  catalogos.especialidades.mockResolvedValue([
+    { codigo: 'MED', nombre: 'Medicina', es_area: true, activo: true },
+    { codigo: 'CARD', nombre: 'Cardiología anterior', es_area: false, activo: true },
+  ])
+  const wrapper = await mountView()
+  await button(wrapper, 'Editar').trigger('click')
+  await flushPromises()
+  expect(
+    wrapper.findAllComponents({ name: 'ElFormItem' }).map((item) => item.props('label')),
+  ).not.toContain('Especialidad requerida')
+  expect(wrapper.find('[placeholder="Sin requisito adicional"]').exists()).toBe(false)
+  expect(wrapper.text()).toContain('Cardiología anterior')
+  await setField(wrapper, 'Nombre', 'Consultorio renombrado')
+  await button(wrapper, 'Guardar').trigger('click')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(
+    1,
+    expect.objectContaining({
+      nombre: 'Consultorio renombrado',
+      especialidad_codigo: 'CARD',
+      area_codigo: 'MED',
+    }),
+  )
 })
 
 test('la tabla de asignaciones se muestra aunque venga vacía', async () => {
