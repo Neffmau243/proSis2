@@ -14,7 +14,7 @@ jobs:
     # enforces before touching anything.
     services:
       mysql:
-        image: mysql:8
+        image: mysql:8.4
         env:
           MYSQL_ROOT_PASSWORD: ci-root-password
           MYSQL_DATABASE: ipress_test
@@ -60,3 +60,18 @@ jobs:
       # Unit, component and contract tests with their coverage thresholds.
       - run: npm run test:coverage
       - run: npm run build
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Fresh volumes and synthetic credentials; the test verifies restart too.
+      - run: python tests/e2e/verify_docker.py --output output/docker-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docker-smoke
+          path: output/docker-ci/
