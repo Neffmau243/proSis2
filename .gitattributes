@@ -1,0 +1,2 @@
+# POSIX entrypoints must remain executable by Linux after Windows checkouts.
+docker/*.sh text eol=lf

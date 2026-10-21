@@ -2,10 +2,17 @@
 .git
 .gitignore
 .github
+.agents
+.codex
+.aws
+.impeccable
+.freebuff
 
 # Secrets and local environment (never bake them into an image)
 .env
 .env.*
+**/.env
+**/.env.*
 !.env.docker.example
 
 # Python virtualenv, caches and coverage
@@ -31,6 +38,8 @@ etlSis
 tests
 docs
 postman
+tmp
+output
 
 # Frontend artifacts and dependencies: the SPA is rebuilt inside the image
 frontend/node_modules
@@ -39,6 +48,10 @@ frontend/coverage
 frontend/.vscode
 frontend/.eslintcache
 frontend/*.tsbuildinfo
+frontend/tests
+frontend/e2e
+frontend/test-results
+frontend/playwright-report
 
 # Local notes and editor files
 *.log

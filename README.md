@@ -5,6 +5,7 @@ Backend REST para el esquema `sistema_salud_ipress`, construido con **Python 3.1
 Documentación relacionada:
 
 - [frontend/README.md](frontend/README.md) — la aplicación Vue 3: módulos implementados, barra lateral, estructura y verificación.
+- [docs/DOCKER.md](docs/DOCKER.md) — construir, actualizar y probar el stack Docker de forma aislada.
 - [GUIA_FRONTEND_RUTAS.md](GUIA_FRONTEND_RUTAS.md) — contrato HTTP por pantalla, permisos, catálogos y vacíos del API.
 - [docs/REVISION_FLUJO_Y_ARQUITECTURA.md](docs/REVISION_FLUJO_Y_ARQUITECTURA.md) — revisión del 17/09/2026: flujo real, mejoras aplicadas y deuda técnica.
 
@@ -78,10 +79,11 @@ La organización es una arquitectura por capas pragmática: carpetas transversal
 
 ## Esquema MySQL y revisión de migraciones
 
-La API usa la conexión de `.env` (`MYSQL_*` o `DATABASE_URL`). El head del
-código es `20260916_0010_locality`: normaliza localidad y conserva el distrito
-como catálogo de ubigeo. El ORM declara 39 tablas funcionales;
-`alembic_version` es una tabla técnica adicional.
+La API usa la conexión de `.env` (`MYSQL_*` o `DATABASE_URL`); en Docker estas
+variables provienen de Compose. Las migraciones de `migrations/versions/` son
+la fuente del esquema actual. Consulte `alembic heads` para conocer la revisión
+del código y `alembic current` para la base instalada; `alembic_version` es una
+tabla técnica adicional a las tablas funcionales del ORM.
 
 Compruebe cada instalación con `alembic current`, `alembic heads` y
 `alembic check`. El head del repositorio no demuestra que una base desplegada

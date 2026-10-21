@@ -83,3 +83,28 @@ def test_the_command_requires_a_username(monkeypatch: pytest.MonkeyPatch) -> Non
         main()
 
     assert exit_info.value.code == 2
+
+
+def test_container_reads_password_from_environment_and_requests_safe_bootstrap(monkeypatch, capsys):
+    monkeypatch.setenv("BOOTSTRAP_TEST_PASSWORD", "12345678")
+    monkeypatch.setattr("sys.argv", [
+        "create_admin", "--username", "docker.admin", "--password-env",
+        "BOOTSTRAP_TEST_PASSWORD", "--if-not-exists",
+    ])
+    received = []
+    monkeypatch.setattr("app.scripts.create_admin.create_admin", lambda *a, **kw:
+        received.append((a, kw)) or 7)
+    main()
+    assert received == [(("docker.admin", "12345678"), {"if_not_exists": True})]
+    output = capsys.readouterr().out
+    assert "disponible con id 7" in output
+    assert "12345678" not in output
+
+
+def test_missing_password_environment_never_prompts_or_creates_an_account(monkeypatch):
+    monkeypatch.delenv("BOOTSTRAP_TEST_PASSWORD", raising=False)
+    monkeypatch.setattr("sys.argv", [
+        "create_admin", "--username", "docker.admin", "--password-env", "BOOTSTRAP_TEST_PASSWORD",
+    ])
+    with pytest.raises(ValueError, match="obligatoria"):
+        main()
