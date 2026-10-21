@@ -45,6 +45,41 @@ este ajuste visual no requiere otra migración ni inventa datos para pacientes.
 
 ## Flujo
 
+### Edad gestacional en el FUA (20/10/2026)
+
+En Gestantes se muestra un campo de semanas junto a la FPP, con una ayuda de
+semanas y días calculados para la **fecha de atención**. El profesional puede
+ajustar las semanas; ese valor tiene prioridad y se recibe mediante la valoración
+nutricional existente. «Usar cálculo por FPP» permite volver a la sugerencia.
+
+El servidor calcula `280 - (FPP - fecha de atención).days`, usando la fecha de
+Lima para horas con zona. Conserva semanas completas, días residuales y fuente
+(`FPP` o `VALORACION`) en el JSON FUA de la atención. No infiere días de una
+valoración registrada solo en semanas. Una FPP ausente o fuera del rango de
+captura existente (0–45 semanas) deja el dato pendiente; no se fuerza a cero.
+
+La casilla **EDAD GEST** imprime solo semanas completas. La vista de revisión
+muestra su origen y los días adicionales cuando proceden de FPP. No hay un
+recuadro específico para el tipo de embarazo único/múltiple en este bloque.
+CPN, altura uterina, parto vertical y número de control puerperal siguen fuera
+del prellenado; no se deducen de la FPP ni de las medidas nutricionales.
+
+Las copias históricas sin edad conservada siguen legibles y muestran el
+pendiente; reimprimir no las recalcula. Las calibraciones anteriores conservan
+sus posiciones y agregan la casilla nueva tomando como referencia el ajuste
+del peso; requieren comprobar de nuevo la alineación física. No hay migración
+de tablas ni cambios retrospectivos en pacientes o atenciones.
+
+Prueba real con navegador, API y MySQL desechable, tras compilar frontend:
+
+```powershell
+.\.venv\Scripts\python.exe tests/e2e/run_referral_e2e.py --spec gestante-fua.spec.ts --output output/gestante-fua-20261020
+```
+
+Verifica FPP (30 semanas y 2 días), prioridad de edad valorada (29 semanas),
+restablecer el cálculo, persistencia, PDF con plantilla, salida sobre papel
+preimpreso y conservación de la primera copia. Revisa escritorio y móvil.
+
 ### Prueba E2E de Referencia
 
 Después de compilar `frontend/` con `npm run build`, ejecutar desde la raíz:

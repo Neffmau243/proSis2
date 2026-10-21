@@ -142,7 +142,7 @@ function emitParts(prefix: string, number: string): void {
 <style scoped>
 .family-history-selector {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(36px, 0.3fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(10ch, 0.65fr);
   gap: 4px;
   align-items: center;
   width: 100%;
@@ -208,15 +208,16 @@ function emitParts(prefix: string, number: string): void {
 }
 
 .family-history-selector__code {
+  grid-column: 1 / -1;
+  justify-self: end;
   min-width: 0;
-  max-width: 7ch;
-  overflow: hidden;
+  max-width: 100%;
   color: var(--registration-ink, #304f6d);
   font-size: 11px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .family-history-selector__legacy {

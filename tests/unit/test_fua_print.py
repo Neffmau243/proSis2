@@ -60,6 +60,46 @@ def fixtures():
     return attention, patient, site, professional
 
 
+def test_gestational_age_is_frozen_from_the_lima_encounter_date():
+    a, p, s, professional = fixtures()
+    a.fecha_atencion = datetime(2026, 10, 21, 2, 30, tzinfo=UTC)
+    a.fecha_probable_parto = date(2026, 12, 27)
+    result = build_fua_snapshot(a, p, s, professional, None)
+    assert result["fecha_atencion"] == "2026-10-20"
+    assert result["edad_gestacional_semanas"] == 30
+    assert result["edad_gestacional_dias"] == 2
+    assert result["edad_gestacional_fuente"] == "FPP"
+    a.fecha_probable_parto = date(2027, 1, 1)
+    assert result["edad_gestacional_semanas"] == 30
+
+
+def test_fua_prioritizes_the_professionals_age_even_without_due_date():
+    a, p, s, professional = fixtures()
+    a.fecha_probable_parto = None
+    result = build_fua_snapshot(a, p, s, professional, None, edad_gestacional_valorada=29)
+    assert result["edad_gestacional_semanas"] == 29
+    assert result["edad_gestacional_dias"] is None
+    assert result["edad_gestacional_fuente"] == "VALORACION"
+
+
+@pytest.mark.parametrize("group", ["PUERPERAS", "NINOS_ADOLESCENTES_ADULTOS_MAYORES"])
+def test_other_groups_do_not_receive_gestational_age(group):
+    a, p, s, professional = fixtures()
+    a.grupo_atencion_codigo = group
+    result = build_fua_snapshot(a, p, s, professional, None, edad_gestacional_valorada=29)
+    assert result["edad_gestacional_semanas"] is None
+    assert result["edad_gestacional_fuente"] is None
+
+
+def test_legacy_snapshot_remains_readable_without_backfilling_its_age():
+    a, p, s, professional = fixtures()
+    result = build_fua_snapshot(a, p, s, professional, None)
+    for key in ("edad_gestacional_semanas", "edad_gestacional_dias", "edad_gestacional_fuente"):
+        result.pop(key)
+    restored = FuaPrintSnapshot.model_validate(result)
+    assert restored.edad_gestacional_semanas is None
+
+
 def test_snapshot_maps_official_document_code_and_keeps_server_owned_values():
     a, p, s, professional = fixtures()
     p.sis_diresa, p.sis_tipo, p.sis_numero = "001", "2", "01234567"

@@ -47,6 +47,7 @@ const { draft, saving, dirty, error, fieldErrors, save, reset } = useAdmissionPa
 const {
   sexos,
   seguros,
+  etnias,
   catalogError,
   loadCatalogs,
   establishments,
@@ -427,6 +428,34 @@ watch(saving, (value) => emit('busyChange', value), { flush: 'sync' })
             @saved="onRelationsSaved"
             @busy-change="onRelationsBusy"
           >
+            <template #ethnicity>
+              <el-form-item label="Etnia" :error="fieldErrors.etnia_codigo">
+                <el-select
+                  v-model="draft.etnia_codigo"
+                  filterable
+                  clearable
+                  :value-on-clear="null"
+                  :disabled="disabled"
+                  placeholder="Sin declarar"
+                  aria-label="Etnia"
+                >
+                  <el-option
+                    v-if="
+                      draft.etnia_codigo &&
+                      !etnias.some((item) => item.codigo === draft.etnia_codigo)
+                    "
+                    :value="draft.etnia_codigo"
+                    :label="`Código ${draft.etnia_codigo}`"
+                  />
+                  <el-option
+                    v-for="item in etnias"
+                    :key="item.codigo"
+                    :value="item.codigo"
+                    :label="`${item.codigo} · ${item.nombre}`"
+                  />
+                </el-select>
+              </el-form-item>
+            </template>
             <template #condition>
               <el-form-item label="Grupo etáreo" :error="fieldErrors.condicion">
                 <PatientConditionSelect

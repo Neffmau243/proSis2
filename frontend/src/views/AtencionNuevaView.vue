@@ -444,6 +444,13 @@
                           />
                         </el-form-item>
                       </el-col>
+                      <el-col v-if="isPregnant" :span="24">
+                        <GestationalAgeField
+                          v-model="assessedGestationalWeeks"
+                          :attended-at="form.fecha_atencion"
+                          :due-on="form.fecha_probable_parto"
+                        />
+                      </el-col>
                     </el-row>
                   </div>
                   <div class="measurement-group">
@@ -584,6 +591,7 @@ import AdmissionAttentionMode from '@/components/admission/AdmissionAttentionMod
 import AdmissionReferralFields from '@/components/admission/AdmissionReferralFields.vue'
 import AdmissionFinalActions from '@/components/admission/AdmissionFinalActions.vue'
 import FuaPrintDialog from '@/components/admission/FuaPrintDialog.vue'
+import GestationalAgeField from '@/components/admission/GestationalAgeField.vue'
 import NutritionAssessmentResults from '@/components/admission/NutritionAssessmentResults.vue'
 import NutritionFollowupPanel from '@/components/admission/NutritionFollowupPanel.vue'
 import { useSavedAdmission } from '@/composables/useSavedAdmission'
@@ -713,6 +721,10 @@ const isPregnant = computed(() => selectedCareGroup.value === 'GESTANTES')
 const isPuerperal = computed(() => selectedCareGroup.value === 'PUERPERAS')
 /** Tipo de embarazo y peso antes del embarazo son comunes a ambos grupos. */
 const isObstetric = computed(() => isPregnant.value || isPuerperal.value)
+const assessedGestationalWeeks = shallowRef<number | null>(null)
+watch([() => form.paciente_id, selectedCareGroup, () => form.fecha_atencion.slice(0, 10)], () => {
+  assessedGestationalWeeks.value = null
+}, { flush: 'sync' })
 
 const rules: FormRules = {
   referencia_renipress: [
@@ -1068,6 +1080,9 @@ async function submit(): Promise<void> {
       peso_antes_embarazo_kg: form.peso_antes_embarazo_kg,
       fecha_probable_parto: form.fecha_probable_parto,
       fecha_parto: form.fecha_parto,
+      valoracion_nutricional: isPregnant.value && assessedGestationalWeeks.value != null
+        ? { edad_gestacional_semanas: assessedGestationalWeeks.value }
+        : null,
       peso_kg: form.peso_kg,
       talla_cm: form.talla_cm,
       perimetro_abdominal_cm: form.perimetro_abdominal_cm,

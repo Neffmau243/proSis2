@@ -41,7 +41,11 @@ class AttentionSnapshotContext:
             specialty=self.specialty,
         )
         entity.fua_impresion = build_fua_snapshot(
-            entity, self.patient, self.establishment, self.professional, command.fua_datos
+            entity, self.patient, self.establishment, self.professional, command.fua_datos,
+            edad_gestacional_valorada=(
+                command.valoracion_nutricional.edad_gestacional_semanas
+                if command.valoracion_nutricional else None
+            ),
         )
 
 

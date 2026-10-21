@@ -350,6 +350,17 @@ async function downloadPdf(): Promise<void> {
             <dt>Perímetro abdominal</dt>
             <dd>{{ values.perimetro_abdominal_cm || '—' }} cm</dd>
           </div>
+          <div v-if="snapshot.grupo_atencion_codigo === 'GESTANTES'">
+            <dt>Edad gestacional a la atención</dt>
+            <dd>
+              {{ values.edad_gestacional_semanas !== '' ? `${values.edad_gestacional_semanas} semanas` : 'Sin registrar' }}
+              <span v-if="values.edad_gestacional_semanas !== ''" class="fua-field-note">
+                {{ snapshot.edad_gestacional_fuente === 'FPP'
+                  ? `Según FPP · ${snapshot.edad_gestacional_dias ?? 0} días adicionales`
+                  : 'Valorada por el profesional' }}. En el FUA se imprimen semanas completas.
+              </span>
+            </dd>
+          </div>
         </dl>
         <section class="fua-nutrition" aria-labelledby="fua-nutrition-title">
           <h3 id="fua-nutrition-title">Valoración nutricional conservada</h3>

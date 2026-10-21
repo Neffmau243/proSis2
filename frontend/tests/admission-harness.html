@@ -79,7 +79,10 @@
       catalogos.seguros = async () => [
         { id: 2, codigo: 'SIS', nombre: 'S.I.S. PARA TODOS', activo: true },
       ]
-      catalogos.etnias = async () => []
+      catalogos.etnias = async () => [
+        { codigo: '1', nombre: 'Quechua', activo: true },
+        { codigo: '58', nombre: 'Mestizo', activo: true },
+      ]
       catalogos.historiasFamiliares = async () =>
         page([
           { codigo: 'AM', nombre: 'AMARILLO', tipo: 'COLOR', color_hex: '#F2C94C', activo: true },

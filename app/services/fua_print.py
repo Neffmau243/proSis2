@@ -4,6 +4,7 @@ import re
 from zoneinfo import ZoneInfo
 
 from app.domain.patient_insurance import SIS_FIELDS, is_sis_insurance
+from app.domain.pregnancy import gestational_age
 from app.models.clinical import Attention
 from app.models.organization import Establishment
 from app.models.patient import Patient
@@ -18,6 +19,8 @@ def build_fua_snapshot(
     establishment: Establishment,
     professional: Professional | None,
     supplement: FuaPrintInput | None,
+    *,
+    edad_gestacional_valorada: int | None = None,
 ) -> dict[str, object]:
     values = FuaPrintInput().model_dump()
     values.update(
@@ -51,6 +54,11 @@ def build_fua_snapshot(
     if moment.tzinfo is not None:
         moment = moment.astimezone(ZoneInfo("America/Lima"))
     nutrition = getattr(attention, "valoracion_calculada", None) or {}
+    pregnancy_age = (
+        gestational_age(moment.date(), attention.fecha_probable_parto, edad_gestacional_valorada)
+        if attention.grupo_atencion_codigo == "GESTANTES"
+        else None
+    )
     snapshot = FuaPrintSnapshot(
         **values,
         contexto_territorial=(
@@ -97,5 +105,8 @@ def build_fua_snapshot(
         grupo_atencion_codigo=attention.grupo_atencion_codigo,
         fecha_probable_parto=attention.fecha_probable_parto,
         fecha_parto=attention.fecha_parto,
+        edad_gestacional_semanas=pregnancy_age.weeks if pregnancy_age else None,
+        edad_gestacional_dias=pregnancy_age.days if pregnancy_age else None,
+        edad_gestacional_fuente=pregnancy_age.source if pregnancy_age else None,
     )
     return snapshot.model_dump(mode="json")

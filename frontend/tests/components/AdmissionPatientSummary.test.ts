@@ -1,6 +1,6 @@
 import { flushPromises, mount } from '@vue/test-utils'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import ElementPlus, { ElMessageBox, ElSelect, type MessageBoxData } from 'element-plus'
+import ElementPlus, { ElMessageBox, ElOption, ElSelect, type MessageBoxData } from 'element-plus'
 import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 
 import AdmissionPatientSummary from '@/components/admission/AdmissionPatientSummary.vue'
@@ -57,7 +57,10 @@ vi.mock('@/services/catalogos', () => ({
         regimen: 'SIS',
       },
     ]),
-    etnias: vi.fn(async () => []),
+    etnias: vi.fn(async () => [
+      { codigo: '1', nombre: 'Quechua', activo: true },
+      { codigo: '58', nombre: 'Mestizo', activo: true },
+    ]),
     historiasFamiliares,
     establecimientos: vi.fn(async () => ({
       ...emptyPage,
@@ -513,7 +516,67 @@ test('editar DNI recalcula número SIS sin guardar y descartar restaura ambos', 
   expect(update).toHaveBeenCalledWith(100, { numero_documento: '00112233', sis_numero: '00112233' })
 })
 
-// El panel reúne grupo de riesgo, nombre de madre y grupo etario, en ese orden.
+test('permite completar, descartar y guardar la etnia sin cambiar los demás datos', async () => {
+  const wrapper = await mountPanel(false, { etnia_codigo: null })
+  const row = wrapper.findAll('.el-form-item').find((field) => {
+    const label = field.find('.el-form-item__label')
+    return label.exists() && label.text() === 'Etnia'
+  })!
+  const select = row.getComponent(ElSelect)
+  expect(row.element.previousElementSibling?.textContent).toContain('Grupo de riesgo')
+  expect(row.element.nextElementSibling?.textContent).toContain('Nombre de madre')
+  expect(select.props('modelValue')).toBeNull()
+  expect(select.props('placeholder')).toBe('Sin declarar')
+  expect(select.findAllComponents(ElOption).map((item) => item.props('label'))).toContain(
+    '58 · Mestizo',
+  )
+  select.vm.$emit('update:modelValue', '58')
+  await flushPromises()
+  expect(update).not.toHaveBeenCalled()
+  await wrapper
+    .findAll('button')
+    .find((b) => b.text() === 'Descartar cambios')!
+    .trigger('click')
+  expect(select.props('modelValue')).toBeNull()
+
+  select.vm.$emit('update:modelValue', '58')
+  await flushPromises()
+  update.mockResolvedValue(aPatient({ etnia_codigo: '58' }))
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenCalledWith(100, { etnia_codigo: '58' })
+  expect(wrapper.emitted('saved')?.[0]?.[0]).toMatchObject({ etnia_codigo: '58' })
+  expect(select.props('modelValue')).toBe('58')
+
+  select.vm.$emit('update:modelValue', null)
+  await flushPromises()
+  update.mockResolvedValue(aPatient({ etnia_codigo: null }))
+  await wrapper.find('form').trigger('submit')
+  await flushPromises()
+  expect(update).toHaveBeenLastCalledWith(100, { etnia_codigo: null })
+})
+
+test('la etnia conserva códigos existentes y respeta bloqueos y permisos', async () => {
+  const wrapper = await mountPanel(false, { etnia_codigo: '99' })
+  const row = wrapper.findAll('.el-form-item').find((field) => {
+    const label = field.find('.el-form-item__label')
+    return label.exists() && label.text() === 'Etnia'
+  })!
+  const select = row.getComponent(ElSelect)
+  expect(select.props('modelValue')).toBe('99')
+  expect(select.findAllComponents(ElOption).map((item) => item.props('label'))).toContain(
+    'Código 99',
+  )
+  expect(update).not.toHaveBeenCalled()
+  await wrapper.setProps({ blocked: true })
+  expect(select.props('disabled')).toBe(true)
+  await wrapper.setProps({ blocked: false, canEdit: false })
+  expect(select.props('disabled')).toBe(true)
+  await wrapper.setProps({ canEdit: true, patient: aPatient({ estado: false }) })
+  expect(select.props('disabled')).toBe(true)
+})
+
+// El panel reúne grupo de riesgo, etnia, nombre de madre y grupo etario, en ese orden.
 test(
   'el panel muestra grupo de riesgo, nombre de madre y grupo etáreo',
   { timeout: 30_000 },

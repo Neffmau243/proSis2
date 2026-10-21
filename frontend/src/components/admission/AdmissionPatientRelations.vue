@@ -128,6 +128,7 @@ function riskSaved(item: PatientRisk) {
         aria-label="Grupo de riesgo"
       />
     </div>
+    <slot name="ethnicity" />
     <div class="patient-relations__entry">
       <label :for="`${id}-mother`" class="patient-relations__title">Nombre de madre</label>
       <el-input

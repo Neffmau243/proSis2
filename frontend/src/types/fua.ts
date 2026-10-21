@@ -58,4 +58,7 @@ export interface FuaPrintSnapshot extends FuaPrintInput {
   grupo_atencion_codigo: string
   fecha_probable_parto: string | null
   fecha_parto: string | null
+  edad_gestacional_semanas?: number | null
+  edad_gestacional_dias?: number | null
+  edad_gestacional_fuente?: 'VALORACION' | 'FPP' | null
 }

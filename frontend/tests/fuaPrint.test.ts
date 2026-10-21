@@ -61,6 +61,45 @@ const snapshot: FuaPrintSnapshot = {
   historia_clinica: 'HC-0001',
 }
 
+test('imprime solo las semanas guardadas de la gestante en la casilla oficial', () => {
+  const source = { ...snapshot, grupo_atencion_codigo: 'GESTANTES',
+    fecha_probable_parto: '2026-12-27', edad_gestacional_semanas: 30,
+    edad_gestacional_dias: 2, edad_gestacional_fuente: 'FPP' as const }
+  const values = fuaValues(source)
+  expect(values.edad_gestacional_semanas).toBe('30')
+  expect(fuaWarnings(source)).not.toContain('Edad gestacional')
+  const layout = defaultFuaLayout()
+  const field = layout.fields.find(f => f.id === 'edad_gestacional_semanas')!
+  const doc = new DOMParser().parseFromString(fuaPrintHtml(layout, values), 'text/html')
+  expect(doc.body.children[layout.fields.indexOf(field)]?.textContent).toBe('30')
+  expect(field.x).toBeGreaterThanOrEqual(21)
+  expect(field.x + field.width).toBeLessThan(27)
+  expect(field.y).toBeGreaterThan(230)
+  expect(field.y + field.height).toBeLessThan(237)
+  expect(fuaValues({ ...source, grupo_atencion_codigo: 'PUERPERAS' }).edad_gestacional_semanas).toBe('')
+  expect(fuaValues({ ...source, edad_gestacional_semanas: 0 }).edad_gestacional_semanas).toBe('0')
+  expect(fuaWarnings({ ...source, edad_gestacional_semanas: 0 })).not.toContain('Edad gestacional')
+})
+
+test('la FPP de una copia histórica no se recalcula al imprimir', () => {
+  const legacy = { ...snapshot, grupo_atencion_codigo: 'GESTANTES', fecha_probable_parto: '2026-12-27' }
+  expect(fuaValues(legacy).edad_gestacional_semanas).toBe('')
+  expect(fuaWarnings(legacy)).toContain('Edad gestacional')
+})
+
+test('una calibración sin edad gestacional conserva posiciones y añade la casilla para revisar', () => {
+  const old = { ...defaultFuaLayout(), calibrated: true, offsetY: 1 }
+  old.fields = old.fields.filter(f => f.id !== 'edad_gestacional_semanas')
+  old.fields.find(f => f.id === 'peso_kg')!.x += 1.5
+  old.fields.find(f => f.id === 'peso_kg')!.y += 2
+  const upgraded = parseFuaLayout(JSON.stringify(old))
+  expect(upgraded.calibrated).toBe(false)
+  expect(upgraded.offsetY).toBe(1)
+  for (const field of old.fields) expect(upgraded.fields.find(f => f.id === field.id)).toEqual(field)
+  const base = defaultFuaLayout().fields.find(f => f.id === 'edad_gestacional_semanas')!
+  expect(upgraded.fields.find(f => f.id === base.id)).toMatchObject({ x: base.x + 1.5, y: base.y + 2 })
+})
+
 test('referencia imprime una sola X y sus tres datos de origen en las casillas FUA', () => {
   const values = fuaValues({
     ...snapshot, referencia_renipress: '00001234',

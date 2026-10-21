@@ -2,10 +2,12 @@ import type { Patient } from '@/services/pacientes'
 import type { AttentionCreatePayload } from '@/services/atenciones'
 import type { EstablishmentCatalogItem, ProfessionalCatalogItem } from '@/services/catalogos'
 import type { FuaPrintInput, FuaPrintSnapshot } from '@/types/fua'
+import { gestationalAgeFromDueDate } from '@/utils/pregnancy'
 
 type DraftEncounter = Pick<AttentionCreatePayload, 'fecha_atencion' | 'modalidad_atencion_codigo' |
   'peso_kg' | 'talla_cm' | 'presion_sistolica' | 'presion_diastolica' |
-  'perimetro_abdominal_cm' | 'grupo_atencion_codigo' | 'fecha_probable_parto' | 'fecha_parto'>
+  'perimetro_abdominal_cm' | 'grupo_atencion_codigo' | 'fecha_probable_parto' | 'fecha_parto' |
+  'valoracion_nutricional'>
 
 /** UI estimate only; the saved projection always comes back from the server. */
 export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, supplement: FuaPrintInput,
@@ -13,6 +15,12 @@ export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, suppl
   const renaes = establishment?.codigo_renaes || ''
   const weight = encounter.peso_kg
   const height = encounter.talla_cm
+  const assessedWeeks = encounter.valoracion_nutricional?.edad_gestacional_semanas
+  const calculated = encounter.grupo_atencion_codigo === 'GESTANTES'
+    ? gestationalAgeFromDueDate(encounter.fecha_atencion, encounter.fecha_probable_parto) : null
+  const hasAssessment = encounter.grupo_atencion_codigo === 'GESTANTES' && assessedWeeks != null
+  const validAssessment = hasAssessment && Number.isInteger(assessedWeeks) &&
+    assessedWeeks >= 0 && assessedWeeks <= 45
   return {
     ...supplement, version: 1,
     tipo_atencion: encounter.modalidad_atencion_codigo,
@@ -39,5 +47,10 @@ export function buildFuaDraft(patient: Patient, encounter: DraftEncounter, suppl
     grupo_atencion_codigo: encounter.grupo_atencion_codigo || 'NINOS_ADOLESCENTES_ADULTOS_MAYORES',
     fecha_probable_parto: encounter.fecha_probable_parto ?? null,
     fecha_parto: encounter.fecha_parto ?? null,
+    edad_gestacional_semanas: hasAssessment ? validAssessment ? assessedWeeks : null
+      : calculated?.weeks ?? null,
+    edad_gestacional_dias: hasAssessment ? null : calculated?.days ?? null,
+    edad_gestacional_fuente: hasAssessment ? validAssessment ? 'VALORACION' : null
+      : calculated ? 'FPP' : null,
   }
 }

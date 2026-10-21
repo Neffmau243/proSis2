@@ -98,6 +98,14 @@ export function fuaUsesAbdominalPerimeter(s: FuaPrintSnapshot): boolean {
   return s.grupo_atencion_codigo !== 'GESTANTES' && s.grupo_atencion_codigo !== 'PUERPERAS'
 }
 
+/** Validate only the frozen maternal value, including a recorded zero. */
+function gestationalWeeksForPrint(s: FuaPrintSnapshot): string {
+  const weeks = s.edad_gestacional_semanas
+  return s.grupo_atencion_codigo === 'GESTANTES' &&
+    typeof weeks === 'number' && Number.isInteger(weeks) && weeks >= 0 && weeks <= 45
+    ? String(weeks) : ''
+}
+
 export function fuaWarnings(s: FuaPrintSnapshot): string[] {
   const result: string[] = []
   const delivery = fuaDeliveryBox(s)
@@ -116,6 +124,8 @@ export function fuaWarnings(s: FuaPrintSnapshot): string[] {
     // En gestantes y puérperas el recuadro lo ocupa la fecha de parto, no el PAB.
     [!fuaUsesAbdominalPerimeter(s) || s.perimetro_abdominal_cm, 'Perímetro abdominal'],
     ...(delivery ? [[delivery.value, delivery.label] as [unknown, string]] : []),
+    [s.grupo_atencion_codigo !== 'GESTANTES' || gestationalWeeksForPrint(s) !== '',
+      'Edad gestacional'],
     [s.etnia_codigo, 'Etnia (cuando corresponda)'],
   ]
   for (const [value, label] of required) if (!value) result.push(label)
@@ -186,6 +196,7 @@ const seeds: [string, string, number?][] = [
   ['etnia_codigo', 'Código etnia'],
   ['gestante', 'X · Gestante'],
   ['puerpera', 'X · Puérpera'],
+  ['edad_gestacional_semanas', 'Edad gestacional (semanas)'],
   ['parto_dia', 'Parto · Día', 7],
   ['parto_mes', 'Parto · Mes', 7],
   ['parto_anio', 'Parto · Año', 8],
@@ -240,6 +251,7 @@ const officialPositions: Record<string, [number, number, number]> = {
   etnia_codigo: [433, 293, 158],
   gestante: [53, 333, 10],
   puerpera: [53, 350, 10],
+  edad_gestacional_semanas: [36, 651, 14],
   parto_dia: [139, 292, 37],
   parto_mes: [184, 292, 35],
   parto_anio: [228, 292, 82],
@@ -312,8 +324,10 @@ export function parseFuaLayout(raw: string): FuaLayout {
     throw new Error('Calibración inválida.')
   const legacySis = v.fields.find((f) => f.id === 'sis_numero_completo')
   const missingLegend = !v.fields.some((f) => f.id === 'identity_note')
+  const missingGestationalAge = !v.fields.some((f) => f.id === 'edad_gestacional_semanas')
   const expectedIds = new Set(template.fields.map((f) => f.id))
   if (missingLegend) expectedIds.delete('identity_note')
+  if (missingGestationalAge) expectedIds.delete('edad_gestacional_semanas')
   if (legacySis) {
     expectedIds.delete('sis_tipo')
     expectedIds.delete('sis_numero')
@@ -348,6 +362,14 @@ export function parseFuaLayout(raw: string): FuaLayout {
   const fields = template.fields.map((original) => {
     const f = sourceFields.find((entry) => entry.id === original.id)
     if (!f && original.id === 'identity_note' && missingLegend) return original
+    if (!f && original.id === 'edad_gestacional_semanas' && missingGestationalAge) {
+      // Keep all existing positions; anchor the new maternal box to the weight
+      // box's calibration, in the same section of the paper form.
+      const weight = sourceFields.find((entry) => entry.id === 'peso_kg')!
+      const baseline = template.fields.find((entry) => entry.id === 'peso_kg')!
+      return { ...original, x: original.x + weight.x - baseline.x,
+        y: original.y + weight.y - baseline.y }
+    }
     if (
       !f ||
       !bounded(f.x, 0, 400) ||
@@ -379,7 +401,8 @@ export function parseFuaLayout(raw: string): FuaLayout {
     height: v.height,
     offsetX: v.offsetX,
     offsetY: v.offsetY,
-    calibrated: v.calibrated === true && !missingLegend && !legacySis && v.template === 'sis-v02',
+    calibrated: v.calibrated === true && !missingLegend && !missingGestationalAge &&
+      !legacySis && v.template === 'sis-v02',
     fields,
   }
 }
@@ -398,6 +421,9 @@ export function fuaValues(s: FuaPrintSnapshot): Record<string, string> {
   v.sexo_f = mark(s.sexo_codigo === 'F')
   v.gestante = mark(s.grupo_atencion_codigo === 'GESTANTES')
   v.puerpera = mark(s.grupo_atencion_codigo === 'PUERPERAS')
+  // Use only the frozen encounter value. A legacy FPP must never silently
+  // produce a new age when an old FUA is opened or reprinted.
+  v.edad_gestacional_semanas = gestationalWeeksForPrint(s)
   // DIRESA, type and affiliation number each have their own printed box.
   // Keep the optional RN suffix with the number, as in historical copies.
   v.sis_numero = [s.sis_numero, s.version === 2 ? s.sis_secuencia : s.sis_componente]

@@ -97,3 +97,6 @@ class FuaPrintSnapshot(FuaPrintInput):
     #: la fecha real del parto.
     fecha_probable_parto: date | None = None
     fecha_parto: date | None = None
+    edad_gestacional_semanas: Annotated[int, Field(ge=0, le=45)] | None = None
+    edad_gestacional_dias: Annotated[int, Field(ge=0, le=6)] | None = None
+    edad_gestacional_fuente: Literal["VALORACION", "FPP"] | None = None
