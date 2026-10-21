@@ -33,6 +33,7 @@ export interface SpecialtyCatalogItem extends CodeCatalogItem {
   grupo: string | null
   area_codigos?: string[]
   es_area?: boolean
+  es_area_base?: boolean
 }
 
 export interface ServiceCatalogItem {

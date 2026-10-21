@@ -22,6 +22,7 @@
             :incluir-inactivos="incluirInactivosProfesionales"
             :linked-professional-ids="linkedProfessionalIds"
             :can-create-account="canUsers"
+            :catalog-revision="catalogRevision"
             @refresh="loadProfessionals"
             @update:incluir-inactivos="incluirInactivosProfesionales = $event"
             @create-account="createAccountFor"
@@ -40,6 +41,9 @@
             @consume-prefill="prefillProfessionalId = null"
           />
         </el-tab-pane>
+        <el-tab-pane v-if="canProfessionals" label="Profesiones" name="catalogos" lazy>
+          <StaffCatalogsPanel kind="profesion" @created="catalogRevision++" />
+        </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
@@ -51,11 +55,12 @@ import { useRoute, useRouter } from 'vue-router'
 
 import ProfessionalsPanel from '@/components/configuracion/ProfessionalsPanel.vue'
 import UsersPanel from '@/components/configuracion/UsersPanel.vue'
+import StaffCatalogsPanel from '@/components/configuracion/StaffCatalogsPanel.vue'
 import { profesionales, type ProfessionalResponse } from '@/services/profesionales'
 import { usuarios, type UserResponse } from '@/services/usuarios'
 import { useAuthStore } from '@/stores/auth'
 
-type TabName = 'profesionales' | 'cuentas'
+type TabName = 'profesionales' | 'cuentas' | 'catalogos'
 
 const route = useRoute()
 const router = useRouter()
@@ -73,8 +78,10 @@ const errorMessage = ref<string | null>(null)
 const incluirInactivosProfesionales = ref(false)
 const incluirInactivosUsuarios = ref(false)
 const prefillProfessionalId = ref<number | null>(null)
+const catalogRevision = ref(0)
 
 function initialTab(): TabName {
+  if (route.query.tab === 'catalogos' && canProfessionals.value) return 'catalogos'
   if (route.query.tab === 'cuentas' && canUsers.value) return 'cuentas'
   if (canProfessionals.value) return 'profesionales'
   return 'cuentas'
@@ -84,9 +91,7 @@ const activeTab = ref<TabName>(initialTab())
 
 /** Un solo GET alimenta el mapa de cuentas para el cruce con profesionales. */
 const linkedProfessionalIds = computed(() =>
-  users.value
-    .map((user) => user.profesional_id)
-    .filter((id): id is number => id !== null),
+  users.value.map((user) => user.profesional_id).filter((id): id is number => id !== null),
 )
 
 async function loadProfessionals(): Promise<void> {

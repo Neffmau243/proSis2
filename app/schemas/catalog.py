@@ -22,6 +22,7 @@ class SpecialtyCatalogItem(CodeCatalogItem):
     grupo: str | None = None
     area_codigos: list[str] = Field(default_factory=list)
     es_area: bool = False
+    es_area_base: bool = False
 
 
 class InsuranceCatalogItem(IdCatalogItem):

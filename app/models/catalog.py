@@ -120,6 +120,9 @@ class Specialty(Base):
     codigo: Mapped[str] = mapped_column(String(20), primary_key=True)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
     grupo: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    es_area: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default=text("FALSE")
+    )
     activo: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("TRUE"))
 
     profesionales_especialidad: Mapped[list[ProfessionalSpecialty]] = relationship(

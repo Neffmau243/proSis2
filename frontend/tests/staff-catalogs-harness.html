@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Personal y catálogos · datos sintéticos</title>
+  </head>
+  <body>
+    <main style="max-width: 1200px; margin: auto; padding: 20px">
+      <p>Prueba con datos sintéticos. Los cambios solo se conservan en esta página.</p>
+      <div id="app"></div>
+    </main>
+    <script type="module">
+      import { createApp } from 'vue'
+      import { createPinia } from 'pinia'
+      import { createMemoryHistory, createRouter } from 'vue-router'
+      import ElementPlus from 'element-plus'
+      import 'element-plus/dist/index.css'
+      import '../src/assets/main.css'
+      import PersonalView from '../src/views/PersonalView.vue'
+      import { useAuthStore } from '../src/stores/auth.ts'
+      import { catalogos } from '../src/services/catalogos.ts'
+      import { catalogosPersonal } from '../src/services/catalogosPersonal.ts'
+      import { profesionales } from '../src/services/profesionales.ts'
+      import { usuarios } from '../src/services/usuarios.ts'
+
+      const professions = ['BIÓLOGO', 'ENFERMERA', 'MÉDICO', 'NUTRICIONISTA'].map((nombre, i) => ({
+        id: i + 1,
+        codigo: String(i + 1),
+        nombre,
+        activo: true,
+      }))
+      const specialties = ['LABORATORIO', 'MEDICINA', 'NUTRICIÓN', 'ODONTOLOGÍA'].map(
+        (nombre, i) => ({
+          codigo: `DEMO-${i}`,
+          nombre,
+          grupo: null,
+          activo: true,
+          es_area: true,
+          area_codigos: [],
+        }),
+      )
+      catalogos.profesiones = async () => [...professions]
+      catalogos.especialidades = async () => [...specialties]
+      catalogosPersonal.createProfession = async (nombre) => {
+        if (professions.some((item) => item.nombre.toLowerCase() === nombre.trim().toLowerCase()))
+          throw new Error('Ya existe una profesión con ese nombre.')
+        const item = {
+          id: professions.length + 1,
+          codigo: String(professions.length + 1),
+          nombre: nombre.trim().toUpperCase(),
+          activo: true,
+        }
+        professions.push(item)
+        return item
+      }
+      catalogosPersonal.createSpecialty = async ({ nombre, grupo }) => {
+        const item = {
+          codigo: `DEMO-${specialties.length}`,
+          nombre: nombre.trim().toUpperCase(),
+          grupo,
+          activo: true,
+          es_area: false,
+          area_codigos: [],
+        }
+        specialties.push(item)
+        return item
+      }
+      catalogosPersonal.updateProfession = async (id, nombre) => {
+        const item = professions.find((item) => item.id === id)
+        item.nombre = nombre.trim().toUpperCase()
+        return { ...item }
+      }
+      catalogosPersonal.updateSpecialty = async (codigo, nombre) => {
+        const item = specialties.find((item) => item.codigo === codigo)
+        item.nombre = nombre.trim().toUpperCase()
+        return { ...item }
+      }
+      const staff = []
+      profesionales.list = async () => staff.map((item) => ({ ...item }))
+      profesionales.create = async (payload) => {
+        const item = {
+          id: staff.length + 1,
+          codigo_legacy: null,
+          numero_documento: null,
+          colegiatura: null,
+          profesion_id: null,
+          activo: true,
+          created_at: '2026-10-21T00:00:00',
+          updated_at: '2026-10-21T00:00:00',
+          especialidades: [],
+          ...payload,
+        }
+        staff.push(item)
+        return { ...item }
+      }
+      profesionales.update = async (id, payload) => {
+        const item = staff.find((item) => item.id === id)
+        Object.assign(item, payload)
+        return { ...item }
+      }
+      profesionales.replaceSpecialties = async (id, especialidades) => {
+        const item = staff.find((item) => item.id === id)
+        item.especialidades = especialidades
+        return { ...item }
+      }
+      profesionales.deactivate = async (id) => {
+        const item = staff.find((item) => item.id === id)
+        item.activo = false
+        return { ...item }
+      }
+      usuarios.list = async () => []
+      const pinia = createPinia()
+      const auth = useAuthStore(pinia)
+      auth.roles = ['ADMIN']
+      auth.permisos = ['PROFESIONAL_GESTIONAR', 'USUARIO_GESTIONAR']
+      const router = createRouter({
+        history: createMemoryHistory(),
+        routes: [{ path: '/configuracion/personal', component: PersonalView }],
+      })
+      await router.push('/configuracion/personal?tab=catalogos')
+      await router.isReady()
+      createApp(PersonalView).use(pinia).use(router).use(ElementPlus).mount('#app')
+    </script>
+  </body>
+</html>

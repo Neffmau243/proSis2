@@ -4,6 +4,7 @@ import ElementPlus, { ElMessage, ElMessageBox } from 'element-plus'
 import { afterEach, beforeEach, expect, test, vi } from 'vitest'
 
 import ProfessionalsPanel from '@/components/configuracion/ProfessionalsPanel.vue'
+import ProfessionalQualificationsFields from '@/components/configuracion/ProfessionalQualificationsFields.vue'
 import type { ProfessionalResponse } from '@/services/profesionales'
 
 const { list, create, update, replaceSpecialties, deactivate } = vi.hoisted(() => ({
@@ -41,9 +42,7 @@ function aProfessional(overrides: Partial<ProfessionalResponse> = {}): Professio
 
 const mounted: { unmount: () => void }[] = []
 
-async function mountPanel(
-  props: Partial<InstanceType<typeof ProfessionalsPanel>['$props']> = {},
-) {
+async function mountPanel(props: Partial<InstanceType<typeof ProfessionalsPanel>['$props']> = {}) {
   const wrapper = mount(ProfessionalsPanel, {
     props: {
       rows: [aProfessional()],
@@ -76,7 +75,9 @@ async function setField(wrapper: VueWrapper, label: string, value: string): Prom
 
 beforeEach(() => {
   vi.clearAllMocks()
-  catalogos.profesiones.mockResolvedValue([{ id: 10, codigo: 'MED', nombre: 'Médico', activo: true }])
+  catalogos.profesiones.mockResolvedValue([
+    { id: 10, codigo: 'MED', nombre: 'Médico', activo: true },
+  ])
   catalogos.especialidades.mockResolvedValue([
     { codigo: 'CARD', nombre: 'Cardiología', activo: true, grupo: null },
   ])
@@ -87,6 +88,46 @@ beforeEach(() => {
   vi.spyOn(ElMessage, 'success').mockImplementation(() => ({}) as never)
   vi.spyOn(ElMessage, 'error').mockImplementation(() => ({}) as never)
   vi.spyOn(ElMessageBox, 'confirm').mockResolvedValue('confirm' as never)
+})
+
+test('recarga los catálogos cuando se crea una profesión o especialidad desde Personal', async () => {
+  const wrapper = await mountPanel({ catalogRevision: 0 })
+  expect(catalogos.profesiones).toHaveBeenCalledTimes(1)
+  await wrapper.setProps({ catalogRevision: 1 })
+  await flushPromises()
+  expect(catalogos.profesiones).toHaveBeenCalledTimes(2)
+  expect(catalogos.especialidades).toHaveBeenCalledTimes(2)
+})
+
+test('excluye servicios de las opciones nuevas y conserva asignaciones históricas al editar', async () => {
+  catalogos.especialidades.mockResolvedValue([
+    { codigo: 'ESP_NUTRICION:002', nombre: 'CANASTA TBC', grupo: 'Esp_Nutricion', activo: true },
+    {
+      codigo: 'ESPECIALIDADES:005',
+      nombre: 'NUTRICIÓN',
+      grupo: 'Especialidades',
+      es_area: true,
+      activo: true,
+    },
+  ])
+  const wrapper = await mountPanel({
+    rows: [
+      aProfessional({
+        especialidades: [{ especialidad_codigo: 'ESP_NUTRICION:002', es_principal: true }],
+      }),
+    ],
+  })
+  await button(wrapper, 'Especialidades').trigger('click')
+  await flushPromises()
+  expect(
+    wrapper.findAllComponents({ name: 'ElOption' }).map((item) => item.props('label')),
+  ).toContain('CANASTA TBC (registro anterior)')
+  await button(wrapper, 'Quitar').trigger('click')
+  await button(wrapper, 'Agregar especialidad').trigger('click')
+  await flushPromises()
+  const labels = wrapper.findAllComponents({ name: 'ElOption' }).map((item) => item.props('label'))
+  expect(labels).toContain('NUTRICIÓN')
+  expect(labels).not.toContain('CANASTA TBC (registro anterior)')
 })
 
 afterEach(() => {
@@ -139,8 +180,36 @@ test('el alta envía el contrato y normaliza los vacíos a null', async () => {
     numero_documento: null,
     profesion_id: null,
     colegiatura: null,
+    especialidades: [],
   })
   expect(wrapper.emitted('refresh')).toBeTruthy()
+})
+
+test('crea la ficha con su profesión, área y especialidad en una sola petición', async () => {
+  const wrapper = await mountPanel()
+  await button(wrapper, 'Nuevo profesional').trigger('click')
+  await flushPromises()
+  await setField(wrapper, 'Nombre completo', 'Profesional de prueba')
+  const profession = wrapper
+    .findAllComponents({ name: 'ElSelect' })
+    .find((item) => item.props('placeholder') === 'Seleccione una profesión')!
+  profession.vm.$emit('update:modelValue', 10)
+  const qualifications = wrapper.findComponent(ProfessionalQualificationsFields)
+  qualifications.vm.$emit('update:selected', ['ESPECIALIDADES:003', 'CARD'])
+  qualifications.vm.$emit('update:principal', 'CARD')
+  await flushPromises()
+  await button(wrapper, 'Guardar').trigger('click')
+  await flushPromises()
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      profesion_id: 10,
+      especialidades: [
+        { especialidad_codigo: 'ESPECIALIDADES:003', es_principal: false },
+        { especialidad_codigo: 'CARD', es_principal: true },
+      ],
+    }),
+  )
+  expect(replaceSpecialties).not.toHaveBeenCalled()
 })
 
 test('editar llama al PATCH del recurso', async () => {
@@ -174,7 +243,9 @@ test('no se envía el alta sin nombre', async () => {
 
 test('las especialidades se reemplazan conservando la principal', async () => {
   const wrapper = await mountPanel({
-    rows: [aProfessional({ especialidades: [{ especialidad_codigo: 'CARD', es_principal: true }] })],
+    rows: [
+      aProfessional({ especialidades: [{ especialidad_codigo: 'CARD', es_principal: true }] }),
+    ],
   })
   await button(wrapper, 'Especialidades').trigger('click')
   await flushPromises()

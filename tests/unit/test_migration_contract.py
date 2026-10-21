@@ -19,7 +19,7 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
         "limites_inicio_sesion",
         "historias_familiares_catalogo",
     } <= set(Base.metadata.tables)
-    assert script.get_current_head() == "20261019_0039_referral_assign"
+    assert script.get_current_head() == "20261021_0040_staff_area_type"
     assert Base.metadata.tables["atenciones"].c.profesional_id.nullable
     assert Base.metadata.tables["atenciones"].c.consultorio_id.nullable
     assert {

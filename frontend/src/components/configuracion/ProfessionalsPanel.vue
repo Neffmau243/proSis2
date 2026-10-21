@@ -33,14 +33,16 @@
         <template #default="{ row }">
           <div class="stacked-cell">
             <span class="nowrap">{{ row.numero_documento || '—' }}</span>
-            <span class="stacked-cell__muted nowrap">{{ row.colegiatura || 'Sin colegiatura' }}</span>
+            <span class="stacked-cell__muted nowrap">{{
+              row.colegiatura || 'Sin colegiatura'
+            }}</span>
           </div>
         </template>
       </el-table-column>
       <el-table-column label="Profesión" min-width="140" show-overflow-tooltip>
         <template #default="{ row }">{{ profesionNombre(row.profesion_id) }}</template>
       </el-table-column>
-      <el-table-column label="Especialidades" min-width="200">
+      <el-table-column label="Áreas y especialidades" min-width="200">
         <template #default="{ row }">
           <div v-if="row.especialidades.length" class="tags-cell">
             <el-tag
@@ -90,8 +92,15 @@
     </el-table>
 
     <!-- Alta / edición de la ficha -->
-    <el-dialog v-model="formVisible" :title="formTitle" width="520px">
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="150px">
+    <el-dialog v-model="formVisible" :title="formTitle" width="min(620px, 94vw)" top="6vh">
+      <el-alert
+        v-if="errorMessage"
+        :title="errorMessage"
+        type="error"
+        :closable="false"
+        class="form-alert"
+      />
+      <el-form ref="formRef" :model="form" :rules="rules" label-position="top">
         <el-form-item label="Nombre completo" prop="nombre_completo">
           <el-input v-model="form.nombre_completo" maxlength="200" />
         </el-form-item>
@@ -117,6 +126,12 @@
         <el-form-item label="Colegiatura" prop="colegiatura">
           <el-input v-model="form.colegiatura" maxlength="50" />
         </el-form-item>
+        <ProfessionalQualificationsFields
+          v-if="editingId === null"
+          v-model:selected="createQualifications"
+          v-model:principal="createPrincipal"
+          :options="especialidades"
+        />
       </el-form>
       <template #footer>
         <el-button @click="formVisible = false">Cancelar</el-button>
@@ -148,9 +163,13 @@
             class="specialty-row__select"
           >
             <el-option
-              v-for="specialty in especialidades"
+              v-for="specialty in staffSpecialtyOptions"
               :key="specialty.codigo"
-              :label="specialty.nombre"
+              :label="
+                isStaffSpecialty(specialty)
+                  ? specialty.nombre
+                  : `${specialty.nombre} (registro anterior)`
+              "
               :value="specialty.codigo"
               :disabled="isSpecialtyTaken(specialty.codigo, index)"
             />
@@ -173,11 +192,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage, ElMessageBox, type FormInstance, type FormRules } from 'element-plus'
 
 import { catalogos, type IdCatalogItem, type SpecialtyCatalogItem } from '@/services/catalogos'
 import { profesionales, type ProfessionalResponse } from '@/services/profesionales'
+import { isStaffSpecialty } from '@/utils/staffSpecialties'
+import ProfessionalQualificationsFields from './ProfessionalQualificationsFields.vue'
 
 const props = defineProps<{
   rows: ProfessionalResponse[]
@@ -186,6 +207,7 @@ const props = defineProps<{
   /** Ids de profesionales que ya tienen cuenta de usuario. */
   linkedProfessionalIds: number[]
   canCreateAccount: boolean
+  catalogRevision?: number
 }>()
 
 const emit = defineEmits<{
@@ -198,6 +220,8 @@ const profesiones = ref<IdCatalogItem[]>([])
 const especialidades = ref<SpecialtyCatalogItem[]>([])
 
 const formRef = ref<FormInstance>()
+const createQualifications = ref<string[]>([])
+const createPrincipal = ref<string | null>(null)
 const formVisible = ref(false)
 const saving = ref(false)
 const editingId = ref<number | null>(null)
@@ -228,6 +252,13 @@ const specialtiesError = ref<string | null>(null)
 const specialtyTargetId = ref<number | null>(null)
 const specialtyRows = ref<{ codigo: string | null }[]>([])
 const principalIndex = ref<number | null>(null)
+// Preserve existing historical assignments while offering staff qualifications.
+const staffSpecialtyOptions = computed(() =>
+  especialidades.value.filter(
+    (item) =>
+      isStaffSpecialty(item) || specialtyRows.value.some((row) => row.codigo === item.codigo),
+  ),
+)
 
 function hasAccount(id: number): boolean {
   return props.linkedProfessionalIds.includes(id)
@@ -259,6 +290,8 @@ async function loadCatalogs(): Promise<void> {
   }
 }
 
+watch(() => props.catalogRevision, loadCatalogs)
+
 function openCreate(): void {
   editingId.value = null
   resetForm()
@@ -275,6 +308,8 @@ function openEdit(row: ProfessionalResponse): void {
 }
 
 function resetForm(): void {
+  createQualifications.value = []
+  createPrincipal.value = null
   form.nombre_completo = ''
   form.numero_documento = ''
   form.profesion_id = null
@@ -302,7 +337,13 @@ async function submitForm(): Promise<void> {
   errorMessage.value = null
   try {
     if (editingId.value === null) {
-      await profesionales.create(buildPayload())
+      await profesionales.create({
+        ...buildPayload(),
+        especialidades: createQualifications.value.map((codigo) => ({
+          especialidad_codigo: codigo,
+          es_principal: codigo === (createPrincipal.value ?? createQualifications.value[0]),
+        })),
+      })
       ElMessage.success('Profesional creado.')
     } else {
       await profesionales.update(editingId.value, buildPayload())
@@ -341,13 +382,13 @@ function removeSpecialtyRow(index: number): void {
 }
 
 async function submitSpecialties(): Promise<void> {
-  const filled = specialtyRows.value.filter(
-    (row): row is { codigo: string } => Boolean(row.codigo),
-  )
+  const filled = specialtyRows.value.filter((row): row is { codigo: string } => Boolean(row.codigo))
   specialtiesError.value = null
 
   const principalCode =
-    principalIndex.value !== null ? specialtyRows.value[principalIndex.value]?.codigo ?? null : null
+    principalIndex.value !== null
+      ? (specialtyRows.value[principalIndex.value]?.codigo ?? null)
+      : null
 
   if (filled.length && principalIndex.value === null) {
     specialtiesError.value = 'Marque una especialidad como principal.'
