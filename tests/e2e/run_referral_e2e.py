@@ -40,6 +40,10 @@ from app.models.security import Professional, Role, User, UserRole  # noqa: E402
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "tmp" / "referral-e2e")
+    parser.add_argument(
+        "--spec", choices=["referral-admission.spec.ts", "gestante-fua.spec.ts"],
+        default="referral-admission.spec.ts",
+    )
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -140,7 +144,7 @@ def main() -> int:
                 "run",
                 "test:e2e",
                 "--",
-                "referral-admission.spec.ts",
+                args.spec,
                 "--workers=1",
             ],
             cwd=ROOT / "frontend",
@@ -150,11 +154,18 @@ def main() -> int:
             return result.returncode
         report = json.loads((output / "resultado.json").read_text(encoding="utf-8"))
         with Session(test_engine) as session:
-            stored = session.get(Attention, report["attentionId"])
-            assert stored is not None and stored.modalidad_atencion_codigo == "REFERENCIA"
-            assert stored.profesional_id is None and stored.consultorio_id is None
-            assert stored.especialidad_codigo is None
-            assert stored.fua_impresion == report["snapshot"]
+            if args.spec == "referral-admission.spec.ts":
+                stored = session.get(Attention, report["attentionId"])
+                assert stored is not None and stored.modalidad_atencion_codigo == "REFERENCIA"
+                assert stored.profesional_id is None and stored.consultorio_id is None
+                assert stored.especialidad_codigo is None
+                assert stored.fua_impresion == report["snapshot"]
+            else:
+                for encounter in report["encounters"]:
+                    stored = session.get(Attention, encounter["attentionId"])
+                    assert stored is not None and stored.grupo_atencion_codigo == "GESTANTES"
+                    assert stored.profesional_id is not None and stored.consultorio_id is not None
+                    assert stored.fua_impresion == encounter["snapshot"]
         report["mysql_verified"] = True
         (output / "resultado.json").write_text(
             json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"

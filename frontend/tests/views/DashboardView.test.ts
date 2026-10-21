@@ -129,6 +129,16 @@ test('sin término la tabla lista la base completa con el límite máximo de la 
   expect(usePacienteSeleccionado().seleccionado.value).toBeNull()
 })
 
+test('muestra el total del padrón aunque solo haya cargado el primer bloque', async () => {
+  const items = Array.from({ length: 100 }, (_, index) => patient({ id: index + 1 }))
+  search.mockResolvedValue({ ...pageOf(items), total: 28962, has_more: true })
+  const { wrapper } = await mountView()
+
+  expect(wrapper.find('.page-header__sub').text()).toContain('28962 paciente(s) registrado(s)')
+  expect(wrapper.findAll('.el-table__body-wrapper tbody tr')).toHaveLength(100)
+  expect(search).toHaveBeenCalledTimes(1)
+})
+
 test('el DNI se busca con q y el criterio de historia clínica exacta cambia el filtro', async () => {
   const { wrapper } = await mountView()
   search.mockClear()
