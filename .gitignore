@@ -23,3 +23,12 @@ htmlcov/
 # developer-machine tool and is NOT delivered with the repository. Its catalog
 # values live baked into Alembic migrations, so versioning it is unnecessary.
 etlSis/
+
+# Local work products: coverage reports, audit exports and server logs. The
+# curated evidence that belongs to the repository lives under docs/audits/.
+output/
+tmp/pytest-*/
+tmp/*.log
+tmp/*.json
+tmp/admision-etnia/
+frontend/tmp/
