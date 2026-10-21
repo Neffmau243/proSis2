@@ -169,11 +169,12 @@ test('administra áreas y especialidades aquí y refresca los selectores del con
   expect(wrapper.findComponent(StaffCatalogsPanel).exists()).toBe(false)
   await wrapper
     .findAll('[role="tab"]')
-    .find((tab) => tab.text() === 'Áreas y especialidades')!
+    .find((tab) => tab.text() === 'Áreas de atención')!
     .trigger('click')
   await flushPromises()
   const panel = wrapper.findComponent(StaffCatalogsPanel)
   expect(panel.props('kind')).toBe('especialidad')
+  expect(panel.props('areasOnly')).toBe(true)
   catalogos.especialidades.mockResolvedValue([
     { codigo: 'AREA-NUEVA', nombre: 'REHABILITACIÓN', es_area: true, activo: true, grupo: null },
     { codigo: 'ESP-NUEVA', nombre: 'TERAPIA', es_area: false, activo: true, grupo: null },
@@ -199,7 +200,7 @@ test('sin permiso de gestión de personal conserva consultorios y oculta su cat�
   const wrapper = await mountView(['CONSULTORIO_GESTIONAR'])
   expect(wrapper.text()).toContain('Consultorio A')
   expect(wrapper.findAll('[role="tab"]').map((tab) => tab.text())).not.toContain(
-    'Áreas y especialidades',
+    'Áreas de atención',
   )
   expect(wrapper.findComponent(StaffCatalogsPanel).exists()).toBe(false)
 })
@@ -263,6 +264,7 @@ test('asignar profesional envía el payload y recarga las asignaciones', async (
     fecha_inicio: '2026-02-01',
     fecha_fin: null,
     es_responsable: false,
+    vincular_area: true,
   })
   // Un GET inicial al abrir el diálogo y otro tras asignar.
   expect(listAssignments).toHaveBeenCalledTimes(2)
@@ -351,6 +353,7 @@ test('el submodal impide cierres y duplicados mientras guarda y vuelve a la list
     fecha_inicio: '2026-02-01',
     fecha_fin: null,
     es_responsable: false,
+    vincular_area: true,
   })
   await flushPromises()
   expect(child.props('modelValue')).toBe(true)
@@ -412,5 +415,35 @@ test('un rechazo del backend se muestra con su mensaje', async () => {
 
   expect(wrapper.find('.el-alert__title').text()).toContain(
     'Ya existe un consultorio con ese código en el establecimiento.',
+  )
+})
+
+test('nuevo subconsultorio hereda sede y área sin pedir especialidad adicional', async () => {
+  list.mockResolvedValue([anOffice({ area_codigo: 'CARD', especialidad_codigo: null })])
+  const wrapper = await mountView()
+  await button(wrapper, 'Nuevo subconsultorio').trigger('click')
+  await flushPromises()
+  expect(
+    fieldItem(wrapper, 'Establecimiento').findComponent({ name: 'ElSelect' }).props('modelValue'),
+  ).toBe(1)
+  expect(
+    fieldItem(wrapper, 'Área asistencial').findComponent({ name: 'ElSelect' }).props('modelValue'),
+  ).toBe('CARD')
+  expect(
+    fieldItem(wrapper, 'Consultorio padre').findComponent({ name: 'ElSelect' }).props('modelValue'),
+  ).toBe(1)
+  expect(wrapper.find('details.additional-settings').attributes('open')).toBeUndefined()
+  await setField(wrapper, 'Código', 'SUB-01')
+  await setField(wrapper, 'Nombre', 'Medicina 01')
+  await button(wrapper, 'Guardar').trigger('click')
+  await flushPromises()
+  expect(create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      establecimiento_id: 1,
+      area_codigo: 'CARD',
+      consultorio_padre_id: 1,
+      especialidad_codigo: null,
+      servicios_codigos: null,
+    }),
   )
 })

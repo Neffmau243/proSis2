@@ -34,6 +34,7 @@ class OfficeAssignmentCreate(BaseModel):
     fecha_inicio: date
     fecha_fin: date | None = None
     es_responsable: bool = False
+    vincular_area: bool = False
 
     @model_validator(mode="after")
     def validate_dates(self) -> OfficeAssignmentCreate:
@@ -104,6 +105,7 @@ class OfficeResponse(BaseModel):
     codigo: str
     nombre: str
     especialidad_codigo: str | None
+    especialidad_requerida_codigo: str | None = None
     activo: bool
     area_codigo: str | None = None
     area_nombre: str | None = None

@@ -7,6 +7,7 @@ export interface OfficeResponse {
   codigo: string
   nombre: string
   especialidad_codigo: string | null
+  especialidad_requerida_codigo?: string | null
   activo: boolean
   area_codigo?: string | null
   area_nombre?: string | null
@@ -47,6 +48,7 @@ export interface OfficeAssignmentCreatePayload {
   fecha_inicio: string
   fecha_fin?: string | null
   es_responsable: boolean
+  vincular_area?: boolean
 }
 
 export interface OfficeListParams {

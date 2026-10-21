@@ -360,9 +360,12 @@ class OfficeAssignmentService:
                     code="JERARQUIA_CONSULTORIO_NO_ACTIVA",
                     message="El consultorio o alguno de sus padres está inactivo.",
                 )
-            if self._repository.get_active_professional(
-                command.profesional_id, lock=command.vincular_area
-            ) is None:
+            if (
+                self._repository.get_active_professional(
+                    command.profesional_id, lock=command.vincular_area
+                )
+                is None
+            ):
                 raise NotFoundError(
                     code="PROFESIONAL_NO_ACTIVO",
                     message="El profesional no existe o está inactivo.",

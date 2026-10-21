@@ -207,14 +207,17 @@ def test_custom_area_can_be_created_edited_used_in_office_and_admission(
     assert assigned.status_code == 201, assigned.text
     # Assigning at another office in the same area must not duplicate the link
     # or change the principal qualification of an existing professional.
-    assert admin.post(
-        f"{api_prefix}/configuracion/consultorios/{root['id']}/profesionales",
-        json={
-            "profesional_id": professional["id"],
-            "fecha_inicio": date.today().isoformat(),
-            "vincular_area": True,
-        },
-    ).status_code == 201
+    assert (
+        admin.post(
+            f"{api_prefix}/configuracion/consultorios/{root['id']}/profesionales",
+            json={
+                "profesional_id": professional["id"],
+                "fecha_inicio": date.today().isoformat(),
+                "vincular_area": True,
+            },
+        ).status_code
+        == 201
+    )
     linked = admin.get(f"{api_prefix}/configuracion/profesionales/{professional['id']}").json()
     assert len(linked["especialidades"]) == (2 if existing_area else 1)
     principal = next(item for item in linked["especialidades"] if item["es_principal"])

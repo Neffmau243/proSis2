@@ -114,9 +114,16 @@ defineExpose({
           />
         </el-select>
       </el-form-item>
-      <p v-if="form.especialidad_codigo && form.especialidad_codigo !== form.area_codigo" class="hint" role="status">
-        Requisito adicional guardado: {{ specialties.find((item) => item.codigo === form.especialidad_codigo)?.nombre || form.especialidad_codigo }}.
-        Puedes revisarlo en Configuración adicional de atención.
+      <p
+        v-if="form.especialidad_codigo && form.especialidad_codigo !== form.area_codigo"
+        class="hint"
+        role="status"
+      >
+        Requisito adicional guardado:
+        {{
+          specialties.find((item) => item.codigo === form.especialidad_codigo)?.nombre ||
+          form.especialidad_codigo
+        }}. Puedes revisarlo en Configuración adicional de atención.
       </p>
       <el-form-item label="Consultorio padre" prop="consultorio_padre_id">
         <el-select
@@ -138,58 +145,62 @@ defineExpose({
       </el-form-item>
       <details class="additional-settings">
         <summary>Configuración adicional de atención</summary>
-        <p class="hint">Los consultorios nuevos usan los servicios de su área. Ajusta estas opciones solo si necesitas restringirlos.</p>
-      <el-form-item label="Especialidad requerida" prop="especialidad_codigo">
-        <el-select
-          :model-value="form.especialidad_codigo"
-          @update:model-value="emit('change', { especialidad_codigo: $event || null })"
-          clearable
-          filterable
-          placeholder="Sin requisito adicional"
-        >
-          <el-option
-            v-for="item in specialties"
-            :key="item.codigo"
-            :label="item.nombre"
-            :value="item.codigo"
-          />
-        </el-select>
         <p class="hint">
-          Conserva un requisito específico si ya lo utilizas. Para el flujo habitual basta con el área. Si el padre tiene un requisito, se hereda.
+          Los consultorios nuevos usan los servicios de su área. Ajusta estas opciones solo si
+          necesitas restringirlos.
         </p>
-      </el-form-item>
-      <el-form-item label="Servicios de atención">
-        <el-checkbox
-          :model-value="form.servicios_codigos === null"
-          @update:model-value="
-            emit('change', {
-              servicios_codigos: $event ? null : services.map((item) => item.codigo),
-            })
-          "
-        >
-          Usar servicios del área o del consultorio padre
-        </el-checkbox>
-        <el-select
-          :model-value="form.servicios_codigos ?? services.map((item) => item.codigo)"
-          aria-label="Servicios habilitados del consultorio"
-          @update:model-value="emit('change', { servicios_codigos: $event })"
-          multiple
-          filterable
-          :disabled="form.servicios_codigos === null"
-          placeholder="Seleccione los servicios habilitados"
-        >
-          <el-option
-            v-for="item in services"
-            :key="item.codigo"
-            :label="item.nombre"
-            :value="item.codigo"
-          />
-        </el-select>
-        <p class="hint">
-          El padre define la jerarquía física. Los servicios definen qué atención se puede registrar
-          aquí.
-        </p>
-      </el-form-item>
+        <el-form-item label="Especialidad requerida" prop="especialidad_codigo">
+          <el-select
+            :model-value="form.especialidad_codigo"
+            @update:model-value="emit('change', { especialidad_codigo: $event || null })"
+            clearable
+            filterable
+            placeholder="Sin requisito adicional"
+          >
+            <el-option
+              v-for="item in specialties"
+              :key="item.codigo"
+              :label="item.nombre"
+              :value="item.codigo"
+            />
+          </el-select>
+          <p class="hint">
+            Conserva un requisito específico si ya lo utilizas. Para el flujo habitual basta con el
+            área. Si el padre tiene un requisito, se hereda.
+          </p>
+        </el-form-item>
+        <el-form-item label="Servicios de atención">
+          <el-checkbox
+            :model-value="form.servicios_codigos === null"
+            @update:model-value="
+              emit('change', {
+                servicios_codigos: $event ? null : services.map((item) => item.codigo),
+              })
+            "
+          >
+            Usar servicios del área o del consultorio padre
+          </el-checkbox>
+          <el-select
+            :model-value="form.servicios_codigos ?? services.map((item) => item.codigo)"
+            aria-label="Servicios habilitados del consultorio"
+            @update:model-value="emit('change', { servicios_codigos: $event })"
+            multiple
+            filterable
+            :disabled="form.servicios_codigos === null"
+            placeholder="Seleccione los servicios habilitados"
+          >
+            <el-option
+              v-for="item in services"
+              :key="item.codigo"
+              :label="item.nombre"
+              :value="item.codigo"
+            />
+          </el-select>
+          <p class="hint">
+            El padre define la jerarquía física. Los servicios definen qué atención se puede
+            registrar aquí.
+          </p>
+        </el-form-item>
       </details>
     </el-form>
     <template #footer>

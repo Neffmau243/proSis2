@@ -319,7 +319,9 @@ const assignmentsTitle = computed(() =>
 const assignmentRequirementName = computed(() => {
   const office = officeTarget.value
   const required = office?.especialidad_requerida_codigo ?? office?.especialidad_codigo
-  return required && required !== office?.area_codigo ? specialtyNames.value[required] || required : ''
+  return required && required !== office?.area_codigo
+    ? specialtyNames.value[required] || required
+    : ''
 })
 
 function openAssignments(row: OfficeResponse): void {
@@ -501,12 +503,7 @@ onMounted(async () => {
           />
         </el-card>
       </el-tab-pane>
-      <el-tab-pane
-        v-if="canManageStaffCatalogs"
-        label="Áreas de atención"
-        name="catalogos"
-        lazy
-      >
+      <el-tab-pane v-if="canManageStaffCatalogs" label="Áreas de atención" name="catalogos" lazy>
         <el-card>
           <StaffCatalogsPanel kind="especialidad" areas-only @created="refreshSpecialtyCatalog" />
         </el-card>
@@ -606,7 +603,9 @@ onMounted(async () => {
       <OfficeAssignmentDialog
         v-model="assignFormVisible"
         :office-name="officeTarget?.nombre || ''"
-        :area-name="officeTarget?.area_nombre || specialtyNames[officeTarget?.area_codigo || ''] || ''"
+        :area-name="
+          officeTarget?.area_nombre || specialtyNames[officeTarget?.area_codigo || ''] || ''
+        "
         :requirement-name="assignmentRequirementName"
         :professionals="professionalOptions"
         :loading="professionalsLoading"

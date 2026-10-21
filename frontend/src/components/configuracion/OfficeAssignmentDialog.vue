@@ -116,7 +116,10 @@ async function submit(): Promise<void> {
           Este consultorio requiere {{ requirementName }}. El profesional debe tenerlo registrado.
         </p>
         <p v-else class="assignment-hint">
-          Al asignar, se vincula también al profesional con el área{{ areaName ? ` ${areaName}` : '' }} si aún no la tiene.
+          Al asignar, se vincula también al profesional con el área{{
+            areaName ? ` ${areaName}` : ''
+          }}
+          si aún no la tiene.
         </p>
       </el-form-item>
       <el-form-item label="Fecha de inicio" prop="fecha_inicio">

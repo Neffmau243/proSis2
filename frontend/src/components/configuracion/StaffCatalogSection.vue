@@ -24,16 +24,25 @@ const emit = defineEmits<{
 const search = shallowRef('')
 const showPrevious = shallowRef(false)
 const title = computed(() =>
-  props.kind === 'profesion' ? 'Profesiones' : props.areasOnly ? 'Áreas de atención' : 'Áreas y especialidades',
+  props.kind === 'profesion'
+    ? 'Profesiones'
+    : props.areasOnly
+      ? 'Áreas de atención'
+      : 'Áreas y especialidades',
 )
 const createLabel = computed(() =>
-  props.kind === 'profesion' ? 'Nueva profesión' : props.areasOnly ? 'Nueva área' : 'Nueva área o especialidad',
+  props.kind === 'profesion'
+    ? 'Nueva profesión'
+    : props.areasOnly
+      ? 'Nueva área'
+      : 'Nueva área o especialidad',
 )
 const filtered = computed(() => {
   const query = search.value.trim().toLocaleLowerCase('es')
-  return props.items.filter((item) =>
-    (!props.areasOnly || showPrevious.value || ('es_area' in item && item.es_area)) &&
-    item.nombre.toLocaleLowerCase('es').includes(query),
+  return props.items.filter(
+    (item) =>
+      (!props.areasOnly || showPrevious.value || ('es_area' in item && item.es_area)) &&
+      item.nombre.toLocaleLowerCase('es').includes(query),
   )
 })
 
@@ -61,7 +70,11 @@ watch(
         v-model="search"
         :aria-label="`Buscar en ${title.toLowerCase()}`"
         :placeholder="
-          kind === 'profesion' ? 'Buscar profesión por nombre' : areasOnly ? 'Buscar área' : 'Buscar área o especialidad'
+          kind === 'profesion'
+            ? 'Buscar profesión por nombre'
+            : areasOnly
+              ? 'Buscar área'
+              : 'Buscar área o especialidad'
         "
         clearable
         class="catalog-search"
@@ -82,7 +95,11 @@ watch(
       class="catalog-table"
     >
       <el-table-column prop="nombre" label="Nombre" min-width="200" show-overflow-tooltip />
-      <el-table-column v-if="kind === 'especialidad' && (!areasOnly || showPrevious)" label="Tipo" width="150">
+      <el-table-column
+        v-if="kind === 'especialidad' && (!areasOnly || showPrevious)"
+        label="Tipo"
+        width="150"
+      >
         <template #default="{ row }">
           <el-tag :type="row.es_area ? 'info' : 'primary'" size="small" effect="plain">{{
             row.es_area ? 'Área' : 'Especialidad'

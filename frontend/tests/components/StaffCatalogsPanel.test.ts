@@ -348,3 +348,36 @@ test.each(['profesion', 'especialidad'] as const)(
     expect(wrapper.emitted('created')).toHaveLength(1)
   },
 )
+
+test('el flujo de áreas crea un área sin selector de tipo y conserva especialidades anteriores', async () => {
+  specialties.mockResolvedValue([
+    { codigo: 'MED', nombre: 'MEDICINA', es_area: true, es_area_base: true, activo: true },
+    { codigo: 'ESP-ANTERIOR', nombre: 'ESPECIALIDAD ANTERIOR', es_area: false, activo: true },
+  ])
+  createSpecialty.mockResolvedValue({
+    codigo: 'ESP-AREA',
+    nombre: 'TERAPIA',
+    es_area: true,
+    activo: true,
+  })
+  const wrapper = mount(StaffCatalogsPanel, {
+    props: { kind: 'especialidad', areasOnly: true },
+    global: { plugins: [ElementPlus] },
+  })
+  mounted.push(wrapper)
+  await flushPromises()
+  expect(wrapper.get('.catalog-table').text()).toContain('MEDICINA')
+  expect(wrapper.get('.catalog-table').text()).not.toContain('ESPECIALIDAD ANTERIOR')
+  await button(wrapper, 'Nueva área').trigger('click')
+  expect(wrapper.find('form [role="radiogroup"]').exists()).toBe(false)
+  await wrapper.get('form input').setValue('TERAPIA')
+  await button(wrapper, 'Guardar área').trigger('click')
+  await flushPromises()
+  expect(createSpecialty).toHaveBeenCalledWith({ nombre: 'TERAPIA', es_area: true })
+  expect(wrapper.get('.catalog-table').text()).toContain('TERAPIA')
+  await wrapper.findComponent({ name: 'ElCheckbox' }).setValue(true)
+  await flushPromises()
+  expect(wrapper.get('.catalog-table').text()).toContain('ESPECIALIDAD ANTERIOR')
+  await wrapper.get('button[aria-label="Editar ESPECIALIDAD ANTERIOR"]').trigger('click')
+  expect(wrapper.findComponent(StaffCatalogForm).props('record')).toMatchObject({ es_area: false })
+})

@@ -314,6 +314,55 @@ def test_assignment_integrity_conflict_rolls_back(assignment_scene):
     session.rollback.assert_called_once()
 
 
+@pytest.mark.parametrize("specific_requirement", [False, True])
+def test_assignment_can_link_an_area_but_never_grants_a_specialty(
+    assignment_scene, specific_requirement
+):
+    from app.models.catalog import Specialty
+
+    service, repository, session, current = assignment_scene
+    current.area_codigo = "ESP-AREA-NUEVA"
+    current.especialidad_codigo = "ESP-CARDIOLOGIA" if specific_requirement else None
+    repository.professional_has_specialty.return_value = False
+    repository.get_active_specialty.return_value = Specialty(
+        codigo=current.area_codigo, nombre="Área nueva", es_area=True, activo=True
+    )
+    command = OfficeAssignmentCreate(profesional_id=7, fecha_inicio=START, vincular_area=True)
+    if specific_requirement:
+        with pytest.raises(BusinessRuleError) as error:
+            service.assign(1, command, actor_id=9)
+        assert error.value.code == "PROFESIONAL_SIN_ESPECIALIDAD"
+        repository.link_professional_area.assert_not_called()
+        session.commit.assert_not_called()
+    else:
+        service.assign(1, command, actor_id=9)
+        repository.link_professional_area.assert_called_once_with(
+            7, current.area_codigo, actor_id=9
+        )
+        session.commit.assert_called_once()
+
+
+def test_failed_assignment_rolls_back_area_link_in_same_transaction(assignment_scene):
+    from app.models.catalog import Specialty
+
+    service, repository, session, current = assignment_scene
+    current.area_codigo = "ESP-AREA-NUEVA"
+    repository.professional_has_specialty.return_value = False
+    repository.get_active_specialty.return_value = Specialty(
+        codigo=current.area_codigo, nombre="Área nueva", es_area=True, activo=True
+    )
+    session.flush.side_effect = IntegrityError("insert", {}, Exception("conflict"))
+    with pytest.raises(ConflictError):
+        service.assign(
+            1,
+            OfficeAssignmentCreate(profesional_id=7, fecha_inicio=START, vincular_area=True),
+            actor_id=9,
+        )
+    repository.link_professional_area.assert_called_once()
+    session.rollback.assert_called_once()
+    session.commit.assert_not_called()
+
+
 @pytest.mark.parametrize(
     "problem,code",
     [

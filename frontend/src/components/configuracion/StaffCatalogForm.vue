@@ -17,7 +17,9 @@ const formRef = useTemplateRef<FormInstance>('formRef')
 const nameRef = useTemplateRef<InputInstance>('nameRef')
 const form = reactive({
   nombre: props.record?.nombre ?? '',
-  es_area: props.record ? Boolean('es_area' in props.record && props.record.es_area) : Boolean(props.areasOnly),
+  es_area: props.record
+    ? Boolean('es_area' in props.record && props.record.es_area)
+    : Boolean(props.areasOnly),
 })
 const maxLength = computed(() => (props.kind === 'profesion' ? 100 : 150))
 const isArea = computed(() => form.es_area)
@@ -33,7 +35,9 @@ const title = computed(() =>
         : 'Editar especialidad'
     : props.kind === 'profesion'
       ? 'Nueva profesión'
-      : props.areasOnly ? 'Nueva área' : 'Nueva área o especialidad',
+      : props.areasOnly
+        ? 'Nueva área'
+        : 'Nueva área o especialidad',
 )
 const nameLabel = computed(() =>
   props.kind === 'profesion'

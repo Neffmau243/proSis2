@@ -86,10 +86,50 @@ class OfficeRepository:
             )
         )
 
-    def get_active_professional(self, professional_id: int) -> Professional | None:
-        return self._session.scalar(
-            select(Professional).where(
-                Professional.id == professional_id, Professional.activo.is_(True)
+    def get_active_professional(
+        self, professional_id: int, *, lock: bool = False
+    ) -> Professional | None:
+        statement = select(Professional).where(
+            Professional.id == professional_id, Professional.activo.is_(True)
+        )
+        if lock:
+            statement = statement.with_for_update()
+        return self._session.scalar(statement)
+
+    def link_professional_area(
+        self, professional_id: int, area_code: str, *, actor_id: int
+    ) -> None:
+        """Caller holds the professional lock; persist the link with the assignment."""
+        qualifications = list(
+            self._session.scalars(
+                select(ProfessionalSpecialty).where(
+                    ProfessionalSpecialty.profesional_id == professional_id
+                )
+            )
+        )
+        if any(item.especialidad_codigo == area_code for item in qualifications):
+            return
+        primary = not any(item.es_principal for item in qualifications)
+        self._session.add(
+            ProfessionalSpecialty(
+                profesional_id=professional_id,
+                especialidad_codigo=area_code,
+                es_principal=primary,
+            )
+        )
+        self._session.add(
+            AuditLog(
+                usuario_id=actor_id,
+                tabla_nombre="profesional_especialidades",
+                registro_id=professional_id,
+                accion="INSERT",
+                datos_anteriores=None,
+                datos_nuevos={
+                    "profesional_id": professional_id,
+                    "especialidad_codigo": area_code,
+                    "es_principal": primary,
+                    "origen": "asignacion_consultorio",
+                },
             )
         )
 
