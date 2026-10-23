@@ -214,6 +214,7 @@ test('editar conserva servicios y vínculos; solo envía el área si cambió', a
     codigo: 'MED-1',
     nombre: 'Medicina',
     area_codigo: null,
+    consultorio_padre_id: null,
     especialidad_codigo: 'GEN',
     activo: true,
   })
@@ -257,6 +258,7 @@ test('un formulario todavía no montado no envía; un consumidor sin callback pu
     codigo: 'MED',
     nombre: 'Medicina',
     area_codigo: 'MED',
+    consultorio_padre_id: null,
     especialidad_codigo: 'GEN',
     activo: true,
   })
