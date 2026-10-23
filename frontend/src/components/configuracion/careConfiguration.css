@@ -1,0 +1,77 @@
+.care-config {
+  --el-component-size: 36px;
+  --el-color-primary: #1672d2;
+  --el-color-primary-dark-2: #105db0;
+  --el-color-primary-light-3: #5c9fe0;
+  --el-color-primary-light-5: #96c1ec;
+  --el-color-primary-light-7: #bfdcf5;
+  --el-color-primary-light-8: #d6e9fa;
+  --el-color-primary-light-9: #edf6ff;
+  --el-text-color-primary: #243a52;
+  --el-text-color-regular: #344d66;
+  --el-text-color-secondary: #526780;
+  --el-text-color-placeholder: #526780;
+  --el-fill-color-light: #f0f7fe;
+  --el-fill-color-lighter: #f7fbff;
+  --el-border-color-lighter: #e1ecf5;
+  --el-bg-color: #fff;
+  --care-link-color: #1264b2;
+  color: var(--el-text-color-primary);
+  caret-color: var(--el-color-primary);
+}
+.care-config ::selection {
+  color: var(--el-text-color-primary);
+  background: var(--el-color-primary-light-8);
+}
+.app-layout__main:has(.admin-page.care-config) {
+  background: #f3f9ff;
+}
+/* Only administrative dialogs use this lighter backdrop. */
+.care-config-overlay {
+  --el-overlay-color-lighter: rgb(39 83 122 / 18%);
+}
+.care-config-overlay .el-dialog {
+  --el-dialog-box-shadow: 0 16px 48px rgb(27 67 107 / 18%);
+}
+.care-config a {
+  color: var(--care-link-color);
+  text-underline-offset: 3px;
+}
+.care-config a:focus-visible {
+  outline: 2px solid var(--care-link-color);
+  outline-offset: 3px;
+}
+.care-config .el-button:not(.is-link):not(.is-text) {
+  min-height: 36px;
+}
+.care-config h3 {
+  font-size: 18px;
+  line-height: 1.4;
+}
+.care-config .el-checkbox {
+  --el-checkbox-checked-text-color: var(--care-link-color);
+  --el-checkbox-checked-bg-color: var(--care-link-color);
+  --el-checkbox-checked-input-border-color: var(--care-link-color);
+}
+.care-config .el-button--primary.is-link {
+  --el-button-text-color: var(--care-link-color);
+  --el-button-hover-text-color: var(--care-link-color);
+}
+@media (max-width: 600px) {
+  .care-config .el-button:not(.is-link):not(.is-text),
+  .care-config .el-input__wrapper,
+  .care-config .el-select__wrapper {
+    min-height: 44px;
+  }
+}
+.care-config .el-tag--success {
+  color: color-mix(in srgb, var(--el-color-success) 40%, var(--el-text-color-primary));
+}
+.care-config .el-button--primary {
+  --el-button-bg-color: var(--el-color-primary);
+  --el-button-border-color: var(--el-button-bg-color);
+  --el-button-hover-bg-color: #1267c1;
+  --el-button-hover-border-color: var(--el-button-hover-bg-color);
+  --el-button-active-bg-color: var(--el-color-primary-dark-2);
+  --el-button-active-border-color: var(--el-button-active-bg-color);
+}

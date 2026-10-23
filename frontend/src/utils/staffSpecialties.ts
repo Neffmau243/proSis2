@@ -4,7 +4,12 @@ import type { SpecialtyCatalogItem } from '@/services/catalogos'
 export function isStaffSpecialty(item: SpecialtyCatalogItem): boolean {
   if (item.es_area) return true
   const code = item.codigo.toUpperCase()
-  return !['ESP_', 'CERTIFICADO:', 'ESPECIALIDADES:', 'ESPECIALIDADES2:', 'ESPECIALIDADES3:'].some(
-    (prefix) => code.startsWith(prefix),
-  )
+  return ![
+    'SRV-',
+    'ESP_',
+    'CERTIFICADO:',
+    'ESPECIALIDADES:',
+    'ESPECIALIDADES2:',
+    'ESPECIALIDADES3:',
+  ].some((prefix) => code.startsWith(prefix))
 }

@@ -4,11 +4,12 @@ from __future__ import annotations
 
 from datetime import date
 
-from sqlalchemy import or_, select
-from sqlalchemy.orm import Session
+from sqlalchemy import func, or_, select
+from sqlalchemy.orm import Session, selectinload
 
 from app.models.audit import AuditLog
 from app.models.catalog import Specialty
+from app.models.clinical import Attention
 from app.models.organization import Establishment, Office, OfficeProfessional
 from app.models.security import Professional, ProfessionalSpecialty
 
@@ -40,7 +41,7 @@ class OfficeRepository:
         establishment_id: int | None = None,
         include_inactive: bool = False,
     ) -> list[Office]:
-        statement = select(Office)
+        statement = select(Office).options(selectinload(Office.establecimiento))
         if establishment_id is not None:
             statement = statement.where(Office.establecimiento_id == establishment_id)
         if not include_inactive:
@@ -148,6 +149,10 @@ class OfficeRepository:
         return list(
             self._session.scalars(
                 select(OfficeProfessional)
+                .options(
+                    selectinload(OfficeProfessional.profesional),
+                    selectinload(OfficeProfessional.consultorio),
+                )
                 .where(OfficeProfessional.consultorio_id == office_id)
                 .order_by(OfficeProfessional.fecha_inicio.desc(), OfficeProfessional.profesional_id)
             )
@@ -191,6 +196,7 @@ class OfficeRepository:
         professional_id: int,
         start_date: date,
         end_date: date | None,
+        exclude_start: date | None = None,
     ) -> bool:
         """Whether an existing period overlaps the proposed assignment period."""
 
@@ -203,7 +209,42 @@ class OfficeRepository:
         )
         if end_date is not None:
             statement = statement.where(OfficeProfessional.fecha_inicio <= end_date)
+        if exclude_start is not None:
+            statement = statement.where(OfficeProfessional.fecha_inicio != exclude_start)
         return self._session.scalar(statement) is not None
+
+    def period_change_excludes_attention(
+        self, assignment: OfficeProfessional, start: date, end: date | None
+    ) -> bool:
+        """Preserve dates with encounters, including offices inheriting the assignment."""
+        from app.domain.office import office_context
+
+        office_ids = [assignment.consultorio_id]
+        office_ids.extend(
+            office.id
+            for office in self.list_offices(include_inactive=True)
+            if assignment.consultorio_id in office_context(office).ancestor_ids
+        )
+        day = func.date(Attention.fecha_atencion)
+        outside = day < start
+        if end is not None:
+            outside = or_(outside, day > end)
+        statement = select(Attention.id).where(
+            Attention.consultorio_id.in_(office_ids),
+            Attention.profesional_id == assignment.profesional_id,
+            day >= assignment.fecha_inicio,
+            outside,
+        )
+        if assignment.fecha_fin is not None:
+            statement = statement.where(day <= assignment.fecha_fin)
+        if assignment.servicios_codigos is not None:
+            statement = statement.where(
+                or_(
+                    Attention.especialidad_codigo.is_(None),
+                    Attention.especialidad_codigo.in_(assignment.servicios_codigos),
+                )
+            )
+        return self._session.scalar(statement.limit(1)) is not None
 
     def parent_chain_contains(self, *, candidate_parent_id: int, office_id: int) -> bool:
         """Detect a parent/child cycle without relying on a database-specific CTE."""
@@ -231,7 +272,13 @@ class OfficeRepository:
         self._session.add(assignment)
 
     def audit(
-        self, *, actor_id: int, action: str, record_id: int, after: dict[str, object]
+        self,
+        *,
+        actor_id: int,
+        action: str,
+        record_id: int,
+        after: dict[str, object],
+        before: dict[str, object] | None = None,
     ) -> None:
         self._session.add(
             AuditLog(
@@ -239,7 +286,7 @@ class OfficeRepository:
                 tabla_nombre="consultorio_profesionales",
                 registro_id=record_id,
                 accion=action,
-                datos_anteriores=None,
+                datos_anteriores=before,
                 datos_nuevos=after,
             )
         )

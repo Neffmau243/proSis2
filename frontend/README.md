@@ -116,7 +116,9 @@ todavía no se eligió consultorio. Si ya se eligió, se conserva esa sede clín
 | `/cuenta/cambiar-contrasena` | Cambio de contraseña propia y cierre de sesión. |
 | `/configuracion/usuarios` | Solo alta; la API no ofrece lista/detalle de usuarios. |
 | `/configuracion/grupos-etarios` | Lectura y reemplazo de rangos completos. |
-| `/configuracion/profesionales`, `/configuracion/consultorios` | Pantallas pendientes; sí existen APIs administrativas. |
+| `/configuracion/profesionales` | Pantalla pendiente; sí existen APIs administrativas. |
+| `/configuracion/consultorios` | Directorio de consultorios principales, búsqueda y filtros; alta, edición, baja lógica y asignaciones. [Alcance y validación](../docs/CONSULTORIOS_GESTION_20261022.md). |
+| `/configuracion/consultorios/:officeId` | Servicios habilitados y subconsultorios del consultorio seleccionado; gestión con `CONSULTORIO_GESTIONAR`. |
 | `/configuracion/auditoria` | Consulta de auditoría según permisos. |
 | `/laboratorio` | Registro de atenciones en consultorios de laboratorio, búsqueda de pacientes, datos SIS, historial paginado y conteo diario por profesional. Reutiliza el flujo clínico y la impresión SIS de admisión. |
 

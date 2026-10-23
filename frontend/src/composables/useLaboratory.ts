@@ -334,7 +334,14 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
     professionalsLoading.value = true
     try {
       const staff = await allPages((offset) =>
-        catalogos.profesionales(undefined, 100, offset, form.officeId!, form.date.slice(0, 10)),
+        catalogos.profesionales(
+          undefined,
+          100,
+          offset,
+          form.officeId!,
+          form.date.slice(0, 10),
+          form.serviceCode || undefined,
+        ),
       )
       if (request === staffRequest) {
         professionals.value = staff
@@ -355,7 +362,10 @@ export function useLaboratory(canCreate: () => boolean, canRead: () => boolean) 
       form.serviceCode = services.value[0]?.codigo ?? office.value?.especialidad_codigo ?? null
     },
   )
-  watch([() => form.officeId, () => form.date.slice(0, 10)], () => void refreshProfessionals())
+  watch(
+    [() => form.officeId, () => form.serviceCode, () => form.date.slice(0, 10)],
+    () => void refreshProfessionals(),
+  )
 
   watch([() => patient.value?.id, () => form.officeId], () => {
     page.value = 1

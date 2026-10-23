@@ -29,18 +29,43 @@ class OfficeServicesInput(BaseModel):
         )
 
 
-class OfficeAssignmentCreate(BaseModel):
-    profesional_id: int = Field(gt=0)
+class OfficeAssignmentScope(BaseModel):
+    """NULL means all services; an explicit list must never be empty."""
+
+    model_config = ConfigDict(extra="forbid")
+    servicios_codigos: list[Annotated[str, Field(min_length=1, max_length=20)]] | None = None
+
+    @field_validator("servicios_codigos")
+    @classmethod
+    def nonempty_scope(cls, value: list[str] | None) -> list[str] | None:
+        if value == []:
+            raise ValueError("Seleccione al menos un servicio o todos los servicios.")
+        return list(dict.fromkeys(code.strip().upper() for code in value)) if value else None
+
+
+class OfficeAssignmentPeriod(OfficeAssignmentScope):
     fecha_inicio: date
     fecha_fin: date | None = None
     es_responsable: bool = False
-    vincular_area: bool = False
 
     @model_validator(mode="after")
-    def validate_dates(self) -> OfficeAssignmentCreate:
+    def validate_dates(self) -> OfficeAssignmentPeriod:
         if self.fecha_fin is not None and self.fecha_fin < self.fecha_inicio:
             raise ValueError("fecha_fin no puede ser anterior a fecha_inicio")
         return self
+
+
+class OfficeAssignmentCreate(OfficeAssignmentPeriod):
+    profesional_id: int = Field(gt=0)
+    vincular_area: bool = False
+
+
+class OfficeAssignmentUpdate(OfficeAssignmentPeriod):
+    """Edit a period without changing its office or professional identity."""
+
+    fecha_fin: date | None
+    es_responsable: bool
+    servicios_codigos: list[Annotated[str, Field(min_length=1, max_length=20)]] | None
 
 
 class OfficeAssignmentClose(BaseModel):
@@ -55,6 +80,11 @@ class OfficeAssignmentResponse(BaseModel):
     fecha_inicio: date
     fecha_fin: date | None
     es_responsable: bool
+    servicios_codigos: list[str] | None = None
+    profesional_nombre: str | None = None
+    profesional_activo: bool = True
+    consultorio_nombre: str | None = None
+    heredada: bool = False
 
 
 class OfficeCreate(OfficeServicesInput):

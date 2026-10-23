@@ -22,6 +22,11 @@ vi.mock('@/views/PersonalView.vue', stub)
 vi.mock('@/views/AuditoriaView.vue', stub)
 vi.mock('@/views/GruposEtariosView.vue', stub)
 vi.mock('@/views/ConsultoriosView.vue', stub)
+vi.mock('@/views/PacienteEditarView.vue', stub)
+vi.mock('@/views/AreasAtencionView.vue', stub)
+vi.mock('@/views/EstablecimientosView.vue', stub)
+vi.mock('@/views/EstablecimientoDetalleView.vue', stub)
+vi.mock('@/views/ServiciosView.vue', stub)
 
 function session(overrides: Partial<PersistedSession> = {}): PersistedSession {
   return {
@@ -105,13 +110,28 @@ test('un usuario autenticado no vuelve a ver el login', async () => {
   expect(route.name).toBe('inicio')
 })
 
-test('un enlace antiguo de edición redirige al contexto de admisión', async () => {
-  saveSession(session({ permisos: ['PACIENTE_LEER', 'ATENCION_CREAR'] }))
-
+test('admin puede editar pacientes sin permiso de crear atención', async () => {
+  saveSession(session({ permisos: ['PACIENTE_LEER', 'PACIENTE_EDITAR'] }))
   const route = await goTo('/pacientes/42/editar')
+  expect(route.name).toBe('paciente-editar')
+  expect(route.params.id).toBe('42')
+  expect((await goTo('/admision?patientId=42')).name).toBe('inicio')
+})
 
-  expect(route.name).toBe('admision')
-  expect(route.query.patientId).toBe('42')
+test('crear atenciones no concede permiso de editar pacientes', async () => {
+  saveSession(session({ permisos: ['PACIENTE_LEER', 'ATENCION_CREAR'] }))
+  expect((await goTo('/pacientes/42/editar')).name).toBe('inicio')
+})
+
+test.each([
+  '/configuracion/establecimientos',
+  '/configuracion/establecimientos/1',
+  '/configuracion/areas',
+])('la nueva configuración usa los permisos administrativos existentes: %s', async (path) => {
+  saveSession(session({ permisos: ['PACIENTE_LEER'] }))
+  expect((await goTo(path)).name).toBe('inicio')
+  saveSession(session({ permisos: ['PACIENTE_LEER', 'CONSULTORIO_GESTIONAR'] }))
+  expect((await goTo(path)).path).toBe(path)
 })
 
 test('el listado clásico de pacientes conserva su redirección y el título se actualiza', async () => {
@@ -140,7 +160,9 @@ test('la vista unificada exige al menos uno de los permisos de gestión', async 
 })
 
 test('los enlaces antiguos redirigen a la vista unificada con su pestaña', async () => {
-  saveSession(session({ permisos: ['PACIENTE_LEER', 'PROFESIONAL_GESTIONAR', 'USUARIO_GESTIONAR'] }))
+  saveSession(
+    session({ permisos: ['PACIENTE_LEER', 'PROFESIONAL_GESTIONAR', 'USUARIO_GESTIONAR'] }),
+  )
 
   const professionals = await goTo('/configuracion/profesionales')
   expect(professionals.name).toBe('personal')
@@ -148,4 +170,14 @@ test('los enlaces antiguos redirigen a la vista unificada con su pestaña', asyn
   const users = await goTo('/configuracion/usuarios')
   expect(users.name).toBe('personal')
   expect(users.query.tab).toBe('cuentas')
+})
+
+test('el detalle de consultorio exige el mismo permiso que el directorio', async () => {
+  saveSession(session({ permisos: ['PACIENTE_LEER'] }))
+  expect((await goTo('/configuracion/consultorios/1')).name).toBe('inicio')
+  saveSession(session({ permisos: ['CONSULTORIO_GESTIONAR'] }))
+  const detail = await goTo('/configuracion/consultorios/1')
+  expect(detail.name).toBe('consultorio-servicios')
+  expect(detail.params.officeId).toBe('1')
+  expect(document.title).toBe('Servicios del consultorio · Sistema de Salud IPRESS')
 })

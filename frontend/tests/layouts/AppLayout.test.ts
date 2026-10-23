@@ -41,6 +41,11 @@ async function mountLayout(permissions: string[], path = '/') {
       { path: '/login', name: 'login', component: stub, meta: { title: 'Iniciar sesión' } },
       { path: '/pacientes/nuevo', name: 'paciente-nuevo', component: stub },
       { path: '/pacientes/:id', name: 'paciente-detalle', component: stub },
+      { path: '/pacientes/:id/editar', name: 'paciente-editar', component: stub },
+      { path: '/configuracion/establecimientos', component: stub },
+      { path: '/configuracion/areas', component: stub },
+      { path: '/configuracion/consultorios', component: stub },
+      { path: '/configuracion/servicios', component: stub },
       { path: '/admision', name: 'admision', component: stub },
       { path: '/laboratorio', name: 'laboratorio', component: stub },
       { path: '/cuenta/cambiar-contrasena', name: 'cambiar-contrasena', component: stub },
@@ -88,7 +93,7 @@ test('el menú se arma con permisos, no con roles escritos', async () => {
   const { wrapper } = await mountLayout(['PACIENTE_LEER', 'ATENCION_LEER', 'ATENCION_CREAR'])
   const links = wrapper.findAll('.side__link').map((item) => item.text())
 
-  expect(links).toEqual(['Base de datos'])
+  expect(links).toEqual(['Pacientes'])
   expect(wrapper.text()).not.toContain('Clínico')
   expect(wrapper.text()).not.toContain('Historial de atenciones')
   expect(wrapper.text()).not.toContain('Nueva atención')
@@ -113,11 +118,14 @@ test('los permisos administrativos revelan sus secciones y la corrección de dat
   const links = wrapper.findAll('.side__link').map((item) => item.text())
 
   expect(links).toEqual([
-    'Base de datos',
+    'Pacientes',
+    'Establecimientos',
+    'Áreas de atención',
+    'Consultorios',
+    'Servicios / especialidades',
     'Personal y cuentas',
     'Auditoría',
     'Grupos etarios',
-    'Consultorios',
   ])
   expect(wrapper.text()).toContain('Paciente nuevo')
   // OCULTO temporalmente: el botón "Modificar datos" está comentado en el layout.
@@ -159,16 +167,17 @@ test('ver paciente navega al destino documentado', async () => {
   await flushPromises()
   expect(router.currentRoute.value.name).toBe('paciente-detalle')
   expect(router.currentRoute.value.params.id).toBe('77')
+})
 
-  // OCULTO temporalmente: "Modificar datos" está comentado en el layout.
-  // router.push('/')
-  // await flushPromises()
-  // await flushPromises()
-  // await button(wrapper, 'Modificar datos').trigger('click')
-  // await flushPromises()
-  // await flushPromises()
-  // expect(router.currentRoute.value.name).toBe('admision')
-  // expect(router.currentRoute.value.query.patientId).toBe('77')
+test('el administrador edita al paciente sin entrar a Admisión', async () => {
+  const { wrapper, router } = await mountLayout(['PACIENTE_LEER', 'PACIENTE_EDITAR'])
+  usePacienteSeleccionado().seleccionar(patient)
+  await flushPromises()
+  await button(wrapper, 'Editar paciente').trigger('click')
+  await flushPromises()
+  expect(router.currentRoute.value.name).toBe('paciente-editar')
+  expect(router.currentRoute.value.params.id).toBe('77')
+  expect(wrapper.findAll('button').some((item) => item.text() === 'Admisión')).toBe(false)
 })
 
 test('la admisión exige un paciente y viaja con su identificador', async () => {

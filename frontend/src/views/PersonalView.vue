@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <div class="page-header">
-      <h2>Personal y cuentas</h2>
-      <el-button @click="router.back()">Volver</el-button>
-    </div>
+  <AdminPageLayout>
+    <AdminPageHeader title="Personal y cuentas" />
 
     <el-alert
       v-if="errorMessage"
@@ -13,45 +10,45 @@
       class="form-alert"
     />
 
-    <el-card>
-      <el-tabs v-model="activeTab">
-        <el-tab-pane v-if="canProfessionals" label="Profesionales" name="profesionales">
-          <ProfessionalsPanel
-            :rows="professionals"
-            :loading="loadingProfessionals"
-            :incluir-inactivos="incluirInactivosProfesionales"
-            :linked-professional-ids="linkedProfessionalIds"
-            :can-create-account="canUsers"
-            :catalog-revision="catalogRevision"
-            @refresh="loadProfessionals"
-            @update:incluir-inactivos="incluirInactivosProfesionales = $event"
-            @create-account="createAccountFor"
-          />
-        </el-tab-pane>
+    <el-tabs v-model="activeTab">
+      <el-tab-pane v-if="canProfessionals" label="Profesionales" name="profesionales">
+        <ProfessionalsPanel
+          :rows="professionals"
+          :loading="loadingProfessionals"
+          :incluir-inactivos="incluirInactivosProfesionales"
+          :linked-professional-ids="linkedProfessionalIds"
+          :can-create-account="canUsers"
+          :catalog-revision="catalogRevision"
+          @refresh="loadProfessionals"
+          @update:incluir-inactivos="incluirInactivosProfesionales = $event"
+          @create-account="createAccountFor"
+        />
+      </el-tab-pane>
 
-        <el-tab-pane v-if="canUsers" label="Cuentas de usuario" name="cuentas">
-          <UsersPanel
-            :rows="users"
-            :loading="loadingUsers"
-            :incluir-inactivos="incluirInactivosUsuarios"
-            :professionals="professionals"
-            :prefill-professional-id="prefillProfessionalId"
-            @refresh="loadUsers"
-            @update:incluir-inactivos="incluirInactivosUsuarios = $event"
-            @consume-prefill="prefillProfessionalId = null"
-          />
-        </el-tab-pane>
-        <el-tab-pane v-if="canProfessionals" label="Profesiones" name="catalogos" lazy>
-          <StaffCatalogsPanel kind="profesion" @created="catalogRevision++" />
-        </el-tab-pane>
-      </el-tabs>
-    </el-card>
-  </div>
+      <el-tab-pane v-if="canUsers" label="Cuentas de usuario" name="cuentas">
+        <UsersPanel
+          :rows="users"
+          :loading="loadingUsers"
+          :incluir-inactivos="incluirInactivosUsuarios"
+          :professionals="professionals"
+          :prefill-professional-id="prefillProfessionalId"
+          @refresh="loadUsers"
+          @update:incluir-inactivos="incluirInactivosUsuarios = $event"
+          @consume-prefill="prefillProfessionalId = null"
+        />
+      </el-tab-pane>
+      <el-tab-pane v-if="canProfessionals" label="Profesiones" name="catalogos" lazy>
+        <StaffCatalogsPanel kind="profesion" @created="catalogRevision++" />
+      </el-tab-pane>
+    </el-tabs>
+  </AdminPageLayout>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
+import AdminPageLayout from '@/components/configuracion/AdminPageLayout.vue'
+import AdminPageHeader from '@/components/configuracion/AdminPageHeader.vue'
 
 import ProfessionalsPanel from '@/components/configuracion/ProfessionalsPanel.vue'
 import UsersPanel from '@/components/configuracion/UsersPanel.vue'
@@ -63,7 +60,6 @@ import { useAuthStore } from '@/stores/auth'
 type TabName = 'profesionales' | 'cuentas' | 'catalogos'
 
 const route = useRoute()
-const router = useRouter()
 const auth = useAuthStore()
 
 const canProfessionals = computed(() => auth.hasPermission('PROFESIONAL_GESTIONAR'))
@@ -138,17 +134,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.page-header h2 {
-  margin: 0;
-}
-
 .form-alert {
   margin-bottom: 16px;
 }

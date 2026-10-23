@@ -1,4 +1,12 @@
 import http from './http'
+import type { CodeCatalogItem } from './catalogos'
+
+export type OfficeServiceAdd =
+  { codigo: string; nombre?: never } | { nombre: string; codigo?: never }
+export interface OfficeServiceAdded {
+  consultorio: OfficeResponse
+  servicio: CodeCatalogItem
+}
 
 export interface OfficeResponse {
   id: number
@@ -41,6 +49,11 @@ export interface OfficeAssignmentResponse {
   fecha_inicio: string
   fecha_fin: string | null
   es_responsable: boolean
+  servicios_codigos?: string[] | null
+  profesional_nombre?: string | null
+  profesional_activo?: boolean
+  consultorio_nombre?: string | null
+  heredada?: boolean
 }
 
 export interface OfficeAssignmentCreatePayload {
@@ -49,6 +62,7 @@ export interface OfficeAssignmentCreatePayload {
   fecha_fin?: string | null
   es_responsable: boolean
   vincular_area?: boolean
+  servicios_codigos?: string[] | null
 }
 
 export interface OfficeListParams {
@@ -56,7 +70,27 @@ export interface OfficeListParams {
   incluirInactivos?: boolean
 }
 
+export interface OfficeAssignmentUpdatePayload {
+  fecha_inicio: string
+  fecha_fin: string | null
+  es_responsable: boolean
+  servicios_codigos: string[] | null
+}
+
 export const consultorios = {
+  async listServices(officeId: number): Promise<CodeCatalogItem[]> {
+    const { data } = await http.get<CodeCatalogItem[]>(
+      `/configuracion/consultorios/${officeId}/servicios`,
+    )
+    return data
+  },
+  async addService(officeId: number, payload: OfficeServiceAdd): Promise<OfficeServiceAdded> {
+    const { data } = await http.post<OfficeServiceAdded>(
+      `/configuracion/consultorios/${officeId}/servicios`,
+      payload,
+    )
+    return data
+  },
   /** `incluir_inactivos` y `establecimiento_id` son los únicos filtros del backend. */
   async list(params: OfficeListParams = {}): Promise<OfficeResponse[]> {
     const query: Record<string, unknown> = {}
@@ -83,10 +117,45 @@ export const consultorios = {
     const { data } = await http.delete<OfficeResponse>(`/configuracion/consultorios/${id}`)
     return data
   },
+  async reactivate(id: number): Promise<OfficeResponse> {
+    const { data } = await http.post<OfficeResponse>(`/configuracion/consultorios/${id}/reactivar`)
+    return data
+  },
   /** Puede devolver `[]`: sin asignaciones históricas no es un error. */
-  async listAssignments(officeId: number): Promise<OfficeAssignmentResponse[]> {
+  async listAssignments(
+    officeId: number,
+    options?: { includeInherited?: boolean; serviceCode?: string },
+  ): Promise<OfficeAssignmentResponse[]> {
     const { data } = await http.get<OfficeAssignmentResponse[]>(
       `/configuracion/consultorios/${officeId}/profesionales`,
+      {
+        params: options
+          ? {
+              incluir_heredados: options.includeInherited,
+              servicio_codigo: options.serviceCode,
+            }
+          : undefined,
+      },
+    )
+    return data
+  },
+  async updateAssignmentServices(
+    assignment: OfficeAssignmentResponse,
+    services: string[] | null,
+  ): Promise<OfficeAssignmentResponse> {
+    const { data } = await http.patch<OfficeAssignmentResponse>(
+      `/configuracion/consultorios/${assignment.consultorio_id}/profesionales/${assignment.profesional_id}/${assignment.fecha_inicio}/servicios`,
+      { servicios_codigos: services },
+    )
+    return data
+  },
+  async updateAssignment(
+    assignment: OfficeAssignmentResponse,
+    payload: OfficeAssignmentUpdatePayload,
+  ): Promise<OfficeAssignmentResponse> {
+    const { data } = await http.patch<OfficeAssignmentResponse>(
+      `/configuracion/consultorios/${assignment.consultorio_id}/profesionales/${assignment.profesional_id}/${assignment.fecha_inicio}`,
+      payload,
     )
     return data
   },

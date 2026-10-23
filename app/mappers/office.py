@@ -26,4 +26,8 @@ def office_to_response(entity: Office, specialties: dict[str, str] | None = None
 
 
 def office_assignment_to_response(entity: OfficeProfessional) -> OfficeAssignmentResponse:
-    return OfficeAssignmentResponse.model_validate(entity)
+    response = OfficeAssignmentResponse.model_validate(entity)
+    response.profesional_nombre = entity.profesional.nombre_completo if entity.profesional else None
+    response.profesional_activo = bool(entity.profesional and entity.profesional.activo)
+    response.consultorio_nombre = entity.consultorio.nombre if entity.consultorio else None
+    return response

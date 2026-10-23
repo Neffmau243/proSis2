@@ -13,6 +13,11 @@
       </div>
       <div class="patient-actions">
         <el-button
+          v-if="can('PACIENTE_EDITAR') && patient?.estado"
+          @click="router.push({ name: 'paciente-editar', params: { id: patient.id } })"
+          >Editar datos</el-button
+        >
+        <el-button
           v-if="can('PACIENTE_DAR_BAJA') && patient?.estado"
           type="danger"
           plain
@@ -146,7 +151,13 @@
             <el-table-column prop="fecha_proximo_control" label="Próximo control" width="140" />
             <el-table-column label="Origen" min-width="150">
               <template #default="{ row }">
-                {{ row.atencion_origen_id ? `Atención #${row.atencion_origen_id}` : row.confirmado_por_usuario_id ? 'Evaluación profesional' : 'Registro previo' }}
+                {{
+                  row.atencion_origen_id
+                    ? `Atención #${row.atencion_origen_id}`
+                    : row.confirmado_por_usuario_id
+                      ? 'Evaluación profesional'
+                      : 'Registro previo'
+                }}
               </template>
             </el-table-column>
             <el-table-column prop="motivo_cierre" label="Motivo de cierre" min-width="160" />

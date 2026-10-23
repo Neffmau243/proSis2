@@ -23,12 +23,18 @@ def catalog_rows(db_session: Session) -> dict[str, str]:
     """One extra row per catalog, distinguishable through a unique token."""
 
     token = uuid4().hex[:8].upper()
-    db_session.add(Specialty(codigo=f"E{token[:6]}", nombre=f"Especialidad {token}", grupo="CLINICA"))
+    db_session.add(
+        Specialty(codigo=f"E{token[:6]}", nombre=f"Especialidad {token}", grupo="CLINICA")
+    )
     db_session.add(
         ServiceOffering(codigo=f"P{token[:6]}", descripcion=f"Prestación {token}", grupo="CONSULTA")
     )
-    db_session.add(Cie10(codigo=f"Z{token[:4]}", descripcion=f"Diagnóstico {token}", categoria="GENERAL"))
-    db_session.add(Cie10(codigo=f"Y{token[:4]}", descripcion=f"Otro diagnóstico {token}", categoria="GENERAL"))
+    db_session.add(
+        Cie10(codigo=f"Z{token[:4]}", descripcion=f"Diagnóstico {token}", categoria="GENERAL")
+    )
+    db_session.add(
+        Cie10(codigo=f"Y{token[:4]}", descripcion=f"Otro diagnóstico {token}", categoria="GENERAL")
+    )
     db_session.add(Profession(nombre=f"Profesión {token}"))
     db_session.add(RiskGroup(codigo=f"R{token[:6]}", nombre=f"Riesgo {token}"))
     db_session.add(
@@ -62,7 +68,15 @@ def test_simple_catalogs_return_seeded_reference_values(
 
     specialties = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/especialidades")
     assert specialties.status_code == 200
-    assert {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"} == set(specialties.json()[0])
+    assert {
+        "codigo",
+        "nombre",
+        "activo",
+        "grupo",
+        "es_area",
+        "es_area_base",
+        "area_codigos",
+    } == set(specialties.json()[0])
 
     risk_groups = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/grupos-riesgo")
     assert risk_groups.status_code == 200
@@ -85,8 +99,7 @@ def test_age_group_catalog_exposes_month_boundaries(clinic_scene, api_prefix) ->
     assert response.status_code == 200
     body = response.json()
     ranges = {
-        item["codigo"]: (item["edad_minima_meses"], item["edad_maxima_meses"])
-        for item in body
+        item["codigo"]: (item["edad_minima_meses"], item["edad_maxima_meses"]) for item in body
     }
     assert ranges == {
         "NINO": (0, 143),
@@ -108,7 +121,10 @@ def test_paginated_catalogs_accept_a_search_term(
     # ``especialidades`` and ``grupos-riesgo`` are complete lists: they are
     # short enough to render every option at once.
     list_cases = {
-        "/catalogos/especialidades": (f"Especialidad {token}", {"codigo", "nombre", "activo", "grupo", "es_area", "area_codigos"}),
+        "/catalogos/especialidades": (
+            f"Especialidad {token}",
+            {"codigo", "nombre", "activo", "grupo", "es_area", "es_area_base", "area_codigos"},
+        ),
         "/catalogos/grupos-riesgo": (
             f"Riesgo {token}",
             {"id", "codigo", "nombre", "activo", "descripcion", "tipo"},
@@ -142,9 +158,7 @@ def test_paginated_catalogs_accept_a_search_term(
         assert body["has_more"] is False
 
     # A filter that matches nothing is still a valid, empty page.
-    empty = clinic_scene.admin_client.get(
-        f"{api_prefix}/catalogos/cie10", params={"q": "ZZZZNADA"}
-    )
+    empty = clinic_scene.admin_client.get(f"{api_prefix}/catalogos/cie10", params={"q": "ZZZZNADA"})
     assert empty.status_code == 200
     assert empty.json()["items"] == []
     assert empty.json()["total"] == 0
@@ -172,9 +186,7 @@ def test_catalog_pagination_walks_pages_without_repeating(
     assert second.json()["items"][0]["codigo"] != body["items"][0]["codigo"]
 
 
-def test_family_history_catalog_exposes_seeded_prefix_metadata(
-    clinic_scene, api_prefix
-) -> None:
+def test_family_history_catalog_exposes_seeded_prefix_metadata(clinic_scene, api_prefix) -> None:
     """The selector catalog is stable even before any patient uses a prefix."""
 
     response = clinic_scene.admin_client.get(
@@ -213,7 +225,9 @@ def test_catalog_filters_validate_their_ranges(clinic_scene, api_prefix) -> None
         assert response.status_code == 422, params
         assert response.json()["error"]["code"] == "REQUEST_VALIDATION_ERROR"
 
-    invalid_office = client.get(f"{api_prefix}/catalogos/consultorios", params={"establecimiento_id": 0})
+    invalid_office = client.get(
+        f"{api_prefix}/catalogos/consultorios", params={"establecimiento_id": 0}
+    )
     assert invalid_office.status_code == 422
 
     # An unknown establishment simply yields an empty page.

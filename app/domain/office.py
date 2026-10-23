@@ -6,6 +6,7 @@ working. Esp_* identifies services, never a physical room or a qualification.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Any
 
@@ -64,6 +65,25 @@ def default_services(area: str | None) -> tuple[str, ...]:
     return (*AREA_SERVICES.get(area, ()), area)
 
 
+CUSTOM_SERVICE_GROUP = "SERVICIO_AREA:"
+
+
+def is_custom_service(code: str) -> bool:
+    return bool(re.fullmatch(r"SRV-[0-9A-F]{16}", code))
+
+
+def custom_service_area(entity: Any) -> str | None:
+    group = getattr(entity, "grupo", None)
+    code = getattr(entity, "codigo", "")
+    if isinstance(code, str) and is_custom_service(code) and isinstance(group, str):
+        return (
+            group.removeprefix(CUSTOM_SERVICE_GROUP)
+            if group.startswith(CUSTOM_SERVICE_GROUP)
+            else None
+        )
+    return None
+
+
 @dataclass(frozen=True)
 class OfficeContext:
     area_code: str | None
@@ -106,9 +126,18 @@ def office_context(office: Any) -> OfficeContext:
         active = False
     services = default_services(area)
     # Parent constraints apply even if a child explicitly narrows its services.
-    for item in reversed(chain):
+    for index, item in enumerate(reversed(chain)):
         configured = getattr(item, "servicios_codigos", None)
         if configured is not None:
+            # Only a root may enable registered custom services. Descendants
+            # still intersect their parent's whitelist; configuration writes
+            # validate the catalog identity and area before persisting it.
+            if index == 0:
+                services = tuple(
+                    dict.fromkeys(
+                        (*services, *(code for code in configured if is_custom_service(code)))
+                    )
+                )
             services = tuple(code for code in services if code in configured)
     return OfficeContext(
         area,

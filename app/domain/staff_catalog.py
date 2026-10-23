@@ -15,7 +15,7 @@ def is_staff_specialty_code(code: str) -> bool:
     if normalized in AREA_NAMES:
         return True
     return not normalized.startswith(
-        ("ESP_", "CERTIFICADO:", "ESPECIALIDADES:", "ESPECIALIDADES2:", "ESPECIALIDADES3:")
+        ("SRV-", "ESP_", "CERTIFICADO:", "ESPECIALIDADES:", "ESPECIALIDADES2:", "ESPECIALIDADES3:")
     )
 
 

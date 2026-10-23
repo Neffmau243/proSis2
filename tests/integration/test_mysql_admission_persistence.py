@@ -9,8 +9,9 @@ from sqlalchemy import select
 
 from app.models.catalog import Insurance, Specialty
 from app.models.clinical import Attention
-from app.models.organization import Localidad
+from app.models.organization import Localidad, Office
 from app.models.patient import Patient
+from app.models.security import ProfessionalSpecialty
 
 pytestmark = pytest.mark.integration
 
@@ -34,8 +35,19 @@ def test_admission_patient_measurements_and_insurance_survive_reload(
         nombre=f"LOCALIDAD {token}",
         nombre_norm=f"LOCALIDAD {token}",
     )
-    specialty = Specialty(codigo=token, nombre=f"Especialidad {token}")
+    specialty = Specialty(codigo=token, nombre=f"Especialidad {token}", es_area=True)
     db_session.add_all([locality, specialty])
+    # Use the same explicit office/service qualification required by admission.
+    office = db_session.get(Office, clinic_scene.consultorio_id)
+    office.area_codigo = specialty.codigo
+    office.servicios_codigos = [specialty.codigo]
+    db_session.add(
+        ProfessionalSpecialty(
+            profesional_id=clinic_scene.profesional_id,
+            especialidad_codigo=specialty.codigo,
+            es_principal=True,
+        )
+    )
     db_session.commit()
     original = create_patient(client, seguro_id=plans["SIS_GRATUITO"].id)
     patient_url = f"{api_prefix}/patients/{original['id']}"

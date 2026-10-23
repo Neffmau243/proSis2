@@ -153,6 +153,7 @@ class CatalogService:
         offset: int,
         office_id: int | None = None,
         on_date: date | None = None,
+        service_code: str | None = None,
     ) -> PageResponse[ProfessionalCatalogItem]:
         page = self._repository.page_professionals(
             query=self._normalized_query(query),
@@ -160,6 +161,7 @@ class CatalogService:
             offset=offset,
             office_id=office_id,
             on_date=on_date,
+            **({"service_code": service_code} if service_code is not None else {}),
         )
         return self._page(page, professional_to_catalog_item, limit=limit, offset=offset)
 

@@ -19,6 +19,7 @@ from app.models.security import Professional, ProfessionalSpecialty
 from app.models.surveillance import NutritionalEvaluation
 from app.repositories.attention_scope import attention_visibility
 from app.repositories.clinical_access import ClinicalAccessRepository
+from app.repositories.office_eligibility import eligible_professional_ids
 
 
 class AttentionRepository:
@@ -141,7 +142,13 @@ class AttentionRepository:
             select(Office).where(Office.id == office_id, Office.activo.is_(True))
         )
 
-    def professional_is_assigned(self, office: Office, professional_id: int, on_date: date) -> bool:
+    def professional_is_assigned(
+        self, office: Office, professional_id: int, on_date: date, service_code: str | None = None
+    ) -> bool:
+        if service_code is not None:
+            return professional_id in eligible_professional_ids(
+                self._session, office, on_date, service_code
+            )
         context = office_context(office)
         return (
             self._session.scalar(

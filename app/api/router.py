@@ -15,7 +15,6 @@ from fastapi import APIRouter
 
 from app.api.contracts import documented_error_responses
 
-
 # Every operation documents the exact envelope emitted by the centralized
 # exception handlers.  ``APIRouter`` applies these responses while composing
 # feature routers, so their OpenAPI model fields are built correctly too.
@@ -85,3 +84,5 @@ include_optional_feature_router("app.controllers.document")
 include_optional_feature_router("app.controllers.office")
 include_optional_feature_router("app.controllers.professional")
 include_optional_feature_router("app.controllers.staff_catalog")
+include_optional_feature_router("app.controllers.care_service")
+include_optional_feature_router("app.controllers.care_configuration")

@@ -1,12 +1,24 @@
 <template>
   <el-container class="app-layout" @keydown.esc="mobileMenuOpen = false">
-    <el-button class="mobile-menu-toggle" :aria-expanded="mobileMenuOpen" aria-controls="app-navigation" @click="mobileMenuOpen = !mobileMenuOpen">
+    <el-button
+      class="mobile-menu-toggle"
+      :aria-expanded="mobileMenuOpen"
+      aria-controls="app-navigation"
+      @click="mobileMenuOpen = !mobileMenuOpen"
+    >
       {{ mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú' }}
     </el-button>
-    <el-aside id="app-navigation" width="264px" class="side" :class="{ 'side--mobile-open': mobileMenuOpen }">
+    <el-aside
+      id="app-navigation"
+      width="264px"
+      class="side"
+      :class="{ 'side--mobile-open': mobileMenuOpen }"
+    >
       <!-- Marca -->
       <div class="side__brand">
-        <span class="side__logo"><el-icon><FirstAidKit /></el-icon></span>
+        <span class="side__logo"
+          ><el-icon><FirstAidKit /></el-icon
+        ></span>
         <span class="side__brand-text">
           <span class="side__brand-name">IPRESS</span>
           <span class="side__brand-sub">Sistema de Salud</span>
@@ -34,17 +46,14 @@
             <el-icon><View /></el-icon>
             <span>Ver paciente</span>
           </el-button>
-          <!-- OCULTO temporalmente para revisión visual: descomentar para restaurar.
           <el-button
-            v-if="puedeModificarDatos"
+            v-if="can('PACIENTE_EDITAR')"
             class="side__patient-action"
-            :disabled="!seleccionado"
+            :disabled="!seleccionado?.estado"
             @click="modificarDatos"
           >
-            <el-icon><EditPen /></el-icon>
-            <span>Modificar datos</span>
+            <el-icon><EditPen /></el-icon><span>Editar paciente</span>
           </el-button>
-          -->
           <el-button
             v-if="can('PACIENTE_DAR_BAJA')"
             class="side__patient-action side__patient-action--danger"
@@ -111,7 +120,11 @@
           </span>
         </div>
         <div class="side__session">
-          <el-button class="side__session-btn" title="Cambiar contraseña" @click="cambiarContrasena">
+          <el-button
+            class="side__session-btn"
+            title="Cambiar contraseña"
+            @click="cambiarContrasena"
+          >
             <el-icon><Lock /></el-icon>
             <span>Contraseña</span>
           </el-button>
@@ -160,7 +173,12 @@ interface NavItem {
 
 const route = useRoute()
 const mobileMenuOpen = ref(false)
-watch(() => route.fullPath, () => { mobileMenuOpen.value = false })
+watch(
+  () => route.fullPath,
+  () => {
+    mobileMenuOpen.value = false
+  },
+)
 const router = useRouter()
 const auth = useAuthStore()
 const { seleccionado, seleccionar, notificarCambio } = usePacienteSeleccionado()
@@ -197,7 +215,7 @@ const navSections = computed(() => {
   if (can('PACIENTE_LEER')) {
     main.push({
       to: '/',
-      label: 'Base de datos',
+      label: 'Pacientes',
       icon: 'Grid',
       match: (path) => path === '/' || path.startsWith('/pacientes'),
     })
@@ -213,15 +231,33 @@ const navSections = computed(() => {
   if (canAny(['PROFESIONAL_GESTIONAR', 'USUARIO_GESTIONAR'])) {
     admin.push({ to: '/configuracion/personal', label: 'Personal y cuentas', icon: 'UserFilled' })
   }
-  if (can('AUDITORIA_LEER')) admin.push({ to: '/configuracion/auditoria', label: 'Auditoría', icon: 'DataLine' })
+  if (can('AUDITORIA_LEER'))
+    admin.push({ to: '/configuracion/auditoria', label: 'Auditoría', icon: 'DataLine' })
   if (admin.length) sections.push({ title: 'Administración', items: admin })
 
+  const care: NavItem[] = []
+  if (can('CONSULTORIO_GESTIONAR')) {
+    care.push(
+      {
+        to: '/configuracion/establecimientos',
+        label: 'Establecimientos',
+        icon: 'OfficeBuilding',
+        match: (path) => path.startsWith('/configuracion/establecimientos'),
+      },
+      { to: '/configuracion/areas', label: 'Áreas de atención', icon: 'Collection' },
+      {
+        to: '/configuracion/consultorios',
+        label: 'Consultorios',
+        icon: 'OfficeBuilding',
+        match: (path) => path.startsWith('/configuracion/consultorios'),
+      },
+      { to: '/configuracion/servicios', label: 'Servicios / especialidades', icon: 'Collection' },
+    )
+  }
+  if (care.length) sections.splice(1, 0, { title: 'Configuración de atención', items: care })
   const config: NavItem[] = []
   if (can('GRUPO_ETARIO_CONFIGURAR')) {
     config.push({ to: '/configuracion/grupos-etarios', label: 'Grupos etarios', icon: 'Odometer' })
-  }
-  if (can('CONSULTORIO_GESTIONAR')) {
-    config.push({ to: '/configuracion/consultorios', label: 'Consultorios', icon: 'OfficeBuilding' })
   }
   if (config.length) sections.push({ title: 'Configuración', items: config })
 
@@ -244,20 +280,15 @@ function isActive(item: NavItem): boolean {
 /** Solo se ofrece la baja de un paciente activo y con el permiso explícito. */
 const puedeDarBaja = computed(() => Boolean(seleccionado.value?.estado) && can('PACIENTE_DAR_BAJA'))
 
-// OCULTO temporalmente junto con el botón "Modificar datos" (revisión visual).
-// /**
-//  * La corrección de datos del paciente vive en el contexto de admisión, por lo
-//  * que además de editar el paciente hace falta el permiso clínico de esa ruta
-//  * (ver el redirect de `pacientes/:id/editar` en el router).
-//  */
-// const puedeModificarDatos = computed(() => can('PACIENTE_EDITAR') && can('ATENCION_CREAR'))
-
 function nuevoPaciente(): void {
   router.push({ name: 'paciente-nuevo' })
 }
 
 function irLaboratorio(): void {
-  router.push({ name: 'laboratorio', query: seleccionado.value ? { paciente_id: seleccionado.value.id } : {} })
+  router.push({
+    name: 'laboratorio',
+    query: seleccionado.value ? { paciente_id: seleccionado.value.id } : {},
+  })
 }
 
 function verPaciente(): void {
@@ -266,13 +297,10 @@ function verPaciente(): void {
   router.push({ name: 'paciente-detalle', params: { id: patient.id } })
 }
 
-// OCULTO temporalmente junto con el botón "Modificar datos" (revisión visual).
-// function modificarDatos(): void {
-//   const patient = seleccionado.value
-//   if (!patient) return
-//   // La corrección de datos del paciente vive en el contexto de admisión (ver router).
-//   router.push({ name: 'admision', query: { patientId: String(patient.id) } })
-// }
+function modificarDatos(): void {
+  if (seleccionado.value?.estado && can('PACIENTE_EDITAR'))
+    void router.push({ name: 'paciente-editar', params: { id: seleccionado.value.id } })
+}
 
 async function borrarPaciente(): Promise<void> {
   const patient = seleccionado.value
@@ -290,7 +318,6 @@ async function borrarPaciente(): Promise<void> {
     const result = await pacientes.deactivate(patient.id)
     ElMessage.success(result.mensaje)
     seleccionar(null)
-    // La tabla Base de datos vuelve a consultar al ver cambiar la versión.
     notificarCambio()
   } catch (error) {
     ElMessage.error(error instanceof Error ? error.message : 'No se pudo dar de baja.')
@@ -321,16 +348,41 @@ function cambiarContrasena(): void {
   height: 100%;
 }
 
-.app-layout__content { min-width: 0; min-height: 0; }
-.mobile-menu-toggle { display: none; }
+.app-layout__content {
+  min-width: 0;
+  min-height: 0;
+}
+.mobile-menu-toggle {
+  display: none;
+}
 
 @media (max-width: 680px) {
-  .app-layout { flex-direction: column; }
-  .mobile-menu-toggle { display: flex; flex-shrink: 0; min-height: 44px; margin: 0; }
-  .app-layout .side { display: none; width: 100%; max-height: 45vh; flex-shrink: 0; overflow-y: auto; }
-  .app-layout .side--mobile-open { display: flex; }
-  .app-layout .side > * { flex-shrink: 0; }
-  .app-layout .side__nav { flex: none; overflow: visible; }
+  .app-layout {
+    flex-direction: column;
+  }
+  .mobile-menu-toggle {
+    display: flex;
+    flex-shrink: 0;
+    min-height: 44px;
+    margin: 0;
+  }
+  .app-layout .side {
+    display: none;
+    width: 100%;
+    max-height: 45vh;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+  .app-layout .side--mobile-open {
+    display: flex;
+  }
+  .app-layout .side > * {
+    flex-shrink: 0;
+  }
+  .app-layout .side__nav {
+    flex: none;
+    overflow: visible;
+  }
 }
 
 /* ---------- Barra lateral ---------- */

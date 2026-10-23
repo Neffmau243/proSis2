@@ -3,25 +3,22 @@
 from __future__ import annotations
 
 from collections.abc import Callable
-from datetime import date, timedelta
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.domain.office import AREA_SERVICES, default_services, office_context
+from app.domain.office import AREA_SERVICES, custom_service_area, default_services, office_context
 from app.domain.staff_catalog import is_care_area, is_staff_specialty_code
 from app.exceptions import BusinessRuleError, ConflictError, NotFoundError
-from app.mappers.office import office_assignment_to_response, office_to_response
-from app.models.organization import Office, OfficeProfessional
+from app.mappers.office import office_to_response
+from app.models.organization import Office
 from app.repositories.office import OfficeRepository
 from app.schemas.office import (
-    OfficeAssignmentClose,
-    OfficeAssignmentCreate,
-    OfficeAssignmentResponse,
     OfficeCreate,
     OfficeResponse,
     OfficeUpdate,
 )
+from app.services.office_assignment import OfficeAssignmentService as OfficeAssignmentService
 
 
 class OfficeService:
@@ -80,7 +77,7 @@ class OfficeService:
                 office.padre = self._repository.get_by_id(command.consultorio_padre_id)
             self._repository.add_office(office)
             with self._session.no_autoflush:
-                self._validate_configuration(office)
+                self.validate_configuration(office)
             self._session.flush()
             self._record_audit(
                 actor_id=actor_id,
@@ -88,8 +85,9 @@ class OfficeService:
                 office=office,
                 before=None,
             )
+            response = office_to_response(office, self._repository.active_specialties())
             self._session.commit()
-            return office_to_response(office, self._repository.active_specialties())
+            return response
         except IntegrityError as exc:
             self._session.rollback()
             raise ConflictError(
@@ -107,7 +105,7 @@ class OfficeService:
                 raise NotFoundError(
                     code="CONSULTORIO_NO_ENCONTRADO", message="No existe el consultorio solicitado."
                 )
-            before = self._snapshot(office)
+            before = self.snapshot(office)
             changes = command.model_dump(exclude_unset=True)
             parent_id = changes.get("consultorio_padre_id", office.consultorio_padre_id)
             specialty_code = changes.get("especialidad_codigo", office.especialidad_codigo)
@@ -121,18 +119,19 @@ class OfficeService:
                 setattr(office, field, value)
             if "consultorio_padre_id" in changes:
                 office.padre = self._repository.get_by_id(parent_id) if parent_id else None
-            self._validate_configuration(office)
+            self.validate_configuration(office)
             # Revalidate descendants whose inherited area/services/qualification changed.
             for descendant in self._repository.list_offices(
                 establishment_id=office.establecimiento_id,
                 include_inactive=True,
             ):
                 if office.id in office_context(descendant).ancestor_ids:
-                    self._validate_configuration(descendant)
+                    self.validate_configuration(descendant)
             self._session.flush()
             self._record_audit(actor_id=actor_id, action="UPDATE", office=office, before=before)
+            response = office_to_response(office, self._repository.active_specialties())
             self._session.commit()
-            return office_to_response(office, self._repository.active_specialties())
+            return response
         except IntegrityError as exc:
             self._session.rollback()
             raise ConflictError(
@@ -168,12 +167,42 @@ class OfficeService:
                     code="CONSULTORIO_CON_HIJOS_ACTIVOS",
                     message="Dé de baja primero los subconsultorios activos de este consultorio.",
                 )
-            before = self._snapshot(office)
+            before = self.snapshot(office)
             office.activo = False
             self._session.flush()
             self._record_audit(actor_id=actor_id, action="DEACTIVATE", office=office, before=before)
+            response = office_to_response(office, self._repository.active_specialties())
             self._session.commit()
-            return office_to_response(office, self._repository.active_specialties())
+            return response
+        except Exception:
+            self._session.rollback()
+            raise
+
+    def reactivate(self, office_id: int, *, actor_id: int) -> OfficeResponse:
+        try:
+            office = self._lock_office(office_id)
+            if office is None:
+                raise NotFoundError(
+                    code="CONSULTORIO_NO_ENCONTRADO", message="No existe el consultorio solicitado."
+                )
+            if office.activo:
+                raise ConflictError(
+                    code="CONSULTORIO_YA_ACTIVO", message="El consultorio ya está activo."
+                )
+            self._validate_context(
+                establishment_id=office.establecimiento_id,
+                specialty_code=office.especialidad_codigo,
+                parent_id=office.consultorio_padre_id,
+                office_id=office.id,
+            )
+            before = self.snapshot(office)
+            office.activo = True
+            self.validate_configuration(office)
+            self._session.flush()
+            self._record_audit(actor_id=actor_id, action="REACTIVATE", office=office, before=before)
+            response = office_to_response(office, self._repository.active_specialties())
+            self._session.commit()
+            return response
         except Exception:
             self._session.rollback()
             raise
@@ -239,7 +268,7 @@ class OfficeService:
             return self._repository.get_by_id(office_id, lock=True)
         return None
 
-    def _validate_configuration(self, office: Office) -> None:
+    def validate_configuration(self, office: Office) -> None:
         context = office_context(office)
         area = office.area_codigo
         area_entity = self._repository.get_active_specialty(area) if area else None
@@ -260,6 +289,15 @@ class OfficeService:
             office_context(parent).service_codes if parent else default_services(context.area_code)
         )
         if office.servicios_codigos is not None:
+            if parent is None:
+                for code in office.servicios_codigos:
+                    entry = self._repository.get_active_specialty(code)
+                    if (
+                        entry is not None
+                        and custom_service_area(entry) is not None
+                        and custom_service_area(entry) == context.area_code
+                    ):
+                        allowed.add(code)
             if set(office.servicios_codigos) - allowed or any(
                 self._repository.get_active_specialty(code) is None
                 for code in office.servicios_codigos
@@ -308,11 +346,11 @@ class OfficeService:
                 table_name="consultorios",
                 record_id=office.id,
                 before=before,
-                after=self._snapshot(office),
+                after=self.snapshot(office),
             )
 
     @staticmethod
-    def _snapshot(office: Office) -> dict[str, object]:
+    def snapshot(office: Office) -> dict[str, object]:
         return {
             "id": office.id,
             "establecimiento_id": office.establecimiento_id,
@@ -323,182 +361,4 @@ class OfficeService:
             "area_codigo": office.area_codigo,
             "servicios_codigos": office.servicios_codigos,
             "activo": office.activo,
-        }
-
-
-class OfficeAssignmentService:
-    def __init__(self, session: Session) -> None:
-        self._session = session
-        self._repository = OfficeRepository(session)
-
-    def list(self, office_id: int) -> list[OfficeAssignmentResponse]:
-        if self._repository.get_by_id(office_id) is None:
-            raise NotFoundError(
-                code="CONSULTORIO_NO_ACTIVO", message="El consultorio no existe o está inactivo."
-            )
-        return [
-            office_assignment_to_response(item)
-            for item in self._repository.list_assignments(office_id)
-        ]
-
-    def assign(
-        self, office_id: int, command: OfficeAssignmentCreate, *, actor_id: int
-    ) -> OfficeAssignmentResponse:
-        try:
-            candidate = self._repository.get_by_id(office_id)
-            if candidate is not None:
-                self._repository.get_active_establishment(candidate.establecimiento_id, lock=True)
-            office = self._repository.get_active_office(office_id, lock=True)
-            if office is None:
-                raise NotFoundError(
-                    code="CONSULTORIO_NO_ACTIVO",
-                    message="El consultorio no existe o está inactivo.",
-                )
-            context = office_context(office)
-            if not context.active:
-                raise BusinessRuleError(
-                    code="JERARQUIA_CONSULTORIO_NO_ACTIVA",
-                    message="El consultorio o alguno de sus padres está inactivo.",
-                )
-            if (
-                self._repository.get_active_professional(
-                    command.profesional_id, lock=command.vincular_area
-                )
-                is None
-            ):
-                raise NotFoundError(
-                    code="PROFESIONAL_NO_ACTIVO",
-                    message="El profesional no existe o está inactivo.",
-                )
-            area_to_link = None
-            if context.required_specialty and not self._repository.professional_has_specialty(
-                command.profesional_id, context.required_specialty
-            ):
-                if (
-                    command.vincular_area
-                    and context.required_specialty == context.area_code
-                    and is_care_area(self._repository.get_active_specialty(context.area_code))
-                ):
-                    area_to_link = context.area_code
-                else:
-                    raise BusinessRuleError(
-                        code="PROFESIONAL_SIN_ESPECIALIDAD",
-                        message="El profesional no tiene el área o requisito del consultorio.",
-                    )
-            if (
-                self._repository.get_assignment(
-                    office_id, command.profesional_id, command.fecha_inicio, lock=True
-                )
-                is not None
-            ):
-                raise ConflictError(
-                    code="ASIGNACION_DUPLICADA",
-                    message="Ya existe una asignación con esa fecha de inicio.",
-                )
-            if self._repository.has_overlapping_assignment(
-                office_id=office_id,
-                professional_id=command.profesional_id,
-                start_date=command.fecha_inicio,
-                end_date=command.fecha_fin,
-            ):
-                raise ConflictError(
-                    code="ASIGNACION_VIGENTE_SUPERPUESTA",
-                    message="Ya existe una asignación superpuesta en este consultorio.",
-                )
-            if command.es_responsable:
-                prior = self._repository.get_current_responsible(
-                    office_id, command.fecha_inicio, lock=True
-                )
-                if prior is not None:
-                    if prior.fecha_inicio >= command.fecha_inicio:
-                        raise ConflictError(
-                            code="RESPONSABLE_VIGENTE_EXISTENTE",
-                            message="El reemplazo debe comenzar después del responsable actual.",
-                        )
-                    prior.fecha_fin = command.fecha_inicio - timedelta(days=1)
-
-            if area_to_link:
-                self._repository.link_professional_area(
-                    command.profesional_id, area_to_link, actor_id=actor_id
-                )
-            entity = OfficeProfessional(
-                consultorio_id=office_id,
-                profesional_id=command.profesional_id,
-                fecha_inicio=command.fecha_inicio,
-                fecha_fin=command.fecha_fin,
-                es_responsable=command.es_responsable,
-            )
-            self._repository.add(entity)
-            self._session.flush()
-            self._repository.audit(
-                actor_id=actor_id,
-                action="INSERT",
-                record_id=office_id,
-                after=self._snapshot(entity),
-            )
-            self._session.commit()
-            return office_assignment_to_response(entity)
-        except IntegrityError as exc:
-            self._session.rollback()
-            raise ConflictError(
-                code="ASIGNACION_EN_CONFLICTO", message="No se pudo guardar la asignación."
-            ) from exc
-        except Exception:
-            self._session.rollback()
-            raise
-
-    def close(
-        self,
-        office_id: int,
-        professional_id: int,
-        start_date: date,
-        command: OfficeAssignmentClose,
-        *,
-        actor_id: int,
-    ) -> OfficeAssignmentResponse:
-        try:
-            if self._repository.get_by_id(office_id, lock=True) is None:
-                raise NotFoundError(
-                    code="CONSULTORIO_NO_ACTIVO",
-                    message="El consultorio no existe o está inactivo.",
-                )
-            entity = self._repository.get_assignment(
-                office_id, professional_id, start_date, lock=True
-            )
-            if entity is None:
-                raise NotFoundError(
-                    code="ASIGNACION_NO_ENCONTRADA", message="No existe la asignación indicada."
-                )
-            if command.fecha_fin < entity.fecha_inicio:
-                raise BusinessRuleError(
-                    code="FECHA_FIN_INVALIDA",
-                    message="La fecha de fin no puede ser anterior al inicio.",
-                )
-            if entity.fecha_fin is not None and command.fecha_fin > entity.fecha_fin:
-                raise BusinessRuleError(
-                    code="CIERRE_AMPLIA_VIGENCIA",
-                    message="El cierre no puede ampliar una vigencia ya definida.",
-                )
-            entity.fecha_fin = command.fecha_fin
-            self._session.flush()
-            self._repository.audit(
-                actor_id=actor_id,
-                action="UPDATE",
-                record_id=office_id,
-                after=self._snapshot(entity),
-            )
-            self._session.commit()
-            return office_assignment_to_response(entity)
-        except Exception:
-            self._session.rollback()
-            raise
-
-    @staticmethod
-    def _snapshot(entity: OfficeProfessional) -> dict[str, object]:
-        return {
-            "consultorio_id": entity.consultorio_id,
-            "profesional_id": entity.profesional_id,
-            "fecha_inicio": entity.fecha_inicio.isoformat(),
-            "fecha_fin": entity.fecha_fin.isoformat() if entity.fecha_fin else None,
-            "es_responsable": entity.es_responsable,
         }

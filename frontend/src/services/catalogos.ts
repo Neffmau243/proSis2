@@ -182,6 +182,7 @@ export const catalogos = {
     offset = 0,
     consultorioId?: number,
     fecha?: string,
+    servicioCodigo?: string,
   ) =>
     searchPage<ProfessionalCatalogItem>('/catalogos/profesionales', {
       q,
@@ -189,6 +190,7 @@ export const catalogos = {
       offset,
       consultorio_id: consultorioId,
       fecha,
+      servicio_codigo: servicioCodigo,
     }),
   ubigeos: (q: string | undefined, limit = 25, offset = 0) =>
     searchPage<UbigeoCatalogItem>('/catalogos/ubigeos', { q, limit, offset }),

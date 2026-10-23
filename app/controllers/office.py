@@ -12,22 +12,44 @@ from app.core.database import get_db
 from app.core.dependencies import AuthenticatedPrincipal, require_permissions
 from app.domain.authorization import Permissions
 from app.exceptions import AuthorizationError
+from app.schemas.catalog import CodeCatalogItem
 from app.schemas.office import (
     OfficeAssignmentClose,
     OfficeAssignmentCreate,
     OfficeAssignmentResponse,
+    OfficeAssignmentScope,
+    OfficeAssignmentUpdate,
     OfficeCreate,
     OfficeResponse,
     OfficeUpdate,
 )
+from app.schemas.office_service import OfficeServiceAdd, OfficeServiceAdded
 from app.services.audit import AuditService
-from app.services.office import OfficeAssignmentService, OfficeService
+from app.services.office import OfficeService
+from app.services.office_assignment import OfficeAssignmentService
+from app.services.office_service import OfficeCareService
 
 router = APIRouter(prefix="/configuracion/consultorios", tags=["Configuración"])
 DatabaseSession = Annotated[Session, Depends(get_db)]
 OfficeAdministrator = Annotated[
     AuthenticatedPrincipal, Depends(require_permissions(Permissions.OFFICE_MANAGE))
 ]
+
+
+@router.get("/{office_id}/servicios", response_model=list[CodeCatalogItem])
+def list_office_services(
+    office_id: int, _: OfficeAdministrator, db: DatabaseSession
+) -> list[CodeCatalogItem]:
+    return OfficeCareService(db).list(office_id)
+
+
+@router.post("/{office_id}/servicios", response_model=OfficeServiceAdded)
+def add_office_service(
+    office_id: int, payload: OfficeServiceAdd, principal: OfficeAdministrator, db: DatabaseSession
+) -> OfficeServiceAdded:
+    return OfficeCareService(db, audit=AuditService(db).record).add(
+        office_id, payload, actor_id=principal.user_id
+    )
 
 
 @router.get("", response_model=list[OfficeResponse])
@@ -91,8 +113,38 @@ def list_assignments(
     office_id: int,
     _: OfficeAdministrator,
     db: DatabaseSession,
+    incluir_heredados: bool = False,
+    servicio_codigo: str | None = None,
 ) -> list[OfficeAssignmentResponse]:
-    return OfficeAssignmentService(db).list(office_id)
+    return OfficeAssignmentService(db).list(
+        office_id, include_inherited=incluir_heredados, service_code=servicio_codigo
+    )
+
+
+@router.post("/{office_id}/reactivar", response_model=OfficeResponse)
+def reactivate_office(
+    office_id: int, principal: OfficeAdministrator, db: DatabaseSession
+) -> OfficeResponse:
+    return OfficeService(db, audit=AuditService(db).record).reactivate(
+        office_id, actor_id=principal.user_id
+    )
+
+
+@router.patch(
+    "/{office_id}/profesionales/{professional_id}/{start_date}/servicios",
+    response_model=OfficeAssignmentResponse,
+)
+def update_assignment_services(
+    office_id: int,
+    professional_id: int,
+    start_date: date,
+    payload: OfficeAssignmentScope,
+    principal: OfficeAdministrator,
+    db: DatabaseSession,
+) -> OfficeAssignmentResponse:
+    return OfficeAssignmentService(db).update_scope(
+        office_id, professional_id, start_date, payload, actor_id=principal.user_id
+    )
 
 
 @router.post(
@@ -129,4 +181,21 @@ def close_assignment(
         start_date,
         payload,
         actor_id=principal.user_id,
+    )
+
+
+@router.patch(
+    "/{office_id}/profesionales/{professional_id}/{start_date}",
+    response_model=OfficeAssignmentResponse,
+)
+def update_assignment(
+    office_id: int,
+    professional_id: int,
+    start_date: date,
+    payload: OfficeAssignmentUpdate,
+    principal: OfficeAdministrator,
+    db: DatabaseSession,
+) -> OfficeAssignmentResponse:
+    return OfficeAssignmentService(db).update(
+        office_id, professional_id, start_date, payload, actor_id=principal.user_id
     )

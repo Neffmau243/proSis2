@@ -335,6 +335,11 @@ class OfficeProfessional(Base):
     )
     fecha_inicio: Mapped[date] = mapped_column(Date, primary_key=True)
     fecha_fin: Mapped[date | None] = mapped_column(Date, nullable=True)
+    # NULL preserves the legacy assignment to all services of the office.
+    # An explicit nonempty list restricts this assignment, including inheritance.
+    servicios_codigos: Mapped[list[str] | None] = mapped_column(
+        JSON(none_as_null=True), nullable=True
+    )
     es_responsable: Mapped[bool] = mapped_column(
         Boolean, nullable=False, server_default=text("FALSE")
     )

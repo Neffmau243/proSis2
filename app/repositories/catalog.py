@@ -26,6 +26,7 @@ from app.models.catalog import (
 from app.models.organization import Establishment, Localidad, Office, OfficeProfessional, Ubigeo
 from app.models.patient import RiskGroup
 from app.models.security import Professional, ProfessionalSpecialty
+from app.repositories.office_eligibility import eligible_professional_ids
 
 EntityT = TypeVar("EntityT")
 
@@ -195,6 +196,7 @@ class CatalogRepository:
         offset: int,
         office_id: int | None = None,
         on_date: date | None = None,
+        service_code: str | None = None,
     ) -> CatalogPage[Professional]:
         conditions = [Professional.activo.is_(True)]
         if office_id is not None:
@@ -203,6 +205,12 @@ class CatalogRepository:
                 return CatalogPage(items=[], total=0)
             context = office_context(office)
             day = on_date or date.today()
+            if service_code is not None:
+                conditions.append(
+                    Professional.id.in_(
+                        eligible_professional_ids(self._session, office, day, service_code)
+                    )
+                )
             conditions.append(
                 exists(
                     select(OfficeProfessional.profesional_id).where(

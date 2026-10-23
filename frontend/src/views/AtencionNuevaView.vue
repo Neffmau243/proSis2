@@ -951,6 +951,7 @@ async function searchProfesionales(query: string): Promise<void> {
         offset,
         officeId,
         form.fecha_atencion.slice(0, 10) || undefined,
+        form.especialidad_codigo || undefined,
       ),
     )
     if (request === professionalRequest) {
@@ -1029,6 +1030,12 @@ watch(
       form.especialidad_codigo =
         office.servicios_habilitados?.[0]?.codigo ?? office.especialidad_codigo
     }
+    void searchProfesionales('')
+  },
+)
+watch(
+  () => form.especialidad_codigo,
+  () => {
     void searchProfesionales('')
   },
 )

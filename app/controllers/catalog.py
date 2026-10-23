@@ -153,9 +153,15 @@ def list_professionals(
     offset: PageOffset = 0,
     consultorio_id: Annotated[int | None, Query(gt=0)] = None,
     fecha: date | None = None,
+    servicio_codigo: str | None = None,
 ) -> PageResponse[ProfessionalCatalogItem]:
     return CatalogService(db).professionals(
-        query=q, limit=limit, offset=offset, office_id=consultorio_id, on_date=fecha
+        query=q,
+        limit=limit,
+        offset=offset,
+        office_id=consultorio_id,
+        on_date=fecha,
+        service_code=servicio_codigo,
     )
 
 

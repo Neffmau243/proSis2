@@ -31,4 +31,5 @@ tmp/pytest-*/
 tmp/*.log
 tmp/*.json
 tmp/admision-etnia/
+tmp/crud-admin-*/
 frontend/tmp/

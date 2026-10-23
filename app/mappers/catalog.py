@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from app.domain.office import AREA_NAMES, areas_for_service
+from app.domain.office import AREA_NAMES, areas_for_service, custom_service_area
 from app.domain.staff_catalog import is_care_area
 from app.mappers.office import office_to_response
 from app.models.catalog import (
@@ -79,7 +79,13 @@ def specialty_to_catalog_item(entity: Specialty) -> SpecialtyCatalogItem:
         nombre=entity.nombre,
         grupo=entity.grupo,
         activo=entity.activo,
-        area_codigos=[entity.codigo] if is_care_area(entity) else areas_for_service(entity.codigo),
+        area_codigos=[entity.codigo]
+        if is_care_area(entity)
+        else (
+            [custom_service_area(entity)]
+            if custom_service_area(entity)
+            else areas_for_service(entity.codigo)
+        ),
         es_area=is_care_area(entity),
         es_area_base=entity.codigo in AREA_NAMES,
     )

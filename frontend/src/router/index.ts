@@ -73,13 +73,11 @@ const router = createRouter({
           meta: { title: 'Ficha del paciente', permissions: ['PACIENTE_LEER'] },
         },
         {
-          path: 'pacientes/:id/editar',
-          // Conserva los enlaces antiguos, pero concentra la corrección de
-          // datos del paciente en el contexto de admisión.
-          redirect: (to) => ({
-            name: 'admision',
-            query: { patientId: String(to.params.id) },
-          }),
+          path: 'pacientes/:id(\\d+)/editar',
+          name: 'paciente-editar',
+          component: () => import('@/views/PacienteEditarView.vue'),
+          props: (route) => ({ patientId: Number(route.params.id) }),
+          meta: { title: 'Editar paciente', permissions: ['PACIENTE_LEER', 'PACIENTE_EDITAR'] },
         },
         {
           path: 'atenciones',
@@ -141,10 +139,45 @@ const router = createRouter({
           redirect: { name: 'personal' },
         },
         {
+          path: 'configuracion/establecimientos',
+          name: 'establecimientos',
+          component: () => import('@/views/EstablecimientosView.vue'),
+          meta: { title: 'Establecimientos', permissions: ['CONSULTORIO_GESTIONAR'] },
+        },
+        {
+          path: 'configuracion/establecimientos/:establishmentId(\\d+)',
+          name: 'establecimiento-detalle',
+          component: () => import('@/views/EstablecimientoDetalleView.vue'),
+          props: (route) => ({ establishmentId: Number(route.params.establishmentId) }),
+          meta: {
+            title: 'Áreas y consultorios del establecimiento',
+            permissions: ['CONSULTORIO_GESTIONAR'],
+          },
+        },
+        {
+          path: 'configuracion/areas',
+          name: 'areas-atencion',
+          component: () => import('@/views/AreasAtencionView.vue'),
+          meta: { title: 'Áreas de atención', permissions: ['CONSULTORIO_GESTIONAR'] },
+        },
+        {
+          path: 'configuracion/servicios',
+          name: 'servicios-asistenciales',
+          component: () => import('@/views/ServiciosView.vue'),
+          meta: { title: 'Catálogo de servicios', permissions: ['CONSULTORIO_GESTIONAR'] },
+        },
+        {
           path: 'configuracion/consultorios',
           name: 'consultorios',
           component: () => import('@/views/ConsultoriosView.vue'),
           meta: { title: 'Consultorios', permissions: ['CONSULTORIO_GESTIONAR'] },
+        },
+        {
+          path: 'configuracion/consultorios/:officeId(\\d+)',
+          name: 'consultorio-servicios',
+          component: () => import('@/views/ConsultoriosView.vue'),
+          props: (route) => ({ officeId: Number(route.params.officeId) }),
+          meta: { title: 'Servicios del consultorio', permissions: ['CONSULTORIO_GESTIONAR'] },
         },
       ],
     },

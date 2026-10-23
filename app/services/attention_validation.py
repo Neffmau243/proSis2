@@ -65,7 +65,7 @@ class AttentionContextValidator:
                     message="La especialidad no existe o está inactiva.",
                 )
         if not self._attentions.professional_is_assigned(
-            office, command.profesional_id, command.fecha_atencion.date()
+            office, command.profesional_id, command.fecha_atencion.date(), selected_specialty
         ):
             raise BusinessRuleError(
                 code="PROFESIONAL_NO_ASIGNADO",
