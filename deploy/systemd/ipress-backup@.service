@@ -1,0 +1,12 @@
+[Unit]
+Description=IPRESS backup and disposable restore verification (%i)
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+UMask=0077
+# Install the reviewed release bundle at /opt/ipress/ops.
+ExecStart=/usr/bin/python3 /opt/ipress/ops/deploy/ops.py --env /etc/ipress/%i.env backup --verify
+TimeoutStartSec=7200
+# systemd records failure in the journal; connect OnFailure to your alerting.

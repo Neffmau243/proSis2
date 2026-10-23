@@ -54,6 +54,7 @@ services:
       TZ: ${TZ:-America/Lima}
       FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
       RUN_MIGRATIONS: ${RUN_MIGRATIONS:-true}
+      IPRESS_BOOTSTRAP_FILE: ${IPRESS_BOOTSTRAP_FILE:-}
       WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
       LOGIN_RATE_LIMIT_ATTEMPTS: ${LOGIN_RATE_LIMIT_ATTEMPTS:-5}
@@ -62,6 +63,8 @@ services:
       # Optional first-run administrator (password must be 8 digits).
       CREATE_ADMIN_USERNAME: ${CREATE_ADMIN_USERNAME:-}
       CREATE_ADMIN_PASSWORD: ${CREATE_ADMIN_PASSWORD:-}
+    volumes:
+      - ./docker/bootstrap:/bootstrap:ro
     ports:
       - "${APP_PORT:-8000}:8000"
 

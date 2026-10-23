@@ -1,0 +1,106 @@
+name: ${DEPLOY_PROJECT:?Set DEPLOY_PROJECT}
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
+
+services:
+  db:
+    image: ${MYSQL_IMAGE:-mysql:8.4}
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sistema_salud_ipress}
+      MYSQL_USER: ipress_app
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      TZ: America/Lima
+    command: [--character-set-server=utf8mb4, --collation-server=utf8mb4_0900_ai_ci]
+    secrets: [mysql_password, mysql_root_password]
+    volumes: [mysql_data:/var/lib/mysql]
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD="$$(cat /run/secrets/mysql_password)" mysql -h127.0.0.1 -uipress_app "$${MYSQL_DATABASE}" -Nse "SELECT 1" >/dev/null']
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    logging: *logging
+
+  app:
+    image: ${APP_IMAGE:?Set an immutable APP_IMAGE digest}
+    restart: unless-stopped
+    init: true
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+      SECRET_KEY_FILE: /run/secrets/secret_key
+      MYSQL_HOST: db
+      MYSQL_USER: ipress_app
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sistema_salud_ipress}
+      SERVE_FRONTEND: "true"
+      CORS_ORIGINS: "[]"
+      # Only Caddy can reach this interface; DB lives on a separate network.
+      FORWARDED_ALLOW_IPS: ${PROXY_SUBNET:-172.29.241.0/28}
+      RUN_MIGRATIONS: "false"
+      IPRESS_BOOTSTRAP_FILE: ${IPRESS_BOOTSTRAP_FILE:-}
+      CREATE_ADMIN_USERNAME: ${CREATE_ADMIN_USERNAME:-}
+      CREATE_ADMIN_PASSWORD_FILE: /run/secrets/admin_password
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-1}
+      TZ: America/Lima
+    secrets: [secret_key, mysql_password, admin_password]
+    volumes:
+      - ${BOOTSTRAP_DIR:?Set BOOTSTRAP_DIR}:/bootstrap:ro
+    networks: [database, proxy]
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    depends_on:
+      db:
+        condition: service_healthy
+    logging: *logging
+
+  edge:
+    image: ${CADDY_IMAGE:-caddy:2-alpine}
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL:?Set ACME_EMAIL}
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ${STATE_DIR:?Set STATE_DIR}/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [proxy, internet]
+    depends_on:
+      app:
+        condition: service_healthy
+    logging: *logging
+
+networks:
+  database:
+    internal: true
+  proxy:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${PROXY_SUBNET:-172.29.241.0/28}
+  internet: {}
+
+volumes:
+  mysql_data: {}
+  caddy_data: {}
+  caddy_config: {}
+
+secrets:
+  secret_key:
+    file: ${SECRETS_DIR:?Set SECRETS_DIR}/secret_key
+  mysql_password:
+    file: ${SECRETS_DIR}/mysql_password
+  mysql_root_password:
+    file: ${SECRETS_DIR}/mysql_root_password
+  admin_password:
+    file: ${SECRETS_DIR}/admin_password

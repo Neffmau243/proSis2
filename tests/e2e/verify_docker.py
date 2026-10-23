@@ -63,6 +63,7 @@ def main() -> int:
         "APP_PORT": str(port),
         "WEB_CONCURRENCY": "1",
         "RUN_MIGRATIONS": "true",
+        "IPRESS_BOOTSTRAP_FILE": "",
         "FORWARDED_ALLOW_IPS": "127.0.0.1",
         "TZ": "America/Lima",
     }
@@ -143,7 +144,8 @@ def main() -> int:
                 "assert connection.scalar(text(\"SELECT COUNT(*) FROM usuarios WHERE "
                 "nombre_usuario='docker.test.admin'\")) == 1; "
                 "assert connection.scalar(text(\"SELECT COUNT(*) FROM auditoria WHERE "
-                "accion='BOOTSTRAP' AND tabla_nombre='usuarios'\")) == 1; "
+                "accion='BOOTSTRAP' AND tabla_nombre='usuarios' AND registro_id="
+                "(SELECT id FROM usuarios WHERE nombre_usuario='docker.test.admin')\")) == 1; "
                 "connection.close()"
             ))
             report["checks"]["admin_restart_without_duplicates"] = True

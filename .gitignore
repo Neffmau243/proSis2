@@ -1,6 +1,14 @@
 # Environment and secrets
 .env
 .env.docker
+.env.*
+!.env.example
+!.env.*.example
+deploy/*.env
+deploy/secrets/
+*.sql.gz
+*.sql.gz.json
+docker/bootstrap/*.json.gz
 .venv/
 venv/
 

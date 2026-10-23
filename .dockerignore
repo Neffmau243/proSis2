@@ -2,6 +2,7 @@
 .git
 .gitignore
 .github
+deploy
 .agents
 .codex
 .aws
@@ -11,6 +12,7 @@
 # Secrets and local environment (never bake them into an image)
 .env
 .env.*
+docker/bootstrap/*.json.gz
 **/.env
 **/.env.*
 !.env.docker.example
@@ -51,6 +53,7 @@ frontend/*.tsbuildinfo
 frontend/tests
 frontend/e2e
 frontend/test-results
+frontend/tmp
 frontend/playwright-report
 
 # Local notes and editor files

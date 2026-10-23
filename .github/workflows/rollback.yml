@@ -1,0 +1,52 @@
+name: Recover previous release
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Environment to recover
+        type: choice
+        options: [staging, production]
+        required: true
+      confirm_project:
+        description: Exact DEPLOY_PROJECT from the host configuration
+        required: true
+        type: string
+      restore_database:
+        description: Restore pre-release DB too (discards later writes; saves safety backup)
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: ipress-release
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref_name == github.event.repository.default_branch
+    runs-on: [self-hosted, linux, x64, '${{ format(''ipress-{0}'', inputs.target) }}']
+    environment: ${{ inputs.target }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Recover recorded previous release
+        env:
+          ENV_FILE: ${{ vars.DEPLOY_ENV_FILE }}
+          TARGET: ${{ inputs.target }}
+          CONFIRM_PROJECT: ${{ inputs.confirm_project }}
+          RESTORE_DATABASE: ${{ inputs.restore_database }}
+        run: |
+          args=()
+          if [ "$RESTORE_DATABASE" = true ]; then args+=(--restore-database); fi
+          python3 deploy/ops.py --env "${ENV_FILE:-/etc/ipress/${TARGET}.env}" \
+            rollback --confirm-project "$CONFIRM_PROJECT" "${args[@]}"

@@ -1,0 +1,168 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+# Publication is privileged: never consume code/artifacts from PR or fork runs.
+permissions:
+  contents: read
+
+concurrency:
+  group: ipress-release
+  cancel-in-progress: false
+
+jobs:
+  eligible:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      github.event.workflow_run.head_branch == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    outputs:
+      current: ${{ steps.current.outputs.result }}
+    steps:
+      - id: current
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commit = await github.rest.repos.getCommit({
+              ...context.repo,
+              ref: context.payload.repository.default_branch,
+            });
+            return commit.data.sha === context.payload.workflow_run.head_sha;
+
+  publish:
+    needs: eligible
+    if: needs.eligible.outputs.current == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.image }}
+      sha: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: name
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: echo "repository=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+      - id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.name.outputs.repository }}:sha-${{ github.event.workflow_run.head_sha }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.event.workflow_run.head_sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+      - id: image
+        env:
+          REPOSITORY: ${{ steps.name.outputs.repository }}
+          DIGEST: ${{ steps.build.outputs.digest }}
+        run: echo "image=${REPOSITORY}@${DIGEST}" >> "$GITHUB_OUTPUT"
+
+  candidate-e2e:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish.outputs.sha }}
+          persist-credentials: false
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - env:
+          IMAGE: ${{ needs.publish.outputs.image }}
+        run: python tests/e2e/run_docker_staff_fua.py --synthetic --image "$IMAGE" --output output/candidate-e2e
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: candidate-e2e
+          path: output/candidate-e2e/
+          retention-days: 7
+
+  staging:
+    needs: [publish, candidate-e2e]
+    # Deployment is opt-in until DevOps has configured both hosts/environments.
+    if: vars.DEPLOY_ENABLED == 'true'
+    runs-on: [self-hosted, linux, x64, ipress-staging]
+    environment:
+      name: staging
+      url: ${{ vars.APP_URL }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish.outputs.sha }}
+          persist-credentials: false
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy and verify staging HTTPS
+        env:
+          IMAGE: ${{ needs.publish.outputs.image }}
+          ENV_FILE: ${{ vars.DEPLOY_ENV_FILE }}
+        run: python3 deploy/ops.py --env "${ENV_FILE:-/etc/ipress/staging.env}" deploy --image "$IMAGE"
+
+  production:
+    needs: [publish, staging]
+    if: vars.DEPLOY_ENABLED == 'true'
+    runs-on: [self-hosted, linux, x64, ipress-production]
+    environment:
+      name: production
+      url: ${{ vars.APP_URL }}
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish.outputs.sha }}
+          persist-credentials: false
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy the exact digest verified in staging
+        env:
+          IMAGE: ${{ needs.publish.outputs.image }}
+          ENV_FILE: ${{ vars.DEPLOY_ENV_FILE }}
+        run: python3 deploy/ops.py --env "${ENV_FILE:-/etc/ipress/production.env}" deploy --image "$IMAGE"
