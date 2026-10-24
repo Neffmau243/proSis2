@@ -37,6 +37,14 @@ if [ "${RUN_MIGRATIONS:-true}" = "true" ]; then
     alembic upgrade head
 fi
 
+# Installation data is also checked outside Alembic. A database which already
+# applied 0042 can receive its explicitly configured snapshot; successful hashes
+# are skipped on restart, preserving subsequent account/patient changes.
+if [ -n "${IPRESS_BOOTSTRAP_FILE:-}" ]; then
+    echo "[entrypoint] Checking configured installation snapshot"
+    python -m app.scripts.docker_bootstrap ensure
+fi
+
 # First-run administrator. Existing active ADMINs are preserved on restart.
 # Pass the environment variable's name, never the password in process arguments.
 if [ -n "${CREATE_ADMIN_USERNAME:-}" ]; then

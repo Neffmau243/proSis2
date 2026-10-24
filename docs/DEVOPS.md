@@ -58,16 +58,19 @@ app. Compose no incluye sus valores en las variables visibles en `docker inspect
 Resguardar también estos archivos: son necesarios para recuperar el servicio.
 
 Para **conservar usuarios y pacientes actuales**, copiar por un canal privado
-`docker/bootstrap/arequipa.json.gz` al `BOOTSTRAP_DIR` indicado en el env y agregar:
+`docker/bootstrap/arequipa-completa-20261024.json.gz` al `BOOTSTRAP_DIR` indicado
+en el env y agregar:
 
 ```dotenv
-IPRESS_BOOTSTRAP_FILE=/bootstrap/arequipa.json.gz
+IPRESS_BOOTSTRAP_FILE=/bootstrap/arequipa-completa-20261024.json.gz
 ```
 
 La copia incluye el ADMIN actual. No configurar otro administrador en ese caso.
 El snapshot debe poder leerse desde el contenedor: archivo 0444 dentro del
-directorio privado 0700. Se utiliza solo al aplicar la revisión 0042 por primera
-vez; una importación posterior es un paso explícito, documentado en `DOCKER.md`.
+directorio privado 0700. El arranque comprueba su huella después de migrar y carga
+una sola vez cada contenido, aunque la revisión 0042 ya estuviera aplicada. La
+revisión 0042 mantiene también la carga histórica para la primera instalación.
+La conciliación manual sigue documentada en `DOCKER.md`.
 
 Para **staging nuevo sin pacientes reales**, repetir `init` con su propio dominio,
 proyecto `ipress_staging`, rutas `/.../staging` y `--admin-username admin`. Antes,

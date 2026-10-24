@@ -70,3 +70,4 @@ services:
 
 volumes:
   mysql_data:
+    name: ${MYSQL_VOLUME_NAME:-${COMPOSE_PROJECT_NAME}_mysql_data}

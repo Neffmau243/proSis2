@@ -63,6 +63,7 @@ PATIENT_CHILDREN = {
     "paciente_codigos_externos",
     "paciente_anexos_legacy",
 }
+JSON_SERVICE_TABLES = {"consultorios", "consultorio_profesionales"}
 USER_TRANSIENT_FIELDS = {
     "ultimo_acceso_at",
     "intentos_fallidos_inicio_sesion",
@@ -121,8 +122,12 @@ def _metadata(connection: Connection) -> sa.MetaData:
     metadata.reflect(connection, only=list(IDENTITIES))
     for table in metadata.tables.values():
         for column in table.c:
-            if isinstance(column.type, sa.JSON):
-                column.type.none_as_null = True
+            # MariaDB reflects its JSON alias as LONGTEXT. Retain the JSON
+            # encoder/decoder and distinguish SQL NULL from the empty list.
+            if isinstance(column.type, sa.JSON) or (
+                table.name in JSON_SERVICE_TABLES and column.name == "servicios_codigos"
+            ):
+                column.type = sa.JSON(none_as_null=True)
     return metadata
 
 
@@ -134,8 +139,12 @@ def _json_value(value: Any) -> Any:
     raise TypeError(f"Unsupported snapshot value: {type(value).__name__}")
 
 
-def export_snapshot(connection: Connection, destination: Path) -> dict[str, int]:
+def export_snapshot(
+    connection: Connection, destination: Path, *, selection: str = "active-operational"
+) -> dict[str, int]:
     """Read one consistent source transaction; never alter the local database."""
+    if selection not in {"active-operational", "all-master-data"}:
+        raise ValueError("Selección de datos del snapshot desconocida.")
     revision = connection.scalar(sa.text("SELECT version_num FROM alembic_version"))
     if revision not in SOURCE_REVISIONS:
         raise ValueError("Actualice la base a la revisión compatible antes de exportar.")
@@ -158,13 +167,14 @@ def export_snapshot(connection: Connection, destination: Path) -> dict[str, int]
                 for field in USER_TRANSIENT_FIELDS:
                     row.pop(field, None)
         tables[name] = rows
-    tables = _operational_data(tables)
+    if selection == "active-operational":
+        tables = _operational_data(tables)
     snapshot = {
         "format": FORMAT_VERSION,
         "source_revision": revision,
         "created_at": datetime.now(UTC).isoformat(),
         "patient_department": "04",
-        "selection": "active-operational",
+        "selection": selection,
         "tables": tables,
     }
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -239,6 +249,38 @@ def _baseline_only(connection: Connection) -> bool:
     return not connection.scalar(
         sa.text("SELECT COUNT(*) FROM auditoria WHERE accion <> 'BOOTSTRAP'")
     )
+
+
+def _snapshot_audit(connection: Connection) -> sa.Table:
+    return sa.Table(
+        "auditoria", sa.MetaData(),
+        sa.Column("datos_nuevos", sa.JSON(none_as_null=True)),
+        autoload_with=connection,
+    )
+
+
+def _record_import(connection: Connection, source: Path, revision: str, inserted: dict,
+                   *, baseline: bool) -> None:
+    connection.execute(_snapshot_audit(connection).insert().values(
+        tabla_nombre="instalacion_docker",
+        registro_id=None,
+        accion="IMPORTAR_DOCKER",
+        datos_nuevos={
+            "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+            "source_revision": revision,
+            "inserted": inserted,
+            "baseline_synchronized": baseline,
+        },
+    ))
+
+
+def _already_imported(connection: Connection, digest: str) -> bool:
+    audit = _snapshot_audit(connection)
+    query = sa.select(audit.c.datos_nuevos).where(
+        audit.c.tabla_nombre == "instalacion_docker", audit.c.accion == "IMPORTAR_DOCKER"
+    )
+    return any(isinstance(payload, dict) and payload.get("sha256") == digest
+               for payload in connection.execute(query).scalars())
 
 
 def restore_snapshot(connection: Connection, source: Path) -> dict[str, int]:
@@ -375,39 +417,60 @@ def restore_snapshot(connection: Connection, source: Path) -> dict[str, int]:
             done = {row["id"] for row in ready}
             remaining = [row for row in remaining if row["id"] not in done]
     if any(inserted.values()) or refresh_baseline:
-        audit = sa.Table("auditoria", sa.MetaData(), autoload_with=connection)
-        connection.execute(
-            audit.insert().values(
-                tabla_nombre="instalacion_docker",
-                registro_id=None,
-                accion="IMPORTAR_DOCKER",
-                datos_nuevos={
-                    "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
-                    "source_revision": snapshot["source_revision"],
-                    "inserted": inserted,
-                    "baseline_synchronized": refresh_baseline,
-                },
-            )
+        _record_import(
+            connection, source, snapshot["source_revision"], inserted, baseline=refresh_baseline
         )
     return inserted
+
+
+def ensure_from_environment(connection: Connection) -> dict[str, int] | None:
+    """Import each configured snapshot once, also after revision 0042 was applied.
+
+    The historical migration remains compatible. Later restarts consult the
+    successful import marker instead of resurrecting deliberately removed rows
+    or resetting credentials. This is installation work, separate from DDL.
+    """
+    filename = os.environ.get("IPRESS_BOOTSTRAP_FILE", "").strip()
+    if not filename:
+        return None
+    source = Path(filename)
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    if _already_imported(connection, digest):
+        return None
+    counts = restore_snapshot(connection, source)
+    if not _already_imported(connection, digest):
+        # A valid snapshot may already be present without an import marker.
+        # Record that successful reconciliation to avoid rescanning every boot.
+        with gzip.open(source, "rt", encoding="utf-8") as stream:
+            revision = json.load(stream)["source_revision"]
+        _record_import(connection, source, revision, counts, baseline=False)
+    return counts
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     actions = parser.add_subparsers(dest="action", required=True)
-    actions.add_parser("export").add_argument("--output", type=Path, required=True)
+    export = actions.add_parser("export")
+    export.add_argument("--output", type=Path, required=True)
+    export.add_argument(
+        "--selection", choices=["active-operational", "all-master-data"],
+        default="active-operational",
+        help="all-master-data conserva también cuentas inactivas y registros de pruebas.",
+    )
     actions.add_parser("restore").add_argument("--input", type=Path, required=True)
+    actions.add_parser("ensure", help="Carga la copia configurada una sola vez por contenido.")
     args = parser.parse_args()
     from app.core.config import get_settings
 
     engine = sa.create_engine(get_settings().sqlalchemy_database_url, pool_pre_ping=True)
     try:
         with engine.begin() as connection:
-            counts = (
-                export_snapshot(connection, args.output)
-                if args.action == "export"
-                else restore_snapshot(connection, args.input)
-            )
+            if args.action == "export":
+                counts = export_snapshot(connection, args.output, selection=args.selection)
+            elif args.action == "restore":
+                counts = restore_snapshot(connection, args.input)
+            else:
+                counts = ensure_from_environment(connection)
         print(json.dumps({"action": args.action, "counts": counts}, ensure_ascii=False))
     finally:
         engine.dispose()

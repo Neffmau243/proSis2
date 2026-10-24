@@ -3,9 +3,23 @@
 Para el servidor con dominio/HTTPS, backups y entrega automática, seguir
 [`DEVOPS.md`](DEVOPS.md). Este documento describe el stack local y sus pruebas.
 
-Revisión: 23/10/2026. El stack contiene MySQL 8.4 LTS y una imagen con la SPA
+Revisión: 24/10/2026. El stack contiene MySQL 8.4 LTS y una imagen con la SPA
 Vue compilada más FastAPI, Python 3.12 y las migraciones actuales del repositorio.
 Node 24 se usa solo para construir el frontend. No se necesita otro servidor web.
+
+## Arranque recomendado en Windows
+
+Con Docker Desktop abierto y la copia privada en `docker/bootstrap/`:
+
+```powershell
+.\levantar.ps1
+```
+
+Comprueba Docker y la copia antes de iniciar servicios. Si falta `.env.docker`,
+lo crea desde la plantilla con claves aleatorias; conserva un archivo existente.
+Construye, migra, comprueba la carga inicial y espera a que los servicios estén
+saludables. `-SinCompilar` reutiliza la imagen cuando no cambió el código.
+Ver [LEVANTAR.md](../LEVANTAR.md). La configuración manual sigue disponible abajo.
 
 ## Primera instalación
 
@@ -40,18 +54,24 @@ privada configurada, los datos de MySQL local **no se copian** al contenedor.
 ## Copia operativa de Arequipa
 
 La revisión `20261023_0042_docker_bootstrap` carga el archivo privado indicado por
-`IPRESS_BOOTSTRAP_FILE`. Esta instalación tiene preparada una copia en
-`docker/bootstrap/arequipa.json.gz` y su `.env.docker` configura:
+`IPRESS_BOOTSTRAP_FILE`. El arranque también comprueba esta copia después de
+migrar, por lo que puede configurarse aunque 0042 ya estuviera aplicada.
+Esta instalación usa `docker/bootstrap/arequipa-completa-20261024.json.gz`:
 
 ```dotenv
-IPRESS_BOOTSTRAP_FILE=/bootstrap/arequipa.json.gz
+IPRESS_BOOTSTRAP_FILE=/bootstrap/arequipa-completa-20261024.json.gz
 ```
 
-La copia del 23/10/2026 contiene 28,951 pacientes activos de Arequipa, 10 usuarios
-(administrador y nueve profesionales), 72 profesionales, 42 consultorios y 372
-asignaciones, además de los catálogos de áreas/servicios y territorio. Se excluyen
-los registros de pruebas identificados, `medico.demo` y las cuentas inactivas.
-No se copian atenciones, documentos ni auditorías de la base original.
+La copia completa del 24/10/2026, `arequipa-completa-20261024.json.gz`, conserva
+los **28,958 pacientes de Arequipa y 12 usuarios** de la base local limpia,
+además de 44 consultorios, 73 profesionales y 373 asignaciones. Se exportó con
+`--selection all-master-data`: conserva también cuentas inactivas y registros
+identificados como pruebas, manteniendo sus estados y contraseñas cifradas.
+Para esta instalación, configurar
+`IPRESS_BOOTSTRAP_FILE=/bootstrap/arequipa-completa-20261024.json.gz`.
+No se copian atenciones, documentos ni auditorías de la base original. La copia
+filtrada anterior del 23/10 sigue disponible como respaldo histórico;
+`arequipa.json.gz` no es la copia completa actual.
 
 Compose monta el directorio en `/bootstrap` como solo lectura. El archivo está
 excluido de Git y del contexto de construcción, por lo que hay que copiarlo por
@@ -71,29 +91,78 @@ todavía no exista; nunca se sobrescribe la copia anterior automáticamente:
 python -m app.scripts.docker_bootstrap export --output docker/bootstrap/arequipa-actualizada.json.gz
 ```
 
+Para trasladar todos los usuarios, consultorios y pacientes de Arequipa
+conservados en la base origen, sin aplicar el filtro de activos/pruebas:
+
+```powershell
+python -m app.scripts.docker_bootstrap export --selection all-master-data --output docker/bootstrap/arequipa-completa-20261024.json.gz
+```
+
 Si la revisión 0042 ya fue aplicada antes de configurar la copia, importar con:
 
 ```powershell
-docker compose --env-file .env.docker exec -T app python -m app.scripts.docker_bootstrap restore --input /bootstrap/arequipa.json.gz
+docker compose --env-file .env.docker up -d --build --wait --wait-timeout 300
 ```
 
-La importación es transaccional y se puede repetir sin duplicar registros ni
-restablecer las contraseñas que se hayan cambiado en la instalación destino.
+El arranque guarda la huella de una carga exitosa y omite esa misma copia en
+los siguientes reinicios. Así conserva contraseñas cambiadas y bajas posteriores.
+Un archivo distinto se concilia sin reemplazar contraseñas existentes. La carga
+se confirma en una transacción. `docker_bootstrap restore --input ...` sigue
+disponible para una conciliación manual explícita.
 No elimina datos al revertir la revisión. Más detalles en
 [`docker/bootstrap/README.md`](../docker/bootstrap/README.md).
 
-**Asignaciones de las cuentas actuales:** los nueve usuarios del SIS exportados
+**Asignaciones de las cuentas del SIS:** los nueve usuarios del SIS exportados
 tienen rol PROFESIONAL, pero sus perfiles todavía no tienen área ni consultorio.
-Los 62 profesionales del catálogo de origen sí tienen áreas y asignaciones; la
-única cuenta local vinculada a ese grupo era `medico.demo`, excluida de la copia.
-La carga conserva esta situación. Para registrar atenciones con usuarios reales,
-el administrador debe configurar las identidades y asignaciones verificadas;
-el origen `Operarios` no contiene esa correspondencia.
+Los 62 profesionales del catálogo de origen sí tienen áreas y asignaciones.
+La copia completa conserva también `medico.demo`, vinculada a ese grupo; la
+copia filtrada del 23/10 excluía esa cuenta. Para registrar atenciones con las
+cuentas del SIS, el administrador debe configurar las identidades y asignaciones
+verificadas; el origen `Operarios` no contiene esa correspondencia.
+
+### Recrear la instalación con una base nueva
+
+Una imagen nueva no reemplaza los datos de un volumen existente. Para crear
+la base desde cero y cargar la copia privada, después de verificar el respaldo
+configurar en `.env.docker` un `MYSQL_VOLUME_NAME` nuevo y el
+`IPRESS_BOOTSTRAP_FILE` correspondiente; luego ejecutar:
+
+```powershell
+docker compose --env-file .env.docker up -d --build --force-recreate --wait --wait-timeout 300
+```
+
+El volumen anterior permanece disponible para recuperación. No se requiere
+restablecer Docker Desktop ni borrar volúmenes de otros proyectos. La imagen
+no incluye el archivo privado: copiar también `docker/bootstrap/` al servidor.
+No reutilizar un volumen MySQL con otro motor o una versión incompatible.
+
+### Despliegue con MariaDB
+
+El Compose principal utiliza MySQL 8.4. La migración 0039 también se verifica
+en MariaDB 11.4: retira temporalmente las claves foráneas que usan
+`atenciones.profesional_id` y `consultorio_id`, cambia su nulabilidad y las
+restaura. MariaDB también rechaza CASCADE desde la columna padre nullable hacia
+el firmante obligatorio del certificado: esa clave usa ON UPDATE RESTRICT en
+MariaDB, impidiendo cambiar la asignación de una atención con certificado. En
+MySQL conserva ON UPDATE CASCADE. Esto evita el error 1833 sin desactivar la
+integridad referencial. Si el despliegue falló en 0039, actualizar la imagen y
+volver a ejecutar `alembic upgrade head`; no marcar la migración como aplicada
+mediante `stamp` ni borrar la base para ocultar el fallo.
+
+El importador también tipa explícitamente las listas de servicios y el JSON de
+auditoría, porque MariaDB refleja su alias JSON como LONGTEXT. La prueba
+`tests/e2e/verify_referral_assignment_migration.py` verifica el fallo original,
+upgrade/downgrade con documentos existentes, integridad de firmantes, reintento
+de DDL interrumpido y carga/reimportación de la copia completa. Requiere una
+base vacía desechable en `TEST_DATABASE_URL` cuyo nombre contenga `test`.
 
 ## Qué hace el arranque
 
 - Compose espera una consulta autenticada de MySQL con el usuario de la aplicación.
 - El entrypoint aplica `alembic upgrade head`, incluyendo las migraciones nuevas.
+- Después comprueba la copia configurada, con independencia de que 0042 ya
+  estuviera aplicada. Cada contenido se carga una sola vez; reiniciar no repone
+  registros eliminados ni cambia contraseñas.
 - Crea el ADMIN opcional o conserva el ya existente; la contraseña no viaja en
   los argumentos del proceso y no se modifica al reiniciar.
 - Ejecuta Uvicorn como usuario `ipress`, UID 10001. El frontend sale del mismo origen.
