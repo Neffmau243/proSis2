@@ -1,0 +1,4 @@
+self-hosted-runner:
+  labels:
+    - ipress-staging
+    - ipress-production

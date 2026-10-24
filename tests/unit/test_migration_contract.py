@@ -19,7 +19,7 @@ def test_metadata_and_alembic_head_cover_the_bootstrap_schema() -> None:
         "limites_inicio_sesion",
         "historias_familiares_catalogo",
     } <= set(Base.metadata.tables)
-    assert script.get_current_head() == "20261022_0041_assign_services"
+    assert script.get_current_head() == "20261023_0042_docker_bootstrap"
     assert Base.metadata.tables["consultorio_profesionales"].c.servicios_codigos.nullable
     assert Base.metadata.tables["atenciones"].c.profesional_id.nullable
     assert Base.metadata.tables["atenciones"].c.consultorio_id.nullable

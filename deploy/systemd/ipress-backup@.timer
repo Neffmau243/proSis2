@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily IPRESS verified backup (%i)
+
+[Timer]
+OnCalendar=*-*-* 02:30:00
+RandomizedDelaySec=15m
+Persistent=true
+Unit=ipress-backup@%i.service
+
+[Install]
+WantedBy=timers.target

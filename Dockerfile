@@ -41,6 +41,6 @@ EXPOSE 8000
 
 # Container readiness checks HTTP and MySQL; /health remains process liveness.
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD ["python", "-m", "app.scripts.container_healthcheck"]
+    CMD ["/usr/local/bin/entrypoint.sh", "python", "-m", "app.scripts.container_healthcheck"]
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

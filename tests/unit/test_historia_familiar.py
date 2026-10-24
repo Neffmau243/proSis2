@@ -2,6 +2,10 @@
 
 import pytest
 
+# The ETL is an optional private workstation tool, deliberately absent from Git
+# and production images. Application/domain tests remain mandatory in CI.
+pytest.importorskip("etlSis.historia_familiar", reason="Private ETL tool is not part of this checkout")
+
 from etlSis.historia_familiar import (
     CENTINELA,
     COLOR_SIN_NUMERO,

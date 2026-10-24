@@ -4,7 +4,19 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  workflows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate workflow expressions and shell scripts
+        run: >-
+          docker run --rm --network none -v "$PWD:/repo:ro" -w /repo
+          rhysd/actionlint@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667
+
   quality:
     runs-on: ubuntu-latest
     # The integration suite migrates and queries a real schema: without a
@@ -38,7 +50,7 @@ jobs:
       # The legacy migration files are intentionally generated and are not
       # style-reformatted.  Keep a strict undefined/unused-name gate here;
       # formatting can be adopted separately without obscuring runtime bugs.
-      - run: python -m ruff check app tests migrations --select F
+      - run: python -m ruff check app tests migrations deploy --select F
       # `pytest` runs with the coverage gate configured in pyproject.toml, so a
       # drop below the accepted floor fails the build instead of only warning.
       - run: python -m pytest
@@ -58,7 +70,7 @@ jobs:
       - run: npm ci
       - run: npm run lint:check
       # Unit, component and contract tests with their coverage thresholds.
-      - run: npm run test:coverage
+      - run: npm run test:coverage -- --maxWorkers=2
       - run: npm run build
 
   docker:
@@ -75,3 +87,45 @@ jobs:
         with:
           name: docker-smoke
           path: output/docker-ci/
+
+  docker-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - run: python tests/e2e/run_docker_staff_fua.py --synthetic --output output/docker-e2e-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-doctor-fua
+          path: output/docker-e2e-ci/
+          retention-days: 7
+
+  recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tests/e2e/verify_operations.py --output output/recovery-ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: recovery-checks
+          # Never publish secret files, SQL dumps, CA keys or host state.
+          path: output/recovery-ci/result.json
+          retention-days: 7

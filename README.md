@@ -11,6 +11,10 @@ Documentación relacionada:
 
 ## Arranque rápido (desarrollo)
 
+Para levantar la instalación completa con sus datos en Windows, abre Docker
+Desktop y ejecuta `./levantar.ps1`. El paso a paso está en [LEVANTAR.md](LEVANTAR.md).
+El flujo de desarrollo por separado sigue disponible a continuación.
+
 Requisitos: Python 3.12 con `requirements.txt` instalado, MySQL local y Node
 22.18+ de la rama 22 o 24.12+ (ver `frontend/package.json`). Detalle completo en [Puesta en marcha local](#puesta-en-marcha-local).
 
@@ -41,15 +45,14 @@ Abrir <http://localhost:5173> e ingresar con el ADMIN creado. La API queda en
 Las credenciales son exclusivamente para la base local desechable; nunca se
 reutilizan fuera de desarrollo.
 
-> **Estado de la base de este repo**: quedó **limpia** — los catálogos reales de
-> Arequipa (migraciones `20260926_0020_real_catalogs`,
-> `20260926_0021_real_professionals` y `20260926_0022_specialty_codes`), el
-> `admin`, la cuenta clínica `medico.demo` vinculada a un profesional real y
-> **62 profesionales reales con su especialidad y asignación a consultorio**, y
-> los **13 pacientes reales del origen** (los de `Data_base.mdb`). No hay
-> pacientes ficticios. `seed_demo_data` ya **no** crea catálogos `DEMO_*`:
-> resuelve las sedes y los profesionales sembrados por las migraciones y solo
-> agrega el cohorte ficticio (o, con `--real-only`, solo los pacientes reales).
+> **Estado al 24/10/2026:** MySQL local y la instalación Docker de IPRESS
+> conservan **28,958 pacientes de Arequipa, 12 usuarios, 44 consultorios y 373
+> asignaciones**, con sus catálogos y contraseñas cifradas. La actividad clínica
+> quedó vacía. La copia privada para desplegar es
+> `docker/bootstrap/arequipa-completa-20261024.json.gz` (excluida de Git y de la
+> imagen): debe copiarse también al servidor. Se exportó con
+> `--selection all-master-data`, conservando cuentas inactivas y registros de
+> pruebas solicitados. Ver [la guía Docker](docs/DOCKER.md).
 
 ## Arquitectura
 
